@@ -19,25 +19,102 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Deprecated
 
-## [1.13.4] - [2025-08-15]
+## [1.14.3] - [2025-09-18]
 
 ### Fixed
+- [#1767] Fixed an issue where, when closing the `Vertex Filter by Axis` inspector in edit mode, the normal tool handle
+  would remain invisible.
+- [#1766] `Vertex Filter By Axis` would show incorrect results in preview, when the avatar or renderer had a non-default scale or
+  otherwise modified transform.
+
+## [1.14.2] - [2025-09-17]
+
+### Fixed
+- [#1765] Fixed an issue where, when adjusting parameter types to Float, some parameter drivers might not behave as expected.
+
+## [1.14.1] - [2025-09-15]
+
+### Fixed
+
+- [#1761] Certain generic avatars failed to upload
+
+## [1.14.0] - [2025-09-13]
+
+## [1.14.0-rc.2] - [2025-09-11]
+
+### Added
+- [#1743] `VF By Mask` now supports non-read-write mask textures
+- [#1755] Added hint box to the `VF By Mask` inspector when Mask Texture Editor is missing
+
+## [1.14.0-rc.1] - [2025-09-09]
+
+### Added
+- [#1743] `VF By Mask` now supports non-read-write mask textures
+
+### Fixed
+
+- [#1753] When using `Vertex Filter By Axis` and `Scale Adjuster` together, the preview and build result might differ
+- [#1750] Modular Avatar would generate too many Head Chop components in some cases, breaking the build
+- [#1751] When scaling a bone to zero using `Scale Adjuster`, an exception would be thrown, and the relative position
+  of child bones might not be preserved.
+
+## [1.14.0-rc.0] - [2025-09-07]
+
+### Added
+- [#1740] `VF By Shape` can now select multiple blendshapes in a single component
+  - Note: Data created in prior betas for this component is not compatible with this version. 
+- [#1738] Mesh Cutter can now be configured to combine the selections from all vertex filters, instead of taking their
+intersection.
+
+### Fixed
+- [#1739] Improved performance of Mesh Cutter preview processing
+
+## [1.14.0-beta.2] - [2025-09-02]
+
+### Fixed
+- [#1726] Parameter drivers did not work properly when parameter types were adjusted after merging animators
+- [#1728] Menu Items that did not have a reactive component attached to their game object, but did have a child object
+  with a reactive component, would not function properly.
+- [#1732] Static (always-on) reactive components would have had lower priority than the FX animator
+
+### Changed
+- [#1729] `Shape Changer` components in `Set` mode will now override prior `Delete` mode settings. This reverses an
+  accidental breaking change in 1.13.x.
+- [#1732] In previous versions of Modular Avatar, static (always-on) reactive components would have had
+  lower priority than the FX animator. This was a bug and has been fixed in this version; however, it's possible that this
+  fix might cause some existing gimmicks to have different behavior.
+
+## [1.14.0-beta.1] - [2025-08-30]
+
+### Fixed
+- [#1721] Fixed an issue where multiple Shape Changers or Mesh Cutters affecting the same mesh might result in some
+  vertices not being deleted.
+- [#1719] `Scale Adjuster` did not update positions of child objects when editing directly using the inspector fields
+
+## [1.14.0-beta.0] - [2025-08-29]
+
+### Added
+- [#1667] Implement `Mesh Cutter` - a component which can be used to delete or toggle portions of a mesh.
+    - Implement vertex filters `By Bone`, `By Blendshape`, `By Axis` and (#1651) `By Mask`
+- [#1697] Exposed `ModularAvatarMergeArmature.GetBonesMapping` API
+- [#1601] Add warning when using MA MMD Layer Control with layers that have WriteDefaults OFF states
+
+### Fixed
+- [#1670] Fixed an issue where generated meshes might not be registered in ObjectRegistry in some cases
+- [#1671] Shape changer could cause VRChat crashes in certain worlds
+- [#1679] Fix issues where meshes with a root bone under the head could be invisible in first person, when affected by
+  a `MA Shape Changer` in delete mode.
 - [#1682] Fixed a potential `NullReferenceException` when operating `ModularAvatarMenuItem`.
   (Fix provided by @Tliks)
 - [#1683] Fixed an issue where renderers with a root bone under the head might end up with incorrect mesh bounds.
-  (Fix provided by @ReinaS-64892) 
+  (Fix provided by @ReinaS-64892)
+- [#1675] MMD Layer Control did not work to opt-in a layer when that layer became layer #0
+- [#1704] An exception could occur when deleting vertices in a mesh with a 16-bit index format
+- [#1713] Fixed an issue where certain meshes might be incorrectly processed by `Shape Changer`'s delete mode
+- [#1715] Fixed an issue where `Shape Changer` or `Mesh Cutter` could incorrectly delete all vertex color data in a mesh
 
-## [1.13.3] - [2025-08-14]
-
-### Fixed
-
-- [#1679] Fix issues where meshes with a root bone under the head could be invisible in first person, when affected by
-  a `MA Shape Changer` in delete mode.
-
-## [1.13.2] - [2025-08-09]
-
-### Fixed
-- [#1671] Shape changer could cause VRChat crashes in certain worlds
+### Changed
+- [#1705] Reactive Component initial states are now applied on non-VRChat platforms
 
 ## [1.13.1] - [2025-08-02]
 

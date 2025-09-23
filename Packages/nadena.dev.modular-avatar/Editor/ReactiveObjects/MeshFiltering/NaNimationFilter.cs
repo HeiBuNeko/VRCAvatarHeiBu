@@ -18,16 +18,19 @@ namespace nadena.dev.modular_avatar.core.editor
     /// </summary>
     internal static class NaNimationFilter
     {
+        // TODO: Move the bone creation logic into here?
+        public const string NaNimatedBonePrefix = "NaNimatedBone for ";
+        
         public struct AddedBone
         {
             public int originalBoneIndex;
             public int newBoneIndex;
         }
 
-        internal static Dictionary<string, List<AddedBone>> ComputeNaNPlan(
+        internal static Dictionary<(TargetProp, IVertexFilter), List<AddedBone>> ComputeNaNPlan(
+            Renderer renderer,
             ref Mesh mesh,
-            List<(string,float)> targetShapeNames,
-            int initialBoneCount
+            List<(TargetProp, IVertexFilter)> targets
         )
         {
             var vertexCount = mesh.vertexCount;
@@ -35,7 +38,7 @@ namespace nadena.dev.modular_avatar.core.editor
             if (vertexCount == 0)
             {
                 // Nothing to do...
-                return new Dictionary<string, List<AddedBone>>();
+                return new ();
             }
 
             var originalMesh = mesh;
@@ -57,8 +60,7 @@ namespace nadena.dev.modular_avatar.core.editor
              * for both shapes. In this case, the NaNimated bones will be nested.
              */
             
-            var deltaPositions = new Vector3[vertexCount];
-            var affectedVertices = new HashSet<int>(vertexCount);
+            var affectedVertices = new bool[vertexCount];
             var firstBoneIndex = new int[vertexCount];
 
             var origBoneWeights = mesh.GetAllBoneWeights();
@@ -69,6 +71,7 @@ namespace nadena.dev.modular_avatar.core.editor
                     Allocator.Temp);
             var bonesPerVertex = new NativeArray<byte>(vertexCount, Allocator.Temp);
 
+            int initialBoneCount = mesh.bindposeCount;
             try
             {
                 if (origBoneWeights.Length == 0)
@@ -85,6 +88,13 @@ namespace nadena.dev.modular_avatar.core.editor
                     }
 
                     initialBoneCount++;
+
+                    mesh.bindposes = new[] { Matrix4x4.identity };
+
+                    if (renderer is SkinnedMeshRenderer smr)
+                    {
+                        smr.bones = new[] { smr.transform };
+                    }
                 }
                 else
                 {
@@ -102,32 +112,13 @@ namespace nadena.dev.modular_avatar.core.editor
 
                 var nextBoneIndex = initialBoneCount;
 
-                Dictionary<string, List<AddedBone>> result = new();
-                foreach (var (shapeName, threshold) in targetShapeNames)
+                Dictionary<(TargetProp, IVertexFilter), List<AddedBone>> result = new();
+                foreach (var (prop, filter) in targets)
                 {
-                    var sqrThreshold = threshold * threshold;
-                    var shape = mesh.GetBlendShapeIndex(shapeName);
-                    if (shape < 0) continue; // shape not found
+                    Array.Fill(affectedVertices, false);
+                    filter.MarkFilteredVertices(renderer, mesh, affectedVertices);
 
-                    affectedVertices.Clear();
-
-                    var frameCount = mesh.GetBlendShapeFrameCount(shape);
-                    var anyAffected = false;
-                    for (var i = 0; i < frameCount; i++)
-                    {
-                        mesh.GetBlendShapeFrameVertices(shape, i, deltaPositions, null, null);
-
-                        for (var v = 0; v < vertexCount; v++)
-                        {
-                            if (deltaPositions[v].sqrMagnitude > sqrThreshold)
-                            {
-                                affectedVertices.Add(v);
-                                anyAffected = true;
-                            }
-                        }
-                    }
-
-                    if (!anyAffected) continue;
+                    if (!affectedVertices.Any(b => b)) continue;
 
                     var shapePlan = ComputeNaNPlanForShape(ref nextBoneIndex, boneWeights, bonesPerVertex,
                         firstBoneIndex,
@@ -135,7 +126,7 @@ namespace nadena.dev.modular_avatar.core.editor
 
                     if (shapePlan.Any())
                     {
-                        result.Add(shapeName, shapePlan);
+                        result.Add((prop, filter), shapePlan);
                     }
                 }
 
@@ -165,14 +156,17 @@ namespace nadena.dev.modular_avatar.core.editor
             NativeArray<BoneWeight1> boneWeights,
             NativeArray<byte> boneCounts,
             int[] firstBoneIndex,
-            HashSet<int> vertexMask
+            bool[] vertexMask
         )
         {
             var boneToVertexCount = new Dictionary<int, int>();
             var remainingVertices = new List<int>();
 
-            foreach (var v in vertexMask)
+            var vertCount = vertexMask.Length;
+            for (int v = 0; v < vertCount; v++)
             {
+                if (!vertexMask[v]) continue;
+                
                 remainingVertices.Add(v);
                 for (var bi = 0; bi < boneCounts[v]; bi++)
                 {

@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using HarmonyLib;
 using UnityEditor;
@@ -20,6 +21,9 @@ namespace nadena.dev.ndmf.animator
     public sealed class VRChatPlatformAnimatorBindings : IPlatformAnimatorBindings
     {
         public static readonly VRChatPlatformAnimatorBindings Instance = new();
+
+        private const string SYNTHETIC_BOOL_PREFIX = "ModularAvatar$synthetic$bool$";
+        private const string SYNTHETIC_INT_PREFIX = "ModularAvatar$synthetic$int$";
         
         private const string SAMPLE_PATH_PACKAGE =
             "Packages/com.vrchat.avatars";
@@ -28,7 +32,7 @@ namespace nadena.dev.ndmf.animator
             "Packages/com.vrchat.avatars/Samples/AV3 Demo Assets/Animation/Controllers";
 
         private HashSet<Motion>? _specialMotions;
-
+        
         private VRChatPlatformAnimatorBindings()
         {
         }
@@ -240,6 +244,125 @@ namespace nadena.dev.ndmf.animator
                 case VRC_AnimatorLayerControl.BlendableLayer.FX: return VRCAvatarDescriptor.AnimLayerType.FX;
                 case VRC_AnimatorLayerControl.BlendableLayer.Gesture: return VRCAvatarDescriptor.AnimLayerType.Gesture;
                 default: throw new ArgumentOutOfRangeException("Unknown blendable layer type: " + playable);
+            }
+        }
+
+        public void PreCommitController(VirtualAnimatorController controller)
+        {
+            // Create any synthetic bools required by changed done by OnParameterTypeChanges
+            foreach (var reachable in controller.AllReachableNodes())
+            {
+                ImmutableList<StateMachineBehaviour> behaviors;
+
+                switch (reachable)
+                {
+                    case VirtualState vs: behaviors = vs.Behaviours; break;
+                    case VirtualStateMachine vsm: behaviors = vsm.Behaviours; break;
+                    default: continue;
+                }
+
+                if (behaviors.Count == 0) continue;
+
+                var parameters = controller.Parameters;
+
+                foreach (var behavior in behaviors.OfType<VRCAvatarParameterDriver>())
+                {
+                    if (behavior == null) continue;
+
+                    foreach (var p in behavior.parameters)
+                    {
+                        var isSynthBool = p.name?.StartsWith(SYNTHETIC_BOOL_PREFIX) == true;
+                        var isSynthInt = p.name?.StartsWith(SYNTHETIC_INT_PREFIX) == true;
+                        if (!isSynthInt && !isSynthBool)
+                        {
+                            continue;
+                        }
+
+                        var type = isSynthBool
+                            ? AnimatorControllerParameterType.Bool
+                            : AnimatorControllerParameterType.Int;
+
+                        if (!parameters.ContainsKey(p.name!))
+                        {
+                            parameters = parameters.Add(p.name!, new AnimatorControllerParameter
+                            {
+                                name = p.name,
+                                type = type
+                            });
+                        }
+                    }
+                }
+
+                controller.Parameters = parameters;
+            }
+        }
+
+        public void OnParameterTypeChanges(
+            VirtualAnimatorController controller,
+            IEnumerable<(string, AnimatorControllerParameterType, AnimatorControllerParameterType)> changes
+        )
+        {
+            var changed = changes
+                .Where(tuple =>
+                    tuple.Item2 != AnimatorControllerParameterType.Float &&
+                    tuple.Item3 == AnimatorControllerParameterType.Float)
+                .ToDictionary(tuple => tuple.Item1, tuple => tuple.Item2);
+            if (changed.Count == 0) return;
+
+            foreach (var reachable in controller.AllReachableNodes())
+            {
+                ImmutableList<StateMachineBehaviour> behaviors;
+
+                switch (reachable)
+                {
+                    case VirtualState vs: behaviors = vs.Behaviours; break;
+                    case VirtualStateMachine vsm: behaviors = vsm.Behaviours; break;
+                    default: continue;
+                }
+
+                if (behaviors.Count == 0) continue;
+
+                foreach (var driver in behaviors.OfType<VRCAvatarParameterDriver>())
+                {
+                    // bool and float parameters are interpreted differently in a parameter driver, so create an
+                    // intermediate value and copy the result.
+                    
+                    // Note that for drivers other than Random, because the prior value is used, we need to
+                    // copy from the float to the int first.
+                    driver.parameters = driver.parameters.SelectMany(p =>
+                    {
+                        if (!changed.TryGetValue(p.name, out var oldType)
+                            || p.type == VRC_AvatarParameterDriver.ChangeType.Copy) return new[] { p };
+
+                        var prefix = oldType == AnimatorControllerParameterType.Bool
+                            ? SYNTHETIC_BOOL_PREFIX
+                            : SYNTHETIC_INT_PREFIX;
+                        var tmp = prefix + GUID.Generate();
+                        var oldName = p.name;
+                        p.name = tmp;
+
+                        List<VRC_AvatarParameterDriver.Parameter> parameters = new();
+                        if (p.type != VRC_AvatarParameterDriver.ChangeType.Random)
+                        {
+                            parameters.Add(new VRC_AvatarParameterDriver.Parameter
+                            {
+                                name = tmp,
+                                source = oldName,
+                                type = VRC_AvatarParameterDriver.ChangeType.Copy
+                            });
+                        }
+                        
+                        parameters.Add(p);
+                        parameters.Add(new VRC_AvatarParameterDriver.Parameter
+                        {
+                            name = oldName,
+                            source = tmp,
+                            type = VRC_AvatarParameterDriver.ChangeType.Copy
+                        });
+
+                        return parameters.ToArray();
+                    }).ToList();
+                }
             }
         }
     }

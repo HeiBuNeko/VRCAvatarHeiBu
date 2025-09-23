@@ -21,15 +21,11 @@ namespace nadena.dev.modular_avatar.core.editor
     {
         public static void ApplyInitialStates(
             Transform avatarRoot,
-            Dictionary<string, List<GameObject>> nanplan,
-            List<string> initiallyActive,
+            IEnumerable<GameObject> initiallyActive,
             VirtualClip baseStateClip
         )
         {
-            var bonesToSetInitially = initiallyActive.SelectMany(s => nanplan[s])
-                .Distinct();
-
-            foreach (var initialBone in bonesToSetInitially)
+            foreach (var initialBone in initiallyActive)
             {
                 if (initialBone == null) continue;
 

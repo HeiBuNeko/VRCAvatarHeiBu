@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using nadena.dev.ndmf;
 using UnityEngine;
 using VRC.SDK3.Avatars.Components;
@@ -39,8 +40,19 @@ namespace nadena.dev.modular_avatar.core.editor
             if (!context.AvatarRootTransform.TryGetComponent<Animator>(out var animator)) return;
             if (animator.avatar == null) return;
 
-            var head = animator.GetBoneTransform(HumanBodyBones.Head);
-            if (head == null) return;
+            Transform head;
+            try
+            {
+                head = animator.GetBoneTransform(HumanBodyBones.Head);
+                if (head == null) return;
+            }
+            catch (InvalidOperationException)
+            {
+                // This exception is thrown when the avatar is not humanoid
+                return;
+            }
+            
+            List<VRCHeadChop.HeadChopBone> headChopBones = new();
 
             foreach (var renderer in context.AvatarRootTransform.GetComponentsInChildren<SkinnedMeshRenderer>(true))
             {
@@ -58,22 +70,28 @@ namespace nadena.dev.modular_avatar.core.editor
 
                         substitute.gameObject.AddComponent<ModularAvatarPBBlocker>();
 
-                        var headChop = substitute.gameObject.AddComponent<VRCHeadChop>();
-                        headChop.targetBones = new[]
-                        {
+                        headChopBones.Add(
                             new VRCHeadChop.HeadChopBone
                             {
                                 applyCondition = VRCHeadChop.HeadChopBone.ApplyCondition.AlwaysApply,
                                 scaleFactor = 1,
                                 transform = substitute
                             }
-                        };
+                        );
 
                         substitutes[rootBone] = substitute;
                     }
 
                     renderer.rootBone = substitute;
                 }
+            }
+
+            if (headChopBones.Count > 0)
+            {
+                var headChopHolder = new GameObject("NaNimation HeadChop Holder");
+                headChopHolder.transform.SetParent(context.AvatarRootTransform, false);
+                var headChop = headChopHolder.AddComponent<VRCHeadChop>();
+                headChop.targetBones = headChopBones.ToArray();
             }
         }
     }

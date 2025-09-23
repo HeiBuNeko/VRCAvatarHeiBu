@@ -45,6 +45,18 @@ namespace nadena.dev.ndmf.animator
         }
 
         /// <summary>
+        ///     Invoked just before committing an animator controller. This callback can be used, for example,
+        ///     to ensure that any synthetic parameters are added to the controller.
+        ///     Note that, if multiple controllers share animation clips or other objects, changes to those
+        ///     objects may not be reflected in the final animator controller assets, as they may have already
+        ///     been committed to unity objects.
+        /// </summary>
+        /// <param name="controller"></param>
+        void PreCommitController(VirtualAnimatorController controller)
+        {
+        }
+
+        /// <summary>
         /// Invoked after a StateMachineBehavior is cloned, to allow for any platform-specific modifications.
         /// For example, in VRChat, this is used to replace the layer indexes with virtual layer indexes in the
         /// VRChatAnimatorLayerControl behavior.
@@ -82,6 +94,19 @@ namespace nadena.dev.ndmf.animator
         ///     deleted)
         /// </param>
         void RemapPathsInStateBehaviour(StateMachineBehaviour behaviour, Func<string, string?> remapPath)
+        {
+        }
+
+        /// <summary>
+        ///     Invoked when the type of an existing parameter is changed. This is used in the VRChat bindings to
+        ///     adjust parameter drivers when a parameter is changed from bool to float, in order to preserve behavior.
+        /// </summary>
+        /// <param name="controller">The controller that was modified</param>
+        /// <param name="changes">A map of (parameter name, old type, new type)</param>
+        void OnParameterTypeChanges(
+            VirtualAnimatorController controller,
+            IEnumerable<(string, AnimatorControllerParameterType, AnimatorControllerParameterType)> changes
+        )
         {
         }
     }

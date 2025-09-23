@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -11,9 +10,10 @@ using UnityEngine.Rendering;
 
 namespace nadena.dev.modular_avatar.core.editor
 {
-    internal static class RemoveBlendShapeFromMesh
+    internal static class RemoveVerticesFromMesh
     {
-        public static Mesh RemoveBlendshapes(Mesh original, IEnumerable<(int, float)> targets)
+        public static Mesh RemoveVertices(Renderer renderer, Mesh original,
+            IEnumerable<(TargetProp, IVertexFilter)> targets)
         {
             var mesh = new Mesh();
             mesh.indexFormat = original.indexFormat;
@@ -22,13 +22,20 @@ namespace nadena.dev.modular_avatar.core.editor
             bool[] toDeleteVertices = new bool[original.vertexCount];
             bool[] toRetainVertices = new bool[original.vertexCount];
 
-            ProbeBlendshapes(original, toDeleteVertices, targets);
+            new ORFilter(targets.Select(t => t.Item2)).MarkFilteredVertices(renderer, original, toDeleteVertices);
+            
             ProbeRetainedVertices(original, toDeleteVertices, toRetainVertices);
+
+            if (toRetainVertices.All(v => !v))
+            {
+                // Retain vertex zero to use as a fallback
+                toRetainVertices[0] = true;
+                toDeleteVertices[0] = false;
+            }
 
             RemapVerts(toRetainVertices, out var origToNewVertIndex, out var newToOrigVertIndex);
 
             TransferVertexData(mesh, original, toRetainVertices);
-            TransferBoneData(mesh, original, toRetainVertices);
             mesh.bindposes = original.bindposes;
             TransferShapes(mesh, original, newToOrigVertIndex);
             UpdateTriangles(mesh, original, toRetainVertices, origToNewVertIndex);
@@ -36,56 +43,40 @@ namespace nadena.dev.modular_avatar.core.editor
             return mesh;
         }
 
-
-        private static VertexAttribute[] uvAttrs = new[]
-        {
-            VertexAttribute.TexCoord0,
-            VertexAttribute.TexCoord1,
-            VertexAttribute.TexCoord2,
-            VertexAttribute.TexCoord3,
-            VertexAttribute.TexCoord4,
-            VertexAttribute.TexCoord5,
-            VertexAttribute.TexCoord6,
-            VertexAttribute.TexCoord7,
-        };
-
         private static void TransferVertexData(Mesh mesh, Mesh original, bool[] toRetain)
         {
-            List<Vector2> tmpVec2 = new();
-            List<Vector3> tmpVec3 = new();
-            List<Vector4> tmpVec4 = new();
+            var newToOriginal = new List<int>(toRetain.Length);
 
-            TransferData(tmpVec3, mesh.SetVertices, original.GetVertices);
-            TransferData(tmpVec3, mesh.SetNormals, original.GetNormals);
-            TransferData(tmpVec4, mesh.SetTangents, original.GetTangents);
-
-            for (int uv = 0; uv < 8; uv++)
+            for (var i = 0; i < toRetain.Length; i++)
             {
-                if (!original.HasVertexAttribute(uvAttrs[uv])) continue;
-                switch (original.GetVertexAttributeDimension(uvAttrs[uv]))
+                if (toRetain[i])
                 {
-                    case 2:
-                        TransferData(tmpVec2, l => mesh.SetUVs(uv, l), l => original.GetUVs(uv, l));
-                        break;
-                    case 3:
-                        TransferData(tmpVec3, l => mesh.SetUVs(uv, l), l => original.GetUVs(uv, l));
-                        break;
-                    case 4:
-                        TransferData(tmpVec4, l => mesh.SetUVs(uv, l), l => original.GetUVs(uv, l));
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                    newToOriginal.Add(i);
                 }
             }
 
-            void TransferData<T>(List<T> tmp, Action<List<T>> setter, Action<List<T>> getter)
+            // We transfer all relevant attributes (positions, normals, tangents, UVs, colors, and bone weights)
+            // in one go by using the raw vertex attribute stream API
+
+            var attrs = original.GetVertexAttributes();
+            mesh.SetVertexBufferParams(newToOriginal.Count, attrs);
+
+            for (var stream = 0; stream < 4; stream++)
             {
-                getter(tmp);
-                int index = 0;
+                var stride = original.GetVertexBufferStride(stream);
+                if (stride == 0) continue; // stream is not present
 
-                tmp.RemoveAll(_t => !toRetain[index++]);
+                var srcBuf = original.GetVertexBuffer(stream);
+                var origVertexData = new byte[stride * original.vertexCount];
+                srcBuf.GetData(origVertexData);
 
-                setter(tmp);
+                var newVertexData = new byte[stride * newToOriginal.Count];
+                for (var v = 0; v < newToOriginal.Count; v++)
+                {
+                    Array.Copy(origVertexData, newToOriginal[v] * stride, newVertexData, v * stride, stride);
+                }
+
+                mesh.SetVertexBufferData(newVertexData, 0, 0, newVertexData.Length, stream);
             }
         }
 
@@ -134,43 +125,6 @@ namespace nadena.dev.modular_avatar.core.editor
             }
         }
 
-        private static void TransferBoneData(Mesh mesh, Mesh original, bool[] toRetain)
-        {
-            var origBoneWeights = original.GetAllBoneWeights();
-            var origBonesPerVertex = original.GetBonesPerVertex();
-
-            List<BoneWeight1> boneWeights = new(origBoneWeights.Length);
-            List<byte> bonesPerVertex = new(origBonesPerVertex.Length);
-
-            if (origBonesPerVertex.Length == 0) return; // no bones in this mesh
-
-            int ptr = 0;
-            for (int i = 0; i < toRetain.Length; i++)
-            {
-                byte n_weight = origBonesPerVertex[i];
-
-                if (toRetain[i])
-                {
-                    for (int j = 0; j < n_weight; j++)
-                    {
-                        boneWeights.Add(origBoneWeights[ptr + j]);
-                    }
-
-                    bonesPerVertex.Add(n_weight);
-                }
-
-                ptr += n_weight;
-            }
-
-            var native_boneWeights = new NativeArray<BoneWeight1>(boneWeights.ToArray(), Allocator.Temp);
-            var native_bonesPerVertex = new NativeArray<byte>(bonesPerVertex.ToArray(), Allocator.Temp);
-
-            mesh.SetBoneWeights(native_bonesPerVertex, native_boneWeights);
-
-            native_boneWeights.Dispose();
-            native_bonesPerVertex.Dispose();
-        }
-
         private static void UpdateTriangles(Mesh mesh, Mesh original, bool[] toRetainVertices, int[] origToNewVertIndex)
         {
             int submeshCount = original.subMeshCount;
@@ -185,31 +139,31 @@ namespace nadena.dev.modular_avatar.core.editor
 
             for (int sm = 0; sm < submeshCount; sm++)
             {
-                if (original.indexFormat == IndexFormat.UInt32)
-                {
-                    original.GetTriangles(orig_tris, sm, true);
-                    ProcessSubmesh<int>(orig_tris, new_tris, i => i, i => i);
+                var smDesc = original.GetSubMesh(sm);
+                orig_tris.Clear();
+                new_tris.Clear();
+                orig_tris_16.Clear();
+                new_tris_16.Clear();
 
-                    int min = Math.Max(0, new_tris.Min());
+                original.GetTriangles(orig_tris, sm, true);
+                ProcessSubmesh(orig_tris, new_tris, i => i, i => i);
+
+                if (mesh.indexFormat == IndexFormat.UInt16)
+                {
+                    var minVertex = Math.Max(0, new_tris.Min());
+
                     for (int i = 0; i < new_tris.Count; i++)
                     {
-                        new_tris[i] -= min;
+                        new_tris_16.Add((ushort)(new_tris[i] - minVertex));
                     }
 
-                    mesh.SetTriangles(new_tris, sm, true, min);
+                    mesh.SetIndices(new_tris_16, 0, new_tris_16.Count, smDesc.topology,
+                        sm, true, minVertex);
                 }
                 else
                 {
-                    original.GetTriangles(orig_tris_16, sm, true);
-                    ProcessSubmesh<ushort>(orig_tris_16, new_tris_16, i => i, i => (ushort)i);
-
-                    ushort min = new_tris_16.Min();
-                    for (int i = 0; i < new_tris_16.Count; i++)
-                    {
-                        new_tris_16[i] -= min;
-                    }
-
-                    mesh.SetTriangles(new_tris_16, sm, true, min);
+                    // don't bother computing min vertex for UInt32 indices, as it will always fit anyway
+                    mesh.SetIndices(new_tris, 0, new_tris.Count, smDesc.topology, sm);
                 }
             }
 
@@ -236,6 +190,8 @@ namespace nadena.dev.modular_avatar.core.editor
 
                 if (new_tri.Count == 0)
                 {
+                    // Add a degenerate triangle to avoid creating an empty submesh.
+                    // TODO: Perform necessary animation updates to allow us to delete the submesh entirely.
                     new_tri.Add(default);
                     new_tri.Add(default);
                     new_tri.Add(default);
@@ -264,30 +220,6 @@ namespace nadena.dev.modular_avatar.core.editor
 
             newToOrigVertIndex = n2o.ToArray();
             origToNewVertIndex = o2n.ToArray();
-        }
-
-        private static void ProbeBlendshapes(Mesh mesh, bool[] toDeleteVertices, IEnumerable<(int, float)> shapes)
-        {
-            var bsPos = new Vector3[mesh.vertexCount];
-
-            foreach ((var index, var threshold) in shapes)
-            {
-                float sqrThreshold = threshold * threshold;
-                int frames = mesh.GetBlendShapeFrameCount(index);
-
-                for (int f = 0; f < frames; f++)
-                {
-                    mesh.GetBlendShapeFrameVertices(index, f, bsPos, null, null);
-
-                    for (int i = 0; i < bsPos.Length; i++)
-                    {
-                        if (bsPos[i].sqrMagnitude > sqrThreshold)
-                        {
-                            toDeleteVertices[i] = true;
-                        }
-                    }
-                }
-            }
         }
 
         private static void ProbeRetainedVertices(Mesh mesh, bool[] toDeleteVertices, bool[] toRetainVertices)

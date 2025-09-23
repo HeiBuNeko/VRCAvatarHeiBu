@@ -34,7 +34,7 @@ namespace nadena.dev.ndmf.vrchat
 
         public string QualifiedName => WellKnownPlatforms.VRChatAvatar30;
         public string DisplayName => "VRChat";
-        public Texture2D Icon => null;
+        public Texture2D? Icon => null;
         public Type AvatarRootComponentType => typeof(VRCAvatarDescriptor);
         public bool HasNativeConfigData => true;
 
@@ -78,6 +78,8 @@ namespace nadena.dev.ndmf.vrchat
             if (!avatarRoot.TryGetComponent<VRCAvatarDescriptor>(out var vrcAvDesc))
             {
                 vrcAvDesc = avatarRoot.AddComponent<VRCAvatarDescriptor>();
+                // Initialize array SerializeFields with empty array instances
+                EditorUtility.CopySerialized(vrcAvDesc, vrcAvDesc);
             }
 
             if (cai.EyePosition != null)

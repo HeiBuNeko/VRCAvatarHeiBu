@@ -235,6 +235,13 @@ namespace nadena.dev.ndmf.preview
                             
                             var proxies = items.Result.ToList();
 
+                            foreach ((var r, var proxy, _) in proxies)
+                            {
+                                // Publish proxies immediately so that they can be referred to in preview filters
+                                ProxyToOriginalObject =
+                                    ProxyToOriginalObject.SetItem(proxy.Renderer.gameObject, r.gameObject);
+                            }
+                            
 #if NDMF_DEBUG
                             Debug.Log(
                                 $"Creating node for {stage.Filter} on {group.Renderers[0].gameObject.name} for generation {_generation}");
@@ -309,9 +316,11 @@ namespace nadena.dev.ndmf.preview
                     continue;
                 }
 
-                OriginalToProxyRenderer = OriginalToProxyRenderer.Add(r, proxy.Renderer);
-                OriginalToProxyObject = OriginalToProxyObject.Add(r.gameObject, proxy.Renderer.gameObject);
-                ProxyToOriginalObject = ProxyToOriginalObject.Add(proxy.Renderer.gameObject, r.gameObject);
+                // Setup uses a different proxy than rendering, so make sure we install the rendering proxy
+                // as well (since that's the one that scene view picking will use)
+                ProxyToOriginalObject = ProxyToOriginalObject.SetItem(proxy.Renderer.gameObject, r.gameObject);
+                OriginalToProxyRenderer = OriginalToProxyRenderer.SetItem(r, proxy.Renderer);
+                OriginalToProxyObject = OriginalToProxyObject.SetItem(r.gameObject, proxy.Renderer.gameObject);
             }
             
 #if NDMF_DEBUG

@@ -29,10 +29,101 @@ namespace nadena.dev.ndmf.animator
 
         private ImmutableDictionary<string, AnimatorControllerParameter> _parameters;
 
+        private AnimatorControllerParameter CloneParameter(AnimatorControllerParameter acp)
+        {
+            return new AnimatorControllerParameter
+            {
+                name = acp.name,
+                type = acp.type,
+                defaultBool = acp.defaultBool,
+                defaultFloat = acp.defaultFloat,
+                defaultInt = acp.defaultInt
+            };
+        }
+
+        // For tests
+        internal bool DetectedParametersInteriorMutability;
+
+        private Dictionary<string, AnimatorControllerParameterType> _lastParameterType = new();
+
+        private void CheckParameterMutation()
+        {
+            foreach (var (k, v) in _parameters)
+            {
+                if (DetectedParametersInteriorMutability) break;
+
+                if (_lastParameterType.TryGetValue(k, out var lastType) && lastType != v.type)
+                {
+                    DetectedParametersInteriorMutability = true;
+                    Debug.LogError($"Parameter {k} changed type from {lastType} to {v.type} in-place. This is not " +
+                                   "supported and will become an error in future versions. If you need to change a " +
+                                   "parameter type, create a new AnimatorControllerParameter object and use the " +
+                                   "Parameters setter to update the parameters map.");
+                }
+            }
+        }
+
+        private void UpdateParameterCache()
+        {
+            _lastParameterType.Clear();
+
+            foreach (var (k, v) in _parameters)
+            {
+                _lastParameterType[k] = v.type;
+            }
+        }
+        
+        /// <summary>
+        /// The animator controller parameters. The value returned from this property is an immutable dictionary,
+        /// with all values being cloned parameters, so you must explicitly set this property in order to change it.
+        /// </summary>
+        /// <exception cref="ArgumentNullException"></exception>
         public ImmutableDictionary<string, AnimatorControllerParameter> Parameters
         {
+            // Clone all of the parameter objects to ensure immutability
+            /*get => _parameters.ToImmutableDictionary(
+                p => p.Key,
+                p => CloneParameter(p.Value)
+            );*/
+
+            // For backwards compatibility, we can't clone parameters (yet). But we can detect when mutability
+            // occurs and issue a log message (and eventually make it a fatal error)
             get => _parameters;
-            set => _parameters = I(value ?? throw new ArgumentNullException(nameof(value)));
+            set
+            {
+                if (ReferenceEquals(_parameters, value)) return;
+                CheckParameterMutation();
+                
+                var oldParameters = _parameters;
+                _parameters = I(value ?? throw new ArgumentNullException(nameof(value)))
+                    // Clone all of the parameter objects to ensure immutability
+                    .ToImmutableDictionary(
+                        p => p.Key,
+                        p => CloneParameter(p.Value)
+                    );
+                UpdateParameterCache();
+
+                var changed = oldParameters.Keys.SelectMany(key =>
+                {
+                    if (!_parameters.TryGetValue(key, out var newParam))
+                    {
+                        return Enumerable
+                            .Empty<(string, AnimatorControllerParameterType, AnimatorControllerParameterType)>();
+                    }
+
+                    if (oldParameters[key].type == newParam.type)
+                    {
+                        return Enumerable
+                            .Empty<(string, AnimatorControllerParameterType, AnimatorControllerParameterType)>();
+                    }
+
+                    return new[] { (key, oldParameters[key].type, newParam.type) };
+                }).ToList();
+                if (changed.Count > 0)
+                {
+                    _context.PlatformBindings.OnParameterTypeChanges(this, changed);
+                }
+            }
         }
 
         private readonly SortedDictionary<LayerPriority, LayerGroup> _layers = new();
@@ -215,9 +306,11 @@ namespace nadena.dev.ndmf.animator
             _context = context;
             Name = controller.name;
             _parameters = controller.parameters
+                .Select(CloneParameter)
                 .GroupBy(p => p.name)
                 .Select(pg => pg.Last())
                 .ToImmutableDictionary(p => p.name);
+            UpdateParameterCache();
 
             var srcLayers = controller.layers;
             _virtualLayerBase = context.AllocateVirtualLayerSpace(srcLayers.Length);
@@ -238,6 +331,10 @@ namespace nadena.dev.ndmf.animator
 
         AnimatorController ICommittable<AnimatorController>.Prepare(CommitContext context)
         {
+            _context.PlatformBindings.PreCommitController(this);
+
+            CheckParameterMutation();
+            
             if (_cachedController == null) _cachedController = new AnimatorController();
 
             _cachedController.name = Name;

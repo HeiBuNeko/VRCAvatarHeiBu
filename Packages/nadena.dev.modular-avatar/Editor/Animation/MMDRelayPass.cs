@@ -1,5 +1,9 @@
 ﻿#nullable enable
 
+#if MA_VRCSDK3_AVATARS
+using VRC.SDK3.Avatars.Components;
+using VRC.SDKBase;
+#endif
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -11,10 +15,6 @@ using nadena.dev.ndmf.animator;
 using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
-#if MA_VRCSDK3_AVATARS
-using VRC.SDK3.Avatars.Components;
-using VRC.SDKBase;
-#endif
 using BuildContext = nadena.dev.ndmf.BuildContext;
 using Object = UnityEngine.Object;
 
@@ -75,6 +75,8 @@ namespace nadena.dev.modular_avatar.animation
                 return;
 
             var affectedLayers = context.GetState<MMDRelayState>().mmdAffectedOriginalLayers;
+            var hasAnyOptInMmdLayerControl = false;
+            var layersWithMmdControl = new HashSet<VirtualLayer>();
 
             foreach (var layer in fx.Layers)
             {
@@ -85,6 +87,10 @@ namespace nadena.dev.modular_avatar.animation
                     .ToList();
                 
                 if (rootMMDModeBehaviors.Count == 0) continue;
+
+                hasAnyOptInMmdLayerControl = rootMMDModeBehaviors.Any(b => b.DisableInMMDMode);
+                layersWithMmdControl.Add(layer);
+                
                 if (rootMMDModeBehaviors.Count > 1)
                 {
                     ErrorReport.ReportError(Localization.L, ErrorSeverity.Error,
@@ -128,6 +134,9 @@ namespace nadena.dev.modular_avatar.animation
                 }
             }
 
+            // Check for WD OFF states in non-MMD layers when MMD Layer Control is being used
+            CheckForWriteDefaultsOn(fx, layersWithMmdControl, hasAnyOptInMmdLayerControl);
+
             var needsAdjustment = fx.Layers.Select((layer, index) => (layer, index))
                 .Any(pair => affectedLayers.Contains(pair.layer) != (pair.index < 3 && pair.index != 0));
             if (!needsAdjustment) return;
@@ -146,18 +155,65 @@ namespace nadena.dev.modular_avatar.animation
             var currentLayers = fx.Layers.ToList();
             var newLayers = new List<VirtualLayer>();
 
-            // Layer zero's weight can't be changed anyway, so leave it where it is.
-            newLayers.Add(currentLayers[0]);
-            currentLayers.RemoveAt(0);
-            newLayers.Add(CreateMMDLayer(fx, toDisable));
+            // Layer zero's weight can't be changed anyway, so leave it where it is - unless it explicitly opted in
+            if (!affectedLayers.Contains(currentLayers[0]))
+            {
+                newLayers.Add(currentLayers[0]);
+                currentLayers.RemoveAt(0);
+            }
 
             // Add a dummy layer
+            CreateDummyLayer(fx, newLayers);
+
+            // Add the control/sensor layer. We do this second so it never ends up being the first layer, which isn't
+            // disabled. We don't care if it's layer 1 or 2.
+            newLayers.Add(CreateMMDLayer(fx, toDisable));
+
+            // Note that if we opted in layer zero, above, then it comes in as layer 2, which doesn't need special handling.
+            fx.Layers = newLayers.Concat(currentLayers);
+        }
+
+        private static void CreateDummyLayer(VirtualAnimatorController fx, List<VirtualLayer> newLayers)
+        {
             var dummy = fx.AddLayer(new LayerPriority(0), DummyLayerName);
             var s = dummy.StateMachine!.DefaultState = dummy.StateMachine.AddState("Dummy");
             s.Motion = VirtualClip.Create("empty");
             newLayers.Add(dummy);
+        }
 
-            fx.Layers = newLayers.Concat(currentLayers);
+        private static void CheckForWriteDefaultsOn(VirtualAnimatorController fx,
+            HashSet<VirtualLayer> layersWithMmdControl, bool hasAnyMmdControl)
+        {
+            // Only check if MMD Layer Control is being used
+            if (!hasAnyMmdControl) return;
+            
+            var layersWithWdOff = new List<string>();
+            
+            foreach (var layer in fx.Layers)
+            {
+                // Skip MMD-generated relay layers
+                if (IsRelayLayer(layer.Name)) continue;
+                
+                // Skip the layer if it has no state machine
+                if (layer.StateMachine == null) continue;
+                
+                // Check all states in this layer for WriteDefaults = false
+                var hasWdOffStates = layer.StateMachine.AllStates()
+                    .Any(state => !state.WriteDefaultValues);
+                
+                if (hasWdOffStates)
+                {
+                    layersWithWdOff.Add(layer.Name);
+                }
+            }
+            
+            // Report warning if any layers with WD OFF were found
+            if (layersWithWdOff.Count > 0)
+            {
+                var layerList = string.Join(", ", layersWithWdOff);
+                ErrorReport.ReportError(Localization.L, ErrorSeverity.NonFatal,
+                    "warning.mmd.wd_off", layerList);
+            }
         }
 
         private static VirtualLayer CreateMMDLayer(VirtualAnimatorController fx, List<int> virtualLayers)

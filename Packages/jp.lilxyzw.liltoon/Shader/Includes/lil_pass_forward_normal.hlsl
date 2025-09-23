@@ -65,7 +65,9 @@
     #if !defined(LIL_PASS_FORWARDADD)
         #define LIL_V2F_LIGHTCOLOR
         #define LIL_V2F_LIGHTDIRECTION
-        #define LIL_V2F_INDLIGHTCOLOR
+        #if defined(LIL_BRP) || defined(LIL_HDRP)
+            #define LIL_V2F_INDLIGHTCOLOR
+        #endif
         #if defined(LIL_FEATURE_SHADOW) || defined(LIL_FEATURE_BACKLIGHT)
             #define LIL_V2F_SHADOW
         #endif
@@ -111,6 +113,7 @@ float4 frag(v2f input LIL_VFACE(facing)) : SV_Target
 {
     //------------------------------------------------------------------------------------------------------------------------------
     // Initialize
+    LIL_FORCE_SCENE_LIGHT;
     LIL_SETUP_INSTANCE_ID(input);
     LIL_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
     lilFragData fd = lilInitFragData();
@@ -174,6 +177,12 @@ float4 frag(v2f input LIL_VFACE(facing)) : SV_Target
         OVERRIDE_ANIMATE_OUTLINE_UV
         BEFORE_CALC_DDX_DDY
         OVERRIDE_CALC_DDX_DDY
+
+        //------------------------------------------------------------------------------------------------------------------------------
+        // Normal
+        #if defined(LIL_V2F_NORMAL_WS)
+            fd.N = normalize(input.normalWS);
+        #endif
 
         //------------------------------------------------------------------------------------------------------------------------------
         // Main Color

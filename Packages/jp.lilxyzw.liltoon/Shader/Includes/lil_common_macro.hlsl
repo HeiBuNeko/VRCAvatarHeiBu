@@ -2017,7 +2017,7 @@ float3 lilGetLightMapDirection(float2 uv)
     #define LIL_LIGHTDIRECTION_COORDS(idx)  float3 lightDirection : TEXCOORD##idx;
 #endif
 
-#if defined(LIL_BRP) && !defined(LIL_PASS_FORWARDADD)
+#if (defined(LIL_BRP) || defined(LIL_HDRP)) && !defined(LIL_PASS_FORWARDADD)
     #define LIL_INDLIGHTCOLOR_COORDS(idx)   float3 indLightColor : TEXCOORD##idx;
     #define LIL_GET_INDLIGHTCOLOR(i,o)      o.indLightColor = i.indLightColor
 #else
@@ -2044,6 +2044,13 @@ struct lilLightData
     float3 indLightColor;
 };
 
+#define LIL_FORCE_SCENE_LIGHT \
+    if(_UdonForceSceneLighting) { \
+        _LightMinLimit = 0; \
+        _LightMaxLimit = 100000; \
+        _MonochromeLighting = 0; \
+        _AsUnlit = 0; \
+    }
 
 // Main Light in VS
 #if defined(LIL_USE_ADDITIONALLIGHT_MAIN)

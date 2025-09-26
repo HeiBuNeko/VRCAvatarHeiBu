@@ -1,0 +1,51 @@
+﻿        //----------------------------------------------------------------------------------------------------------------------
+        // Custom Properties
+        //_CustomVariable ("Custom Variable", Float) = 0
+
+        [Toggle] _IsOn ("IsOn", Float) = 1
+
+        [IntRange]Blocker_Samples("Blocker Samples", Range(4, 32)) = 12
+        [IntRange]PCF_Samples("Filter Samples", Range(8, 64)) = 24
+        Softness("Softness", Range(0, 0.005)) = 0.001
+        SoftnessFalloff("SoftnessFalloff", Range(0, 2)) = 1
+        SoftnessRange("SoftnessRange", Range(0, 0.002)) = 0.0005
+        MaxDistance("MaxDistance", Range(0, 1)) = 0.2
+        PenumbraWithMaxSamples("PenumbraWithMaxSamples", Range(1, 50)) = 5
+        Blocker_GradientBias("Blocker_GradientBias", Range(0, 0.001)) =  0.0002
+        PCF_GradientBias("PCF_GradientBias", Range(0, 0.001)) = 0.0002
+
+        _ReceiveMaskTex("ReceiveMask", 2D) = "white" {}
+        _ReceiveMaskStrength("ReceiveMaskStrength", Range(0,1)) = 1
+        _CastMaskTex("CastMask", 2D) = "white" {}
+        _CastMaskStrength("CastMaskStrength", Range(0,1)) = 1
+        _ShadowNormalBias("ShadowNormalBias", Range(0,0.01)) = 0.0025
+        _ShadowCasterBias("ShadowCasterBias", Range(0,0.1)) = 0.001
+        _ShadowCasterBiasOffset("ShadowCasterBiasOffset", Range(0,1)) = 0
+        _EnvLightStrength("EnvironmentLightStrength", Range(0,1)) = 0.2
+        _ShadowDistance("ShadowDistance", Range(0.01, 100)) = 10.0
+	    _ShadowClamp("ShadowClamp", Range(0, 1)) = 0
+        _ShadowDensity("ShadowDensity", Range(0, 1)) = 0.25
+        _NormalMapStrength("NormalMapStrength", Range(0, 1)) = 0.5
+
+	    _DropShadowColor("ShadowColor", Color) = (0,0,0)
+	    _EnvLightLevelTexture("EnvLightLevelTexture", 2D) = "white" {}
+	    _EnvLightAdjustLevel("EnvLightAdjustLevel", Range(0, 1)) = 1
+        _ShadowcoordzOffset("ShadowcoordzOffset", Range(0, 3)) = 0
+        
+        _InterpolationStrength("InterpolationStrength", Range(0, 1)) = 0
+        _MinusNormalOffset("MinusNormalOffset", Range(0, 1)) = 0
+        _PlusNormalOffset("PlusNormalOffset", Range(0, 1)) = 0.015
+        _ShadingThreshold("ShadingThreshold", Range(0, 1)) = 0
+        _ShadingBlurRadius("ShadingBlurRadius", Range(0, 3)) = 3
+        _ShadingCutOffThreshold("ShadingCutOffThreshold", Range(0, 1)) = 1
+        _ShadingCutOffBlurRadius("ShadingCutOffThreshold", Range(0, 3)) = 1
+
+        //[Toggle] _EnableSurfaceSmoothing("EnableSurfaceSmoothing", Float) = 1
+
+        _ShadowColorOverrideTexture("ShadowColorOverrideTexture", 2D) = "white" {}
+        _ShadowColorOverrideStrength("ShadowColorOverrideStrength", Range(0,1)) = 0
+
+        _ShadowBiasMaskTexture("_ShadowBiasMaskTexture", 2D) = "white" {}
+        _ShadowBiasMaskStrength("_ShadowBiasMaskStrength", Range(0,1)) = 0
+
+        [HideInInspector]_IgnoreCookieTexture("IgnoreCookieTexture", 2D) = "black" {}

@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
+  m_Name: LightControl
+  m_EditorClassIdentifier: 
+  Parameters: {fileID: 11400000, guid: 7144c4e08ccabef48b16acc6bde789e5, type: 2}
+  controls:
+  - name: LightIntensity
+    icon: {fileID: 2800000, guid: 1f564c3de16d73d44b7706dad9f165f6, type: 3}
+    type: 203
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters:
+    - name: PCSS_LightIntensity
+    labels: []
+  - name: LightHandleOn/Off
+    icon: {fileID: 0}
+    type: 102
+    parameter:
+      name: PCSS_LightHandleOn
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: LightColor
+    icon: {fileID: 0}
+    type: 103
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: 3e56ce8a9298cd24780eabc8e3b22d5d, type: 2}
+    subParameters: []
+    labels: []
+  - name: LightAimControl
+    icon: {fileID: 2800000, guid: 3df99f09fd4801547a826315fb7bcd73, type: 3}
+    type: 103
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: bd5997408136460429bccc68e6b2d949, type: 2}
+    subParameters: []
+    labels: []
+  - name: LocalShadowOn
+    icon: {fileID: 2800000, guid: 1f564c3de16d73d44b7706dad9f165f6, type: 3}
+    type: 102
+    parameter:
+      name: PCSS_LocalShadowOn
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: RemoteShadowOn
+    icon: {fileID: 2800000, guid: 1f564c3de16d73d44b7706dad9f165f6, type: 3}
+    type: 102
+    parameter:
+      name: PCSS_RemoteShadowOn
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []

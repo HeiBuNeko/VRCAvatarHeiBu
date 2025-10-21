@@ -233,7 +233,7 @@ namespace VRCSDK2
 
             if (string.IsNullOrEmpty(apiAvatar.id))
             {
-                pipelineManager.AssignId();
+                pipelineManager.AssignId(PipelineManager.ContentType.avatar);
                 apiAvatar.id = pipelineManager.blueprintId;
             }
 

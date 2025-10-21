@@ -657,7 +657,33 @@ namespace VRC.SDKBase.Editor.Api {
             await VRCApi.Put<object, VRCAvatar>($"avatars/{id}", bundleUpdateRequest, cancellationToken: cancellationToken);
             Core.Logger.Log("Fetching latest", API.LOG_CATEGORY);
             return await VRCApi.Get<VRCAvatar>($"avatars/{id}", forceRefresh: true, cancellationToken: cancellationToken);
-        } 
+        }
+
+        /// <summary>
+        /// Creates an avatar entry in the database.
+        /// Use this method to get a new ID to assign to the avatar blueprint before building and uploading it.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="onProgress"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        [PublicAPI]
+        public static async Task<VRCAvatar> CreateAvatarRecord(VRCAvatar data, Action<string, float> onProgress = null,
+            CancellationToken cancellationToken = default)
+        {
+            var newAvatarData = new Dictionary<string, object>
+            {
+                {"name", data.Name},
+                {"description", data.Description},
+                {"tags", data.Tags},
+                {"releaseStatus", data.ReleaseStatus},
+                {"platform", Tools.Platform},
+                {"unityVersion", Tools.UnityVersion.ToString()},
+                {"assetVersion", 1}
+            };
+            var createdAvatar = await Post<Dictionary<string, object>, VRCAvatar>($"avatars", newAvatarData, cancellationToken: cancellationToken);
+            return createdAvatar;
+        }
         
         [PublicAPI]
         public static async Task<VRCAvatar> CreateNewAvatar(string id, VRCAvatar data, string pathToBundle, string pathToImage,
@@ -668,6 +694,13 @@ namespace VRC.SDKBase.Editor.Api {
                 Core.Logger.LogError("Both bundle and image paths must be provided");
                 return data;
             }
+            
+            var remoteData = await VRCApi.GetAvatar(id, forceRefresh: true, cancellationToken);
+            if (!remoteData.PendingUpload)
+            {
+                throw new UploadException("Avatar creation is only allowed for a reserved avatar ID pending first upload");
+            }
+            
             var fileName = "Avatar - " + data.Name + " - Asset bundle - " + Application.unityVersion + "_" + ApiAvatar.VERSION.ApiVersion +
                            "_" + VRC.Tools.Platform + "_" + API.GetServerEnvironmentForApiUrl();
             var newBundleUrl = await UploadFile(pathToBundle, "", fileName, onProgress: (status, percentage) =>
@@ -693,7 +726,6 @@ namespace VRC.SDKBase.Editor.Api {
             }
             var newAvatarData = new Dictionary<string, object>
             {
-                {"id", id},
                 {"name", data.Name},
                 {"description", data.Description},
                 {"assetUrl", newBundleUrl},
@@ -713,18 +745,14 @@ namespace VRC.SDKBase.Editor.Api {
             {
                 newAvatarData["secondaryStyle"] = data.Styles.Secondary;
             }
-            var createdAvatar = await Post<Dictionary<string, object>, VRCAvatar>($"avatars", newAvatarData, cancellationToken: cancellationToken);
-            var bundleUpdateRequest = new Dictionary<string, object>
-            {
-                {"assetUrl", newBundleUrl},
-                {"platform", Tools.Platform.ToString()},
-                {"unityVersion", Tools.UnityVersion.ToString()},
-                {"assetVersion", 1}
-            };
-            // enforce "standard" bundle
-            createdAvatar = await Put<Dictionary<string, object>, VRCAvatar>($"avatars/{createdAvatar.ID}", bundleUpdateRequest, cancellationToken: cancellationToken);
-            Core.Logger.Log("Created a new Avatar");
+            var createdAvatar = await Put<Dictionary<string, object>, VRCAvatar>($"avatars/{remoteData.ID}", newAvatarData, cancellationToken: cancellationToken);
             return createdAvatar;
+        }
+
+        [PublicAPI]
+        public static async Task<VRCAvatar> DeleteAvatar(string id)
+        {
+            return await VRCApi.Delete<VRCAvatar>($"avatars/{id}", cancellationToken: CancellationToken.None);
         }
 
         [PublicAPI]

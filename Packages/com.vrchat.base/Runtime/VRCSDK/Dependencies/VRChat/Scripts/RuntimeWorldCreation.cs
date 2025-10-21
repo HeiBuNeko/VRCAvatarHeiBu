@@ -377,7 +377,7 @@ namespace VRCSDK2
 
             if (string.IsNullOrEmpty(worldRecord.id))
             {
-                pipelineManager.AssignId();
+                pipelineManager.AssignId(PipelineManager.ContentType.world);
                 worldRecord.id = pipelineManager.blueprintId;
             }
 

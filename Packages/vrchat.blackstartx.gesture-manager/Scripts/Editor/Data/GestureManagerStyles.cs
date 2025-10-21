@@ -205,13 +205,13 @@ namespace BlackStartX.GestureManager.Editor.Data
                 private static AnimationClip _run;
                 private static AnimationClip _thumbsUp;
 
-                public static AnimationClip Fist => _fist ? _fist : _fist = Resources.Load<AnimationClip>(Path + Data.GestureNames[1]);
-                public static AnimationClip Open => _open ? _open : _open = Resources.Load<AnimationClip>(Path + Data.GestureNames[2]);
-                public static AnimationClip Point => _point ? _point : _point = Resources.Load<AnimationClip>(Path + Data.GestureNames[3]);
-                public static AnimationClip Peace => _peace ? _peace : _peace = Resources.Load<AnimationClip>(Path + Data.GestureNames[4]);
-                public static AnimationClip Rock => _rock ? _rock : _rock = Resources.Load<AnimationClip>(Path + Data.GestureNames[5]);
-                public static AnimationClip Gun => _run ? _run : _run = Resources.Load<AnimationClip>(Path + Data.GestureNames[6]);
-                public static AnimationClip ThumbsUp => _thumbsUp ? _thumbsUp : _thumbsUp = Resources.Load<AnimationClip>(Path + Data.GestureNames[7]);
+                public static AnimationClip Fist => !_fist ? _fist = Resources.Load<AnimationClip>(Path + Data.GestureNames[1]) : _fist;
+                public static AnimationClip Open => !_open ? _open = Resources.Load<AnimationClip>(Path + Data.GestureNames[2]) : _open;
+                public static AnimationClip Point => !_point ? _point = Resources.Load<AnimationClip>(Path + Data.GestureNames[3]) : _point;
+                public static AnimationClip Peace => !_peace ? _peace = Resources.Load<AnimationClip>(Path + Data.GestureNames[4]) : _peace;
+                public static AnimationClip Rock => !_rock ? _rock = Resources.Load<AnimationClip>(Path + Data.GestureNames[5]) : _rock;
+                public static AnimationClip Gun => !_run ? _run = Resources.Load<AnimationClip>(Path + Data.GestureNames[6]) : _run;
+                public static AnimationClip ThumbsUp => !_thumbsUp ? _thumbsUp = Resources.Load<AnimationClip>(Path + Data.GestureNames[7]) : _thumbsUp;
             }
 
             public static class Emote
@@ -229,14 +229,14 @@ namespace BlackStartX.GestureManager.Editor.Data
                     private static AnimationClip _die;
                     private static AnimationClip _sadKick;
 
-                    public static AnimationClip Wave => _wave ? _wave : _wave = Resources.Load<AnimationClip>(Path + Data.EmoteStandingName[0]);
-                    public static AnimationClip Clap => _clap ? _clap : _clap = Resources.Load<AnimationClip>(Path + Data.EmoteStandingName[1]);
-                    public static AnimationClip Point => _point ? _point : _point = Resources.Load<AnimationClip>(Path + Data.EmoteStandingName[2]);
-                    public static AnimationClip Cheer => _cheer ? _cheer : _cheer = Resources.Load<AnimationClip>(Path + Data.EmoteStandingName[3]);
-                    public static AnimationClip Dance => _dance ? _dance : _dance = Resources.Load<AnimationClip>(Path + Data.EmoteStandingName[4]);
-                    public static AnimationClip BackFlip => _backFlip ? _backFlip : _backFlip = Resources.Load<AnimationClip>(Path + Data.EmoteStandingName[5]);
-                    public static AnimationClip Die => _die ? _die : _die = Resources.Load<AnimationClip>(Path + Data.EmoteStandingName[6]);
-                    public static AnimationClip SadKick => _sadKick ? _sadKick : _sadKick = Resources.Load<AnimationClip>(Path + Data.EmoteStandingName[7]);
+                    public static AnimationClip Wave => !_wave ? _wave = Resources.Load<AnimationClip>(Path + Data.EmoteStandingName[0]) : _wave;
+                    public static AnimationClip Clap => !_clap ? _clap = Resources.Load<AnimationClip>(Path + Data.EmoteStandingName[1]) : _clap;
+                    public static AnimationClip Point => !_point ? _point = Resources.Load<AnimationClip>(Path + Data.EmoteStandingName[2]) : _point;
+                    public static AnimationClip Cheer => !_cheer ? _cheer = Resources.Load<AnimationClip>(Path + Data.EmoteStandingName[3]) : _cheer;
+                    public static AnimationClip Dance => !_dance ? _dance = Resources.Load<AnimationClip>(Path + Data.EmoteStandingName[4]) : _dance;
+                    public static AnimationClip BackFlip => !_backFlip ? _backFlip = Resources.Load<AnimationClip>(Path + Data.EmoteStandingName[5]) : _backFlip;
+                    public static AnimationClip Die => !_die ? _die = Resources.Load<AnimationClip>(Path + Data.EmoteStandingName[6]) : _die;
+                    public static AnimationClip SadKick => !_sadKick ? _sadKick = Resources.Load<AnimationClip>(Path + Data.EmoteStandingName[7]) : _sadKick;
                 }
 
                 public static class Seated
@@ -250,14 +250,14 @@ namespace BlackStartX.GestureManager.Editor.Data
                     private static AnimationClip _disbelief;
                     private static AnimationClip _disapprove;
 
-                    public static AnimationClip Laugh => _laugh ? _laugh : _laugh = Resources.Load<AnimationClip>(Path + Data.EmoteSeatedName[0]);
-                    public static AnimationClip Point => _point ? _point : _point = Resources.Load<AnimationClip>(Path + Data.EmoteSeatedName[1]);
-                    public static AnimationClip RaiseHand => _raiseHand ? _raiseHand : _raiseHand = Resources.Load<AnimationClip>(Path + Data.EmoteSeatedName[2]);
-                    public static AnimationClip Drum => _drum ? _drum : _drum = Resources.Load<AnimationClip>(Path + Data.EmoteSeatedName[3]);
-                    public static AnimationClip Clap => _clap ? _clap : _clap = Resources.Load<AnimationClip>(Path + Data.EmoteSeatedName[4]);
-                    public static AnimationClip ShakeFist => _shakeFist ? _shakeFist : _shakeFist = Resources.Load<AnimationClip>(Path + Data.EmoteSeatedName[5]);
-                    public static AnimationClip Disbelief => _disbelief ? _disbelief : _disbelief = Resources.Load<AnimationClip>(Path + Data.EmoteSeatedName[6]);
-                    public static AnimationClip Disapprove => _disapprove ? _disapprove : _disapprove = Resources.Load<AnimationClip>(Path + Data.EmoteSeatedName[7]);
+                    public static AnimationClip Laugh => !_laugh ? _laugh = Resources.Load<AnimationClip>(Path + Data.EmoteSeatedName[0]) : _laugh;
+                    public static AnimationClip Point => !_point ? _point = Resources.Load<AnimationClip>(Path + Data.EmoteSeatedName[1]) : _point;
+                    public static AnimationClip RaiseHand => !_raiseHand ? _raiseHand = Resources.Load<AnimationClip>(Path + Data.EmoteSeatedName[2]) : _raiseHand;
+                    public static AnimationClip Drum => !_drum ? _drum = Resources.Load<AnimationClip>(Path + Data.EmoteSeatedName[3]) : _drum;
+                    public static AnimationClip Clap => !_clap ? _clap = Resources.Load<AnimationClip>(Path + Data.EmoteSeatedName[4]) : _clap;
+                    public static AnimationClip ShakeFist => !_shakeFist ? _shakeFist = Resources.Load<AnimationClip>(Path + Data.EmoteSeatedName[5]) : _shakeFist;
+                    public static AnimationClip Disbelief => !_disbelief ? _disbelief = Resources.Load<AnimationClip>(Path + Data.EmoteSeatedName[6]) : _disbelief;
+                    public static AnimationClip Disapprove => !_disapprove ? _disapprove = Resources.Load<AnimationClip>(Path + Data.EmoteSeatedName[7]) : _disapprove;
                 }
             }
         }

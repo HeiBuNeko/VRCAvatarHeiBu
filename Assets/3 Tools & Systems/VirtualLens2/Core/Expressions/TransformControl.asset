@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
+  m_Name: TransformControl
+  m_EditorClassIdentifier: 
+  Parameters: {fileID: 0}
+  controls:
+  - name: Zoom
+    icon: {fileID: 2800000, guid: 5ccb080d4863f8a4cba3a29b9340d492, type: 3}
+    type: 203
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters:
+    - name: VirtualLens2 Zoom
+    labels: []
+  - name: Auto Leveler
+    icon: {fileID: 2800000, guid: 67178b5d0c6d1e548a1ab6827c2660a0, type: 3}
+    type: 103
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: 2aa0817a3d10e4b48bdd4ecf1e78812b, type: 2}
+    subParameters: []
+    labels: []
+  - name: More
+    icon: {fileID: 2800000, guid: 9aff6ecb532550748afee573eeee73d8, type: 3}
+    type: 103
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: 3f37e054fe9b30d4780658b9ba56c9d0, type: 2}
+    subParameters: []
+    labels: []
+  - name: Pickup
+    icon: {fileID: 2800000, guid: 12148ffa1b6b6da479d779ce9559c55b, type: 3}
+    type: 101
+    parameter:
+      name: VirtualLens2 Control
+    value: 102
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Drone
+    icon: {fileID: 2800000, guid: 994510cba7ac82c4584090a13f6ac376, type: 3}
+    type: 201
+    parameter:
+      name: VirtualLens2 Control
+    value: 191
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters:
+    - name: VirtualLens2 X
+    - name: VirtualLens2 Y
+    labels:
+    - name: Zoom+
+      icon: {fileID: 0}
+    - name: Yaw+
+      icon: {fileID: 0}
+    - name: Zoom-
+      icon: {fileID: 0}
+    - name: Yaw-
+      icon: {fileID: 0}
+  - name: Drop / Reposition
+    icon: {fileID: 2800000, guid: 4313f12645a070a40b2326f5ebfd428e, type: 3}
+    type: 101
+    parameter:
+      name: VirtualLens2 Control
+    value: 103
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []

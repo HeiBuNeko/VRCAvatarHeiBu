@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
+  m_Name: TransformControlMore
+  m_EditorClassIdentifier: 
+  Parameters: {fileID: 0}
+  controls:
+  - name: Stabilizer
+    icon: {fileID: 2800000, guid: ae35c33eeebd22244b363ddc385fae61, type: 3}
+    type: 103
+    parameter:
+      name: 
+    value: 108
+    style: 0
+    subMenu: {fileID: 11400000, guid: 2c0b910700945ef4bb574de6a85fab00, type: 2}
+    subParameters: []
+    labels: []
+  - name: Pins
+    icon: {fileID: 2800000, guid: b5d18e6a338aeea40a7cba38ea9139a4, type: 3}
+    type: 103
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: 27d57981f126e31499437119d4ffeab7, type: 2}
+    subParameters: []
+    labels: []
+  - name: Reposition Scale
+    icon: {fileID: 2800000, guid: 4313f12645a070a40b2326f5ebfd428e, type: 3}
+    type: 103
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: bf6710cdf7fab99438fe5e246c5da9d8, type: 2}
+    subParameters: []
+    labels: []
+  - name: Quick Selfie
+    icon: {fileID: 2800000, guid: cde6d41b9eff29d469bf3c6c1ab77e2b, type: 3}
+    type: 203
+    parameter:
+      name: VirtualLens2 QuickSelfieTrigger
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters:
+    - name: VirtualLens2 QuickSelfieDistance
+    labels: []

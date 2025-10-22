@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: RenderFXAA_1440p_2x
+  m_Shader: {fileID: 4800000, guid: 2ce7a3c426a13c049b8fb843b427101d, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - LB_TARGET_1440P
+  - WITH_MULTI_SAMPLING
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _CocTex:
+        m_Texture: {fileID: 8400000, guid: 6815869dcc3ef604391c5317a3b07855, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DepthTex:
+        m_Texture: {fileID: 8400000, guid: 44c1a10afdf9f4a4a8b436927c732b77, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DownsampledTex:
+        m_Texture: {fileID: 8400000, guid: d334a839998ee30418795793ecd60f3d, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 8400000, guid: 2bc7355b9c96e53458c7d6d36b4ea87f, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ResultTex:
+        m_Texture: {fileID: 8400000, guid: 286e30464d289db4f80a1a1b4187f1a1, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TileTex:
+        m_Texture: {fileID: 8400000, guid: 7a304f0a7758d3143a8a645957c56475, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Blurring: 0
+    - _Exposure: 0
+    - _IsDesktopMode: 0
+    - _MaxNumRings: 12
+    m_Colors: []
+  m_BuildTextureStacks: []

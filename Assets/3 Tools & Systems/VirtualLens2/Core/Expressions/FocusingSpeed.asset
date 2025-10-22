@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
+  m_Name: FocusingSpeed
+  m_EditorClassIdentifier: 
+  Parameters: {fileID: 0}
+  controls:
+  - name: Immediate
+    icon: {fileID: 2800000, guid: deddbb81d5f69684b96b45a749e00a55, type: 3}
+    type: 101
+    parameter:
+      name: VirtualLens2 Control
+    value: 126
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Fast
+    icon: {fileID: 2800000, guid: 669cba442f8f90c4da9425f2146d36f8, type: 3}
+    type: 101
+    parameter:
+      name: VirtualLens2 Control
+    value: 127
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Medium
+    icon: {fileID: 2800000, guid: 9e7bdaffdba61ae409637301b0e92e52, type: 3}
+    type: 101
+    parameter:
+      name: VirtualLens2 Control
+    value: 128
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Slow
+    icon: {fileID: 2800000, guid: a95c1186594beef4ebbcdf39d6a1eb3b, type: 3}
+    type: 101
+    parameter:
+      name: VirtualLens2 Control
+    value: 129
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []

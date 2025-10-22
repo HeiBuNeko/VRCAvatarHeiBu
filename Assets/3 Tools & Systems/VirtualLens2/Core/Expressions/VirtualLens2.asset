@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
+  m_Name: VirtualLens2
+  m_EditorClassIdentifier: 
+  Parameters: {fileID: 0}
+  controls:
+  - name: Enable
+    icon: {fileID: 2800000, guid: c93010c638d6df64ab2060759955ead8, type: 3}
+    type: 102
+    parameter:
+      name: VirtualLens2 Enable
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Zoom
+    icon: {fileID: 2800000, guid: 5ccb080d4863f8a4cba3a29b9340d492, type: 3}
+    type: 203
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters:
+    - name: VirtualLens2 Zoom
+    labels: []
+  - name: Aperture
+    icon: {fileID: 2800000, guid: 10e709cf6ce33ac4dbdcaf65dde35f8e, type: 3}
+    type: 203
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters:
+    - name: VirtualLens2 Aperture
+    labels: []
+  - name: Transform Control
+    icon: {fileID: 2800000, guid: e0ba5874dc452084993a647c481c42ba, type: 3}
+    type: 103
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: 444295983bfe00b4989290e1547da638, type: 2}
+    subParameters: []
+    labels: []
+  - name: Image Control
+    icon: {fileID: 2800000, guid: 3187d9ec3e556e54aa99490092899e1f, type: 3}
+    type: 103
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: 10ca2e43812790d46b9f1d6b9a9604a8, type: 2}
+    subParameters: []
+    labels: []
+  - name: Advanced Settings
+    icon: {fileID: 2800000, guid: 451992c71cdeade49ba8980237564df7, type: 3}
+    type: 103
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: cc344a62be99ad146b22179988396442, type: 2}
+    subParameters: []
+    labels: []
+  - name: Quick Calls
+    icon: {fileID: 2800000, guid: 107710c68b9d4964d83425dcb3c972f0, type: 3}
+    type: 103
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: b9fd875e68f070c4e99ab8bafd241585, type: 2}
+    subParameters: []
+    labels: []

@@ -1,0 +1,50 @@
+{
+    "name": "VirtualLens2.Editor",
+    "rootNamespace": "",
+    "references": [
+        "VirtualLens2.Runtime",
+        "nadena.dev.modular-avatar.core",
+        "nadena.dev.ndmf",
+        "nadena.dev.ndmf.vrchat",
+        "VRC.SDKBase.Editor",
+        "VRC.SDK3A.Editor",
+        "jp.lilxyzw.lilycalinventory"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "nadena.dev.modular-avatar",
+            "expression": "",
+            "define": "WITH_MODULAR_AVATAR"
+        },
+        {
+            "name": "nadena.dev.ndmf",
+            "expression": "",
+            "define": "WITH_NDMF"
+        },
+        {
+            "name": "nadena.dev.ndmf",
+            "expression": "(1.3.0-a,)",
+            "define": "WITH_NDMF_1_3"
+        },
+        {
+            "name": "nadena.dev.ndmf",
+            "expression": "(1.4.0-a,)",
+            "define": "WITH_NDMF_1_4"
+        },
+        {
+            "name": "jp.lilxyzw.lilycalinventory",
+            "expression": "(,1.0.0]",
+            "define": "WITH_OLD_LILYCAL_INVENTORY"
+        }
+    ],
+    "noEngineReferences": false
+}

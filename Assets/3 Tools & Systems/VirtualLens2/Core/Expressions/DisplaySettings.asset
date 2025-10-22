@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
+  m_Name: DisplaySettings
+  m_EditorClassIdentifier: 
+  Parameters: {fileID: 0}
+  controls:
+  - name: Grid
+    icon: {fileID: 2800000, guid: b9a14c67733947747b2f53e168d27f21, type: 3}
+    type: 103
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: 6f750dd9b038cf840ab48ebfe2df5602, type: 2}
+    subParameters: []
+    labels: []
+  - name: Information
+    icon: {fileID: 2800000, guid: ec06990496a253f45b38f663e6e3c754, type: 3}
+    type: 102
+    parameter:
+      name: VirtualLens2 Information
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Level
+    icon: {fileID: 2800000, guid: 40aa251c290d4424b9927216f8f4c21f, type: 3}
+    type: 102
+    parameter:
+      name: VirtualLens2 Level
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Peaking
+    icon: {fileID: 2800000, guid: 1633c146039ccea4680edae62f92828b, type: 3}
+    type: 103
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: dee19c8a8830eac499b1df3d28f9619f, type: 2}
+    subParameters: []
+    labels: []

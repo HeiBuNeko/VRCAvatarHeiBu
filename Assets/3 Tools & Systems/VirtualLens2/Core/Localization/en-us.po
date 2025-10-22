@@ -1,0 +1,202 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en-US\n"
+
+
+msgid "validation.common.object_not_in_avatar"
+msgstr "Object '{0}' is not in the avatar."
+
+
+msgid "validation.environment.legacy_unity_editor"
+msgstr "Current Unity version is no longer supported. Please upgrade your project."
+
+
+msgid "validation.avatar.not_selected"
+msgstr "Avatar is not selected."
+
+msgid "validation.avatar.no_descriptor"
+msgstr "Avatar doesn't have VRC Avatar Descriptor."
+
+msgid "validation.avatar.non_humanoid"
+msgstr "Avatar is not a humanoid."
+
+msgid "validation.avatar.no_eye_bones"
+msgstr "Avatar has no eye bones. Selfie focus will not work."
+
+msgid "validation.avatar.multiple_virtual_lens_settings"
+msgstr "Avatar contains two or more VirtualLens Settings objects."
+
+msgid "validation.avatar.generated_objects_in_prefab"
+msgstr "An auto generated object is found in a prefab. Please remove '{0}' from the prefab '{1}'."
+
+
+msgid "validation.camera.root.not_selected"
+msgstr "Camera Root Object is not selected."
+
+msgid "validation.camera.root.not_in_avatar"
+msgstr "Camera Root Object is not in the avatar."
+
+
+msgid "validation.camera.non_preview_root.not_selected"
+msgstr "Camera Non-Preview Root is not selected."
+
+msgid "validation.camera.non_preview_root.not_in_camera"
+msgstr "Camera Non-Preview Root is not in the camera."
+
+
+msgid "validation.markers.origin_not_found"
+msgstr "VirtualLensOrigin is not found."
+
+msgid "validation.markers.preview_not_found"
+msgstr "VirtualLensPreview is not found."
+
+
+msgid "validation.animation.not_unique_paths"
+msgstr "Object path '{0}' may not be unique. Please rename or remove objects to fix duplicate. It may conflict with following objects:\n{1}"
+
+msgid "validation.animation.mixed_write_defaults"
+msgstr "Configurations of Write Defaults will be mixed. Please check or uncheck 'Enable Write Defaults' if necessary."
+
+msgid "validation.animation.duplicated_parameters"
+msgstr "Duplicated parameter '{0}' was found. It will be removed."
+
+msgid "validation.animation.conflicting_parameter_usage"
+msgstr "Parameter '{0}' is used in the layer '{1}'."
+
+msgid "validation.animation.parameter_type_conflict"
+msgstr "AV3 parameter '{0}' was found in FX layer with wrong type. (expected={1}, actual={2})"
+
+
+msgid "validation.av3.no_enough_menu_slots"
+msgstr "There are no enough menu slots."
+
+msgid "validation.av3.no_enough_parameter_memory"
+msgstr "Parameter cost limit will be exceeded."
+
+msgid "validation.av3.multiple_fx_layers"
+msgstr "The number of FX layers is wrong. VirtualLens2 will fix it automatically."
+
+msgid "validation.av3.unknown_playable_layer_set"
+msgstr "The number of FX layers is wrong. Please update VRCSDK and reset playable layers to default."
+
+
+msgid "validation.focal_length.min.positiveness"
+msgstr "Min focal length must be positive."
+
+msgid "validation.focal_length.max.positiveness"
+msgstr "Max focal length must be positive."
+
+msgid "validation.focal_length.range_validity"
+msgstr "Min focal length must be less than max focal length."
+
+msgid "validation.focal_length.default_in_range"
+msgstr "Default focal length must be in range."
+
+
+msgid "validation.aperture.min.positiveness"
+msgstr "Min F-number must be positive."
+
+msgid "validation.aperture.max.positiveness"
+msgstr "Max F-number must be positive."
+
+msgid "validation.aperture.range_validity"
+msgstr "Min F-number must be less than max F-number."
+
+msgid "validation.aperture.default_in_range"
+msgstr "Default F-number must be in range."
+
+
+msgid "validation.manual_focusing.min.positiveness"
+msgstr "Min focus distance must be positive."
+
+msgid "validation.manual_focusing.max.positiveness"
+msgstr "Max focus distance must be positive."
+
+msgid "validation.manual_focusing.range_validity"
+msgstr "Min focus distance must be less than max focus distance."
+
+
+msgid "validation.exposure.range.positiveness"
+msgstr "Expsure range must be positive."
+
+msgid "validation.exposure.default_in_range"
+msgstr "Default exposure must be in range."
+
+
+msgid "validation.drone.speed_scale.positiveness"
+msgstr "Drone speed scale must be positive."
+
+msgid "validation.drone.dead_zone.positiveness"
+msgstr "Dead zone of drone speed controller must be positive."
+
+msgid "validation.drone.yaw_speed.positiveness"
+msgstr "Drone yaw speed must be positive."
+
+msgid "validation.drone.yaw_speed.limit"
+msgstr "Drone yaw speed must be less than {0}."
+
+
+msgid "validation.clipping_planes.near.positiveness"
+msgstr "Distance for near plane must be positive."
+
+msgid "validation.clipping_planes.far.positiveness"
+msgstr "Distance for far plane must be positive."
+
+msgid "validation.clipping_planes.range_validity"
+msgstr "Near Clipping Plane must be near than Far Clipping Plane."
+
+
+msgid "validation.hideables.no_mesh_renderer"
+msgstr "'{0}' doesn't have either Mesh Renderer or Skinned Mesh Renderer."
+
+
+msgid "validation.quick_calls.too_many_items"
+msgstr "There are too many quick calls."
+
+msgid "validation.quick_calls.focal_length_in_range"
+msgstr "Focal length for '{0}' must be in range."
+
+msgid "validation.quick_calls.aperture_in_range"
+msgstr "F-number for '{0}' must be in range."
+
+msgid "validation.quick_calls.exposure_in_range"
+msgstr "Exposure for '{0}' must be in range."
+
+
+msgid "validation.custom_grids.too_many_items"
+msgstr "There are too many custom grids."
+
+msgid "validation.custom_grids.texture_not_selected"
+msgstr "Custom grid texture is not selected."
+
+msgid "validation.custom_grid.texture_resolution_mismatch"
+msgstr "The resolution of custom grid texture '{0}' is not {1}x{2}."
+
+msgid "validation.custom_grid.texture_with_pot"
+msgstr "Custom grid texture '{0}' scaled to power of 2 by import settings."
+
+msgid "validation.custom_grid.texture_without_alpha"
+msgstr "Custom grid texture '{0}' doesn't have alpha."
+
+msgid "validation.custom_grid.texture_has_mipmap"
+msgstr "Mipmap is enabled for custom grid texture '{0}'."
+
+
+msgid "validation.artifacts.contains_modified_controller"
+msgstr "Your changes on FX layer will be discarded. You should move it out of artifacts folder before applying."
+
+msgid "validation.artifacts.contains_modified_expressions_menu"
+msgstr "Your changes on expressions menu will be discarded. You should move it out of artifacts folder before applying."
+
+msgid "validation.artifacts.contains_modified_expression_parameters"
+msgstr "Your changes on expression parameters will be discarded. You should move it out of artifacts folder before applying."
+
+
+msgid "validation.modular_avatar.legacy_integration"
+msgstr "Legacy Modular Avatar integration is deprecated. Please consider to use the non-destructive setup."
+
+msgid "validation.compatibility.old_lilycal_inventory"
+msgstr "lilycalInventory 1.0.0 or earlier may break VirtualLens2. Please update it before setup."

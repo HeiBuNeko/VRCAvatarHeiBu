@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
+  m_Name: AdvancedSettings
+  m_EditorClassIdentifier: 
+  Parameters: {fileID: 0}
+  controls:
+  - name: Hide Meshes
+    icon: {fileID: 2800000, guid: d1c6108326d531e4aaffe120def1340f, type: 3}
+    type: 102
+    parameter:
+      name: VirtualLens2 Hide
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Display Settings
+    icon: {fileID: 2800000, guid: eb8364bcd1e63dc42ba06905ff26c768, type: 3}
+    type: 103
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: 3db6e00a856d28049837e9a634564d06, type: 2}
+    subParameters: []
+    labels: []
+  - name: Mask
+    icon: {fileID: 2800000, guid: b323b113fa4b7bb4a9fc4fa1be19a98e, type: 3}
+    type: 103
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: 8250cce8df839e34bb8f96f60f657cfd, type: 2}
+    subParameters: []
+    labels: []
+  - name: Preview HUD
+    icon: {fileID: 2800000, guid: e6552f92329c6d2479a729a411def482, type: 3}
+    type: 102
+    parameter:
+      name: VirtualLens2 PreviewHUD
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Workarounds
+    icon: {fileID: 2800000, guid: a228ed671f4216b4facb4a97708c9e85, type: 3}
+    type: 103
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: 6275c82259c226342b0ef40780842df5, type: 2}
+    subParameters: []
+    labels: []
+  - name: Resolution
+    icon: {fileID: 2800000, guid: 0c55e333553b0c7478e8176426044a47, type: 3}
+    type: 103
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: cc0dc653f81880f44bcba835770c5386, type: 2}
+    subParameters: []
+    labels: []

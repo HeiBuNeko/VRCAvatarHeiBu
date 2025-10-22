@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
+  m_Name: Peaking
+  m_EditorClassIdentifier: 
+  Parameters: {fileID: 0}
+  controls:
+  - name: None
+    icon: {fileID: 2800000, guid: e97923f9a4d5c3041887a14690285f19, type: 3}
+    type: 101
+    parameter:
+      name: VirtualLens2 Control
+    value: 138
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: MF Only
+    icon: {fileID: 2800000, guid: 968aadd8bfe9f1948acf51f2544d52d2, type: 3}
+    type: 101
+    parameter:
+      name: VirtualLens2 Control
+    value: 139
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Always
+    icon: {fileID: 2800000, guid: 1633c146039ccea4680edae62f92828b, type: 3}
+    type: 101
+    parameter:
+      name: VirtualLens2 Control
+    value: 140
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []

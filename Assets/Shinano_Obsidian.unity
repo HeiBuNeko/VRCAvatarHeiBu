@@ -1,0 +1,482 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!29 &1
+OcclusionCullingSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_OcclusionBakeSettings:
+    smallestOccluder: 5
+    smallestHole: 0.25
+    backfaceThreshold: 100
+  m_SceneGUID: 00000000000000000000000000000000
+  m_OcclusionCullingData: {fileID: 0}
+--- !u!104 &2
+RenderSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 9
+  m_Fog: 0
+  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_FogMode: 3
+  m_FogDensity: 0.01
+  m_LinearFogStart: 0
+  m_LinearFogEnd: 300
+  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
+  m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
+  m_AmbientIntensity: 1
+  m_AmbientMode: 0
+  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
+  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_HaloStrength: 0.5
+  m_FlareStrength: 1
+  m_FlareFadeSpeed: 3
+  m_HaloTexture: {fileID: 0}
+  m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
+  m_DefaultReflectionMode: 0
+  m_DefaultReflectionResolution: 128
+  m_ReflectionBounces: 1
+  m_ReflectionIntensity: 1
+  m_CustomReflection: {fileID: 0}
+  m_Sun: {fileID: 0}
+  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
+  m_UseRadianceAmbientProbe: 0
+--- !u!157 &3
+LightmapSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 12
+  m_GIWorkflowMode: 1
+  m_GISettings:
+    serializedVersion: 2
+    m_BounceScale: 1
+    m_IndirectOutputScale: 1
+    m_AlbedoBoost: 1
+    m_EnvironmentLightingMode: 0
+    m_EnableBakedLightmaps: 1
+    m_EnableRealtimeLightmaps: 0
+  m_LightmapEditorSettings:
+    serializedVersion: 12
+    m_Resolution: 2
+    m_BakeResolution: 40
+    m_AtlasSize: 1024
+    m_AO: 0
+    m_AOMaxDistance: 1
+    m_CompAOExponent: 1
+    m_CompAOExponentDirect: 0
+    m_ExtractAmbientOcclusion: 0
+    m_Padding: 2
+    m_LightmapParameters: {fileID: 0}
+    m_LightmapsBakeMode: 1
+    m_TextureCompression: 1
+    m_FinalGather: 0
+    m_FinalGatherFiltering: 1
+    m_FinalGatherRayCount: 256
+    m_ReflectionCompression: 2
+    m_MixedBakeMode: 2
+    m_BakeBackend: 1
+    m_PVRSampling: 1
+    m_PVRDirectSampleCount: 32
+    m_PVRSampleCount: 512
+    m_PVRBounces: 2
+    m_PVREnvironmentSampleCount: 256
+    m_PVREnvironmentReferencePointCount: 2048
+    m_PVRFilteringMode: 1
+    m_PVRDenoiserTypeDirect: 1
+    m_PVRDenoiserTypeIndirect: 1
+    m_PVRDenoiserTypeAO: 1
+    m_PVRFilterTypeDirect: 0
+    m_PVRFilterTypeIndirect: 0
+    m_PVRFilterTypeAO: 0
+    m_PVREnvironmentMIS: 1
+    m_PVRCulling: 1
+    m_PVRFilteringGaussRadiusDirect: 1
+    m_PVRFilteringGaussRadiusIndirect: 5
+    m_PVRFilteringGaussRadiusAO: 2
+    m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+    m_PVRFilteringAtrousPositionSigmaIndirect: 2
+    m_PVRFilteringAtrousPositionSigmaAO: 1
+    m_ExportTrainingData: 0
+    m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
+  m_LightingDataAsset: {fileID: 0}
+  m_LightingSettings: {fileID: 0}
+--- !u!196 &4
+NavMeshSettings:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_BuildSettings:
+    serializedVersion: 3
+    agentTypeID: 0
+    agentRadius: 0.5
+    agentHeight: 2
+    agentSlope: 45
+    agentClimb: 0.4
+    ledgeDropHeight: 0
+    maxJumpAcrossDistance: 0
+    minRegionArea: 2
+    manualCellSize: 0
+    cellSize: 0.16666667
+    manualTileSize: 0
+    tileSize: 256
+    buildHeightMesh: 0
+    maxJobWorkers: 0
+    preserveTilesOutsideBounds: 0
+    debug:
+      m_Flags: 0
+  m_NavMeshData: {fileID: 0}
+--- !u!1 &698647713
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 698647715}
+  - component: {fileID: 698647714}
+  m_Layer: 0
+  m_Name: nadena.dev.ndmf__Activator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &698647714
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698647713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c432a5ed00a04259997c23712bcf2186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &698647715
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698647713}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &853572040
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1340397569098075073, guid: a0f3ced80a65ee64cbc31500a497fe44, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e96b68f0ca95bd44899269383e1fe82, type: 2}
+    - target: {fileID: 2229141658286916903, guid: a0f3ced80a65ee64cbc31500a497fe44, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e96b68f0ca95bd44899269383e1fe82, type: 2}
+    - target: {fileID: 2310326666337908175, guid: a0f3ced80a65ee64cbc31500a497fe44, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e96b68f0ca95bd44899269383e1fe82, type: 2}
+    - target: {fileID: 4561256734288161898, guid: a0f3ced80a65ee64cbc31500a497fe44, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e96b68f0ca95bd44899269383e1fe82, type: 2}
+    - target: {fileID: 5538876120334029779, guid: a0f3ced80a65ee64cbc31500a497fe44, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e96b68f0ca95bd44899269383e1fe82, type: 2}
+    - target: {fileID: 7492551626289600027, guid: a0f3ced80a65ee64cbc31500a497fe44, type: 3}
+      propertyPath: m_Name
+      value: Shinano_kisekae
+      objectReference: {fileID: 0}
+    - target: {fileID: 7650592292553376962, guid: a0f3ced80a65ee64cbc31500a497fe44, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e96b68f0ca95bd44899269383e1fe82, type: 2}
+    - target: {fileID: 7832099146100378785, guid: a0f3ced80a65ee64cbc31500a497fe44, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7832099146100378785, guid: a0f3ced80a65ee64cbc31500a497fe44, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7832099146100378785, guid: a0f3ced80a65ee64cbc31500a497fe44, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7832099146100378785, guid: a0f3ced80a65ee64cbc31500a497fe44, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7832099146100378785, guid: a0f3ced80a65ee64cbc31500a497fe44, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7832099146100378785, guid: a0f3ced80a65ee64cbc31500a497fe44, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7832099146100378785, guid: a0f3ced80a65ee64cbc31500a497fe44, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7832099146100378785, guid: a0f3ced80a65ee64cbc31500a497fe44, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7832099146100378785, guid: a0f3ced80a65ee64cbc31500a497fe44, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7832099146100378785, guid: a0f3ced80a65ee64cbc31500a497fe44, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9050602145681749528, guid: a0f3ced80a65ee64cbc31500a497fe44, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c564f19d8b871f8439c50d100c62b13e, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7492551626289600027, guid: a0f3ced80a65ee64cbc31500a497fe44, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 853572042}
+  m_SourcePrefab: {fileID: 100100000, guid: a0f3ced80a65ee64cbc31500a497fe44, type: 3}
+--- !u!1 &853572041 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7492551626289600027, guid: a0f3ced80a65ee64cbc31500a497fe44, type: 3}
+  m_PrefabInstance: {fileID: 853572040}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &853572042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853572041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2efed2fd1a16dec49b4612e16363e973, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  exportedData: "[{\"blendshapePresetGroups\":[{\"_rendererPath\":\"Body\",\"RendererPath\":\"Body\",\"BlendshapeDatas\":[{\"shapeKeyName\":\"eyelid_turi1\",\"weight\":80.0,\"BlendshapeKeyName\":\"eyelid_turi1\",\"Weight\":80.0},{\"shapeKeyName\":\"eyelid_tare1\",\"weight\":50.0,\"BlendshapeKeyName\":\"eyelid_tare1\",\"Weight\":50.0},{\"shapeKeyName\":\"eyelid_under_up2\",\"weight\":10.0,\"BlendshapeKeyName\":\"eyelid_under_up2\",\"Weight\":10.0},{\"shapeKeyName\":\"eyelid_under_down\",\"weight\":25.0,\"BlendshapeKeyName\":\"eyelid_under_down\",\"Weight\":25.0},{\"shapeKeyName\":\"eye_big\",\"weight\":18.0,\"BlendshapeKeyName\":\"eye_big\",\"Weight\":18.0},{\"shapeKeyName\":\"eye_horizontal\",\"weight\":1.8,\"BlendshapeKeyName\":\"eye_horizontal\",\"Weight\":1.8},{\"shapeKeyName\":\"eye_position_far\",\"weight\":40.2,\"BlendshapeKeyName\":\"eye_position_far\",\"Weight\":40.2},{\"shapeKeyName\":\"eye_size_small\",\"weight\":32.0,\"BlendshapeKeyName\":\"eye_size_small\",\"Weight\":32.0},{\"shapeKeyName\":\"eye_size_wide\",\"weight\":42.2,\"BlendshapeKeyName\":\"eye_size_wide\",\"Weight\":42.2},{\"shapeKeyName\":\"eye_pattern1\",\"weight\":40.0,\"BlendshapeKeyName\":\"eye_pattern1\",\"Weight\":40.0},{\"shapeKeyName\":\"mouth_small\",\"weight\":20.0,\"BlendshapeKeyName\":\"mouth_small\",\"Weight\":20.0},{\"shapeKeyName\":\"option_contour_small\",\"weight\":5.0,\"BlendshapeKeyName\":\"option_contour_small\",\"Weight\":5.0},{\"shapeKeyName\":\"option_contour_sharp\",\"weight\":15.0,\"BlendshapeKeyName\":\"option_contour_sharp\",\"Weight\":15.0},{\"shapeKeyName\":\"option_contour_narrow\",\"weight\":8.0,\"BlendshapeKeyName\":\"option_contour_narrow\",\"Weight\":8.0},{\"shapeKeyName\":\"option_jaw_long\",\"weight\":10.0,\"BlendshapeKeyName\":\"option_jaw_long\",\"Weight\":10.0},{\"shapeKeyName\":\"option_face_otona\",\"weight\":15.0,\"BlendshapeKeyName\":\"option_face_otona\",\"Weight\":15.0}]},{\"_rendererPath\":\"Hair_bang\",\"RendererPath\":\"Hair_bang\",\"BlendshapeDatas\":[{\"shapeKeyName\":\"Bangs_front_slant\",\"weight\":100.0,\"BlendshapeKeyName\":\"Bangs_front_slant\",\"Weight\":100.0},{\"shapeKeyName\":\"Bangs_front_long\",\"weight\":62.7,\"BlendshapeKeyName\":\"Bangs_front_long\",\"Weight\":62.7},{\"shapeKeyName\":\"Bangs_left_down\",\"weight\":58.4,\"BlendshapeKeyName\":\"Bangs_left_down\",\"Weight\":58.4},{\"shapeKeyName\":\"Bangs_right_down\",\"weight\":71.3,\"BlendshapeKeyName\":\"Bangs_right_down\",\"Weight\":71.3},{\"shapeKeyName\":\"Bangs_right_outside\",\"weight\":100.0,\"BlendshapeKeyName\":\"Bangs_right_outside\",\"Weight\":100.0}]}],\"displayName\":\"Face
+    preset1\",\"_isOpened\":false,\"IsOpened\":false},{\"blendshapePresetGroups\":[{\"_rendererPath\":\"Body\",\"RendererPath\":\"Body\",\"BlendshapeDatas\":[{\"shapeKeyName\":\"eyelid_tare1\",\"weight\":65.0,\"BlendshapeKeyName\":\"eyelid_tare1\",\"Weight\":65.0},{\"shapeKeyName\":\"eyelid_tare2\",\"weight\":35.0,\"BlendshapeKeyName\":\"eyelid_tare2\",\"Weight\":35.0},{\"shapeKeyName\":\"eye_size_small\",\"weight\":10.0,\"BlendshapeKeyName\":\"eye_size_small\",\"Weight\":10.0},{\"shapeKeyName\":\"eye_size_wide\",\"weight\":10.0,\"BlendshapeKeyName\":\"eye_size_wide\",\"Weight\":10.0},{\"shapeKeyName\":\"mouth_smile\",\"weight\":30.0,\"BlendshapeKeyName\":\"mouth_smile\",\"Weight\":30.0},{\"shapeKeyName\":\"eyebrow_tare\",\"weight\":40.0,\"BlendshapeKeyName\":\"eyebrow_tare\",\"Weight\":40.0},{\"shapeKeyName\":\"option_jaw_long\",\"weight\":15.0,\"BlendshapeKeyName\":\"option_jaw_long\",\"Weight\":15.0},{\"shapeKeyName\":\"option_face_otona\",\"weight\":30.0,\"BlendshapeKeyName\":\"option_face_otona\",\"Weight\":30.0},{\"shapeKeyName\":\"option_nose_down\",\"weight\":20.0,\"BlendshapeKeyName\":\"option_nose_down\",\"Weight\":20.0}]},{\"_rendererPath\":\"Hair_bang\",\"RendererPath\":\"Hair_bang\",\"BlendshapeDatas\":[{\"shapeKeyName\":\"Bangs_straight\",\"weight\":100.0,\"BlendshapeKeyName\":\"Bangs_straight\",\"Weight\":100.0},{\"shapeKeyName\":\"Bangs_front_short\",\"weight\":15.9,\"BlendshapeKeyName\":\"Bangs_front_short\",\"Weight\":15.9},{\"shapeKeyName\":\"Bangs_front_wide\",\"weight\":37.5,\"BlendshapeKeyName\":\"Bangs_front_wide\",\"Weight\":37.5}]}],\"displayName\":\"Face
+    preset2\",\"_isOpened\":false,\"IsOpened\":false},{\"blendshapePresetGroups\":[{\"_rendererPath\":\"Body\",\"RendererPath\":\"Body\",\"BlendshapeDatas\":[{\"shapeKeyName\":\"eyelid_tare2\",\"weight\":53.7,\"BlendshapeKeyName\":\"eyelid_tare2\",\"Weight\":53.7},{\"shapeKeyName\":\"eyelid_under_tare\",\"weight\":55.0,\"BlendshapeKeyName\":\"eyelid_under_tare\",\"Weight\":55.0},{\"shapeKeyName\":\"pupil_big\",\"weight\":24.8,\"BlendshapeKeyName\":\"pupil_big\",\"Weight\":24.8},{\"shapeKeyName\":\"pupil_near2\",\"weight\":20.0,\"BlendshapeKeyName\":\"pupil_near2\",\"Weight\":20.0},{\"shapeKeyName\":\"eye_big_sub\",\"weight\":22.1,\"BlendshapeKeyName\":\"eye_big_sub\",\"Weight\":22.1},{\"shapeKeyName\":\"eye_vertical\",\"weight\":8.4,\"BlendshapeKeyName\":\"eye_vertical\",\"Weight\":8.4},{\"shapeKeyName\":\"eye_position_down\",\"weight\":18.1,\"BlendshapeKeyName\":\"eye_position_down\",\"Weight\":18.1},{\"shapeKeyName\":\"eye_pattern2\",\"weight\":43.0,\"BlendshapeKeyName\":\"eye_pattern2\",\"Weight\":43.0},{\"shapeKeyName\":\"mouth_smile\",\"weight\":100.0,\"BlendshapeKeyName\":\"mouth_smile\",\"Weight\":100.0},{\"shapeKeyName\":\"mouth_position_up_sub\",\"weight\":47.7,\"BlendshapeKeyName\":\"mouth_position_up_sub\",\"Weight\":47.7},{\"shapeKeyName\":\"eyebrow_joy\",\"weight\":30.0,\"BlendshapeKeyName\":\"eyebrow_joy\",\"Weight\":30.0},{\"shapeKeyName\":\"option_jaw_narrow\",\"weight\":14.6,\"BlendshapeKeyName\":\"option_jaw_narrow\",\"Weight\":14.6},{\"shapeKeyName\":\"option_face_loli\",\"weight\":43.1,\"BlendshapeKeyName\":\"option_face_loli\",\"Weight\":43.1}]},{\"_rendererPath\":\"Hair_bang\",\"RendererPath\":\"Hair_bang\",\"BlendshapeDatas\":[{\"shapeKeyName\":\"Bangs_front_short\",\"weight\":27.9,\"BlendshapeKeyName\":\"Bangs_front_short\",\"Weight\":27.9},{\"shapeKeyName\":\"Bangs_front_wide\",\"weight\":50.4,\"BlendshapeKeyName\":\"Bangs_front_wide\",\"Weight\":50.4},{\"shapeKeyName\":\"Bangs_left_up\",\"weight\":30.0,\"BlendshapeKeyName\":\"Bangs_left_up\",\"Weight\":30.0},{\"shapeKeyName\":\"Bangs_right_up\",\"weight\":74.8,\"BlendshapeKeyName\":\"Bangs_right_up\",\"Weight\":74.8},{\"shapeKeyName\":\"Bangs_right_down\",\"weight\":6.8,\"BlendshapeKeyName\":\"Bangs_right_down\",\"Weight\":6.8}]}],\"displayName\":\"Face
+    preset3\",\"_isOpened\":false,\"IsOpened\":false},{\"blendshapePresetGroups\":[{\"_rendererPath\":\"Body\",\"RendererPath\":\"Body\",\"BlendshapeDatas\":[{\"shapeKeyName\":\"eye_halfclose\",\"weight\":100.0,\"BlendshapeKeyName\":\"eye_halfclose\",\"Weight\":100.0},{\"shapeKeyName\":\"eyelid_turi1\",\"weight\":80.1,\"BlendshapeKeyName\":\"eyelid_turi1\",\"Weight\":80.1},{\"shapeKeyName\":\"eyelid_under_up_sub\",\"weight\":55.8,\"BlendshapeKeyName\":\"eyelid_under_up_sub\",\"Weight\":55.8},{\"shapeKeyName\":\"eyelash_top_volume_up\",\"weight\":63.0,\"BlendshapeKeyName\":\"eyelash_top_volume_up\",\"Weight\":63.0},{\"shapeKeyName\":\"highlight_main_down\",\"weight\":7.5,\"BlendshapeKeyName\":\"highlight_main_down\",\"Weight\":7.5},{\"shapeKeyName\":\"highlight_main_shape_kira\xD7\",\"weight\":100.0,\"BlendshapeKeyName\":\"highlight_main_shape_kira\xD7\",\"Weight\":100.0},{\"shapeKeyName\":\"eye_size_big\",\"weight\":25.8,\"BlendshapeKeyName\":\"eye_size_big\",\"Weight\":25.8},{\"shapeKeyName\":\"eye_size_narrow\",\"weight\":14.9,\"BlendshapeKeyName\":\"eye_size_narrow\",\"Weight\":14.9},{\"shapeKeyName\":\"eye_pattern3\",\"weight\":15.0,\"BlendshapeKeyName\":\"eye_pattern3\",\"Weight\":15.0},{\"shapeKeyName\":\"eye_pattern4\",\"weight\":25.9,\"BlendshapeKeyName\":\"eye_pattern4\",\"Weight\":25.9},{\"shapeKeyName\":\"mouth_straight\",\"weight\":100.0,\"BlendshapeKeyName\":\"mouth_straight\",\"Weight\":100.0},{\"shapeKeyName\":\"mouth_close\",\"weight\":0.4,\"BlendshapeKeyName\":\"mouth_close\",\"Weight\":0.4},{\"shapeKeyName\":\"mouth_small\",\"weight\":17.9,\"BlendshapeKeyName\":\"mouth_small\",\"Weight\":17.9},{\"shapeKeyName\":\"mouth_corner_thick\",\"weight\":23.3,\"BlendshapeKeyName\":\"mouth_corner_thick\",\"Weight\":23.3},{\"shapeKeyName\":\"option_contour_small\",\"weight\":10.0,\"BlendshapeKeyName\":\"option_contour_small\",\"Weight\":10.0},{\"shapeKeyName\":\"option_face_otona\",\"weight\":28.2,\"BlendshapeKeyName\":\"option_face_otona\",\"Weight\":28.2}]},{\"_rendererPath\":\"Hair_bang\",\"RendererPath\":\"Hair_bang\",\"BlendshapeDatas\":[{\"shapeKeyName\":\"Bangs_front_long\",\"weight\":34.0,\"BlendshapeKeyName\":\"Bangs_front_long\",\"Weight\":34.0},{\"shapeKeyName\":\"Bangs_front_wide\",\"weight\":99.7,\"BlendshapeKeyName\":\"Bangs_front_wide\",\"Weight\":99.7},{\"shapeKeyName\":\"Bangs_left_down\",\"weight\":35.5,\"BlendshapeKeyName\":\"Bangs_left_down\",\"Weight\":35.5},{\"shapeKeyName\":\"Bangs_right_down\",\"weight\":28.7,\"BlendshapeKeyName\":\"Bangs_right_down\",\"Weight\":28.7}]}],\"displayName\":\"Face
+    preset4\",\"_isOpened\":false,\"IsOpened\":false},{\"blendshapePresetGroups\":[{\"_rendererPath\":\"Body\",\"RendererPath\":\"Body\",\"BlendshapeDatas\":[{\"shapeKeyName\":\"eye_halfclose\",\"weight\":100.0,\"BlendshapeKeyName\":\"eye_halfclose\",\"Weight\":100.0},{\"shapeKeyName\":\"eyelid_tare1\",\"weight\":79.7,\"BlendshapeKeyName\":\"eyelid_tare1\",\"Weight\":79.7},{\"shapeKeyName\":\"eyelid_center_up\",\"weight\":73.4,\"BlendshapeKeyName\":\"eyelid_center_up\",\"Weight\":73.4},{\"shapeKeyName\":\"eyelid_under_up_sub\",\"weight\":55.5,\"BlendshapeKeyName\":\"eyelid_under_up_sub\",\"Weight\":55.5},{\"shapeKeyName\":\"eyelid_under_tare\",\"weight\":59.5,\"BlendshapeKeyName\":\"eyelid_under_tare\",\"Weight\":59.5},{\"shapeKeyName\":\"eyelash_top_big\",\"weight\":100.0,\"BlendshapeKeyName\":\"eyelash_top_big\",\"Weight\":100.0},{\"shapeKeyName\":\"eyelash_top_thorn_big\",\"weight\":100.0,\"BlendshapeKeyName\":\"eyelash_top_thorn_big\",\"Weight\":100.0},{\"shapeKeyName\":\"eyelash_under_big\",\"weight\":100.0,\"BlendshapeKeyName\":\"eyelash_under_big\",\"Weight\":100.0},{\"shapeKeyName\":\"eye_big_sub\",\"weight\":25.5,\"BlendshapeKeyName\":\"eye_big_sub\",\"Weight\":25.5},{\"shapeKeyName\":\"eye_horizontal\",\"weight\":15.2,\"BlendshapeKeyName\":\"eye_horizontal\",\"Weight\":15.2},{\"shapeKeyName\":\"eye_look_up\",\"weight\":4.7,\"BlendshapeKeyName\":\"eye_look_up\",\"Weight\":4.7},{\"shapeKeyName\":\"eye_position_near\",\"weight\":31.4,\"BlendshapeKeyName\":\"eye_position_near\",\"Weight\":31.4},{\"shapeKeyName\":\"eye_size_small\",\"weight\":27.8,\"BlendshapeKeyName\":\"eye_size_small\",\"Weight\":27.8},{\"shapeKeyName\":\"eye_size_wide\",\"weight\":23.0,\"BlendshapeKeyName\":\"eye_size_wide\",\"Weight\":23.0},{\"shapeKeyName\":\"mouth_big\",\"weight\":25.0,\"BlendshapeKeyName\":\"mouth_big\",\"Weight\":25.0},{\"shapeKeyName\":\"mouth_position_up_sub\",\"weight\":71.1,\"BlendshapeKeyName\":\"mouth_position_up_sub\",\"Weight\":71.1},{\"shapeKeyName\":\"mouth_position_back\",\"weight\":23.7,\"BlendshapeKeyName\":\"mouth_position_back\",\"Weight\":23.7},{\"shapeKeyName\":\"option_contour_sharp\",\"weight\":50.0,\"BlendshapeKeyName\":\"option_contour_sharp\",\"Weight\":50.0},{\"shapeKeyName\":\"option_jaw_short\",\"weight\":20.0,\"BlendshapeKeyName\":\"option_jaw_short\",\"Weight\":20.0},{\"shapeKeyName\":\"option_face_otona\",\"weight\":100.0,\"BlendshapeKeyName\":\"option_face_otona\",\"Weight\":100.0},{\"shapeKeyName\":\"option_face_up\",\"weight\":60.0,\"BlendshapeKeyName\":\"option_face_up\",\"Weight\":60.0},{\"shapeKeyName\":\"option_nose_up\",\"weight\":50.0,\"BlendshapeKeyName\":\"option_nose_up\",\"Weight\":50.0}]},{\"_rendererPath\":\"Hair_bang\",\"RendererPath\":\"Hair_bang\",\"BlendshapeDatas\":[{\"shapeKeyName\":\"Bangs_straight\",\"weight\":100.0,\"BlendshapeKeyName\":\"Bangs_straight\",\"Weight\":100.0},{\"shapeKeyName\":\"Bangs_front_long\",\"weight\":11.1,\"BlendshapeKeyName\":\"Bangs_front_long\",\"Weight\":11.1},{\"shapeKeyName\":\"Bangs_front_wide\",\"weight\":53.4,\"BlendshapeKeyName\":\"Bangs_front_wide\",\"Weight\":53.4},{\"shapeKeyName\":\"Bangs_left_down\",\"weight\":13.6,\"BlendshapeKeyName\":\"Bangs_left_down\",\"Weight\":13.6},{\"shapeKeyName\":\"Bangs_right_up\",\"weight\":100.0,\"BlendshapeKeyName\":\"Bangs_right_up\",\"Weight\":100.0},{\"shapeKeyName\":\"Bangs_right_down\",\"weight\":40.0,\"BlendshapeKeyName\":\"Bangs_right_down\",\"Weight\":40.0}]}],\"displayName\":\"Face
+    preset5\",\"_isOpened\":false,\"IsOpened\":false},{\"blendshapePresetGroups\":[{\"_rendererPath\":\"Body\",\"RendererPath\":\"Body\",\"BlendshapeDatas\":[{\"shapeKeyName\":\"eye_surprise\",\"weight\":100.0,\"BlendshapeKeyName\":\"eye_surprise\",\"Weight\":100.0},{\"shapeKeyName\":\"eyelid_tare1\",\"weight\":40.0,\"BlendshapeKeyName\":\"eyelid_tare1\",\"Weight\":40.0},{\"shapeKeyName\":\"eyelid_under_down2\",\"weight\":30.4,\"BlendshapeKeyName\":\"eyelid_under_down2\",\"Weight\":30.4},{\"shapeKeyName\":\"pupil_white\",\"weight\":100.0,\"BlendshapeKeyName\":\"pupil_white\",\"Weight\":100.0},{\"shapeKeyName\":\"pupil_big\",\"weight\":100.0,\"BlendshapeKeyName\":\"pupil_big\",\"Weight\":100.0},{\"shapeKeyName\":\"highlight_main_far\",\"weight\":50.7,\"BlendshapeKeyName\":\"highlight_main_far\",\"Weight\":50.7},{\"shapeKeyName\":\"highlight_main_shape_star\",\"weight\":100.0,\"BlendshapeKeyName\":\"highlight_main_shape_star\",\"Weight\":100.0},{\"shapeKeyName\":\"mouth_smile\",\"weight\":100.0,\"BlendshapeKeyName\":\"mouth_smile\",\"Weight\":100.0},{\"shapeKeyName\":\"mouth_\u039B\",\"weight\":100.0,\"BlendshapeKeyName\":\"mouth_\u039B\",\"Weight\":100.0},{\"shapeKeyName\":\"mouth_position_up_sub\",\"weight\":64.1,\"BlendshapeKeyName\":\"mouth_position_up_sub\",\"Weight\":64.1},{\"shapeKeyName\":\"eyebrow_turi\",\"weight\":100.0,\"BlendshapeKeyName\":\"eyebrow_turi\",\"Weight\":100.0},{\"shapeKeyName\":\"eyebrow_tare\",\"weight\":100.0,\"BlendshapeKeyName\":\"eyebrow_tare\",\"Weight\":100.0},{\"shapeKeyName\":\"eyebrow_front_tail\",\"weight\":37.3,\"BlendshapeKeyName\":\"eyebrow_front_tail\",\"Weight\":37.3},{\"shapeKeyName\":\"option_face_loli\",\"weight\":31.4,\"BlendshapeKeyName\":\"option_face_loli\",\"Weight\":31.4}]},{\"_rendererPath\":\"Hair_bang\",\"RendererPath\":\"Hair_bang\",\"BlendshapeDatas\":[{\"shapeKeyName\":\"Bangs_front_left\",\"weight\":31.0,\"BlendshapeKeyName\":\"Bangs_front_left\",\"Weight\":31.0},{\"shapeKeyName\":\"Bangs_front_long\",\"weight\":4.8,\"BlendshapeKeyName\":\"Bangs_front_long\",\"Weight\":4.8},{\"shapeKeyName\":\"Bangs_front_wide\",\"weight\":56.7,\"BlendshapeKeyName\":\"Bangs_front_wide\",\"Weight\":56.7},{\"shapeKeyName\":\"Bangs_left_up\",\"weight\":35.5,\"BlendshapeKeyName\":\"Bangs_left_up\",\"Weight\":35.5},{\"shapeKeyName\":\"Bangs_left_down\",\"weight\":19.1,\"BlendshapeKeyName\":\"Bangs_left_down\",\"Weight\":19.1},{\"shapeKeyName\":\"Bangs_right_down\",\"weight\":20.2,\"BlendshapeKeyName\":\"Bangs_right_down\",\"Weight\":20.2},{\"shapeKeyName\":\"Bangs_right_outside\",\"weight\":45.6,\"BlendshapeKeyName\":\"Bangs_right_outside\",\"Weight\":45.6}]}],\"displayName\":\"Face
+    preset6\",\"_isOpened\":false,\"IsOpened\":false},{\"blendshapePresetGroups\":[{\"_rendererPath\":\"Body\",\"RendererPath\":\"Body\",\"BlendshapeDatas\":[{\"shapeKeyName\":\"eye_sleepy\",\"weight\":100.0,\"BlendshapeKeyName\":\"eye_sleepy\",\"Weight\":100.0},{\"shapeKeyName\":\"eyelid_tare1\",\"weight\":100.0,\"BlendshapeKeyName\":\"eyelid_tare1\",\"Weight\":100.0},{\"shapeKeyName\":\"eyelid_under_turi\",\"weight\":100.0,\"BlendshapeKeyName\":\"eyelid_under_turi\",\"Weight\":100.0},{\"shapeKeyName\":\"eye_position_down\",\"weight\":20.0,\"BlendshapeKeyName\":\"eye_position_down\",\"Weight\":20.0},{\"shapeKeyName\":\"eye_position_near\",\"weight\":50.0,\"BlendshapeKeyName\":\"eye_position_near\",\"Weight\":50.0},{\"shapeKeyName\":\"eye_size_small\",\"weight\":20.0,\"BlendshapeKeyName\":\"eye_size_small\",\"Weight\":20.0},{\"shapeKeyName\":\"eye_pattern3\",\"weight\":50.0,\"BlendshapeKeyName\":\"eye_pattern3\",\"Weight\":50.0},{\"shapeKeyName\":\"mouth_center_up\",\"weight\":100.0,\"BlendshapeKeyName\":\"mouth_center_up\",\"Weight\":100.0},{\"shapeKeyName\":\"mouth_center_down\",\"weight\":100.0,\"BlendshapeKeyName\":\"mouth_center_down\",\"Weight\":100.0},{\"shapeKeyName\":\"option_contour_small\",\"weight\":30.0,\"BlendshapeKeyName\":\"option_contour_small\",\"Weight\":30.0}]},{\"_rendererPath\":\"Hair_bang\",\"RendererPath\":\"Hair_bang\",\"BlendshapeDatas\":[{\"shapeKeyName\":\"Bangs_front_right\",\"weight\":26.7,\"BlendshapeKeyName\":\"Bangs_front_right\",\"Weight\":26.7},{\"shapeKeyName\":\"Bangs_front_long\",\"weight\":33.2,\"BlendshapeKeyName\":\"Bangs_front_long\",\"Weight\":33.2},{\"shapeKeyName\":\"Bangs_left_outside\",\"weight\":100.0,\"BlendshapeKeyName\":\"Bangs_left_outside\",\"Weight\":100.0},{\"shapeKeyName\":\"Bangs_right_down\",\"weight\":41.3,\"BlendshapeKeyName\":\"Bangs_right_down\",\"Weight\":41.3},{\"shapeKeyName\":\"Bangs_right_inside\",\"weight\":100.0,\"BlendshapeKeyName\":\"Bangs_right_inside\",\"Weight\":100.0}]}],\"displayName\":\"Face
+    preset7\",\"_isOpened\":false,\"IsOpened\":false},{\"blendshapePresetGroups\":[{\"_rendererPath\":\"Body\",\"RendererPath\":\"Body\",\"BlendshapeDatas\":[{\"shapeKeyName\":\"eye_zitome1\",\"weight\":100.0,\"BlendshapeKeyName\":\"eye_zitome1\",\"Weight\":100.0},{\"shapeKeyName\":\"eyelid_turi1\",\"weight\":64.7,\"BlendshapeKeyName\":\"eyelid_turi1\",\"Weight\":64.7},{\"shapeKeyName\":\"eyelid_tare1\",\"weight\":36.5,\"BlendshapeKeyName\":\"eyelid_tare1\",\"Weight\":36.5},{\"shapeKeyName\":\"eyelid_tail_down\",\"weight\":52.3,\"BlendshapeKeyName\":\"eyelid_tail_down\",\"Weight\":52.3},{\"shapeKeyName\":\"eyelid_under_up_sub\",\"weight\":82.6,\"BlendshapeKeyName\":\"eyelid_under_up_sub\",\"Weight\":82.6},{\"shapeKeyName\":\"eyelid_thick\",\"weight\":10.6,\"BlendshapeKeyName\":\"eyelid_thick\",\"Weight\":10.6},{\"shapeKeyName\":\"eyelash_top_whiteline_thick\",\"weight\":86.9,\"BlendshapeKeyName\":\"eyelash_top_whiteline_thick\",\"Weight\":86.9},{\"shapeKeyName\":\"eyelash_under_big\",\"weight\":62.5,\"BlendshapeKeyName\":\"eyelash_under_big\",\"Weight\":62.5},{\"shapeKeyName\":\"highlight_eyelash_big\",\"weight\":14.5,\"BlendshapeKeyName\":\"highlight_eyelash_big\",\"Weight\":14.5},{\"shapeKeyName\":\"highlight_eyelash_down\",\"weight\":12.3,\"BlendshapeKeyName\":\"highlight_eyelash_down\",\"Weight\":12.3},{\"shapeKeyName\":\"highlight_sub3_small\",\"weight\":64.3,\"BlendshapeKeyName\":\"highlight_sub3_small\",\"Weight\":64.3},{\"shapeKeyName\":\"highlight_sub3_down\",\"weight\":43.4,\"BlendshapeKeyName\":\"highlight_sub3_down\",\"Weight\":43.4},{\"shapeKeyName\":\"highlight_sub3_near\",\"weight\":9.1,\"BlendshapeKeyName\":\"highlight_sub3_near\",\"Weight\":9.1},{\"shapeKeyName\":\"eye_pattern4\",\"weight\":54.5,\"BlendshapeKeyName\":\"eye_pattern4\",\"Weight\":54.5},{\"shapeKeyName\":\"mouth_\u039B\",\"weight\":100.0,\"BlendshapeKeyName\":\"mouth_\u039B\",\"Weight\":100.0},{\"shapeKeyName\":\"mouth_big\",\"weight\":38.0,\"BlendshapeKeyName\":\"mouth_big\",\"Weight\":38.0},{\"shapeKeyName\":\"mouth_center_beak\",\"weight\":64.2,\"BlendshapeKeyName\":\"mouth_center_beak\",\"Weight\":64.2},{\"shapeKeyName\":\"mouth_corner_angle_up\",\"weight\":100.0,\"BlendshapeKeyName\":\"mouth_corner_angle_up\",\"Weight\":100.0},{\"shapeKeyName\":\"mouth_position_up\",\"weight\":20.0,\"BlendshapeKeyName\":\"mouth_position_up\",\"Weight\":20.0},{\"shapeKeyName\":\"tooth_gizaba\",\"weight\":78.0,\"BlendshapeKeyName\":\"tooth_gizaba\",\"Weight\":78.0},{\"shapeKeyName\":\"eyebrow_straight\",\"weight\":100.0,\"BlendshapeKeyName\":\"eyebrow_straight\",\"Weight\":100.0},{\"shapeKeyName\":\"option_jaw_wide\",\"weight\":51.7,\"BlendshapeKeyName\":\"option_jaw_wide\",\"Weight\":51.7},{\"shapeKeyName\":\"option_jaw_short\",\"weight\":29.2,\"BlendshapeKeyName\":\"option_jaw_short\",\"Weight\":29.2},{\"shapeKeyName\":\"option_face_loli\",\"weight\":48.3,\"BlendshapeKeyName\":\"option_face_loli\",\"Weight\":48.3}]},{\"_rendererPath\":\"Hair_bang\",\"RendererPath\":\"Hair_bang\",\"BlendshapeDatas\":[{\"shapeKeyName\":\"Bangs_front_slant\",\"weight\":71.1,\"BlendshapeKeyName\":\"Bangs_front_slant\",\"Weight\":71.1},{\"shapeKeyName\":\"Bangs_front_left\",\"weight\":25.1,\"BlendshapeKeyName\":\"Bangs_front_left\",\"Weight\":25.1},{\"shapeKeyName\":\"Bangs_front_long\",\"weight\":34.9,\"BlendshapeKeyName\":\"Bangs_front_long\",\"Weight\":34.9},{\"shapeKeyName\":\"Bangs_front_wide\",\"weight\":22.8,\"BlendshapeKeyName\":\"Bangs_front_wide\",\"Weight\":22.8},{\"shapeKeyName\":\"Bangs_front_cross\",\"weight\":100.0,\"BlendshapeKeyName\":\"Bangs_front_cross\",\"Weight\":100.0},{\"shapeKeyName\":\"Bangs_left_down\",\"weight\":33.5,\"BlendshapeKeyName\":\"Bangs_left_down\",\"Weight\":33.5},{\"shapeKeyName\":\"Bangs_left_inside\",\"weight\":100.0,\"BlendshapeKeyName\":\"Bangs_left_inside\",\"Weight\":100.0},{\"shapeKeyName\":\"Bangs_right_down\",\"weight\":33.1,\"BlendshapeKeyName\":\"Bangs_right_down\",\"Weight\":33.1},{\"shapeKeyName\":\"Bangs_right_inside\",\"weight\":60.5,\"BlendshapeKeyName\":\"Bangs_right_inside\",\"Weight\":60.5},{\"shapeKeyName\":\"Bangs_side_volume\",\"weight\":100.0,\"BlendshapeKeyName\":\"Bangs_side_volume\",\"Weight\":100.0},{\"shapeKeyName\":\"Bangs_side_x\",\"weight\":100.0,\"BlendshapeKeyName\":\"Bangs_side_x\",\"Weight\":100.0}]}],\"displayName\":\"Face
+    preset8\",\"_isOpened\":false,\"IsOpened\":false},{\"blendshapePresetGroups\":[{\"_rendererPath\":\"Body\",\"RendererPath\":\"Body\",\"BlendshapeDatas\":[{\"shapeKeyName\":\"eye_halfclose\",\"weight\":100.0,\"BlendshapeKeyName\":\"eye_halfclose\",\"Weight\":100.0},{\"shapeKeyName\":\"eyelid_turi2\",\"weight\":43.5,\"BlendshapeKeyName\":\"eyelid_turi2\",\"Weight\":43.5},{\"shapeKeyName\":\"eyelid_tare2\",\"weight\":12.2,\"BlendshapeKeyName\":\"eyelid_tare2\",\"Weight\":12.2},{\"shapeKeyName\":\"eyelid_tail_down\",\"weight\":36.0,\"BlendshapeKeyName\":\"eyelid_tail_down\",\"Weight\":36.0},{\"shapeKeyName\":\"eyelid_tail_long\",\"weight\":47.8,\"BlendshapeKeyName\":\"eyelid_tail_long\",\"Weight\":47.8},{\"shapeKeyName\":\"eyelid_under_up_sub\",\"weight\":66.0,\"BlendshapeKeyName\":\"eyelid_under_up_sub\",\"Weight\":66.0},{\"shapeKeyName\":\"eyelid_thin\",\"weight\":30.0,\"BlendshapeKeyName\":\"eyelid_thin\",\"Weight\":30.0},{\"shapeKeyName\":\"eyelid_sub1_up\",\"weight\":25.5,\"BlendshapeKeyName\":\"eyelid_sub1_up\",\"Weight\":25.5},{\"shapeKeyName\":\"eyelid_sub1_front\",\"weight\":5.0,\"BlendshapeKeyName\":\"eyelid_sub1_front\",\"Weight\":5.0},{\"shapeKeyName\":\"eyelid_sub1_turn_inside\",\"weight\":35.0,\"BlendshapeKeyName\":\"eyelid_sub1_turn_inside\",\"Weight\":35.0},{\"shapeKeyName\":\"eyelid_sub2_up\",\"weight\":45.3,\"BlendshapeKeyName\":\"eyelid_sub2_up\",\"Weight\":45.3},{\"shapeKeyName\":\"eyelid_sub2_turn_inside\",\"weight\":100.0,\"BlendshapeKeyName\":\"eyelid_sub2_turn_inside\",\"Weight\":100.0},{\"shapeKeyName\":\"eyelash_top_big\",\"weight\":15.7,\"BlendshapeKeyName\":\"eyelash_top_big\",\"Weight\":15.7},{\"shapeKeyName\":\"eyelash_top_thorn_big\",\"weight\":30.0,\"BlendshapeKeyName\":\"eyelash_top_thorn_big\",\"Weight\":30.0},{\"shapeKeyName\":\"eyelash_under_big\",\"weight\":61.1,\"BlendshapeKeyName\":\"eyelash_under_big\",\"Weight\":61.1},{\"shapeKeyName\":\"pupil_big\",\"weight\":30.0,\"BlendshapeKeyName\":\"pupil_big\",\"Weight\":30.0},{\"shapeKeyName\":\"highlight_main_big\",\"weight\":27.9,\"BlendshapeKeyName\":\"highlight_main_big\",\"Weight\":27.9},{\"shapeKeyName\":\"highlight_sub1_big\",\"weight\":36.8,\"BlendshapeKeyName\":\"highlight_sub1_big\",\"Weight\":36.8},{\"shapeKeyName\":\"highlight_sub2_big\",\"weight\":30.0,\"BlendshapeKeyName\":\"highlight_sub2_big\",\"Weight\":30.0},{\"shapeKeyName\":\"highlight_sub3_big\",\"weight\":10.8,\"BlendshapeKeyName\":\"highlight_sub3_big\",\"Weight\":10.8},{\"shapeKeyName\":\"highlight_sub3_down\",\"weight\":15.0,\"BlendshapeKeyName\":\"highlight_sub3_down\",\"Weight\":15.0},{\"shapeKeyName\":\"eye_big_sub\",\"weight\":26.1,\"BlendshapeKeyName\":\"eye_big_sub\",\"Weight\":26.1},{\"shapeKeyName\":\"eye_horizontal\",\"weight\":13.1,\"BlendshapeKeyName\":\"eye_horizontal\",\"Weight\":13.1},{\"shapeKeyName\":\"eye_vertical\",\"weight\":19.7,\"BlendshapeKeyName\":\"eye_vertical\",\"Weight\":19.7},{\"shapeKeyName\":\"eye_look_down\",\"weight\":18.5,\"BlendshapeKeyName\":\"eye_look_down\",\"Weight\":18.5},{\"shapeKeyName\":\"eye_look_near\",\"weight\":16.4,\"BlendshapeKeyName\":\"eye_look_near\",\"Weight\":16.4},{\"shapeKeyName\":\"eye_position_up\",\"weight\":18.3,\"BlendshapeKeyName\":\"eye_position_up\",\"Weight\":18.3},{\"shapeKeyName\":\"eye_position_near\",\"weight\":50.8,\"BlendshapeKeyName\":\"eye_position_near\",\"Weight\":50.8},{\"shapeKeyName\":\"eye_size_narrow\",\"weight\":35.0,\"BlendshapeKeyName\":\"eye_size_narrow\",\"Weight\":35.0},{\"shapeKeyName\":\"mouth_straight\",\"weight\":100.0,\"BlendshapeKeyName\":\"mouth_straight\",\"Weight\":100.0},{\"shapeKeyName\":\"mouth_big\",\"weight\":25.9,\"BlendshapeKeyName\":\"mouth_big\",\"Weight\":25.9},{\"shapeKeyName\":\"mouth_center_beak\",\"weight\":70.6,\"BlendshapeKeyName\":\"mouth_center_beak\",\"Weight\":70.6},{\"shapeKeyName\":\"mouth_corner_front\",\"weight\":17.8,\"BlendshapeKeyName\":\"mouth_corner_front\",\"Weight\":17.8},{\"shapeKeyName\":\"mouth_position_down\",\"weight\":5.1,\"BlendshapeKeyName\":\"mouth_position_down\",\"Weight\":5.1},{\"shapeKeyName\":\"eyebrow_short\",\"weight\":34.0,\"BlendshapeKeyName\":\"eyebrow_short\",\"Weight\":34.0},{\"shapeKeyName\":\"option_contour_small\",\"weight\":10.9,\"BlendshapeKeyName\":\"option_contour_small\",\"Weight\":10.9},{\"shapeKeyName\":\"option_contour_narrow\",\"weight\":13.1,\"BlendshapeKeyName\":\"option_contour_narrow\",\"Weight\":13.1},{\"shapeKeyName\":\"option_jaw_narrow\",\"weight\":12.2,\"BlendshapeKeyName\":\"option_jaw_narrow\",\"Weight\":12.2},{\"shapeKeyName\":\"option_jaw_long\",\"weight\":29.8,\"BlendshapeKeyName\":\"option_jaw_long\",\"Weight\":29.8},{\"shapeKeyName\":\"option_face_otona\",\"weight\":92.9,\"BlendshapeKeyName\":\"option_face_otona\",\"Weight\":92.9},{\"shapeKeyName\":\"option_nose_up\",\"weight\":20.0,\"BlendshapeKeyName\":\"option_nose_up\",\"Weight\":20.0}]},{\"_rendererPath\":\"Hair_bang\",\"RendererPath\":\"Hair_bang\",\"BlendshapeDatas\":[{\"shapeKeyName\":\"Bangs_front_left\",\"weight\":74.4,\"BlendshapeKeyName\":\"Bangs_front_left\",\"Weight\":74.4},{\"shapeKeyName\":\"Bangs_front_long\",\"weight\":33.0,\"BlendshapeKeyName\":\"Bangs_front_long\",\"Weight\":33.0},{\"shapeKeyName\":\"Bangs_left_down\",\"weight\":53.5,\"BlendshapeKeyName\":\"Bangs_left_down\",\"Weight\":53.5}]}],\"displayName\":\"Face
+    preset9\",\"_isOpened\":false,\"IsOpened\":false},{\"blendshapePresetGroups\":[{\"_rendererPath\":\"Body\",\"RendererPath\":\"Body\",\"BlendshapeDatas\":[{\"shapeKeyName\":\"eye_zitome1\",\"weight\":51.1,\"BlendshapeKeyName\":\"eye_zitome1\",\"Weight\":51.1},{\"shapeKeyName\":\"eyelid_turi1\",\"weight\":35.9,\"BlendshapeKeyName\":\"eyelid_turi1\",\"Weight\":35.9},{\"shapeKeyName\":\"eye_size_small\",\"weight\":8.8,\"BlendshapeKeyName\":\"eye_size_small\",\"Weight\":8.8},{\"shapeKeyName\":\"eye_size_wide\",\"weight\":13.1,\"BlendshapeKeyName\":\"eye_size_wide\",\"Weight\":13.1},{\"shapeKeyName\":\"eyebrow_tare\",\"weight\":40.0,\"BlendshapeKeyName\":\"eyebrow_tare\",\"Weight\":40.0},{\"shapeKeyName\":\"option_jaw_long\",\"weight\":15.0,\"BlendshapeKeyName\":\"option_jaw_long\",\"Weight\":15.0},{\"shapeKeyName\":\"option_face_otona\",\"weight\":30.0,\"BlendshapeKeyName\":\"option_face_otona\",\"Weight\":30.0},{\"shapeKeyName\":\"option_nose_down\",\"weight\":20.0,\"BlendshapeKeyName\":\"option_nose_down\",\"Weight\":20.0}]},{\"_rendererPath\":\"Hair_bang\",\"RendererPath\":\"Hair_bang\",\"BlendshapeDatas\":[{\"shapeKeyName\":\"Bangs_straight\",\"weight\":100.0,\"BlendshapeKeyName\":\"Bangs_straight\",\"Weight\":100.0},{\"shapeKeyName\":\"Bangs_front_short\",\"weight\":15.9,\"BlendshapeKeyName\":\"Bangs_front_short\",\"Weight\":15.9},{\"shapeKeyName\":\"Bangs_front_wide\",\"weight\":37.5,\"BlendshapeKeyName\":\"Bangs_front_wide\",\"Weight\":37.5}]}],\"displayName\":\"Fece
+    preset10\",\"_isOpened\":false,\"IsOpened\":false}]"
+  exportedColorData: '[{"displayName":"Eye","_rendererPath":"Body","materialIndex":0,"amsMaterials":[{"materialGUID":"884dad64a963e4a469fc273f18656179","colorCode":"#ecdfd9ff","displayName":"Default"},{"materialGUID":"5d210ff10fbe9c9429fd85f458f8ddbc","colorCode":"#ffffffff","displayName":"White"},{"materialGUID":"8ebdfd2393f03cf4b9d1a477d4afd312","colorCode":"#000000ff","displayName":"Black"},{"materialGUID":"c564f19d8b871f8439c50d100c62b13e","colorCode":"#ff0000ff","displayName":"Red"},{"materialGUID":"547261672d384cc4b9bff121c9bc823c","colorCode":"#0011ffff","displayName":"Blue"},{"materialGUID":"5f7269b08da946a4aae2f2646fc63007","colorCode":"#08ff00ff","displayName":"Green"},{"materialGUID":"c95e7eba94aa0e7468727e0b22cd51b9","colorCode":"#f524c6ff","displayName":"Pink"},{"materialGUID":"fe0463a7ae9cad443a612d6d00bc4b8f","colorCode":"#f8f52eff","displayName":"Yellow"},{"materialGUID":"5501d0ff7cfc60f428d3b536e8f44645","colorCode":"#27fdf9ff","displayName":"Cyan"},{"materialGUID":"1b72214e8d83a9c448caf5cbdfa58f7d","colorCode":"#d6afd0ff","displayName":"Spring"},{"materialGUID":"8bf8b64ef2a343548b8c56ea50bf5ba5","colorCode":"#4bc1d9ff","displayName":"Summer"},{"materialGUID":"daf128fb827f6d2499aa5b9755654f1e","colorCode":"#5f281eff","displayName":"Autumn"},{"materialGUID":"f55e37b5bc4231848b6f7a599ecd4161","colorCode":"#6a7588ff","displayName":"Winter"},{"materialGUID":"37d4f574c8e505446a1d164dfef2b9b9","colorCode":"#b9bad3ff","displayName":"Kikyo"}],"DisplayName":"Eye","MaterialIndex":0},{"displayName":"Hair_bang","_rendererPath":"Hair_bang","materialIndex":0,"amsMaterials":[{"materialGUID":"d8aa7a450962cf94882d75b8b59cb66c","colorCode":"#ecdfd9ff","displayName":"Default"},{"materialGUID":"df3cc1e01d921ae42bfc3f28f5534179","colorCode":"#ffffffff","displayName":"White"},{"materialGUID":"6d9a17ad69b78c14ca5abdedcd098587","colorCode":"#5a3832ff","displayName":"Brown"},{"materialGUID":"3e96b68f0ca95bd44899269383e1fe82","colorCode":"#000000ff","displayName":"Black"},{"materialGUID":"c83130eca8d6ff64badb770d23e69e23","colorCode":"#c08a42ff","displayName":"Gold"},{"materialGUID":"7539f17579829be45b5614347f798026","colorCode":"#abb490ff","displayName":"Olive"},{"materialGUID":"a44cd05cafb2d6c4ebee4d6c72068cc8","colorCode":"#d6afd0ff","displayName":"Spring"},{"materialGUID":"ddef1c63c8a7d8d4c89929ea6711f316","colorCode":"#4bc1d9ff","displayName":"Summer"},{"materialGUID":"881efdf7c7785614cae0b882c1c6ace3","colorCode":"#5f281eff","displayName":"Autumn"},{"materialGUID":"849cec4fec7644243bbc5f7d84b499e6","colorCode":"#77849cff","displayName":"Winter"},{"materialGUID":"aa92c9356e3365541b92b3f5a060799b","colorCode":"#b9bad3ff","displayName":"Kikyo"}],"DisplayName":"Hair_bang","MaterialIndex":0},{"displayName":"Hair_side","_rendererPath":"Hair_side","materialIndex":0,"amsMaterials":[{"materialGUID":"d8aa7a450962cf94882d75b8b59cb66c","colorCode":"#ecdfd9ff","displayName":"Default"},{"materialGUID":"df3cc1e01d921ae42bfc3f28f5534179","colorCode":"#ffffffff","displayName":"White"},{"materialGUID":"6d9a17ad69b78c14ca5abdedcd098587","colorCode":"#5a3832ff","displayName":"Brown"},{"materialGUID":"3e96b68f0ca95bd44899269383e1fe82","colorCode":"#000000ff","displayName":"Black"},{"materialGUID":"c83130eca8d6ff64badb770d23e69e23","colorCode":"#c08a42ff","displayName":"Gold"},{"materialGUID":"7539f17579829be45b5614347f798026","colorCode":"#abb490ff","displayName":"Olive"},{"materialGUID":"a44cd05cafb2d6c4ebee4d6c72068cc8","colorCode":"#d6afd0ff","displayName":"Spring"},{"materialGUID":"ddef1c63c8a7d8d4c89929ea6711f316","colorCode":"#4bc1d9ff","displayName":"Summer"},{"materialGUID":"881efdf7c7785614cae0b882c1c6ace3","colorCode":"#5f281eff","displayName":"Autumn"},{"materialGUID":"849cec4fec7644243bbc5f7d84b499e6","colorCode":"#77849cff","displayName":"Winter"},{"materialGUID":"aa92c9356e3365541b92b3f5a060799b","colorCode":"#b9bad3ff","displayName":"Kikyo"}],"DisplayName":"Hair_side","MaterialIndex":0},{"displayName":"Hair_back","_rendererPath":"Hair_back","materialIndex":0,"amsMaterials":[{"materialGUID":"d8aa7a450962cf94882d75b8b59cb66c","colorCode":"#ecdfd9ff","displayName":"Default"},{"materialGUID":"df3cc1e01d921ae42bfc3f28f5534179","colorCode":"#ffffffff","displayName":"White"},{"materialGUID":"6d9a17ad69b78c14ca5abdedcd098587","colorCode":"#5a3832ff","displayName":"Brown"},{"materialGUID":"3e96b68f0ca95bd44899269383e1fe82","colorCode":"#000000ff","displayName":"Black"},{"materialGUID":"c83130eca8d6ff64badb770d23e69e23","colorCode":"#c08a42ff","displayName":"Gold"},{"materialGUID":"7539f17579829be45b5614347f798026","colorCode":"#abb490ff","displayName":"Olive"},{"materialGUID":"a44cd05cafb2d6c4ebee4d6c72068cc8","colorCode":"#d6afd0ff","displayName":"Spring"},{"materialGUID":"ddef1c63c8a7d8d4c89929ea6711f316","colorCode":"#4bc1d9ff","displayName":"Summer"},{"materialGUID":"881efdf7c7785614cae0b882c1c6ace3","colorCode":"#5f281eff","displayName":"Autumn"},{"materialGUID":"849cec4fec7644243bbc5f7d84b499e6","colorCode":"#77849cff","displayName":"Winter"},{"materialGUID":"aa92c9356e3365541b92b3f5a060799b","colorCode":"#b9bad3ff","displayName":"Kikyo"}],"DisplayName":"Hair_back","MaterialIndex":0},{"displayName":"Hair_base","_rendererPath":"Hair_base","materialIndex":0,"amsMaterials":[{"materialGUID":"d8aa7a450962cf94882d75b8b59cb66c","colorCode":"#ecdfd9ff","displayName":"Default"},{"materialGUID":"df3cc1e01d921ae42bfc3f28f5534179","colorCode":"#ffffffff","displayName":"White"},{"materialGUID":"6d9a17ad69b78c14ca5abdedcd098587","colorCode":"#5a3832ff","displayName":"Brown"},{"materialGUID":"3e96b68f0ca95bd44899269383e1fe82","colorCode":"#000000ff","displayName":"Black"},{"materialGUID":"c83130eca8d6ff64badb770d23e69e23","colorCode":"#c08a42ff","displayName":"Gold"},{"materialGUID":"7539f17579829be45b5614347f798026","colorCode":"#abb490ff","displayName":"Olive"},{"materialGUID":"a44cd05cafb2d6c4ebee4d6c72068cc8","colorCode":"#d6afd0ff","displayName":"Spring"},{"materialGUID":"ddef1c63c8a7d8d4c89929ea6711f316","colorCode":"#4aabbfff","displayName":"Summer"},{"materialGUID":"881efdf7c7785614cae0b882c1c6ace3","colorCode":"#5f281eff","displayName":"Autumn"},{"materialGUID":"849cec4fec7644243bbc5f7d84b499e6","colorCode":"#77849cff","displayName":"Winter"},{"materialGUID":"aa92c9356e3365541b92b3f5a060799b","colorCode":"#b9bad3ff","displayName":"Kikyo"}],"DisplayName":"Hair_base","MaterialIndex":0},{"displayName":"Other_ear","_rendererPath":"Other_ear","materialIndex":0,"amsMaterials":[{"materialGUID":"d8aa7a450962cf94882d75b8b59cb66c","colorCode":"#ecdfd9ff","displayName":"Default"},{"materialGUID":"df3cc1e01d921ae42bfc3f28f5534179","colorCode":"#ffffffff","displayName":"White"},{"materialGUID":"6d9a17ad69b78c14ca5abdedcd098587","colorCode":"#5a3832ff","displayName":"Brown"},{"materialGUID":"3e96b68f0ca95bd44899269383e1fe82","colorCode":"#000000ff","displayName":"Black"},{"materialGUID":"c83130eca8d6ff64badb770d23e69e23","colorCode":"#c08a42ff","displayName":"Gold"},{"materialGUID":"7539f17579829be45b5614347f798026","colorCode":"#abb490ff","displayName":"Olive"},{"materialGUID":"a44cd05cafb2d6c4ebee4d6c72068cc8","colorCode":"#d6afd0ff","displayName":"Spring"},{"materialGUID":"ddef1c63c8a7d8d4c89929ea6711f316","colorCode":"#4aabbfff","displayName":"Summer"},{"materialGUID":"881efdf7c7785614cae0b882c1c6ace3","colorCode":"#5f281eff","displayName":"Autumn"},{"materialGUID":"849cec4fec7644243bbc5f7d84b499e6","colorCode":"#77849cff","displayName":"Winter"},{"materialGUID":"aa92c9356e3365541b92b3f5a060799b","colorCode":"#ababc1ff","displayName":"Kikyo"}],"DisplayName":"Other_ear","MaterialIndex":0},{"displayName":"Other_tail","_rendererPath":"Other_tail","materialIndex":0,"amsMaterials":[{"materialGUID":"d8aa7a450962cf94882d75b8b59cb66c","colorCode":"#ecdfd9ff","displayName":"Default"},{"materialGUID":"df3cc1e01d921ae42bfc3f28f5534179","colorCode":"#ffffffff","displayName":"White"},{"materialGUID":"6d9a17ad69b78c14ca5abdedcd098587","colorCode":"#5a3832ff","displayName":"Brown"},{"materialGUID":"3e96b68f0ca95bd44899269383e1fe82","colorCode":"#000000ff","displayName":"Black"},{"materialGUID":"c83130eca8d6ff64badb770d23e69e23","colorCode":"#c08a42ff","displayName":"Gold"},{"materialGUID":"7539f17579829be45b5614347f798026","colorCode":"#abb490ff","displayName":"Olive"},{"materialGUID":"a44cd05cafb2d6c4ebee4d6c72068cc8","colorCode":"#d6afd0ff","displayName":"Spring"},{"materialGUID":"ddef1c63c8a7d8d4c89929ea6711f316","colorCode":"#4aabbfff","displayName":"Summer"},{"materialGUID":"881efdf7c7785614cae0b882c1c6ace3","colorCode":"#5f281eff","displayName":"Autumn"},{"materialGUID":"849cec4fec7644243bbc5f7d84b499e6","colorCode":"#77849cff","displayName":"Winter"},{"materialGUID":"aa92c9356e3365541b92b3f5a060799b","colorCode":"#ababc1ff","displayName":"Kikyo"}],"DisplayName":"Other_tail","MaterialIndex":0}]'
+  exportedColorGroupData: '[{"groupName":"Hair","colors":[{"colorCode":"#ecdfd9ff","presetName":"Default","targets":[{"targetPresetName":"Hair_bang","targetColorName":"Default"},{"targetPresetName":"Hair_side","targetColorName":"Default"},{"targetPresetName":"Hair_back","targetColorName":"Default"},{"targetPresetName":"Hair_base","targetColorName":"Default"},{"targetPresetName":"Other_ear","targetColorName":"Default"},{"targetPresetName":"Other_tail","targetColorName":"Default"}]},{"colorCode":"#ffffffff","presetName":"White","targets":[{"targetPresetName":"Hair_bang","targetColorName":"White"},{"targetPresetName":"Hair_side","targetColorName":"White"},{"targetPresetName":"Hair_back","targetColorName":"White"},{"targetPresetName":"Hair_base","targetColorName":"White"},{"targetPresetName":"Other_ear","targetColorName":"White"},{"targetPresetName":"Other_tail","targetColorName":"White"}]},{"colorCode":"#5a3832ff","presetName":"Brown","targets":[{"targetPresetName":"Hair_bang","targetColorName":"Brown"},{"targetPresetName":"Hair_side","targetColorName":"Brown"},{"targetPresetName":"Hair_back","targetColorName":"Brown"},{"targetPresetName":"Hair_base","targetColorName":"Brown"},{"targetPresetName":"Other_ear","targetColorName":"Brown"},{"targetPresetName":"Other_tail","targetColorName":"Brown"}]},{"colorCode":"#000000ff","presetName":"Black","targets":[{"targetPresetName":"Hair_bang","targetColorName":"Black"},{"targetPresetName":"Hair_side","targetColorName":"Black"},{"targetPresetName":"Hair_back","targetColorName":"Black"},{"targetPresetName":"Hair_base","targetColorName":"Black"},{"targetPresetName":"Other_ear","targetColorName":"Black"},{"targetPresetName":"Other_tail","targetColorName":"Black"}]},{"colorCode":"#c08a42ff","presetName":"Gold","targets":[{"targetPresetName":"Hair_bang","targetColorName":"Gold"},{"targetPresetName":"Hair_side","targetColorName":"Gold"},{"targetPresetName":"Hair_back","targetColorName":"Gold"},{"targetPresetName":"Hair_base","targetColorName":"Gold"},{"targetPresetName":"Other_ear","targetColorName":"Gold"},{"targetPresetName":"Other_tail","targetColorName":"Gold"}]},{"colorCode":"#abb490ff","presetName":"Olive","targets":[{"targetPresetName":"Hair_bang","targetColorName":"Olive"},{"targetPresetName":"Hair_side","targetColorName":"Olive"},{"targetPresetName":"Hair_back","targetColorName":"Olive"},{"targetPresetName":"Hair_base","targetColorName":"Olive"},{"targetPresetName":"Other_ear","targetColorName":"Olive"},{"targetPresetName":"Other_tail","targetColorName":"Olive"}]},{"colorCode":"#d6afd0ff","presetName":"Spring","targets":[{"targetPresetName":"Hair_bang","targetColorName":"Spring"},{"targetPresetName":"Hair_side","targetColorName":"Spring"},{"targetPresetName":"Hair_back","targetColorName":"Spring"},{"targetPresetName":"Hair_base","targetColorName":"Spring"},{"targetPresetName":"Other_ear","targetColorName":"Spring"},{"targetPresetName":"Other_tail","targetColorName":"Spring"}]},{"colorCode":"#4bc1d9ff","presetName":"Summer","targets":[{"targetPresetName":"Hair_bang","targetColorName":"Summer"},{"targetPresetName":"Hair_side","targetColorName":"Summer"},{"targetPresetName":"Hair_back","targetColorName":"Summer"},{"targetPresetName":"Hair_base","targetColorName":"Summer"},{"targetPresetName":"Other_ear","targetColorName":"Summer"},{"targetPresetName":"Other_tail","targetColorName":"Summer"}]},{"colorCode":"#5f281eff","presetName":"Autumn","targets":[{"targetPresetName":"Hair_bang","targetColorName":"Autumn"},{"targetPresetName":"Hair_side","targetColorName":"Autumn"},{"targetPresetName":"Hair_back","targetColorName":"Autumn"},{"targetPresetName":"Hair_base","targetColorName":"Autumn"},{"targetPresetName":"Other_ear","targetColorName":"Autumn"},{"targetPresetName":"Other_tail","targetColorName":"Autumn"}]},{"colorCode":"#77849cff","presetName":"Winter","targets":[{"targetPresetName":"Hair_bang","targetColorName":"Winter"},{"targetPresetName":"Hair_side","targetColorName":"Winter"},{"targetPresetName":"Hair_back","targetColorName":"Winter"},{"targetPresetName":"Hair_base","targetColorName":"Winter"},{"targetPresetName":"Other_ear","targetColorName":"Winter"},{"targetPresetName":"Other_tail","targetColorName":"Winter"}]},{"colorCode":"#b9bad3ff","presetName":"Kikyo","targets":[{"targetPresetName":"Hair_bang","targetColorName":"Kikyo"},{"targetPresetName":"Hair_side","targetColorName":"Kikyo"},{"targetPresetName":"Hair_back","targetColorName":"Kikyo"},{"targetPresetName":"Hair_base","targetColorName":"Kikyo"},{"targetPresetName":"Other_ear","targetColorName":"Kikyo"},{"targetPresetName":"Other_tail","targetColorName":"Kikyo"}]}]},{"groupName":"Cloth","colors":[{"colorCode":"#ecdfd9ff","presetName":"Default","targets":[]},{"colorCode":"#ffffffff","presetName":"White","targets":[]},{"colorCode":"#000000ff","presetName":"Black","targets":[]},{"colorCode":"#d6afd0ff","presetName":"Spring","targets":[]},{"colorCode":"#4bc1d9ff","presetName":"Summer","targets":[]},{"colorCode":"#5f281eff","presetName":"Autumn","targets":[]},{"colorCode":"#6c778bff","presetName":"Winter","targets":[]},{"colorCode":"#b9bad3ff","presetName":"Kikyo","targets":[]}]}]'
+  lastEditedVersion: 0.0.12
+--- !u!1 &1342523197
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1342523199}
+  - component: {fileID: 1342523198}
+  m_Layer: 0
+  m_Name: Directional Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!108 &1342523198
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342523197}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 1
+  m_Shape: 0
+  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Intensity: 1
+  m_Range: 10
+  m_SpotAngle: 30
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 2
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &1342523199
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342523197}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1682930219
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1682930222}
+  - component: {fileID: 1682930221}
+  - component: {fileID: 1682930220}
+  m_Layer: 0
+  m_Name: Main Camera
+  m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!81 &1682930220
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682930219}
+  m_Enabled: 1
+--- !u!20 &1682930221
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682930219}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: -1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!4 &1682930222
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682930219}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1660057539 &9223372036854775807
+SceneRoots:
+  m_ObjectHideFlags: 0
+  m_Roots:
+  - {fileID: 1682930222}
+  - {fileID: 1342523199}
+  - {fileID: 698647715}
+  - {fileID: 853572040}

@@ -1,0 +1,79 @@
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+--필독--
+
+자신의 아바타에 시스템을 도입하는데 문제가 있을 경우, 문의하시기 이전에 아래 도입과정설명과 문제해결방법을 먼저 읽어주시고, 해결방법을 따르기 어려울 경우, Unity에 능통한 주변 친구들에게 도움을 구하십시오.
+아래의 설명들로 충분히 도입이 가능함에도 불구, 자신의 개인의 아바타에 시스템을 쉽게 도입하기 위한 목적으로 제작자에게 문의하지 말아주세요.
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+●도입방법
+
+EyePointer를 아바타에 도입하는 방법을 설명합니다.
+성공적인 도입을 위해 아래의 절차를 따라주시기 바랍니다.
+
+준비물: Modular Avatar (v1.45이상)
+(Link: https://modular-avatar.nadena.dev )
+
+아바타의 패러미터에 29bits의 메모리 필요합니다.
+
+이 시스템에는 Modular Avatar가 필요합니다.
+만약 Unity Project에 설치가 되어있지 않다면, Modular Avatar를 먼저 설치한 뒤 EyePointer UnityPackage를 다시 Import하는 것을 추천드립니다.
+준비가 되었으면, 아래의 도입절차를 따릅니다.
+
+1. EyePointer Prefab을 Hierarchy 창에 꺼냅니다.
+
+2. Hierarchy로 꺼낸 EyePointer를 원하는 아바타 안에 넣습니다.
+
+3. 아바타의 Armature/Hips/Spine/Chest/Neck/Head 경로에 존재하는 아바타의 Eye본들을 모두 선택한 상태에서,
+   Inspector 창의 Add Component를 눌러 'Aim Constraint' Component를 추가합니다.
+   
+4. 'Aim Constraint'의 이름 바로 왼쪽에 있는 체크박스를 해제하여 먼저 비활성화를 시킵니다.
+
+5. 'Aim Constraint' 안의 'Sources'칸 아래 '+'버튼을 눌러 빈칸을 생성한 뒤, 
+   아까 옮긴 'EyePointer' 내부의 'Target'이름의 오브젝트를 끌어다 놓고 Zero 버튼을 눌러줍니다.
+
+6. Constraint Settings영역을 펼치고 Freeze Rotation Axes의 Z축의 체크박스를 해제해주세요.
+   
+7. 아바타를 업로드하고 EyePointer를 즐기세요!
+
+
+●문제종류 및 해결방법
+
+1. VRC에서 EyePointer를 활성화해도 눈동자가 움직이지 않습니다.
+ a. Aim Constraint의 세팅을 위의 도입설명에 따라 제대로 했는지 다시 한번 확인해주세요. 문제가 없다면 다음 단계로.
+ b. 아바타의 Armature경로가 메이저한 Booth아바타의 Armature경로들과 다르거나 Eye Bone들의 이름이 EyePointer의 애니메이션에 기록되어있지 않는 케이스들일 수 있으니 확인해주세요.
+    Eye Bone들의 경로가 Armature/Hips/Spine/Chest/Neck/Head에 있지 않으면, 직접 애니메이션을 녹화해야합니다.
+    이러한 경우라면, 'Toggle_On', 'Toggle_Off', 'Toggle_On_NoLook'의 Animation파일들을 찾아 기존에 이미 존재하는 Property들의 경로명을 자신의 아바타의 Eye Bone들의 위치에 맞게 이름을 수정해주거나 녹화하여 추가하여야 합니다.
+	Animation의 경로명 변경이나 녹화방법은 이 문서에 적지 않습니다. Unity를 잘하는 당신의 주변 친구들에게 물어보길 권장합니다.
+	
+2. Control Type으로 Target의 위치를 조절하는 위치들이 아바타의 머리와 손에 적절하게 자동으로 정렬되어 적용되지 않았습니다.
+ a. Modular Avatar를 설치하였는지 다시 확인하고 위의 도입절차를 따라 처음부터 다시 시도해보세요.
+ b. VCC의 설치 부재나, Modular Avatar와의 버전과의 호환이슈가 있을 수 있습니다. Unity를 잘하는 당신의 주변 친구들에게 물어보길 권장합니다.
+
+3. 아바타에 도입 후, EyePointer를 활성화 시키면 눈이 뒤집히거나 사라지거나 왜곡됩니다.
+ a. 이것은 해당 아바타의 Eye Bone의 축 방향이 적절하지 않아 생기는 문제입니다.
+    Unity의 Aim Constraint를 사용하기 위해서는, Unity의 Pivot, Local 기준으로, 해당 Bone의 Y축 방향이 수직으로 위를 향하고, Z축방향선이 아바타가 바라보는 정면방향을 향해야 합니다.
+	해당 Eye Bone들이 정면을 바라보는 기본상태일 때, Transform 컴포넌트의 Rotation값이 X:0, Y:0, Z:0 이거나 이 수치에 매우 근접해야 Aim Constraint가 적절히 작동합니다.
+	만약 Roation값이 위의 수치와 동떨어져 있다면, 아래의 방법들을 따라주세요.
+ b. 이것을 고치는 근본적인 방법은, Blender, 3DMax, Maya와 같은 3D Modeling툴을 사용하여 Eye Bone의 방향을 적절히 수정하여야 합니다.
+    이 경우, Avatar Descriptor의 Eyes 항목 아래 Rotation States의 값들을 다시 적절히 세팅해주어야 VRC에서 제공하는 눈움직임이 정상적으로 작동합니다.
+ c. 위의 방법이 어려운 초심자들에게는, 
+    1. 문제가 있는 아바타의 양쪽 눈 뼈 내부에 새로운 빈 오브젝트를 하나씩 생성한 뒤 그 오브젝트들을 Head 바로 아래쪽으로 옮겨줍니다.
+	2. 만약 기존 EyeBone의 위치가 정면에서 봤을 때 눈동자 정중앙에 위치하지 않는다면, 새로 생성한 각 오브젝트들의 위치를 눈동자 정중앙에 오도록 옮깁니다.
+    3. 생성한 오브젝트들의 Transform 컴포넌트 안의 Rotation값에, X:0, Y:0, Z:0 값으로 변경하고, 그 오브젝트들의 이름을 각각 DummyEye_L, DummyEye_R 변경합니다.
+	4. 문제가 있던 아바타 원래의 눈뼈들을 각각 새로 생성한 오브젝트들 안에 적절히 넣어줍니다.
+	5. 새로 생성한 가짜 Eye Bone 오브젝트들을 기준으로 도입설명을 따라 시스템을 도입합니다.
+    이 경우, Avatar Descriptor의 Eyes 항목 아래 Transforms에 가짜 Eye Bone들로 대체해주고 Rotation States의 값들을 다시 적절히 세팅해주어야 VRC에서 제공하는 눈움직임이 정상적으로 작동합니다.
+	
+4. 눈동자는 제대로 움직이는데 눈동자의 하트나 별모양 등의 효과들이 눈 움직임을 따라가지 않습니다.
+ a. 해당 아바타의 모델이 그렇게 만들어진 것입니다. 3D Modeling 툴로 가져가서 고치는 방법 외엔 없습니다.
+ 
+5. Target의 거리를 조절할 때, 머리 기준 혹은 손 기준에서 Target이 움직이는 방향이 이상합니다.
+ a. 아바타의 손뼈나 머리뼈의 방향이 일반적인 다른 아바타들의 경우와 달라 생기는 현상입니다.
+    아바타 안에 옮긴 EyePointer Prefab을 먼저 Unpack합니다.
+	그리고 그 내부에 있는 TargetHead, 혹은 TargetHand_L, TargetHand_R 오브젝트의 MA Bone Proxy를 지운 뒤, 아바타 아마추어 내 머리뼈나 손 뼈들에다 직접 넣어주고 적절한 방향으로 회전해주어야 합니다.
+	Unity의 Pivot Local기준으로, TargetHead의 초록화살표가 위를, 파란 화살표가 아바타의 정면을 향해야 합니다.
+	TargetHand_L, TargetHand_R의 초록화살표는 양 손 각각의 방향으로, 파란 화살표는 손등 방향으로 회전시켜야 합니다.

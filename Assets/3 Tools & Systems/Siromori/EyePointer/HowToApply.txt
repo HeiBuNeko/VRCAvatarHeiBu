@@ -1,0 +1,79 @@
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+--REQUIRED--
+
+If you are having trouble integrating the system into your own avatar, please read the steps and troubleshooting below before contacting us, and if you are having trouble following the steps, please ask your friends who are familiar with Unity for help.
+Please do not contact the creator for the purpose of easily implementing the system on your own personal avatar, as the instructions below should be sufficient.
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+●Introduction
+
+This section describes how to install Eye Pointer into your Avatar.
+Please follow the steps below to ensure a successful implementation.
+
+Prepare: Modular Avatar (v1.45 or higher)
+(Link: https://modular-avatar.nadena.dev )
+
+29 bits of memory are required in Avatar's parameters
+
+This system requires Modular Avatar.
+If you don't have it installed in your Unity Project, we recommend installing Modular Avatar first and then reimporting the EyePointer UnityPackage.
+When you're ready, follow the steps below to get started.
+
+1. pull out the EyePointer Prefab into the Hierarchy window.
+
+2. Place the EyePointer in Hierarchy inside the desired Avatar.
+
+3. With all of the avatar's EyeBones that exist in the avatar's Armature/Hips/Spine/Chest/Neck/Head path selected,
+   Press the button 'Add Component' in the Inspector window to add a 'Aim Constraint' Component.
+   
+4. Uncheck the checkbox to the left of the Aim Constraint's name to disable it first.
+
+5. Inside the 'Aim Constraint', press the '+' button under the 'Sources' field to create a blank, 
+   Drag and drop the object named 'Target' inside the 'EyePointer' we moved earlier and click the 'Zero' button.
+   
+6. Expand the Constraint Settings area and uncheck the Freeze Rotation Axes Z-axis checkbox.
+   
+7. Upload your avatar and enjoy EyePointer!
+
+
+●Problems and solutions
+
+1. When I activate EyePointer in VRC, the pupil does not work properly.
+ a. Please double-check that you have set the Aim Constraint correctly as described above. If so, proceed to the next step.
+ b. There may be cases where the Avatar's Armature path is different from the major Booth Avatar's Armature path, or the names of the Eye Bones are not recorded in the EyePointer's animation.
+    If the paths for the Eye Bones are not in Armature/Hips/Spine/Chest/Neck/Head, you will need to record the animation yourself.
+    In these cases, you need to find the 'Toggle_On', 'Toggle_Off' and 'Toggle_On_NoLook' Animation files and rename or record the pathnames of the existing properties to match the location of your avatar's Eye Bones.
+	This document does not explain how to rename or record the paths to the Animations, so we recommend asking your Unity savvy friends.
+	
+2. The positioning of the Target with Control Type was not automatically aligned properly with the avatar's head and hands.
+ a. Please double-check that you have installed Modular Avatar and try again from scratch by following the steps above.
+ b. There may be a missing VCC installation or a version compatibility issue with Modular Avatar. We recommend asking your Unity-savvy friends.
+
+3. When I activate the EyePointer after introducing it to an avatar, the eyes are inverted, disappear, or distorted.
+ a. This problem is caused by the Eye Bone of that avatar not being properly oriented along the axis.
+    In order to use Unity's Aim Constraint, the Y-axis of the appropriate Bone must be pointing vertically up and the Z-axis line must be facing in the front direction the avatar is looking in, per Unity's Pivot, Local criteria.
+	When the Eye Bone is in its base state facing forward, the Rotation value of the Transform component must be X:0, Y:0, Z:0, or very close to these values for Aim Constraint to work properly.
+	If the Rotation value deviates from the above values, follow the instructions below.
+ b. The fundamental way to correct this is to use a 3D Modeling tool such as Blender, 3DMax, or Maya to properly correct the eye bone orientation.
+    In this case, by properly re-setting the Rotation States value under the Eyes item in the Avatar Descriptor, the eye movements provided by VRC will work properly.
+ c. For beginners who have difficulty with the above method 
+    1. Generate one new empty object in the eye bones on each side of the problematic avatar, then move that object to just below the Head.
+	2. If the position of the existing EyeBone is not centered on the pupil when viewed from the front, move the position of each newly created object so that it is centered on the pupil.
+    3. Change the Rotation values in the Transform component of the generated object to X:0, Y:0, Z:0 and rename the objects to DummyEye_L and DummyEye_R respectively.
+	4. Properly place the original eye bones of the offending avatar into the newly generated objects, respectively.
+	5. Install the system according to the installation instructions based on the newly generated fake Eye Bone object.
+    In this case, replace the fake Eye Bone with the Transforms under the Eyes item in the Avatar Descriptor and set the Rotation States value appropriately again so that the eye movements provided by VRC work correctly.
+	
+4. The pupils are moving correctly, but effects like hearts and stars don't follow the eye movement.
+ a. That's how your avatar was modeled, and the only way to fix it is to take it to a 3D modeling tool.
+ 
+ 5. When adjusting the distance of the target, the direction in which the target moves relative to the head or hand is strange.
+ a. This is caused by the avatar's hand bones or head bones being oriented differently from other avatars.
+    First, unpack the EyePointer Prefab that you moved inside the Avatar.
+	Then you need to clear the MA Bone Proxy of the TargetHead or TargetHand_L and TargetHand_R objects inside of it, and then put them directly onto the head or hand bones inside of the Avatar Armature and rotate them in the proper direction.
+	Based on Unity's Pivot Local, the TargetHead should have a green arrow pointing up and a blue arrow pointing toward the front of the avatar.
+	TargetHand_L and TargetHand_R should be rotated with the green arrows pointing in the direction of each hand and the blue arrow pointing in the direction of the back of the hand.

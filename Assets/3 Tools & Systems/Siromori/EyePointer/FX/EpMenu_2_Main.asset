@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
+  m_Name: EpMenu_2_Main
+  m_EditorClassIdentifier: 
+  controls:
+  - name: EyePointer Toggle
+    icon: {fileID: 2800000, guid: 7c795c67124a6c241a55562d9e5da71e, type: 3}
+    type: 102
+    parameter:
+      name: SEP/Toggle
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Target Control
+    icon: {fileID: 2800000, guid: 56aba29f6be4f254190f7607e162ff07, type: 3}
+    type: 203
+    parameter:
+      name: SEP/TargetControl
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters:
+    - name: SEP/TargetDistance
+    labels: []
+  - name: Target Visible
+    icon: {fileID: 2800000, guid: 492562e1ecac67f42a47b8a0b735146c, type: 3}
+    type: 102
+    parameter:
+      name: SEP/TargetVisible
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Target Grabbable
+    icon: {fileID: 2800000, guid: 58c392a680098eb48a65bca3e2fbb0aa, type: 3}
+    type: 102
+    parameter:
+      name: SEP/TargetGrabbable
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Visible Mode
+    icon: {fileID: 2800000, guid: 6298f94973962594d865ce7c156f6991, type: 3}
+    type: 103
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: a4124ae2fca7b164aa23b781df531a35, type: 2}
+    subParameters: []
+    labels: []
+  - name: Control Type
+    icon: {fileID: 2800000, guid: 29e363e037d86004f898b83c8c475300, type: 3}
+    type: 103
+    parameter:
+      name: 
+    value: 0
+    style: 0
+    subMenu: {fileID: 11400000, guid: e83171cd4ec90b041ad8f7725f0f73c2, type: 2}
+    subParameters: []
+    labels: []
+  - name: Gesture Mode
+    icon: {fileID: 2800000, guid: 9f026d6f1a05e4a48a1e84d246c8ba9e, type: 3}
+    type: 102
+    parameter:
+      name: SEP/GestureMode
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []

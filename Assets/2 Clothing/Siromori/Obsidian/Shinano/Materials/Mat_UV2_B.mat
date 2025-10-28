@@ -85,12 +85,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DissolveMask:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 1f2919e7bebf97f4cbcf56e44b4eb1b9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DissolveNoiseMask:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 8de3c48376a4d6644ae525d0262fbf8d, type: 3}
+        m_Scale: {x: 3, y: 3}
         m_Offset: {x: 0, y: 0}
     - _DitherTex:
         m_Texture: {fileID: 0}
@@ -713,10 +713,10 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Color2nd: {r: 1, g: 1, b: 1, a: 1}
     - _Color3rd: {r: 1, g: 1, b: 1, a: 1}
-    - _DissolveColor: {r: 1, g: 1, b: 1, a: 1}
+    - _DissolveColor: {r: 1, g: 0.6666667, b: 0, a: 1}
     - _DissolveNoiseMask_ScrollRotate: {r: 0, g: 0, b: 0, a: 0}
-    - _DissolveParams: {r: 0, g: 0, b: 0.5, a: 0.1}
-    - _DissolvePos: {r: 0, g: 0, b: 0, a: 0}
+    - _DissolveParams: {r: 3, g: 1, b: -1, a: 0.1}
+    - _DissolvePos: {r: 0, g: 1, b: 0, a: 0}
     - _DistanceFade: {r: 0.1, g: 0.01, b: 0, a: 0}
     - _DistanceFadeColor: {r: 0, g: 0, b: 0, a: 1}
     - _DistanceFadeRimColor: {r: 0, g: 0, b: 0, a: 0}

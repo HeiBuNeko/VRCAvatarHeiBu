@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 1
+  m_Script: {fileID: 11500000, guid: 34b8a89448348b04bb3beb011d1ef230, type: 3}
+  m_Name: en
+  m_EditorClassIdentifier: 
+  title: AvatarModifySupport
+  ok: OK
+  cancel: Cancel
+  blendshapePreset: Blendshape Preset
+  preset: Preset
+  whatPreset: What is the Preset Function?
+  whatPresetEx: This feature enables users to save and share shapekey states with
+    other users.
+  errorResetAvatarByEmptyFBXPath: Unable to reset shapekey values because the FBX
+    path could not be retrieved.
+  finishResetAvatarShapekeys: Shapekey values have been reset!
+  createNewPreset: Create New Preset
+  newPreset: New Preset
+  createByAvatarValue: Create with Current Shapekeys
+  importPresetFromFile: Import Preset
+  addBlendshape: Add Blendshape
+  resetAvatarShapekeys: Reset Shapekeys
+  presetName: Preset Name
+  removePreset: 'This will delete the preset.
+
+    Are you sure?'
+  selectSaveAnimPath: Please select a location to save the animation file.
+  resetPresetQuestion: 'This will reset the contents of the preset.
+
+    Are you
+    sure?'
+  applyPresetEmpty: 'There are no blendshapes in the preset.
+
+    Please add blendshapes
+    before applying the preset.'
+  applyPresetQuestion: 'This will apply the preset to the avatar.
+
+    Are you sure?'
+  exportPresetEmpty: 'There are no blendshapes in the preset.
+
+    Please add blendshapes
+    before exporting.'
+  errorExportPreset: The preset output failed.
+  invalidPath: The location of the selected preset file is incorrect.
+  reason: Reason
+  loadError: The file could not be loaded.
+  selectExportPresetPath: Please select a location to save the preset file.
+  applyToAvatar: Apply to Avatar
+  upPreset: "\u25B2 Move Up"
+  downPreset: "\u25BC Move Down"
+  duplicate: Duplicate
+  remove: Remove
+  create: Create
+  selectSkinnedMeshRendererTitle: Please select the mesh to include in the preset.
+  saveAsAnimation: Save as Animation File
+  export: Export
+  clear: Clear
+  apply: Apply
+  select: Select
+  add: Add
+  resetShapekeyQuestion: 'This will reset all shapekey values of the avatar.
+
+    Are
+    you sure?'
+  saveAsDefaultAnimation: Save as Default Animation File
+  selectRendererForAnimation: Please select the facial mesh.
+  colorModify: Change Colors
+  whatColorModify: What is this?
+  whatColorModifyEx: "This function allows you to easily apply color-modified textures.
+    \nUse your favorite color textures to modify your avatar."
+  addColor: Add Color
+  colorName: Color Name
+  addGroup: Add Group
+  color: Color
+  material: Material
+  renderer: Renderer
+  createGroup: Create Group
+  createGroupError_PleaseSelect: 'No material has been selected!
+
+    Please select
+    a material before creating a group.'
+  selectMaterial: Select Material
+  createGroupError_ExistsSomeGroup: A group with the same target already exists!
+  createGroupError_ExsitsSomeName: A group with the same name already exists!
+  selectMesh: Select Mesh
+  changedToMaterial: Changed to [[MATERIALNAME]]!
+  pingMaterial: Highlight the selected material
+  resetMaterials: Reset Avatar Materials
+  resetMaterialsQuestion: 'This will reset all materials of the avatar.
+
+    Are
+    you sure?'
+  errorResetMaterialByEmptyFBXPath: Unable to reset avatar materials because the
+    FBX path could not be retrieved.
+  finishResetAvatarMaterials: Avatar materials have been reset!
+  alreadyAdded: Already Added
+  multiApply: Apply to Selected
+  nameOfGroup: Group Name
+  removeGroupQues: 'You are about to delete the group.
+
+    Are you sure?'
+  selectColorPresetError: Please select a color preset!
+  someNameGroupExists: 'A group with the same name exists!
+
+    Please change to
+    another name.'
+  cantusePreviewMode: Cannot be used in preview mode
+  openSupportMenu: Open Support Menu

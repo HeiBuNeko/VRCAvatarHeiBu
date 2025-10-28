@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
+  m_Name: RT_Menu_Accessories
+  m_EditorClassIdentifier: 
+  Parameters: {fileID: 11400000, guid: 8b4dfb8956f621b48a520059f4d8539d, type: 2}
+  controls:
+  - name: Goggles
+    icon: {fileID: 2800000, guid: 8323f51f2c5879948a4c09436a00daf5, type: 3}
+    type: 102
+    parameter:
+      name: RT/Goggles
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Snorkel
+    icon: {fileID: 2800000, guid: 151e577847d22f04e8490935fa58de65, type: 3}
+    type: 102
+    parameter:
+      name: RT/Snorkel
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Sun Visor
+    icon: {fileID: 2800000, guid: fba0de1a83605b74499aee9fe0b21d73, type: 3}
+    type: 102
+    parameter:
+      name: RT/SunVisor
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Necklace
+    icon: {fileID: 2800000, guid: d9b5f12b0b26af84dab92eb50d4a0d10, type: 3}
+    type: 102
+    parameter:
+      name: RT/Necklace
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Bracelets
+    icon: {fileID: 2800000, guid: f6d52b2f294d5b14a92165d26553c4a7, type: 3}
+    type: 102
+    parameter:
+      name: RT/Bracelets
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Watch
+    icon: {fileID: 2800000, guid: 5a7647b30e623384fa6d16e0b3d87b44, type: 3}
+    type: 102
+    parameter:
+      name: RT/Watch
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Thigh Straps
+    icon: {fileID: 2800000, guid: 462158c64223e9b40afc868cd6408f76, type: 3}
+    type: 102
+    parameter:
+      name: RT/ThighStraps
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Anklet
+    icon: {fileID: 2800000, guid: d00c9ddc03c1f5a45be3876ae1a6e531, type: 3}
+    type: 102
+    parameter:
+      name: RT/Anklet
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []

@@ -1,0 +1,53 @@
+{
+    "name": "nadena.dev.ndmf.vrchat",
+    "rootNamespace": "",
+    "references": [
+        "nadena.dev.ndmf",
+      "nadena.dev.ndmf.runtime",
+      "VRC.SDKBase.Editor"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "VRCHAT_AVATARS_PRESENT"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.vrchat.avatars",
+            "expression": "(0.0.0,999.9.9)",
+            "define": "VRCHAT_AVATARS_PRESENT"
+        },
+        {
+            "name": "com.vrchat.avatars",
+            "expression": "(0.0.0,999.9.9)",
+            "define": "NDMF_VRCSDK3_AVATARS"
+        },
+        {
+            "name": "com.vrchat.avatars",
+            "expression": "3.10.3",
+            "define": "NDMF_VRCSDK3_AVATARS_3_10_3_OR_NEWER"
+        },
+        {
+            "name": "com.vrchat.avatars",
+            "expression": "3.7.0",
+            "define": "NDMF_VRCSDK3_AVATARS_VRC_CONSTRAINTS"
+        },
+        {
+            "name": "com.vrchat.avatars",
+            "expression": "3.10.0",
+            "define": "NDMF_VRCSDK3_AVATARS_VRC_DYNAMICS_FOR_WORLDS"
+        },
+        {
+            "name": "com.vrchat.avatars",
+            "expression": "3.7.3",
+            "define": "NDMF_VRCSDK3_AVATARS_PHYSBONE_CONTACT_INTEGRATION"
+        }
+    ],
+    "noEngineReferences": false
+}

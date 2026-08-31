@@ -19,6 +19,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Deprecated
 
+## [1.18.6] - [2026-08-30]
+
+### Fixed
+- [#2110] Reactive component previews did not respond reliably to object active states
+
+## [1.18.5] - [2026-08-30]
+
+### Fixed
+- [#2107] Floor adjuster would break when used on an avatar where non-critical humanoid bone references are broken
+  (e.g. with Secret Talk System)
+
+## [1.18.4] - [2026-08-29]
+
+### Added
+- [#2015] Experimental support for Unity 6.1~6.7
+  - [#2106] Fixed MeshLOD handling in Mesh Cutter for Unity 6.2+
+
+### Fixed
+- [#2103] Fixed Modular Avatar editor actions that could not be undone or whose prefab-instance changes were not saved.
+- [#2103] Minor fixes for `MA Blendshape Sync`:
+  - Fixed build errors when a local or referenced renderer has no mesh.
+  - Fixed editor preview errors when a binding has no reference mesh, allowing other valid bindings to continue updating.
+- [#2103] Fixed `MA Mesh Cutter` failing to build avatars that contain an empty mesh.
+- [#2103] Fixed avatar builds failing when an `MA Material Setter` contains a negative material slot index.
+- [#2103] Fixed `MA Shape Changer` and `MA Mesh Cutter` previews not updating after the target renderer's mesh is assigned or changed.
+- [#2103] Fixed `Sync Parameter Sequence` using settings from a previously built avatar when performing manual bake operations.
+
 ## [1.18.3] - [2026-08-21]
 
 ### Fixed

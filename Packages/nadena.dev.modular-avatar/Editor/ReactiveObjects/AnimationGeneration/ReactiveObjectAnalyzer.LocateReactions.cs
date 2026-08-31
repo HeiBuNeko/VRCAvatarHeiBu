@@ -27,7 +27,7 @@ namespace nadena.dev.modular_avatar.core.editor
             }
             else
             {
-                var param = "__ActiveSelfProxy/" + obj.GetInstanceID();
+                var param = "__ActiveSelfProxy/" + obj.GetEntityId();
                 _simulationInitialStates[param] = obj.activeSelf ? 1.0f : 0.0f;
                 return param;
             }
@@ -43,15 +43,18 @@ namespace nadena.dev.modular_avatar.core.editor
             foreach (var bss in components)
             {
                 var localMesh = _computeContext.GetComponent<SkinnedMeshRenderer>(bss.gameObject);
-                if (localMesh == null) continue;
+                if (localMesh == null || localMesh.sharedMesh == null) continue;
 
                 foreach (var entry in _computeContext.Observe(bss, bss_ => bss_.Bindings.ToImmutableList(),
                              Enumerable.SequenceEqual))
                 {
+                    if (entry.ReferenceMesh == null) continue;
+
                     var src = entry.ReferenceMesh.Get(bss);
                     if (src == null) continue;
 
                     var srcMesh = _computeContext.GetComponent<SkinnedMeshRenderer>(src);
+                    if (srcMesh == null || srcMesh.sharedMesh == null) continue;
 
                     var localBlendshape = entry.LocalBlendshape;
                     if (string.IsNullOrWhiteSpace(localBlendshape))
@@ -190,7 +193,7 @@ namespace nadena.dev.modular_avatar.core.editor
                     var renderer = _computeContext.GetComponent<SkinnedMeshRenderer>(shape.Object.Get(changer));
                     if (renderer == null) continue;
                     
-                    var mesh = renderer.sharedMesh;
+                    var mesh = _computeContext.Observe(renderer, r => r.sharedMesh);
                     _computeContext.Observe(mesh);
                     if (mesh == null) continue;
 
@@ -289,7 +292,9 @@ namespace nadena.dev.modular_avatar.core.editor
                 var renderer = _computeContext.GetComponent<SkinnedMeshRenderer>(obj.Get(deleter));
                 if (renderer == null) continue;
 
-                if (_computeContext.Observe(renderer.sharedMesh) == null) continue;
+                var mesh = _computeContext.Observe(renderer, r => r.sharedMesh);
+                _computeContext.Observe(mesh);
+                if (mesh == null) continue;
 
                 var filterComponents = _computeContext.GetComponents<IMeshSelectorBehavior>(deleter.gameObject);
 
@@ -415,7 +420,7 @@ namespace nadena.dev.modular_avatar.core.editor
                     Enumerable.SequenceEqual))
                 {
                     var renderer = _computeContext.GetComponent<Renderer>(obj.Object.Get(setter));
-                    if (renderer == null || renderer.sharedMaterials.Length <= obj.MaterialIndex) continue;
+                    if (renderer == null || obj.MaterialIndex < 0 || renderer.sharedMaterials.Length <= obj.MaterialIndex) continue;
 
                     RegisterAction(setter, renderer, obj.MaterialIndex, obj.Material);
 

@@ -135,7 +135,7 @@ namespace nadena.dev.ndmf
                     NDMFLocales.L, ErrorSeverity.Error,
                     "Errors:EditorOnlyAvatarRoot"
                 );
-                error.AddReference(ObjectRegistry.GetReference(obj));
+                error.AddReference(((IObjectRegistry)_registry).GetReference(obj));
                 _report.AddError(error);
                 ErrorReportWindow.ShowErrorReportWindow();
 
@@ -295,7 +295,7 @@ namespace nadena.dev.ndmf
         public void DeactivateExtensionContext(Type t)
         {
             using (new ExecutionScope(this))
-            using (_report.WithExtensionContextTrace(t))
+            using (ErrorReport.CurrentReport.WithExtensionContextTrace(t))
                 try
                 {
                     if (_activeExtensions.ContainsKey(t))
@@ -324,8 +324,8 @@ namespace nadena.dev.ndmf
         internal void RunPass(ConcretePass pass)
         {
             using (new ExecutionScope(this))
-            using (_report.WithContext(pass.Plugin as PluginBase))
-            using (_report.WithContextPassName(pass.Description))
+            using (ErrorReport.CurrentReport.WithContext(pass.Plugin as PluginBase))
+            using (ErrorReport.CurrentReport.WithContextPassName(pass.Description))
             {
                 sw.Start();
 
@@ -358,8 +358,8 @@ namespace nadena.dev.ndmf
         {
             using var _platformScope = new AmbientPlatform.Scope(PlatformProvider);
             using (new ExecutionScope(this))
-            using (_report.WithContext(pass.Plugin as PluginBase))
-            using (_report.WithContextPassName(pass.Description))
+            using (ErrorReport.CurrentReport.WithContext(pass.Plugin as PluginBase))
+            using (ErrorReport.CurrentReport.WithContextPassName(pass.Description))
             {
                 sw.Start();
                 try
@@ -377,8 +377,8 @@ namespace nadena.dev.ndmf
         {
             using var _platformScope = new AmbientPlatform.Scope(PlatformProvider);
             using (new ExecutionScope(this))
-            using (_report.WithContext(pass.Plugin as PluginBase))
-            using (_report.WithContextPassName(pass.Description))
+            using (ErrorReport.CurrentReport.WithContext(pass.Plugin as PluginBase))
+            using (ErrorReport.CurrentReport.WithContextPassName(pass.Description))
             {
                 sw.Start();
                 try
@@ -396,8 +396,8 @@ namespace nadena.dev.ndmf
         {
             using var _platformScope = new AmbientPlatform.Scope(PlatformProvider);
             using (new ExecutionScope(this))
-            using (_report.WithContext(pass.Plugin as PluginBase))
-            using (_report.WithContextPassName(pass.Description))
+            using (ErrorReport.CurrentReport.WithContext(pass.Plugin as PluginBase))
+            using (ErrorReport.CurrentReport.WithContextPassName(pass.Description))
             {
                 sw.Start();
                 try
@@ -506,7 +506,7 @@ namespace nadena.dev.ndmf
             using var _platformScope = new AmbientPlatform.Scope(PlatformProvider);
             
             using (new ExecutionScope(this))
-            using (_report.WithExtensionContextTrace(ty))
+            using (ErrorReport.CurrentReport.WithExtensionContextTrace(ty))
                 try
                 {
                     if (!_extensions.TryGetValue(ty, out var ctx))
@@ -546,35 +546,14 @@ namespace nadena.dev.ndmf
             using (new ExecutionScope(this))
             {
                 sw.Start();
-                foreach (var kvp in _activeExtensions.ToList())
-                {
-                    using (_report.WithExtensionContextTrace(kvp.Key))
-                    {
-                        try
-                        {
-                            kvp.Value.OnDeactivate(this);
-
-                            // ReSharper disable once SuspiciousTypeConversion.Global
-                            if (kvp.Value is IDisposable d)
-                            {
-                                d.Dispose();
-                            }
-                        }
-                        catch (Exception e)
-                        {
-                            ErrorReport.ReportException(e);
-                        }
-                    }
-
-                    _activeExtensions.Remove(kvp.Key);
-                }
+                DeactivateAllExtensionContexts();
 
                 RecalculateAllMeshes();
 
                 Serialize();
                 sw.Stop();
 
-                BuildEvent.Dispatch(new BuildEvent.BuildEnded(sw.ElapsedMilliseconds, true));
+                BuildEvent.Dispatch(new BuildEvent.BuildEnded(sw.ElapsedMilliseconds, _report.Errors.Count == 0));
 
                 if (!Application.isBatchMode && _report.Errors.Count > 0)
                 {

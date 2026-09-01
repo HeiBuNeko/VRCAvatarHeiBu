@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BP3_Camera
+  m_Shader: {fileID: 4800000, guid: 329c93d2f925d5641969351a2ebfbc06, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _ENABLEFAKEDOF_ON
+  - _ENABLESTREAK_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _FilterTex1:
+        m_Texture: {fileID: 2800000, guid: e6e86492b6d866043948ee6fb6dfae36, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FilterTex2:
+        m_Texture: {fileID: 2800000, guid: cc05863658d073445a8f7ca3bf2c927d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FilterTex3:
+        m_Texture: {fileID: 2800000, guid: 149eb3c6ccbc46c4aa08f1361c0726ac, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FilterTex4:
+        m_Texture: {fileID: 2800000, guid: ece8c255b2ac13c46bcf62c1f36239aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FilterTex5:
+        m_Texture: {fileID: 2800000, guid: 64c76d5e89ad8364db08322e70b6bca8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FilterTex6:
+        m_Texture: {fileID: 2800000, guid: 74e6b3b316d54ec40a3cde592bc2729c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PreviewUITex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RenderTexture:
+        m_Texture: {fileID: 8400000, guid: b850fbc14d828254ba5c4fb80a9f89db, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _CAAmount: 0
+    - _CACurve: 2
+    - _Contrast: 1
+    - _DOFBlurMaxPx: 0
+    - _DOFFalloff: 0.6
+    - _DOFFocusRadius: 0.12
+    - _DOFTaps: 6
+    - _Exposure: 0
+    - _FilterBlendMode: 0
+    - _FilterOpacity: 0
+    - _FilterSelect: 0
+    - _FlipX: 0
+    - _FlipY: 0
+    - _HighlightRollOff: 0
+    - _LensDistortion: 0
+    - _LensDistortionCurve: 2
+    - _LensZoom: 1
+    - _OutputOpacity: 1
+    - _OverwriteEnable: 0
+    - _OverwriteRadius: 0.144
+    - _PreviewUIOpacity: 0
+    - _Saturation: 1
+    - _SharpenClamp: 0.3
+    - _SharpenEdgeScale: 1.58
+    - _SharpenEdgeThreshold: 0.02
+    - _SharpenFocusBias: 1
+    - _SharpenStrength: 0
+    - _ShutterOpacity: 0
+    - _Temperature: 0
+    - _Tint: 0
+    - _VignetteFeather: 0.45
+    - _VignetteShape: 1
+    - _VignetteSize: 0.634
+    - _VignetteStrength: 0
+    m_Colors:
+    - _PreviewUITint: {r: 1, g: 1, b: 1, a: 1}
+    - _ShutterColor: {r: 1, g: 1, b: 1, a: 1}
+    - _VignetteColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []

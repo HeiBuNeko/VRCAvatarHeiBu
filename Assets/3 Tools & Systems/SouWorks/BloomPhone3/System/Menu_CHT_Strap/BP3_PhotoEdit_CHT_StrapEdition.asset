@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
+  m_Name: BP3_PhotoEdit_CHT_StrapEdition
+  m_EditorClassIdentifier: 
+  Parameters: {fileID: 0}
+  controls:
+  - name: "\u9805\u76EE"
+    icon: {fileID: 2800000, guid: ccef97abf1916d9498360eb34a5a06c2, type: 3}
+    type: 203
+    parameter:
+      name: 
+    value: 0
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters:
+    - name: BP3_AdjustmentType
+    labels: []
+  - name: "\u8ABF\u6574"
+    icon: {fileID: 2800000, guid: 61c2556fd3f990c49abde18c4b7e6737, type: 3}
+    type: 203
+    parameter:
+      name: BP3_Editing
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters:
+    - name: BP3_AdjustmentValue
+    labels: []
+  - name: "\u91CD\u8A2D"
+    icon: {fileID: 2800000, guid: 3112881453e5d40428bae88644c60123, type: 3}
+    type: 101
+    parameter:
+      name: BP3_EditReset
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters:
+    - name: BP3_AdjustmentValue
+    labels: []

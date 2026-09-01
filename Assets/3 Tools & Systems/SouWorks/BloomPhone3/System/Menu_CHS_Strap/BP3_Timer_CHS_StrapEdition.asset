@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
+  m_Name: BP3_Timer_CHS_StrapEdition
+  m_EditorClassIdentifier: 
+  Parameters: {fileID: 0}
+  controls:
+  - name: "1 \u5206\u949F"
+    icon: {fileID: 2800000, guid: e234980493b86084c92cfbcb1a855ec4, type: 3}
+    type: 102
+    parameter:
+      name: BP3_Timer_1min
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: 4277ebf9185aabf4a968bef66709dd6e, type: 2}
+    subParameters:
+    - name: 
+    labels: []
+  - name: "3 \u5206\u949F"
+    icon: {fileID: 2800000, guid: 0cfbaf1bfde5e1a478da85e1659330bd, type: 3}
+    type: 102
+    parameter:
+      name: BP3_Timer_3min
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: 4277ebf9185aabf4a968bef66709dd6e, type: 2}
+    subParameters:
+    - name: 
+    labels: []
+  - name: "5 \u5206\u949F"
+    icon: {fileID: 2800000, guid: c7f0bab5441db734e998db606c3a448f, type: 3}
+    type: 102
+    parameter:
+      name: BP3_Timer_5min
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: 4277ebf9185aabf4a968bef66709dd6e, type: 2}
+    subParameters:
+    - name: 
+    labels: []
+  - name: "10 \u5206\u949F"
+    icon: {fileID: 2800000, guid: f73ee1cab1f41c14fb31cffbed54ff0a, type: 3}
+    type: 102
+    parameter:
+      name: BP3_Timer_10min
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: 4277ebf9185aabf4a968bef66709dd6e, type: 2}
+    subParameters:
+    - name: 
+    labels: []

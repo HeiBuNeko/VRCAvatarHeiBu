@@ -1,0 +1,104 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
+  m_Name: BP3_MainMenu_CHS_StrapEdition
+  m_EditorClassIdentifier: 
+  Parameters: {fileID: 0}
+  controls:
+  - name: "\u542F\u7528\u624B\u673A"
+    icon: {fileID: 2800000, guid: 4b52aaa3efba6b340bf1b3d722ced578, type: 3}
+    type: 102
+    parameter:
+      name: BP3_Enable
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters:
+    - name: 
+    labels: []
+  - name: "\u9501\u5B9A\u754C\u9762"
+    icon: {fileID: 2800000, guid: ca1d0bc7316652841923929fc5cb90f6, type: 3}
+    type: 102
+    parameter:
+      name: BP3_Display
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters:
+    - name: 
+    labels: []
+  - name: "\u76F8\u673A"
+    icon: {fileID: 2800000, guid: b566944b398a8df4dad14a2606e08653, type: 3}
+    type: 103
+    parameter:
+      name: BP3_Display
+    value: 3
+    style: 0
+    subMenu: {fileID: 11400000, guid: cffcd3a68b7e6b543b7053e0d0eeced2, type: 2}
+    subParameters:
+    - name: 
+    labels: []
+  - name: "\u624B\u7535\u7B52"
+    icon: {fileID: 2800000, guid: 7171cce043a7dcf4aa8a3ec41d6beaf4, type: 3}
+    type: 103
+    parameter:
+      name: BP3_Display
+    value: 4
+    style: 0
+    subMenu: {fileID: 11400000, guid: a3b17b1358d519d4cb80a990fc6d771f, type: 2}
+    subParameters:
+    - name: 
+    labels: []
+  - name: "\u8BA1\u65F6\u5668"
+    icon: {fileID: 2800000, guid: ccb156d8b05bdef4cb15b4b86e8578df, type: 3}
+    type: 103
+    parameter:
+      name: BP3_Display
+    value: 5
+    style: 0
+    subMenu: {fileID: 11400000, guid: 01c675f6a111ff243b12385789353abb, type: 2}
+    subParameters:
+    - name: 
+    labels: []
+  - name: "\u81EA\u5B9A\u4E49 1"
+    icon: {fileID: 2800000, guid: 9fb57d1261148864cb4e94cdd47595cf, type: 3}
+    type: 102
+    parameter:
+      name: BP3_Display
+    value: 6
+    style: 0
+    subMenu: {fileID: 11400000, guid: 9bfda4d020b94ee429568d353c129eef, type: 2}
+    subParameters:
+    - name: 
+    labels: []
+  - name: "\u81EA\u5B9A\u4E49 2"
+    icon: {fileID: 2800000, guid: 3ac90bd1e588345418bd6170d720ab8d, type: 3}
+    type: 102
+    parameter:
+      name: BP3_Display
+    value: 7
+    style: 0
+    subMenu: {fileID: 11400000, guid: 9bfda4d020b94ee429568d353c129eef, type: 2}
+    subParameters:
+    - name: 
+    labels: []
+  - name: "\u8BBE\u7F6E"
+    icon: {fileID: 2800000, guid: d527d5ae52a69094d98c1cb30021b40c, type: 3}
+    type: 103
+    parameter:
+      name: 
+    value: 8
+    style: 0
+    subMenu: {fileID: 11400000, guid: d766745571f3f674db5fad5b1851a84c, type: 2}
+    subParameters:
+    - name: 
+    labels: []

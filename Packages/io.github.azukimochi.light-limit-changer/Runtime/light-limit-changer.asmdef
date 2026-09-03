@@ -1,0 +1,35 @@
+{
+    "name": "io.github.azukimochi.light-limit-changer",
+    "rootNamespace": "",
+    "references": [
+        "nadena.dev.modular-avatar.core"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "VRCSDK3A.dll",
+        "VRCSDKBase.dll",
+        "VRCSDKBase-Editor.dll",
+        "VRC.Utility.dll",
+        "VRCCore-Editor.dll",
+        "System.Collections.Immutable.dll",
+        "System.Runtime.CompilerServices.Unsafe.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "jp.lilxyzw.liltoon",
+            "expression": "2.1.6",
+            "define": "LILTOON_SUPPORTS_VRCLV_CONTROL"
+        },
+        {
+            "name": "com.poiyomi.pro",
+            "expression": "0",
+            "define": "POIYOMI_PRO"
+        }
+    ],
+    "noEngineReferences": false
+}

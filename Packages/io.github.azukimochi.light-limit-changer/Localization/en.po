@@ -1,0 +1,1304 @@
+msgid ""
+msgstr ""
+"Language: en\n"
+
+## Menu Item Labels
+msgid "common:label/initial-value"
+msgstr "Initial Value:"
+
+msgid "common:label/override-value"
+msgstr "Override Value:"
+
+msgid "common:label/preset-value"
+msgstr "Preset Value:"
+
+msgid "common:label/range"
+msgstr "Operating Range:"
+
+msgid "common:label/option"
+msgstr "Option:"
+
+msgid "common:label/enable"
+msgstr "Enable"
+
+msgid "common:label/animation"
+msgstr "Animation"
+
+msgid "common:label/saved"
+msgstr "Saved"
+
+msgid "common:label/synced"
+msgstr "Synced"
+
+msgid "common:label/false"
+msgstr "Disabled"
+
+msgid "common:label/true"
+msgstr "Enabled"
+
+msgid "common:label/options"
+msgstr "Options"
+
+msgid "common:label/write-defaults"
+msgstr "Write Defaults"
+
+msgid "common:label/write-defaults/match-avatar"
+msgstr "Match Avatar"
+
+msgid "common:label/migrate"
+msgstr "Migrate"
+
+msgid "common:label/preset"
+msgstr "Preset"
+
+msgid "common:label/default-preset"
+msgstr "Default Preset"
+
+msgid "common:label/batch-settings"
+msgstr "Batch Settings"
+
+msgid "common:label/open"
+msgstr "Open"
+
+msgid "common:label/load"
+msgstr "Load"
+
+msgid "common:label/remove"
+msgstr "Remove"
+
+msgid "common:label/reflesh"
+msgstr "Refresh"
+
+msgid "common:label/save"
+msgstr "Save"
+
+msgid "common:label/slot"
+msgstr "Slot"
+
+msgid "common:label/copy"
+msgstr "Copy Settings"
+
+msgid "common:label/copy-with-child-settings"
+msgstr "Copy Settings (Include Children)"
+
+msgid "common:label/paste"
+msgstr "Paste Settings"
+
+msgid "common:label/reset"
+msgstr "Reset"
+
+msgid "common:label/parameter-override"
+msgstr "Parameter Override"
+
+msgid "common:label/texture-bake"
+msgstr "Texture Bake"
+
+msgid "common:label/sorting"
+msgstr "Menu's Sorting"
+
+##################
+## Link Labels
+
+msgid "link:description"
+msgstr "Various Links"
+
+msgid "link:changelog"
+msgstr "Changelog (X:Twitter)"
+
+msgid "link:documentation"
+msgstr "How to use Light Limit Changer(Official Site)"
+
+msgid "link:feedback"
+msgstr "Feedback (Google Form)"
+
+msgid "link:discord"
+msgstr "Discord for Changelog/Bug Reports/Support"
+
+##################
+## Save Settings and Presets
+
+msgid "editor-preset:inspector/title"
+msgstr "Saved Settings"
+
+msgid "editor-preset:inspector/label/load-child-presets"
+msgstr "Apply Presets"
+
+msgid "editor-preset:inspector/label/preset-not-found"
+msgstr "No Saved Settings"
+
+msgid "preset-save-dialog:label/target-component"
+msgstr "Target Component"
+
+msgid "preset-save-dialog:label/preset-name"
+msgstr "Preset Name"
+
+msgid "preset-save-dialog:label/save"
+msgstr "Save"
+
+msgid "runtime-preset:inspector/title"
+msgstr "Preset Editor"
+
+msgid "runtime-preset:inspector/none-presets"
+msgstr "No Presets Available"
+
+msgid "runtime-preset:list/inspector/description"
+msgstr ""
+"You can manage settings applied from ExMenu presets.\n\n"
+"By pressing the '+' button, you can add a preset object, and the values can be modified from the added object.\n"
+"The preset name will be the name of the object.\n"
+"You can change the order of presets in the list to adjust the menu order generated in ExMenu."
+
+msgid "runtime-preset:inspector/description"
+msgstr ""
+"The Preset Editor is a screen for saving and loading settings.\n"
+"By changing the settings of this object, you can apply presets from the menu generated in ExMenu.\n\n"
+"The preset name will be the name of this object.\n"
+"Each function must be enabled in the parent object to be used.\n"
+"If the functions are not enabled, selecting this preset will not change the values.\n"
+"This is convenient for cases where you want to adjust only specific settings, such as changing colors only."
+
+##################
+## Setting Categories Labels
+
+msgid "category:mode/basic"
+msgstr "Basic Settings"
+
+msgid "category:mode/advanced"
+msgstr "Advanced Settings"
+
+msgid "category:mode/description"
+msgstr "Description Mode"
+
+msgid "category:mode/preset"
+msgstr "Preset"
+
+msgid "category:preset"
+msgstr "Preset"
+
+msgid "category:general-settings"
+msgstr "General Settings"
+
+msgid "category:general-settings/description"
+msgstr ""
+"[Enable]" allows you to switch between using the function individually.\n\n"
+"[Animation] can be enabled to dynamically control the item from ExMenu in VRChat.\n"
+"If you disable this, the [Initial value] described below becomes a parameter called [Override value], and you can unify the settings of the material to which LLC is applied.\n\n"
+"[Initial Value] is the value that is initialized when the avatar is reset.\n\n"
+"[Override Value] is the value that commonizes the material settings when not controlling by animation.\n\n"
+"[Operating Range] is the range of values that are operated within the range of 0 to 100% in the menu.\n\n"
+"[Synced] is the value for whether to synchronize the parameter. If asynchronous is okay, you can reduce the load by turning this setting OFF.\n\n"
+"[Saved] is the value for whether to save the parameter. If it is turned OFF, it will be initialized when moving to another world or switching avatars."
+
+msgid "category:lighting"
+msgstr "Lighting Settings"
+
+msgid "category:color-control"
+msgstr "Color Settings"
+
+msgid "category:material-settings"
+msgstr "Shader Settings"
+
+msgid "category:lilToon"
+msgstr "lilToon"
+
+msgid "category:lilToon/distance-fade"
+msgstr "Distance Fade"
+
+msgid "category:lilToon/backlight"
+msgstr "Backlight"
+
+msgid "category:lilToon/shadow"
+msgstr "Shadow"
+
+msgid "category:lilToon/rimlight"
+msgstr "Rimlight"
+
+msgid "category:poiyomi"
+msgstr "Poiyomi"
+
+msgid "category:poiyomi/pp-animations"
+msgstr "PP Animations"
+
+msgid "category:poiyomi/backlight"
+msgstr "Backlight"
+
+msgid "category:poiyomi/ssao"
+msgstr "SSAO"
+
+msgid "category:sunao-settings"
+msgstr "Sunao"
+
+msgid "category:unlitwf-settings"
+msgstr "UnlitWF"
+
+msgid "category:other-settings"
+msgstr "Other Settings"
+
+##################
+## Lighting Settings
+
+msgid "category:lighting/description"
+msgstr ""
+"Settings related to overall lighting.\n"
+"[Brightness Lower Limit] and [Brightness Upper Limit] are the primary features.\n"
+"By adjusting these parameters, you can match the brightness to fit the world.\n\n"
+"[Monochromize Lighting] is a feature that converts the color of the world light affecting the avatar into monochrome.\n"
+"This ensures that the avatar's color remains unchanged while only the brightness is adjusted when exposed to colored light.\n\n"
+"[Unlit] is a parameter that disables lighting effects on the avatar.\n"
+"Using this feature allows you to control the impact of the world's light on the avatar.\n\n"
+"[Emission] is a parameter to adjust the strength of the avatar's emission.\n"
+"This prevents excessive brightness in dark areas or overexposure caused by PostProcess effects.\n\n"
+"[Light Direction] allows you to override the influence of the light source on the avatar as to which direction it is being illuminated from.\n"
+"This allows you to receive light from any direction, regardless of the light source position. It can be turned off at 0%."
+
+msgid "settings:lighting/min-light/label"
+msgstr "Brightness Lower Limit"
+
+msgid "settings:lighting/min-light/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_LightMinLimit\n"
+"poiyomi:_LightingMinLightBrightness\n"
+"UnlitWF:_GL_LevelMin"
+
+msgid "settings:lighting/max-light/label"
+msgstr "Brightness Upper Limit"
+
+msgid "settings:lighting/max-light/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_LightMaxLimit\n"
+"poiyomi:_LightingCap, _LightingAdditiveLimit\n"
+"UnlitWF:*****"
+
+msgid "settings:lighting/monochrome/label"
+msgstr "Monochromize Lighting"
+
+msgid "settings:lighting/monochrome/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_MonochromeLighting\n"
+"poiyomi:_LightingMonochromatic, _LightingAdditiveMonochromatic\n"
+"UnlitWF:*****"
+
+msgid "settings:lighting/unlit/label"
+msgstr "Unlit Feature"
+
+msgid "settings:lighting/unlit/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_AsUnlit\n"
+"poiyomi:*****\n"
+"UnlitWF:*****"
+
+msgid "settings:lighting/emission-strength/label"
+msgstr "Emission Strength"
+
+msgid "settings:lighting/emission-strength/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_EmissionBlend\n"
+"poiyomi:_PPEmissionMultiplier\n"
+"UnlitWF:*****"
+
+msgid "settings:lighting/light-direction/label"
+msgstr "Light Direction"
+
+msgid "settings:lighting/light-direction/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_LightDirectionOverride\n"
+"Poiyomi:_LightingDirectionMode, _LightngForcedDirection"
+
+msgid "settings:lighting/light-direction-mode/label"
+msgstr "Light Direction Mode"
+
+msgid "settings:lighting/allow-advanced-light-direction-control/label"
+msgstr "Allow Advanced Light Direction Control"
+
+#################
+## カラー設定
+
+msgid "category:color-control/description"
+msgstr ""
+"Settings related to overall color control.\n"
+"For lilToon, this operation does not apply to Main Color 2nd. If you want to modify it, consider baking textures.\n\n"
+"[Hue], [Saturation], [Brightness], and [Gamma] are the primary features.\n"
+"Adjusting these parameters allows you to change the color of the avatar."
+
+msgid "category:color-control/texture-bake-information"
+msgstr ""
+"Enabling color settings uses LLC for operations, so any changes to Main Color should be baked into the texture.\n"
+"Baking may increase texture memory usage. If significant increases occur, consider reviewing material settings or using tools like TexTransTool for atlas creation."
+
+
+msgid "category:color-control/tips"
+msgstr ""
+"When using lilToon, saturation, hue, brightness, and gamma cannot be disabled individually because they are controlled by a single shader parameter.\n"
+"Therefore, if any of them is enabled, the other disabled items will be overwritten with their override values."
+
+msgid "category:color-control/group/color-adjust"
+msgstr "Color Adjustment"
+
+msgid "category:color-control/group/color-change"
+msgstr "Color Change"
+
+msgid "settings:color-control/hue/label"
+msgstr "Hue"
+
+msgid "settings:color-control/hue/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_MainTexHSVG.x\n"
+"poiyomi:*****\n"
+"UnlitWF:*****"
+
+msgid "settings:color-control/saturation/label"
+msgstr "Saturation"
+
+msgid "settings:color-control/saturation/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_MainTexHSVG.y\n"
+"poiyomi:_Saturation\n"
+"UnlitWF:*****"
+
+msgid "settings:color-control/brightness/label"
+msgstr "Brightness"
+
+msgid "settings:color-control/brightness/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_MainTexHSVG.z\n"
+"poiyomi:*****\n"
+"UnlitWF:*****"
+
+msgid "settings:color-control/gamma/label"
+msgstr "Gamma"
+
+msgid "settings:color-control/gamma/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_MainTexHSVG.w\n"
+"poiyomi:_MainGamma\n"
+"UnlitWF:*****"
+
+msgid "settings:color-control/color-temperature/label"
+msgstr "Color Temperature"
+
+msgid "settings:color-control/color-temperature/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_Color\n"
+"poiyomi:_Color\n"
+"UnlitWF:_Color"
+
+##################
+## lilToon Settings
+
+msgid "category:lilToon/description"
+msgstr ""
+"Settings specific to lilToon.\n\n"
+"[Shadow Environment Strength] adjusts the strength of shadow environments.\n"
+"This allows you to control the strength of shadows.\n\n"
+"[Vertex Light Strength] adjusts the strength of vertex lighting.\n"
+"This is often the cause when brightness changes only within mirrors."
+
+msgid "settings:lilToon/shadow-env-strength/label"
+msgstr "Shadow Environment Strength"
+
+msgid "settings:lilToon/shadow-env-strength/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_ShadowEnvStrength"
+
+msgid "settings:lilToon/vertex-light-strength/label"
+msgstr "Vertex Light Strength"
+
+msgid "settings:lilToon/vertex-light-strength/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_VertexLightStrength"
+
+##################
+## lilToon Shadow
+
+msgid "category:lilToon/shadow/description"
+msgstr ""
+"Settings specific to lilToon.\n\n"
+"[Receive Shadow] controls the shadow settings' [Receive Shadow] for shadow colors 1/2/3 together."
+
+msgid "settings:lilToon/shadow/receive-cast-shadow/label"
+msgstr "Receive Shadow"
+
+msgid "settings:lilToon/shadow/receive-cast-shadow/description"
+msgstr ""
+"Controls [Receive Shadow] in the shadow settings for shadow colors 1/2/3 together.\n\n"
+"Control Parameter\n"
+"lilToon:_ShadowReceive, _Shadow2ndReceive, _Shadow3rdReceive"
+
+msgid "settings:lilToon/shadow/receive-cast-shadow/caution"
+msgstr ""
+"When this option is enabled, the default value (0) means the avatar will not receive any cast shadows from the world.\n"
+"If you want to receive shadows, set the initial value to 1."
+
+##################
+## lilToon Distance Fade
+
+msgid "category:lilToon/distance-fade/description"
+msgstr ""
+"Settings specific to lilToon.\n\n"
+"[Distance Fade] controls fading based on the distance of the avatar.\n"
+"As the avatar moves further away, it fades, allowing adjustments to its appearance.\n\n"
+"[Start Distance] adjusts the start distance for distance fade.\n"
+"[End Distance] adjusts the end distance for distance fade.\n"
+"[Strength] adjusts the strength of distance fade.\n"
+"[Color] adjusts the color for distance fade.\n"
+"[Force Backface Shadow] toggles whether the backface is shaded.\n\n"
+"Animation control is disabled by default, so enable it if needed.\n"
+"If animation control is not used, [Override Value] will be used to apply common material settings.\n"
+"This is convenient for applying settings to entire avatars in bulk."
+
+msgid "category:lilToon/distance-fade/tips"
+msgstr ""
+"Each distance fade item, except for [Force Backface Shadow], is controlled by a single shader parameter and cannot be disabled individually.\n"
+"Therefore, if any of them is enabled, the other disabled items will be overwritten with their override values."
+
+msgid "settings:lilToon/distance-fade/fade-color/label"
+msgstr "Color"
+
+msgid "settings:lilToon/distance-fade/fade-color/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_DistanceFadeColor"
+
+msgid "settings:lilToon/distance-fade/start/label"
+msgstr "Start Distance"
+
+msgid "settings:lilToon/distance-fade/start/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_DistanceFade.x"
+
+msgid "settings:lilToon/distance-fade/end/label"
+msgstr "End Distance"
+
+msgid "settings:lilToon/distance-fade/end/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_DistanceFade.y"
+
+msgid "settings:lilToon/distance-fade/strength/label"
+msgstr "Strength"
+
+msgid "settings:lilToon/distance-fade/strength/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_DistanceFade.z"
+
+msgid "settings:lilToon/distance-fade/backface-force-shadow/label"
+msgstr "Force Backface Shadow"
+
+msgid "settings:lilToon/distance-fade/backface-force-shadow/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_DistanceFade.w"
+
+msgid "settings:lilToon/distance-fade/rim-color/label"
+msgstr "Rim light color"
+
+msgid "settings:lilToon/distance-fade/rim-color/description"
+msgstr ""
+"Control parameters\n"
+"lilToon:_DistanceFadeRimColor"
+
+msgid "settings:lilToon/distance-fade/rim-fresnel-power/label"
+msgstr "Fresnel Power"
+
+msgid "settings:lilToon/distance-fade/rim-fresnel-power/description"
+msgstr ""
+"Control parameters\n"
+"lilToon:_DistanceFadeRimFresnelPower"
+
+##################
+## lilToon Backlight
+
+msgid "category:lilToon/backlight/description"
+msgstr ""
+"Settings specific to lilToon.\n\n"
+"[Use Backlight] toggles whether backlight is used.\n"
+"Using backlight allows light to be applied from behind the avatar.\n\n"
+"[Backlight Color] adjusts the color of the backlight.\n"
+"[Main Color Strength] adjusts the strength of the main color for the backlight.\n"
+"[Range] adjusts the range of the backlight.\n"
+"[Blur] adjusts the blur of the backlight.\n"
+"[Directivity] adjusts the directivity of the backlight.\n"
+"[View Direction Influence] adjusts the influence of view direction on the backlight.\n"
+"[Receive Shadow] toggles whether the backlight receives shadows from the world.\n"
+"[Disable on Backface] toggles whether the backlight is disabled on the backface."
+
+msgid "settings:lilToon/backlight/use-backlight/label"
+msgstr "Use Backlight"
+
+msgid "settings:lilToon/backlight/use-backlight/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_UseBacklight"
+
+msgid "settings:lilToon/backlight/backlight-color/label"
+msgstr "Backlight Color"
+
+msgid "settings:lilToon/backlight/backlight-color/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_BacklightColor"
+
+msgid "settings:lilToon/backlight/backlight-main-strength/label"
+msgstr "Main Color Strength"
+
+msgid "settings:lilToon/backlight/backlight-main-strength/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_BacklightMainStrength"
+
+msgid "settings:lilToon/backlight/backlight-border/label"
+msgstr "Range"
+
+msgid "settings:lilToon/backlight/backlight-border/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_BacklightBorder"
+
+msgid "settings:lilToon/backlight/backlight-blur/label"
+msgstr "Blur"
+
+msgid "settings:lilToon/backlight/backlight-blur/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_BacklightBlur"
+
+msgid "settings:lilToon/backlight/backlight-directivity/label"
+msgstr "Directivity"
+
+msgid "settings:lilToon/backlight/backlight-directivity/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_BacklightDirectivity"
+
+msgid "settings:lilToon/backlight/backlight-view-strength/label"
+msgstr "View Direction Influence"
+
+msgid "settings:lilToon/backlight/backlight-view-strength/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_BacklightViewStrength"
+
+msgid "settings:lilToon/backlight/receive-shadow/label"
+msgstr "Receive Shadow"
+
+msgid "settings:lilToon/backlight/receive-shadow/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_BacklightReceiveShadow"
+
+msgid "settings:lilToon/backlight/backface-mask/label"
+msgstr "Disable on Backface"
+
+msgid "settings:lilToon/backlight/backface-mask/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_BacklightBackfaceMask"
+
+msgid "settings:lilToon/backlight/add-light-direction-menu/label"
+msgstr "Add a menu when Light Direction control is enabled"
+
+msgid "settings:lilToon/backlight/add-light-direction-menu/description"
+msgstr "Enabling this option will also generate an identical menu for the backlight menu if [Light Direction] is enabled in the Lighting settings."
+
+#################
+## lilToon Rimlight
+
+msgid "category:lilToon/rimlight/description"
+msgstr ""
+"This is a rim light setting item for lilToon only.\n\n"
+"Since animation control is disabled by default, enable it if necessary.\n"
+"If animation control is not enabled, the material settings will be shared in [Override value].\n"
+"This is useful when setting the entire avatar at once."
+
+msgid "category:lilToon/rimlight/tips"
+msgstr ""
+"Enable rim light" is disabled by default.\n"
+"This means that rim light will only be reflected in materials that have rim light enabled by default.\n"
+"If you want to enable rim light for all materials in the avatar, enable this item.\n\n"
+"All rim light items have animation disabled by default.\n"
+"If you want to operate with ExMenu, enable the animation item from Advanced Settings. "
+
+msgid "settings:lilToon/rimlight/use-rim-light/label"
+msgstr "Enable rim light"
+
+msgid "settings:lilToon/rimlight/use-rim-light/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_UseRim"
+
+msgid "settings:lilToon/rimlight/color/label"
+msgstr "Rim light color"
+
+msgid "settings:lilToon/rimlight/color/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_RimColor"
+
+msgid "settings:lilToon/rimlight/main-color-strength/label"
+msgstr "Main color Power"
+
+msgid "settings:lilToon/rimlight/main-color-strength/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_RimMainStrength"
+
+msgid "settings:lilToon/rimlight/rim-enable-lighting/label"
+msgstr "Enable Lighting"
+
+msgid "settings:lilToon/rimlight/rim-enable-lighting/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_RimEnableLighting"
+
+msgid "settings:lilToon/rimlight/rim-shadow-mask/label"
+msgstr "Shadow Mask"
+
+msgid "settings:lilToon/rimlight/rim-shadow-mask/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_RimShadowMask"
+
+msgid "settings:lilToon/rimlight/rim-backface-mask/label"
+msgstr "Backface Mask"
+
+msgid "settings:lilToon/rimlight/rim-backface-mask/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_RimBackfaceMask"
+
+msgid "settings:lilToon/rimlight/rim-border/label"
+msgstr "Border"
+
+msgid "settings:lilToon/rimlight/rim-border/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_RimBorder"
+
+msgid "settings:lilToon/rimlight/rim-blur/label"
+msgstr "Blur"
+
+msgid "settings:lilToon/rimlight/rim-blur/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_RimBlur"
+
+msgid "settings:lilToon/rimlight/rim-fresnel-power/label"
+msgstr "Fresnel Power"
+
+msgid "settings:lilToon/rimlight/rim-fresnel-power/description"
+msgstr ""
+"Control Parameter\n"
+"lilToon:_RimFresnelPower"
+
+#################
+## lilToon VRCLV
+
+msgid "category:lilToon/vrc-light-volumes"
+msgstr "VRC Light Volumes"
+
+msgid "category:lilToon/vrc-light-volumes/disabled/reason"
+msgstr "This section is only available in lilToon 2.1.6 and later."
+
+msgid "settings:lilToon/vrc-light-volumes/rim-border/label"
+msgstr "Rim Border"
+
+msgid "settings:lilToon/vrc-light-volumes/rim-blur/label"
+msgstr "Rim Blur"
+
+##################
+## Poiyomi Settings
+
+msgid "category:poiyomi/description"
+msgstr ""
+"Settings specific to Poiyomi.\n\n"
+"[Brightness Upper Limit (Add Pass)] and [Monochromize Lighting (Add Pass)] are the primary features.\n"
+"Add Pass allows adjustments to the influence of point and spotlight lighting.\n"
+"These features can be controlled in the basic settings, but enabling them allows independent control of Base Pass and Add Pass.\n"
+"In this case, the [Brightness Upper Limit] and [Monochromize Lighting] in the basic settings control the Base Pass menu.\n\n"
+
+msgid "category:poiyomi/poiyomi-pro/disabled/reason"
+msgstr "This section is only available in Poiyomi Pro."
+
+msgid "settings:poiyomi/max-additive-light/label"
+msgstr "Brightness Upper Limit (Add Pass)"
+
+msgid "settings:poiyomi/max-additive-light/description"
+msgstr ""
+"Control Parameter\n"
+"poiyomi:_LightingAdditiveLimit"
+
+msgid "settings:poiyomi/monochrome-additive/label"
+msgstr "Monochromize Lighting (Add Pass)"
+
+msgid "settings:poiyomi/monochrome-additive/description"
+msgstr ""
+"Control Parameter\n"
+"poiyomi:_LightingAdditiveMonochromatic"
+
+msgid "category:poiyomi/pp-animations/description"
+msgstr ""
+"PP Animations is a setting for controlling Poiyomi's PP Animations feature.\n\n"
+"[Lighting Multiplier] adjusts the brightness multiplier of the avatar.\n"
+"[Lighting Addition] adjusts the brightness addition of the avatar.\n"
+"[Emission Multiplier] adjusts the emission multiplier of the avatar.\n"
+"[Final Color Multiplier] adjusts the strength of the output color of the avatar."
+
+msgid "settings:poiyomi/pp-animations/lighting-multiplier/label"
+msgstr "Lighting Multiplier"
+
+msgid "settings:poiyomi/pp-animations/lighting-multiplier/description"
+msgstr ""
+"Control Parameter\n"
+"_PPLightingMultiplier"
+
+msgid "settings:poiyomi/pp-animations/lighting-addition/label"
+msgstr "Lighting Addition"
+
+msgid "settings:poiyomi/pp-animations/lighting-addition/description"
+msgstr ""
+"Control Parameter\n"
+"_PPLightingAddition"
+
+msgid "settings:poiyomi/pp-animations/emission-multiplier/label"
+msgstr "Emission Multiplier"
+
+msgid "settings:poiyomi/pp-animations/emission-multiplier/description"
+msgstr ""
+"Control Parameter\n"
+"_PPEmissionMultiplier"
+
+msgid "settings:poiyomi/pp-animations/final-color-multiplier/label"
+msgstr "Final Color Multiplier"
+
+msgid "settings:poiyomi/pp-animations/final-color-multiplier/description"
+msgstr ""
+"Control Parameter\n"
+"_PPFinalColorMultiplier"
+
+## Backlight
+
+msgid "category:poiyomi/backlight/description"
+msgstr ""
+"Settings specific to poiyomi.\n\n"
+"[Use Backlight] toggles whether backlight is used.\n"
+"Using backlight allows light to be applied from behind the avatar.\n\n"
+"[Backlight Color] adjusts the color of the backlight.\n"
+"[Main Color Strength] adjusts the strength of the main color for the backlight.\n"
+"[Range] adjusts the range of the backlight.\n"
+"[Blur] adjusts the blur of the backlight.\n"
+"[Directivity] adjusts the directivity of the backlight.\n"
+"[View Direction Influence] adjusts the influence of view direction on the backlight.\n"
+"[Receive Shadow] toggles whether the backlight receives shadows from the world.\n"
+"[Disable on Backface] toggles whether the backlight is disabled on the backface."
+
+msgid "category:poiyomi/backlight/tips"
+msgstr ""
+"In Poiyomi, you cannot turn the backlight on or off. Therefore, if you want to remove the backlight, set the shadow range to 100%.\n"
+"When using the [Light Direction] function, please note that it will have no effect unless Directivity is close to 0."
+
+msgid "settings:poiyomi/backlight/use-backlight/label"
+msgstr "Use Backlight"
+
+msgid "settings:poiyomi/backlight/use-backlight/description"
+msgstr ""
+"Control Parameter\n"
+"poiyomi:_UseBacklight"
+
+msgid "settings:poiyomi/backlight/backlight-color/label"
+msgstr "Backlight Color"
+
+msgid "settings:poiyomi/backlight/backlight-color/description"
+msgstr ""
+"Control Parameter\n"
+"poiyomi:_BacklightColor"
+
+msgid "settings:poiyomi/backlight/backlight-main-strength/label"
+msgstr "Main Color Strength"
+
+msgid "settings:poiyomi/backlight/backlight-main-strength/description"
+msgstr ""
+"Control Parameter\n"
+"poiyomi:_BacklightMainStrength"
+
+msgid "settings:poiyomi/backlight/backlight-border/label"
+msgstr "Border"
+
+msgid "settings:poiyomi/backlight/backlight-border/description"
+msgstr ""
+"Control Parameter\n"
+"poiyomi:_BacklightBorder"
+
+msgid "settings:poiyomi/backlight/backlight-blur/label"
+msgstr "Blur"
+
+msgid "settings:poiyomi/backlight/backlight-blur/description"
+msgstr ""
+"Control Parameter\n"
+"poiyomi:_BacklightBlur"
+
+msgid "settings:poiyomi/backlight/backlight-directivity/label"
+msgstr "Directivity"
+
+msgid "settings:poiyomi/backlight/backlight-directivity/description"
+msgstr ""
+"Control Parameter\n"
+"poiyomi:_BacklightDirectivity"
+
+msgid "settings:poiyomi/backlight/backlight-view-strength/label"
+msgstr "View Direction Influence"
+
+msgid "settings:poiyomi/backlight/backlight-view-strength/description"
+msgstr ""
+"Control Parameter\n"
+"poiyomi:_BacklightViewStrength"
+
+msgid "settings:poiyomi/backlight/receive-shadow/label"
+msgstr "Receive Shadow"
+
+msgid "settings:poiyomi/backlight/receive-shadow/description"
+msgstr ""
+"Control Parameter\n"
+"poiyomi:_BacklightReceiveShadow"
+
+msgid "settings:poiyomi/backlight/backface-mask/label"
+msgstr "Disable on Backface"
+
+msgid "settings:poiyomi/backlight/backface-mask/description"
+msgstr ""
+"Control Parameter\n"
+"poiyomi:_BacklightBackfaceMask"
+
+msgid "settings:poiyomi/backlight/add-light-direction-menu/label"
+msgstr "Add a menu when Light Direction control is enabled"
+
+msgid "settings:poiyomi/backlight/add-light-direction-menu/description"
+msgstr "Enabling this option will also generate an identical menu for the backlight menu if [Light Direction] is enabled in the Lighting settings."
+
+## SSAO
+
+msgid "category:poiyomi/ssao/description"
+msgstr ""
+
+msgid "settings:poiyomi/ssao/toggle/label"
+msgstr "Use SSAO"
+
+msgid "settings:poiyomi/ssao/toggle/description"
+msgstr ""
+
+msgid "settings:poiyomi/ssao/intensity/label"
+msgstr "Intensity"
+
+msgid "settings:poiyomi/ssao/intensity/description"
+msgstr ""
+
+msgid "settings:poiyomi/ssao/radius/label"
+msgstr "Radius"
+
+msgid "settings:poiyomi/ssao/radius/description"
+msgstr ""
+
+msgid "settings:poiyomi/ssao/quality/label"
+msgstr "Quality"
+
+msgid "settings:poiyomi/ssao/quality/description"
+msgstr ""
+
+
+##################
+## Shader Settings
+
+##################
+## Authentication
+
+msgid "auth:message/not-verified"
+msgstr ""
+"Light Limit Changer is not authenticated.\n"
+"Please enter the password provided with your purchase."
+
+msgid "auth:label/open-authenticator"
+msgstr "Open Authentication Screen"
+
+msgid "auth:label/password"
+msgstr "Password"
+
+msgid "auth:label/show-password"
+msgstr "Show Password"
+
+msgid "auth:label/verify"
+msgstr "Verify"
+
+msgid "auth:message/info"
+msgstr "The password is included in the files downloaded after purchasing from Booth."
+
+msgid "auth:message/incorrect"
+msgstr ""
+"Authentication failed.\n"
+"The password is incorrect or the authentication server could not be accessed.\n"
+"Please check your password again and recheck your firewall settings to make sure Unity communication is allowed."
+
+##################
+## Other Settings
+
+msgid "settings:other/excludes/label"
+msgstr "Exclude Settings"
+
+msgid "settings:other/excludes/description"
+msgstr ""
+"Exclude settings allow you to exclude specific materials in the avatar from being controlled.\n"
+"By directly specifying the material, you can exclude only specific materials from being controlled."
+
+msgid "settings:other/excludes/exclude-object"
+msgstr "Exclude Objects"
+
+msgid "settings:other/excludes/add-section/game-object"
+msgstr "Object to Add"
+
+msgid "settings:other/excludes/add-section/material"
+msgstr "Material to Add"
+
+msgid "settings:other/excludes/include-children"
+msgstr "Include Children"
+
+msgid "settings:other/writedefault/label"
+msgstr "Write Defaults Setting"
+
+msgid "settings:other/writedefault/description"
+msgstr ""
+"The Write Defaults setting allows changes to the Write Defaults setting for generated animations.\n"
+"Normally, this is automatically adjusted to match the avatar, but you can manually adjust it if issues arise."
+
+msgid "settings:other/target_shader/label"
+msgstr "Target Shader"
+
+msgid "settings:other/target_shader/description"
+msgstr ""
+"The Target Shader parameter specifies the shader to which settings are applied.\n"
+"You can exclude specific shaders from being controlled."
+
+msgid "settings:other/include-particle-system"
+msgstr "Particle System Setting"
+
+msgid "settings:other/include-particle-system/label"
+msgstr "Include Particle System"
+
+msgid "settings:other/include-particle-system/description"
+msgstr "This setting allows you to generate animations to control brightness etc. if the particle system contains the target shader."
+
+msgid "settings:other/language/label"
+msgstr "Language Setting"
+
+msgid "settings:other/compress-expression-parameters/label"
+msgstr "Parameter Compression"
+
+msgid "settings:other/compress-expression-parameters/description"
+msgstr ""
+"This feature compresses the parameters used by the Light Limit Changer feature.\n\n"
+"By enabling this feature, float parameters can be compressed to a total of 16 bits.\n"
+"However, this may result in slower synchronization speeds."
+
+msgid "settings:other/parameter-sync-frequency/label"
+msgstr "Parameter Sync Frequency (sec)"
+
+msgid "settings:other/parameter-sync-frequency/description"
+msgstr ""
+"(Advanced) Set how often parameter syncing will start, in seconds.\n"
+"Closer to 0 means faster, larger values mean slower."
+
+msgid "settings:other/add-manual-sync-button/label"
+msgstr "Add Manual-Sync Button"
+
+msgid "settings:other/add-manual-sync-button/description"
+msgstr ""
+"Add a button to the menu to manually start parameter synchronization.\n"
+"It is intended to be used in conjunction with slowing down the parameter synchronization frequency."
+
+msgid "settings:other/allow-force-override-same-reference/label"
+msgstr "Force Override for Identical References"
+
+msgid "settings:other/allow-force-override-same-reference/description"
+msgstr ""
+"When baking, this feature overrides textures that share the same reference as the main texture within the material.\n"
+"Enabling this feature allows both the main texture and outline texture (if sharing the same reference) to be overridden after baking.\n"
+"This can reduce VRAM usage but may alter the appearance."
+
+msgid "settings:other/preset"
+msgstr "Preset"
+
+msgid "settings:other/generate-default-preset"
+msgstr "Generate Default Preset"
+
+msgid "settings:other/preset/description"
+msgstr "Add initial value presets to reset each parameter."
+
+msgid "settings:other/dynamic-preset/label"
+msgstr "Dynamic Presets"
+
+msgid "settings:other/dynamic-preset/generate-dynamic-preset"
+msgstr "Enable Save Slots"
+
+msgid "settings:other/dynamic-preset/dynamic-preset-slot-count"
+msgstr "Number of Save Slots"
+
+msgid "settings:other/dynamic-preset/description"
+msgstr ""
+"Adds save slots to save and load current settings from the EX menu."
+
+msgid "settings:other/ndmf-preview/title"
+msgstr ""
+"NDMF Preview"
+
+msgid "settings:other/ndmf-preview/label"
+msgstr ""
+"Enable Realtime Preview"
+
+msgid "settings:other/ndmf-preview/description"
+msgstr ""
+"Enables NDMF preview.\n"
+"This allows you to see your values being overwritten in real time.\n"
+"Please note that Color Control Settings are not reflected in the preview."
+
+msgid "settings:other/mesh-settings/title"
+msgstr "Mesh Settings"
+
+msgid "settings:other/mesh-settings/override-settings"
+msgstr "Override Mesh Settings"
+
+msgid "settings:other/mesh-settings/anchor-override"
+msgstr "Anchor Override"
+
+msgid "settings:other/mesh-settings/root-bone"
+msgstr "Root Bone"
+
+msgid "settings:other/mesh-settings/bounds"
+msgstr "Bounds"
+
+msgid "settings:other/mesh-settings/description"
+msgstr ""
+"When this function is enabled, you can make the Root Bone and Bounds of the avatar common.\n"
+"If there is an MA MeshSettings in the avatar root, the contents will be overwritten, and if not, a new one will be generated.\n"
+"If there is another MA MeshSettings in the avatar, the settings for all components except [Not set] will be changed to [Inherit]."
+
+msgid "settings:other/menu-settings/title"
+msgstr "Menu Settings"
+
+msgid "settings:other/menu-settings/unfold-group-menus"
+msgstr "Don't create hierarchical menus"
+
+msgid "settings:other/error-suppression/title"
+msgstr "Warning Suppression"
+
+msgid "settings:other/error-suppression/mixed-shader-warning/label"
+msgstr "Suppress Mixed Shader Warning"
+
+msgid "settings:other/error-suppression/mixed-shader-warning/warning"
+msgstr ""
+"Enabling this option will suppress warnings about objects that have mixed shaders.\n"
+"Note that suppressing warnings may cause you to overlook issues that are actually occurring.\n"
+"\n"
+"If a warning is displayed, it is recommended to add the relevant object to the exclude list.\n"
+"This setting affects the behavior of all Light Limit Changers in the project."
+
+##################
+## Migration
+
+msgid "migration:v1/message"
+msgstr ""
+"This component is outdated and incompatible with Light Limit Changer Ver.2 and later.\n"
+"\n"
+"By pressing the 'Migrate' button below, you can migrate (transfer) settings from LLC 1.x to components for v2.x while retaining some of the previously configured values."
+
+##################
+## Error Messages
+
+## When old LLC is still present
+msgid "error:found-old-version/title"
+msgstr ""
+"An outdated Light Limit Changer component has been found in the avatar."
+
+msgid "error:found-old-version/details"
+msgstr ""
+"The outdated component does not generate animations at runtime.\n"
+
+msgid "error:found-old-version/hint"
+msgstr ""
+"Remove the outdated component and reinstall Light Limit Changer, or migrate the outdated component to the latest version using the inspector."
+
+msgid "error:duplicate-installed"
+msgstr ""
+"Multiple instances of Light Limit Changer were detected in the avatar, so this object has been blocked."
+
+msgid "error:duplicate-object-name/title"
+msgstr "The object name being animated is duplicated."
+
+msgid "error:duplicate-object-name/details"
+msgstr ""
+"An object with the same name exists in the same hierarchy.\n"
+"This may cause animations to not work properly.\n"
+"If this issue occurs, rename the following object:"
+
+msgid "error:failed-to-add/vrc-avatar-parameter-driver"
+msgstr ""
+"Failed to add VRCAvatarParameterDriver.\n"
+"Check if there are any compile errors caused by other scripts."
+
+## When using unsupported Poiyomi Toon version
+msgid "error:poiyomi/exist-unsupported-version/title"
+msgstr ""
+"Poiyomi Toon version {0} is currently not supported."
+
+msgid "error:unlitwf/bake-shader-not-found/title"
+msgstr ""
+"The baking shader for UnlitWF was not found, so the baking process was skipped."
+
+msgid "error:unlitwf/bake-shader-not-found/hint"
+msgstr ""
+"Updating the version of the UnlitWF Shader to the latest may resolve this issue."
+
+msgid "error:liltoon/exist-lilmulti/title"
+msgstr ""
+"Materials using the lilToonMulti shader were found in the avatar.\n"
+"Some animations may not function correctly."
+
+msgid "error:network-timeout"
+msgstr ""
+"Communication with the authentication server timed out.\n"
+"Please check your communication environment and try again."
+
+msgid "error:not-verified"
+msgstr ""
+Light Limit Changer is not authenticated. The process has been canceled.\n"
+"Please open the authentication screen and complete the authentication process."
+
+## When a renderer has both supported and unsupported shaders
+msgid "warning:renderer/mixed-shaders/title"
+msgstr "There is an object that contains a mix of compatible and incompatible shaders."
+
+msgid "warning:renderer/mixed-shaders/details"
+msgstr ""
+"When animations are applied to this renderer, unsupported materials on it will also be animated unintentionally, which may produce unintended visual results.\n"
+"Unsupported shaders: {0}\n"
+
+## Mixed shader auto-fix dialog
+msgid "autofix:dialog/title"
+msgstr "LLC - Mixed Shader Auto-Fix"
+
+msgid "autofix:dialog/description"
+msgstr "How would you like to add the incompatible shader materials to LLC's exclusion list?"
+
+msgid "autofix:dialog/renderer"
+msgstr "Object"
+
+msgid "autofix:dialog/unsupported-materials"
+msgstr "Incompatible materials"
+
+msgid "autofix:dialog/mode/material/label"
+msgstr "Exclude by material"
+
+msgid "autofix:dialog/mode/material/hint"
+msgstr "Adds only the incompatible materials to the exclusion list."
+
+msgid "autofix:dialog/mode/object/label"
+msgstr "Exclude by object"
+
+msgid "autofix:dialog/mode/object/hint"
+msgstr "Adds the entire object to the exclusion list (other materials on the same object will also be excluded)."
+
+msgid "autofix:dialog/apply"
+msgstr "Apply"
+
+msgid "autofix:dialog/cancel"
+msgstr "Cancel"
+
+msgid "autofix:dialog/error/avatar-not-found"
+msgstr "Avatar not found. Please make sure the target avatar exists in the scene."
+
+msgid "autofix:dialog/error/playmode"
+msgstr "Auto-fix cannot be run during Play mode.\n\nWhile in Play mode the avatar is rebuilt, so changes to the exclusion settings will be discarded when you exit Play mode.\nPlease exit Play mode and try again."
+
+msgid "autofix:dialog/error/component-not-found"
+msgstr "LightLimitChanger component not found."
+
+msgid "autofix:dialog/error/path-not-found"
+msgstr "Could not retrieve the object path. Please try excluding by material instead."
+
+msgid "autofix:dialog/error/object-not-found"
+msgstr "Object '{0}' not found.\nThe object may have been merged by another plugin.\nPlease try excluding by material instead."
+
+## Play mode warning dialog
+msgid "autofix:playmode-dialog/title"
+msgstr "Auto-Fix"
+
+msgid "autofix:playmode-dialog/message"
+msgstr "Auto-fix cannot be applied during Play Mode.\nPlease exit Play Mode first."
+
+msgid "autofix:playmode-dialog/exit"
+msgstr "Exit Play Mode"
+
+msgid "autofix:playmode-dialog/cancel"
+msgstr "Cancel"
+
+##################
+## EX Menu
+
+msgid "ex-menu:manual-sync"
+msgstr "Synchronizing Parameters"
+
+msgid "ex-menu:dynamic-preset"
+msgstr "Dynamic Preset"
+
+msgid "ex-menu:dynamic-preset/save"
+msgstr "Save"
+
+msgid "ex-menu:dynamic-preset/load"
+msgstr "Load"
+
+msgid "ex-menu:postfix/r"
+msgstr "Red"
+
+msgid "ex-menu:postfix/g"
+msgstr "Green"
+
+msgid "ex-menu:postfix/b"
+msgstr "Blue"
+
+msgid "ex-menu:postfix/a"
+msgstr "Alpha"
+
+msgid "ex-menu:color/intensity"
+msgstr "Intensity"
+
+msgid "ex-menu:direction/horizontal"
+msgstr "Horizontal"
+
+msgid "ex-menu:direction/vertical"
+msgstr "Vertical"
+
+##################
+## Favorite Menu
+
+msgid "favorite-menu:category/title"
+msgstr "Favorite Menu"
+
+msgid "favorite-menu:category/description"
+msgstr "You can organize selected parameters into a menu folder as favorites."
+
+msgid "favorite-menu:ex-menu/title"
+msgstr "Favorite"
+
+msgid "favorite-menu:label/not-animated"
+msgstr "Animation is not enabled"

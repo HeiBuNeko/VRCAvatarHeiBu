@@ -1,0 +1,486 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4142581062046429042
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6351261638362371547}
+  - component: {fileID: 1455933471504157708}
+  - component: {fileID: 7951193528408987669}
+  m_Layer: 0
+  m_Name: Light Limit Changer (V2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6351261638362371547
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4142581062046429042}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1455933471504157708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4142581062046429042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc1c13143f54e394ebe57b222b49f3d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Version:
+    Major: 0
+    Minor: 0
+    Patch: 0
+    Label: 
+  presetName: 
+  General:
+    CompressionExpressionParameters: 1
+    ParameterSyncFrequency: 1
+    AddManualSyncButton: 0
+    AllowForceOverrideSameReference: 1
+    GenerateDynamicPreset: 1
+    DynamicPresetSlotCount: 2
+    GenerateDefaultPreset: 1
+    IncludeParticleSystem: 0
+    LightingControl:
+      Enable: 1
+      MinLight:
+        Enable: 1
+        Animation: 1
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 0.05
+      MaxLight:
+        Enable: 1
+        Animation: 1
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 1
+      Monochrome:
+        Enable: 1
+        Animation: 1
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 0
+      Unlit:
+        Enable: 1
+        Animation: 1
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 0
+      EmissionStrength:
+        Enable: 1
+        Animation: 1
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 1
+      LightDirection:
+        Enable: 1
+        Animation: 1
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 0
+    ColorControl:
+      Enable: 1
+      Hue:
+        Enable: 1
+        Animation: 1
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 0
+      Saturation:
+        Enable: 1
+        Animation: 1
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 1
+      Brightness:
+        Enable: 1
+        Animation: 1
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 1
+      Gamma:
+        Enable: 1
+        Animation: 1
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 1
+      ColorTemperature:
+        Enable: 1
+        Animation: 1
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 0
+  LilToon:
+    Enable: 1
+    ShadowEnvStrength:
+      Enable: 1
+      Animation: 0
+      Saved: 1
+      Synced: 1
+      MinMaxRange: {x: 0, y: 1}
+      Value: 0
+    VertexLightStrength:
+      Enable: 1
+      Animation: 0
+      Saved: 1
+      Synced: 1
+      MinMaxRange: {x: 0, y: 1}
+      Value: 0
+    DistanceFade:
+      Enable: 0
+      FadeColor:
+        Enable: 1
+        Animation: 0
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: {r: 0, g: 0, b: 0, a: 1}
+      Start:
+        Enable: 1
+        Animation: 0
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 0.1
+      End:
+        Enable: 1
+        Animation: 0
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 0.01
+      Strength:
+        Enable: 1
+        Animation: 0
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 0
+      BackfaceForceShadow:
+        Enable: 1
+        Animation: 0
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 0
+      RimColor:
+        Enable: 1
+        Animation: 0
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: {r: 0, g: 0, b: 0, a: 1}
+      RimFresnelPower:
+        Enable: 1
+        Animation: 0
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 5
+    Backlight:
+      Enable: 0
+      UseBacklight:
+        Enable: 1
+        Animation: 1
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 0
+      BacklightColor:
+        Enable: 1
+        Animation: 1
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 2}
+        Value: {r: 1, g: 1, b: 1, a: 1}
+      BacklightMainStrength:
+        Enable: 1
+        Animation: 0
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 0
+      BacklightBorder:
+        Enable: 1
+        Animation: 1
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 0.65
+      BacklightBlur:
+        Enable: 1
+        Animation: 1
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 0.05
+      BacklightDirectivity:
+        Enable: 1
+        Animation: 1
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 5}
+        Value: 5
+      BacklightViewStrength:
+        Enable: 1
+        Animation: 1
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 0
+      ReceiveShadow:
+        Enable: 1
+        Animation: 0
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 1
+      BackfaceMask:
+        Enable: 1
+        Animation: 0
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 1
+      AddLightDirectionMenu: 1
+    Rimlight:
+      Enable: 0
+      UseRimLight:
+        Enable: 0
+        Animation: 1
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 1
+      Color:
+        Enable: 1
+        Animation: 0
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: {r: 0.66, g: 0.5, b: 0.48, a: 0.3}
+      MainColorStrength:
+        Enable: 1
+        Animation: 0
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 0
+      RimEnableLighting:
+        Enable: 1
+        Animation: 0
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 1
+      RimShadowMask:
+        Enable: 1
+        Animation: 0
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 0.5
+      RimBackfaceMask:
+        Enable: 1
+        Animation: 0
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 1
+      RimBorder:
+        Enable: 1
+        Animation: 0
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 0.5
+      RimBlur:
+        Enable: 1
+        Animation: 0
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 0.65
+      RimFresnelPower:
+        Enable: 1
+        Animation: 0
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 3.5
+  Poiyomi:
+    Enable: 0
+    MaxAdditiveLight:
+      Enable: 0
+      Animation: 1
+      Saved: 1
+      Synced: 1
+      MinMaxRange: {x: 0, y: 1}
+      Value: 1
+    MonochromeAdditive:
+      Enable: 0
+      Animation: 1
+      Saved: 1
+      Synced: 1
+      MinMaxRange: {x: 0, y: 1}
+      Value: 0
+    PPAnimations:
+      Enable: 1
+      LightingMultiplier:
+        Enable: 1
+        Animation: 1
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 1
+      LightingAddition:
+        Enable: 1
+        Animation: 1
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 0
+      EmissionMultiplier:
+        Enable: 1
+        Animation: 1
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 1
+      FinalColorMultiplier:
+        Enable: 1
+        Animation: 1
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 1
+    Backlight:
+      Enable: 1
+      BacklightColor:
+        Enable: 1
+        Animation: 1
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 2}
+        Value: {r: 1, g: 1, b: 1, a: 1}
+      BacklightMainStrength:
+        Enable: 1
+        Animation: 0
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 0
+      BacklightBorder:
+        Enable: 1
+        Animation: 1
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 0.65
+      BacklightBlur:
+        Enable: 1
+        Animation: 1
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 0.05
+      BacklightDirectivity:
+        Enable: 1
+        Animation: 1
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 5}
+        Value: 5
+      BacklightViewStrength:
+        Enable: 1
+        Animation: 1
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 0
+      ReceiveShadow:
+        Enable: 1
+        Animation: 0
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 1
+      BackfaceMask:
+        Enable: 1
+        Animation: 0
+        Saved: 1
+        Synced: 1
+        MinMaxRange: {x: 0, y: 1}
+        Value: 1
+      AddLightDirectionMenu: 1
+  UnlitWF:
+    Enable: 1
+  Excludes: []
+  WriteDefaults: 0
+  TargetShader:
+    ShaderIds:
+    - EVERYTHING
+  MenuTextColor: {r: 1, g: 1, b: 1, a: 1}
+  MenuIcon: {fileID: 0}
+  MeshSettings:
+    EnableMeshSettigsOverride: 0
+    Anchor:
+      referencePath: 
+      targetObject: {fileID: 0}
+    RootBone:
+      referencePath: 
+      targetObject: {fileID: 0}
+    Bounds:
+      m_Center: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 1, y: 1, z: 1}
+  DebugOptions:
+    DisplayDebugInformation: 0
+    Animation: 1
+    Component: 1
+    Renderers: 1
+    Materials: 1
+--- !u!114 &7951193528408987669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4142581062046429042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ef83cb0c23d4d7c9d41021e544a1978, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuToAppend: {fileID: 0}
+  installTargetMenu: {fileID: 0}

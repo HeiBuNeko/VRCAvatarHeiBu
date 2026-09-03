@@ -1,0 +1,39 @@
+{
+    "name": "io.github.azukimochi.light-limit-changer.editor",
+    "rootNamespace": "",
+    "references": [
+        "nadena.dev.modular-avatar.core",
+        "io.github.azukimochi.light-limit-changer",
+        "io.github.azukimochi.light-limit-changer.direct-blend-tree",
+        "nadena.dev.modular-avatar.core.editor",
+        "nadena.dev.ndmf",
+        "nadena.dev.ndmf.runtime",
+        "nadena.dev.ndmf.vrchat",
+        "ThryAssemblyDefinition"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "VRCSDK3A.dll",
+        "VRCSDKBase.dll",
+        "VRCSDKBase-Editor.dll",
+        "VRC.Utility.dll",
+        "VRCCore-Editor.dll",
+        "System.Collections.Immutable.dll",
+        "System.Runtime.CompilerServices.Unsafe.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.poiyomi.toon",
+            "expression": "",
+            "define": "POIYOMI"
+        }
+    ],
+    "noEngineReferences": false
+}

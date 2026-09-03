@@ -1,0 +1,1305 @@
+msgid ""
+msgstr ""
+"Language: ja\n"
+
+## メニュー項目のラベル
+msgid "common:label/initial-value"
+msgstr "初期値:"
+
+msgid "common:label/override-value"
+msgstr "上書き値:"
+
+msgid "common:label/preset-value"
+msgstr "設定値:"
+
+msgid "common:label/range"
+msgstr "操作範囲:"
+
+msgid "common:label/option"
+msgstr "オプション:"
+
+msgid "common:label/enable"
+msgstr "有効"
+
+msgid "common:label/animation"
+msgstr "アニメーション"
+
+msgid "common:label/saved"
+msgstr "保存"
+
+msgid "common:label/synced"
+msgstr "同期"
+
+msgid "common:label/false"
+msgstr "無効"
+
+msgid "common:label/true"
+msgstr "有効"
+
+msgid "common:label/options"
+msgstr "オプション"
+
+msgid "common:label/write-defaults"
+msgstr "Write Defaults"
+
+msgid "common:label/write-defaults/match-avatar"
+msgstr "アバターに合わせる"
+
+msgid "common:label/migrate"
+msgstr "マイグレーションする"
+
+msgid "common:label/preset"
+msgstr "プリセット"
+
+msgid "common:label/default-preset"
+msgstr "初期値"
+
+msgid "common:label/batch-settings"
+msgstr "一括設定"
+
+msgid "common:label/open"
+msgstr "開く"
+
+msgid "common:label/load"
+msgstr "読み込み"
+
+msgid "common:label/remove"
+msgstr "削除"
+
+msgid "common:label/reflesh"
+msgstr "更新"
+
+msgid "common:label/save"
+msgstr "保存する"
+
+msgid "common:label/slot"
+msgstr "スロット"
+
+msgid "common:label/copy"
+msgstr "設定をコピー"
+
+msgid "common:label/copy-with-child-settings"
+msgstr "設定をコピー（グループ全体）"
+
+msgid "common:label/paste"
+msgstr "設定を貼り付け"
+
+msgid "common:label/reset"
+msgstr "リセット"
+
+msgid "common:label/parameter-override"
+msgstr "パラメータ上書き"
+
+msgid "common:label/texture-bake"
+msgstr "テクスチャ焼き込み"
+
+msgid "common:label/sorting"
+msgstr "メニューの並べ替え"
+
+##################
+## リンクのラベル
+
+msgid "link:description"
+msgstr "各種リンク"
+
+msgid "link:changelog"
+msgstr "更新履歴(X:Twitter)"
+
+msgid "link:documentation"
+msgstr "Light Limit Changerの使い方(公式サイト)"
+
+msgid "link:feedback"
+msgstr "フィードバック(Google Form)"
+
+msgid "link:discord"
+msgstr "更新履歴・バグ・質問サポート用Discord"
+
+##################
+## 設定保存・プリセット
+
+msgid "editor-preset:inspector/title"
+msgstr "保存済みの設定"
+
+msgid "editor-preset:inspector/label/load-child-presets"
+msgstr "プリセットを適用する"
+
+msgid "editor-preset:inspector/label/preset-not-found"
+msgstr "保存済みの設定が見つかりません"
+
+msgid "preset-save-dialog:label/target-component"
+msgstr "対象のコンポーネント"
+
+msgid "preset-save-dialog:label/preset-name"
+msgstr "プリセット名"
+
+msgid "preset-save-dialog:label/save"
+msgstr "保存"
+
+msgid "runtime-preset:inspector/title"
+msgstr "プリセット編集画面"
+
+msgid "runtime-preset:inspector/none-presets"
+msgstr "プリセットがありません"
+
+msgid "runtime-preset:list/inspector/description"
+msgstr ""
+"ExMenuのプリセットから適用できる設定を管理することができます。\n\n"
+"+ボタンを押すことで、プリセットのオブジェクトを追加することができ、追加されたオブジェクトから値を変更することができます。\n"
+"プリセットの名前はオブジェクトの名前が使用されます。\n"
+"リスト上でプリセットの順番を変えることで、ExMenuに生成されるメニューの順番を変更することができます。"
+
+msgid "runtime-preset:inspector/description"
+msgstr ""
+"プリセット編集画面は、設定を保存・読み込みするための画面です。\n"
+"このオブジェクトの設定を変更することで、ExMenuに生成されるメニューからプリセットを適用できます。\n\n"
+"プリセットの名前はこのオブジェクトの名前が使用されます。\n"
+"各機能は親となるオブジェクトで有効になっていないと使用できません。\n"
+"各機能を有効にしない場合、このプリセットを選択しても値が変更されません。"
+"そのため、カラー変更のみ操作したい場合や、一部の機能のみを変更したい場合に便利です。"
+
+##################
+## 設定カテゴリーのラベル
+
+msgid "category:mode/basic"
+msgstr "基本設定"
+
+msgid "category:mode/advanced"
+msgstr "詳細設定"
+
+msgid "category:mode/description"
+msgstr "解説モード"
+
+msgid "category:mode/preset"
+msgstr "プリセット"
+
+msgid "category:preset"
+msgstr "プリセット"
+
+msgid "category:general-settings"
+msgstr "一般設定"
+
+msgid "category:general-settings/description"
+msgstr ""
+"[有効]をオンにすることで、個別に機能を使うか切り替えることができます。\n\n"
+"[アニメーション]を有効にすると、その項目はVRChat内でExMenuから動的に操作することができます。\n"
+"これを無効にすると、後述の[初期値]が[上書き値]というパラメーターになり、LLCが適用されるマテリアルの設定を統一して揃えることができます。\n\n"
+"[初期値]は、アバターリセットの際に初期化される値です。\n\n"
+"[上書き値]は、アニメーションによる制御をしない場合に、マテリアルの設定を共通化する値です。\n\n"
+"[操作範囲]は、メニューの0~100%の範囲で操作する値の範囲です。\n\n"
+"[同期]は、パラメーターを同期するかの値です。非同期でいい場合にはこの設定をOFFにすることで負荷を低減することができます\n\n"
+"[保存]は、パラメーターを保存するかの値です。OFFにするとワールド移動やアバターを切り替えた際に初期化されるようになります。"
+
+msgid "category:lighting"
+msgstr "ライティング設定"
+
+msgid "category:color-control"
+msgstr "カラー設定"
+
+msgid "category:material-settings"
+msgstr "シェーダー設定"
+
+msgid "category:lilToon"
+msgstr "lilToon"
+
+msgid "category:lilToon/distance-fade"
+msgstr "距離フェード"
+
+msgid "category:lilToon/backlight"
+msgstr "逆光ライト"
+
+msgid "category:lilToon/shadow"
+msgstr "影設定"
+
+msgid "category:lilToon/rimlight"
+msgstr "リムライト"
+
+msgid "category:poiyomi"
+msgstr "Poiyomi"
+
+msgid "category:poiyomi/pp-animations"
+msgstr "PP Animations"
+
+msgid "category:poiyomi/backlight"
+msgstr "逆光ライト"
+
+msgid "category:poiyomi/ssao"
+msgstr "SSAO"
+
+msgid "category:sunao-settings"
+msgstr "Sunao"
+
+msgid "category:unlitwf-settings"
+msgstr "UnlitWF"
+
+msgid "category:other-settings"
+msgstr "その他の設定"
+
+#################
+## ライティング設定
+
+msgid "category:lighting/description"
+msgstr ""
+"ライティング全般の設定項目になります。\n"
+"[明るさの下限]・[明るさの上限]が基本的な機能となります。\n"
+"それぞれのパラメーターを操作することで、ワールドに合った明るさに変えることができます。\n\n"
+"[ライトのモノクロ化]は、アバターに影響するワールドライトの色をモノクロ化する機能です。\n"
+"色のついた光を受けたときに色をモノクロに変換し、アバターの色が変わらず明るさのみが変わります。\n\n"
+"[Unlit]は、アバターへのライティングの影響を無効にするパラメーターです。\n"
+"この機能を使うことで、ワールドのライトからのアバターへ影響度合いを調整することができます。\n\n"
+"[エミッション]は、アバターのエミッションの強さを調整するパラメーターです。\n"
+"この機能を使うことで、エミッションによって暗いところで光りすぎてしまったり、PostProcessによって白飛びしてしまうのを防ぐことができます。\n\n"
+"[光源の向き]は、アバターがどの方向から照らされているかという光源からの影響を上書きすることができます。\n"
+"これによって、光源位置に依存せず任意の方向から光を受けることができます。0%でOFFにすることができます。"
+
+msgid "settings:lighting/min-light/label"
+msgstr "明るさの下限"
+
+msgid "settings:lighting/min-light/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_LightMinLimit\n"
+"poiyomi:_LightingMinLightBrightness\n"
+"UnlitWF:_GL_LevelMin"
+
+msgid "settings:lighting/max-light/label"
+msgstr "明るさの上限"
+
+msgid "settings:lighting/max-light/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_LightMaxLimit\n"
+"poiyomi:_LightingCap, _LightingAdditiveLimit\n"
+"UnlitWF:*****"
+
+msgid "settings:lighting/monochrome/label"
+msgstr "ライトのモノクロ化機能"
+
+msgid "settings:lighting/monochrome/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_MonochromeLighting\n"
+"poiyomi:_LightingMonochromatic, _LightingAdditiveMonochromatic\n"
+"UnlitWF:*****"
+
+msgid "settings:lighting/unlit/label"
+msgstr "Unlit機能"
+
+msgid "settings:lighting/unlit/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_AsUnlit\n"
+"poiyomi:*****\n"
+"UnlitWF:*****"
+
+msgid "settings:lighting/emission-strength/label"
+msgstr "エミッション機能"
+
+msgid "settings:lighting/emission-strength/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_EmissionBlend\n"
+"poiyomi:_PPEmissionMultiplier\n"
+"UnlitWF:*****"
+
+msgid "settings:lighting/light-direction/label"
+msgstr "光源の向き"
+
+msgid "settings:lighting/light-direction/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_LightDirectionOverride\n"
+"Poiyomi:_LightingDirectionMode, _LightngForcedDirection"
+
+msgid "settings:lighting/light-direction-mode/label"
+msgstr "光源の向きのモード"
+
+msgid "settings:lighting/allow-advanced-light-direction-control/label"
+msgstr "詳細な光源の向きの操作を有効にする"
+
+#################
+## カラー設定
+
+msgid "category:color-control/description"
+msgstr ""
+"カラー全般の設定項目になります。\n"
+"lilToonの場合、メインカラー2ndにはこの操作が適用されないため、操作したい場合にはテクスチャの焼き込みをご検討ください。\n\n"
+"[色相]・[彩度]・[明度]・[ガンマ]が基本的な機能となります。\n"
+"それぞれのパラメーターを操作することで、アバターの色を変えることができます。"
+
+msgid "category:color-control/texture-bake-information"
+msgstr ""
+"カラー設定を有効にすると、LLCで操作するため、メインカラーの変更などがある場合に変更をテクスチャに焼き込みます。\n"
+"焼き込み処理が行われる場合、テクスチャーメモリが増加することがあります。\n"
+"顕著な増加がある場合には、マテリアルの設定を見直すか、TexTransToolなどを用いたアトラス化をご検討ください。\n"
+
+msgid "category:color-control/tips"
+msgstr ""
+"lilToonを使用している場合、彩度・色彩・明度・ガンマの制御は一つのシェーダーパラメーターで制御されているため、個別に無効にすることができません。\n"
+"そのため、一つでも有効になっている場合、他の無効になっている項目は初期値で上書きされます。"
+
+msgid "category:color-control/group/color-adjust"
+msgstr "色調補正"
+
+msgid "category:color-control/group/color-change"
+msgstr "色変更"
+
+msgid "settings:color-control/hue/label"
+msgstr "色相"
+
+msgid "settings:color-control/hue/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_MainTexHSVG.x\n"
+"poiyomi:*****\n"
+"UnlitWF:*****"
+
+msgid "settings:color-control/saturation/label"
+msgstr "彩度"
+
+msgid "settings:color-control/saturation/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_MainTexHSVG.y\n"
+"poiyomi:_Saturation\n"
+"UnlitWF:*****"
+
+msgid "settings:color-control/brightness/label"
+msgstr "明度"
+
+msgid "settings:color-control/brightness/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_MainTexHSVG.z\n"
+"poiyomi:*****\n"
+"UnlitWF:*****"
+
+msgid "settings:color-control/gamma/label"
+msgstr "ガンマ"
+
+msgid "settings:color-control/gamma/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_MainTexHSVG.w\n"
+"poiyomi:_MainGamma\n"
+"UnlitWF:*****"
+
+msgid "settings:color-control/color-temperature/label"
+msgstr "色温度"
+
+msgid "settings:color-control/color-temperature/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_Color\n"
+"poiyomi:_Color\n"
+"UnlitWF:_Color"
+
+#################
+## lilToon設定
+
+msgid "category:lilToon/description"
+msgstr ""
+"lilToon専用機能の設定項目になります。\n\n"
+"[影環境強度]は、影の環境強度を調整するパラメーターです。\n"
+"影の環境強度を調整することで、影の強さを調整することができます。\n\n"
+"[頂点ライト強度]は、頂点ライトの強度を調整するパラメーターです。\n"
+"鏡の中でのみ明るさが変わってしまう場合の原因となることが多いです。"
+
+msgid "settings:lilToon/shadow-env-strength/label"
+msgstr "影環境強度"
+
+msgid "settings:lilToon/shadow-env-strength/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_ShadowEnvStrength"
+
+msgid "settings:lilToon/vertex-light-strength/label"
+msgstr "頂点ライト強度"
+
+msgid "settings:lilToon/vertex-light-strength/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_VertexLightStrength"
+
+#################
+## lilToon 影
+
+msgid "category:lilToon/shadow/description"
+msgstr ""
+"lilToon専用機能の設定項目になります。\n\n"
+"[影を受け取る]は、影設定の[影を受け取る]を影色1/2/3まとめて制御する機能です。"
+
+msgid "settings:lilToon/shadow/receive-cast-shadow/label"
+msgstr "影を受け取る"
+
+msgid "settings:lilToon/shadow/receive-cast-shadow/description"
+msgstr ""
+"影設定の[影を受け取る]を影色1/2/3まとめて制御します。\n\n"
+"操作パラメーター\n"
+"lilToon:_ShadowReceive, _Shadow2ndReceive, _Shadow3rdReceive"
+
+msgid "settings:lilToon/shadow/receive-cast-shadow/caution"
+msgstr ""
+"この項目を有効にすると、初期値(0)ではワールドの落ち影（Cast Shadow）を一切受け取らなくなります。\n"
+"影を受け取りたい場合は、初期値を1に設定してください。"
+
+#################
+## lilToon 距離フェード
+
+msgid "category:lilToon/distance-fade/description"
+msgstr ""
+"lilToon専用機能の設定項目になります。\n\n"
+"[距離フェード]は、アバターの距離によるフェードを制御する機能です。\n"
+"アバターが遠くにいくほどフェードすることで、アバターの見た目を調整することができます。\n\n"
+"[開始距離]は、距離フェードの開始距離を調整するパラメーターです。\n"
+"[終了距離]は、距離フェードの終了距離を調整するパラメーターです。\n"
+"[強度]は、距離フェードの強度を調整するパラメーターです。\n"
+"[色]は、距離フェードの色を調整するパラメーターです。\n"
+"[裏面を影にする]は、裏面を影にするかどうかを調整するパラメーターです。\n\n"
+"初期でアニメーション制御は無効にしているため、必要に応じて有効にしてください。\n"
+"アニメーション制御をしない場合、[上書き値]でマテリアルの設定が共通化されます。\n"
+"全身のアバターに対して一括で設定を行う場合に便利です。"
+
+msgid "category:lilToon/distance-fade/tips"
+msgstr ""
+"距離フェードの各項目は、[裏面を影にする]を除き、一つのシェーダーパラメーターで制御されているため、個別に無効にすることができません。\n"
+"そのため、一つでも有効になっている場合、他の無効になっている項目は初期値で上書きされます。"
+
+msgid "settings:lilToon/distance-fade/fade-color/label"
+msgstr "色"
+
+msgid "settings:lilToon/distance-fade/fade-color/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_DistanceFadeColor"
+
+msgid "settings:lilToon/distance-fade/start/label"
+msgstr "開始距離"
+
+msgid "settings:lilToon/distance-fade/start/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_DistanceFade.x"
+
+msgid "settings:lilToon/distance-fade/end/label"
+msgstr "終了距離"
+
+msgid "settings:lilToon/distance-fade/end/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_DistanceFade.y"
+
+msgid "settings:lilToon/distance-fade/strength/label"
+msgstr "強度"
+
+msgid "settings:lilToon/distance-fade/strength/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_DistanceFade.z"
+
+msgid "settings:lilToon/distance-fade/backface-force-shadow/label"
+msgstr "裏面を影にする"
+
+msgid "settings:lilToon/distance-fade/backface-force-shadow/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_DistanceFade.w"
+
+msgid "settings:lilToon/distance-fade/rim-color/label"
+msgstr "リムライトの色"
+
+msgid "settings:lilToon/distance-fade/rim-color/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_DistanceFadeRimColor"
+
+msgid "settings:lilToon/distance-fade/rim-fresnel-power/label"
+msgstr "リムライトの細さ"
+
+msgid "settings:lilToon/distance-fade/rim-fresnel-power/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_DistanceFadeRimFresnelPower"
+
+#################
+## lilToon 逆光ライト
+
+msgid "category:lilToon/backlight/description"
+msgstr ""
+"lilToon専用機能の設定項目になります。\n\n"
+"[逆光ライトを使用する]は、逆光ライトを使用するかどうかを制御する機能です。\n"
+"逆光ライトを使用することで、アバターに逆光ライトを当てることができます。\n\n"
+"[逆光ライトの色]は、逆光ライトの色を調整するパラメーターです。\n"
+"[メインカラーの強度]は、逆光ライトのメインカラーの強度を調整するパラメーターです。\n"
+"[影の範囲]は、逆光ライトの範囲を調整するパラメーターです。\n"
+"[影のぼかし]は、逆光ライトのぼかしを調整するパラメーターです。\n"
+"[指向性]は、逆光ライトの指向性を調整するパラメーターです。\n"
+"[視線方向の影響度]は、逆光ライトの視線方向の影響度を調整するパラメーターです。\n"
+"[影を受け取る]は、逆光ライトにワールドの影を受け取るかどうかを制御するパラメーターです。\n"
+"[裏面で無効化]は、裏面で逆光ライトを無効化するかどうかを制御するパラメーターです。"
+
+msgid "settings:lilToon/backlight/use-backlight/label"
+msgstr "逆光ライトを使用する"
+
+msgid "settings:lilToon/backlight/use-backlight/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_UseBacklight"
+
+msgid "settings:lilToon/backlight/backlight-color/label"
+msgstr "逆光ライトの色"
+
+msgid "settings:lilToon/backlight/backlight-color/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_BacklightColor"
+
+msgid "settings:lilToon/backlight/backlight-main-strength/label"
+msgstr "メインカラーの強度"
+
+msgid "settings:lilToon/backlight/backlight-main-strength/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_BacklightMainStrength"
+
+msgid "settings:lilToon/backlight/backlight-border/label"
+msgstr "影の範囲"
+
+msgid "settings:lilToon/backlight/backlight-border/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_BacklightBorder"
+
+msgid "settings:lilToon/backlight/backlight-blur/label"
+msgstr "影のぼかし"
+
+msgid "settings:lilToon/backlight/backlight-blur/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_BacklightBlur"
+
+msgid "settings:lilToon/backlight/backlight-directivity/label"
+msgstr "光源からの指向性"
+
+msgid "settings:lilToon/backlight/backlight-directivity/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_BacklightDirectivity"
+
+msgid "settings:lilToon/backlight/backlight-view-strength/label"
+msgstr "視線方向の影響度"
+
+msgid "settings:lilToon/backlight/backlight-view-strength/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_BacklightViewStrength"
+
+msgid "settings:lilToon/backlight/receive-shadow/label"
+msgstr "影を受け取る"
+
+msgid "settings:lilToon/backlight/receive-shadow/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_BacklightReceiveShadow"
+
+msgid "settings:lilToon/backlight/backface-mask/label"
+msgstr "裏面で無効化"
+
+msgid "settings:lilToon/backlight/backface-mask/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_BacklightBackfaceMask"
+
+msgid "settings:lilToon/backlight/add-light-direction-menu/label"
+msgstr "光源の向き調整が有効の時にメニューを追加する"
+
+msgid "settings:lilToon/backlight/add-light-direction-menu/description"
+msgstr "このオプションを有効にすると、ライティング設定で[光源の向き]が有効になっている場合に、同一のメニューを逆光ライトメニューにも生成します。"
+
+#################
+## lilToon リムライト
+
+msgid "category:lilToon/rimlight/description"
+msgstr ""
+"lilToon専用のリムライトの設定項目になります。\n\n"
+"初期でアニメーション制御は無効にしているため、必要に応じて有効にしてください。\n"
+"アニメーション制御をしない場合、[上書き値]でマテリアルの設定が共通化されます。\n"
+"全身のアバターに対して一括で設定を行う場合に便利です。"
+
+msgid "category:lilToon/rimlight/tips"
+msgstr ""
+"「リムライトを有効にする」はデフォルトで無効になっています。\n"
+"これによって、デフォルトでリムライトが有効になっているマテリアルでのみリムライトが反映されるという動作をします。\n"
+"アバター内のマテリアルすべてでリムライトを有効にしたい場合には、この項目を有効にしてください。\n\n"
+"リムライトの項目は、すべてデフォルトでアニメーションが無効になっています。\n"
+"ExMenuで操作したい場合には、詳細設定からアニメーションの項目を有効にしてください。"
+
+msgid "settings:lilToon/rimlight/use-rim-light/label"
+msgstr "リムライトを有効にする"
+
+msgid "settings:lilToon/rimlight/use-rim-light/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_UseRim"
+
+msgid "settings:lilToon/rimlight/color/label"
+msgstr "リムライトの色"
+
+msgid "settings:lilToon/rimlight/color/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_RimColor"
+
+msgid "settings:lilToon/rimlight/main-color-strength/label"
+msgstr "メインカラーの強度"
+
+msgid "settings:lilToon/rimlight/main-color-strength/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_RimMainStrength"
+
+msgid "settings:lilToon/rimlight/rim-enable-lighting/label"
+msgstr "ライトの明るさを反映"
+
+msgid "settings:lilToon/rimlight/rim-enable-lighting/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_RimEnableLighting"
+
+msgid "settings:lilToon/rimlight/rim-shadow-mask/label"
+msgstr "影部分で無効化"
+
+msgid "settings:lilToon/rimlight/rim-shadow-mask/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_RimShadowMask"
+
+msgid "settings:lilToon/rimlight/rim-backface-mask/label"
+msgstr "裏面で無効化"
+
+msgid "settings:lilToon/rimlight/rim-backface-mask/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_RimBackfaceMask"
+
+msgid "settings:lilToon/rimlight/rim-border/label"
+msgstr "範囲"
+
+msgid "settings:lilToon/rimlight/rim-border/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_RimBorder"
+
+msgid "settings:lilToon/rimlight/rim-blur/label"
+msgstr "ぼかし"
+
+msgid "settings:lilToon/rimlight/rim-blur/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_RimBlur"
+
+msgid "settings:lilToon/rimlight/rim-fresnel-power/label"
+msgstr "リムライトの細さ"
+
+msgid "settings:lilToon/rimlight/rim-fresnel-power/description"
+msgstr ""
+"操作パラメーター\n"
+"lilToon:_RimFresnelPower"
+
+#################
+## lilToon VRCLV
+
+msgid "category:lilToon/vrc-light-volumes"
+msgstr "VRC Light Volumes"
+
+msgid "category:lilToon/vrc-light-volumes/disabled/reason"
+msgstr "この項目はlilToon 2.1.6以降でのみ使用可能です。"
+
+msgid "settings:lilToon/vrc-light-volumes/rim-border/label"
+msgstr "Rim Border"
+
+msgid "settings:lilToon/vrc-light-volumes/rim-blur/label"
+msgstr "Rim Blur"
+
+
+#################
+## Poiyomi設定
+
+msgid "category:poiyomi/description"
+msgstr ""
+"Poiyomi専用機能の設定項目になります。\n\n"
+"[明るさの上限(Add Pass)],[ライトのモノクロ化(Add Pass)]が基本的な機能となります。\n"
+"Add Passは、ポイントライトとスポットライトからの影響度合いを調整することができます。\n"
+"これら機能は、基本機能の方で制御可能ですが、機能を有効化することで、Base PassとAdd Passを切り離した個別制御が可能になります。"
+"その場合、基本機能の方で制御している[明るさの上限]と[ライトのモノクロ化]はBase Passの制御をするメニューになります。\n\n"
+
+msgid "category:poiyomi/poiyomi-pro/disabled/reason"
+msgstr "この項目はPoiyomi Proでのみ使用可能です。"
+
+msgid "settings:poiyomi/max-additive-light/label"
+msgstr "明るさの上限 (Add Pass)"
+
+msgid "settings:poiyomi/max-additive-light/description"
+msgstr ""
+"操作パラメーター\n"
+"poiyomi:_LightingAdditiveLimit"
+
+msgid "settings:poiyomi/monochrome-additive/label"
+msgstr "ライトのモノクロ化 (Add Pass)"
+
+msgid "settings:poiyomi/monochrome-additive/description"
+msgstr ""
+"操作パラメーター\n"
+"poiyomi:_LightingAdditiveMonochromatic"
+
+msgid "category:poiyomi/pp-animations/description"
+msgstr ""
+"PP Animationsは、PoiyomiのPP Animations機能を制御するための設定項目になります。\n\n"
+"[明るさの乗算率]は、アバターの明るさの乗算率を調整するパラメーターです。\n"
+"[明るさの加算量]は、アバターの明るさの加算量を調整するパラメーターです。\n"
+"[エミッションの乗算率]は、アバターのエミッションの乗算率を調整するパラメーターです。\n"
+"[出力される色の強度]は、アバターの出力される色の強度を調整するパラメーターです。\n"
+
+msgid "settings:poiyomi/pp-animations/lighting-multiplier/label"
+msgstr "明るさの乗算率"
+
+msgid "settings:poiyomi/pp-animations/lighting-multiplier/description"
+msgstr ""
+"操作パラメーター\n"
+"_PPLightingMultiplier"
+
+msgid "settings:poiyomi/pp-animations/lighting-addition/label"
+msgstr "明るさの加算量"
+
+msgid "settings:poiyomi/pp-animations/lighting-addition/description"
+msgstr ""
+"操作パラメーター\n"
+"_PPLightingAddition"
+
+msgid "settings:poiyomi/pp-animations/emission-multiplier/label"
+msgstr "エミッションの乗算率"
+
+msgid "settings:poiyomi/pp-animations/emission-multiplier/description"
+msgstr ""
+"操作パラメーター\n"
+"_PPEmissionMultiplier"
+
+msgid "settings:poiyomi/pp-animations/final-color-multiplier/label"
+msgstr "出力される色の強度"
+
+msgid "settings:poiyomi/pp-animations/final-color-multiplier/description"
+msgstr ""
+"操作パラメーター\n"
+"_PPFinalColorMultiplier"
+
+## Backlight
+
+msgid "category:poiyomi/backlight/description"
+msgstr ""
+"poiyomi専用機能の設定項目になります。\n\n"
+"[逆光ライトを使用する]は、逆光ライトを使用するかどうかを制御する機能です。\n"
+"逆光ライトを使用することで、アバターに逆光ライトを当てることができます。\n\n"
+"[逆光ライトの色]は、逆光ライトの色を調整するパラメーターです。\n"
+"[メインカラーの強度]は、逆光ライトのメインカラーの強度を調整するパラメーターです。\n"
+"[影の範囲]は、逆光ライトの範囲を調整するパラメーターです。\n"
+"[影のぼかし]は、逆光ライトのぼかしを調整するパラメーターです。\n"
+"[光源からの指向性]は、逆光ライトの指向性を調整するパラメーターです。\n"
+"[視線方向の影響度]は、逆光ライトの視線方向の影響度を調整するパラメーターです。\n"
+"[影を受け取る]は、逆光ライトにワールドの影を受け取るかどうかを制御するパラメーターです。\n"
+"[裏面で無効化]は、裏面で逆光ライトを無効化するかどうかを制御するパラメーターです。"
+
+msgid "category:poiyomi/backlight/tips"
+msgstr ""
+"Poiyomiでは、逆光ライトをON／OFFにできません。そのため、逆光を消したいときには影の範囲を100%にしてください。\n"
+"[光源の向き]機能を使う際には、光源からの指向性を0に近づけないと効果がないことに注意してください。"
+
+msgid "settings:poiyomi/backlight/use-backlight/label"
+msgstr "逆光ライトを使用する"
+
+msgid "settings:poiyomi/backlight/use-backlight/description"
+msgstr ""
+"操作パラメーター\n"
+"poiyomi:_UseBacklight"
+
+msgid "settings:poiyomi/backlight/backlight-color/label"
+msgstr "逆光ライトの色"
+
+msgid "settings:poiyomi/backlight/backlight-color/description"
+msgstr ""
+"操作パラメーター\n"
+"poiyomi:_BacklightColor"
+
+msgid "settings:poiyomi/backlight/backlight-main-strength/label"
+msgstr "メインカラーの強度"
+
+msgid "settings:poiyomi/backlight/backlight-main-strength/description"
+msgstr ""
+"操作パラメーター\n"
+"poiyomi:_BacklightMainStrength"
+
+msgid "settings:poiyomi/backlight/backlight-border/label"
+msgstr "影の範囲"
+
+msgid "settings:poiyomi/backlight/backlight-border/description"
+msgstr ""
+"操作パラメーター\n"
+"poiyomi:_BacklightBorder"
+
+msgid "settings:poiyomi/backlight/backlight-blur/label"
+msgstr "影のぼかし"
+
+msgid "settings:poiyomi/backlight/backlight-blur/description"
+msgstr ""
+"操作パラメーター\n"
+"poiyomi:_BacklightBlur"
+
+msgid "settings:poiyomi/backlight/backlight-directivity/label"
+msgstr "光源からの指向性"
+
+msgid "settings:poiyomi/backlight/backlight-directivity/description"
+msgstr ""
+"操作パラメーター\n"
+"poiyomi:_BacklightDirectivity"
+
+msgid "settings:poiyomi/backlight/backlight-view-strength/label"
+msgstr "視線方向の影響度"
+
+msgid "settings:poiyomi/backlight/backlight-view-strength/description"
+msgstr ""
+"操作パラメーター\n"
+"poiyomi:_BacklightViewStrength"
+
+msgid "settings:poiyomi/backlight/receive-shadow/label"
+msgstr "影を受け取る"
+
+msgid "settings:poiyomi/backlight/receive-shadow/description"
+msgstr ""
+"操作パラメーター\n"
+"poiyomi:_BacklightReceiveShadow"
+
+msgid "settings:poiyomi/backlight/backface-mask/label"
+msgstr "裏面で無効化"
+
+msgid "settings:poiyomi/backlight/backface-mask/description"
+msgstr ""
+"操作パラメーター\n"
+"poiyomi:_BacklightBackfaceMask"
+
+msgid "settings:poiyomi/backlight/add-light-direction-menu/label"
+msgstr "光源の向き調整が有効の時にメニューを追加する"
+
+msgid "settings:poiyomi/backlight/add-light-direction-menu/description"
+msgstr "このオプションを有効にすると、ライティング設定で[光源の向き]が有効になっている場合に、同一のメニューを逆光ライトメニューにも生成します。"
+
+## SSAO
+
+msgid "category:poiyomi/ssao/description"
+msgstr ""
+
+msgid "settings:poiyomi/ssao/toggle/label"
+msgstr "SSAOを使用する"
+
+msgid "settings:poiyomi/ssao/toggle/description"
+msgstr ""
+
+msgid "settings:poiyomi/ssao/intensity/label"
+msgstr "強度"
+
+msgid "settings:poiyomi/ssao/intensity/description"
+msgstr ""
+
+msgid "settings:poiyomi/ssao/radius/label"
+msgstr "範囲"
+
+msgid "settings:poiyomi/ssao/radius/description"
+msgstr ""
+
+msgid "settings:poiyomi/ssao/quality/label"
+msgstr "品質"
+
+msgid "settings:poiyomi/ssao/quality/description"
+msgstr ""
+
+
+#################
+## シェーダー設定
+
+#################
+## 認証
+
+msgid "auth:message/not-verified"
+msgstr ""
+"Light Limit Changerが認証されていません。\n"
+"購入した際に付属しているパスワードを入力してください。"
+
+msgid "auth:label/open-authenticator"
+msgstr "認証画面を開く"
+
+msgid "auth:label/password"
+msgstr "パスワード"
+
+msgid "auth:label/show-password"
+msgstr "パスワードを表示する"
+
+msgid "auth:label/verify"
+msgstr "認証する"
+
+msgid "auth:message/info"
+msgstr "パスワードはBoothから購入後、ダウンロードできるファイルの中に同梱されています。"
+
+msgid "auth:message/incorrect"
+msgstr ""
+"認証に失敗しました。\n"
+"パスワードが間違っているか、認証サーバーにアクセスできませんでした。\n"
+"パスワードの再確認、Unityの通信が許可されているかファイアーウォールの設定を再確認してください。"
+
+#################
+## その他の設定
+
+msgid "settings:other/excludes/label"
+msgstr "除外設定"
+
+msgid "settings:other/excludes/description"
+msgstr ""
+"除外設定は、アバター内の特定のマテリアルを制御対象から除外する設定です。\n"
+"マテリアルを直接指定することで、特定のマテリアルのみを制御対象から除外することができます。"
+
+msgid "settings:other/excludes/exclude-object"
+msgstr "除外するオブジェクト"
+
+msgid "settings:other/excludes/add-section/game-object"
+msgstr "追加するオブジェクト"
+
+msgid "settings:other/excludes/add-section/material"
+msgstr "追加するマテリアル"
+
+msgid "settings:other/excludes/include-children"
+msgstr "下層を含める"
+
+msgid "settings:other/writedefault/label"
+msgstr "Write Defaults設定"
+
+msgid "settings:other/writedefault/description"
+msgstr ""
+"Write Defaults設定は、生成するアニメーションのWrite Defaults設定を変更する機能です\n"
+"基本的にアバターに合わせて自動的に設定されますが、問題が生じる場合には手動で設定を変更することができます。"
+
+msgid "settings:other/target_shader/label"
+msgstr "対象シェーダー"
+
+msgid "settings:other/target_shader/description"
+msgstr ""
+"対象シェーダーは、設定を適用するシェーダーを指定するパラメーターです。\n"
+"特定のシェーダーのみ制御対象から除外することができます。"
+
+msgid "settings:other/include-particle-system"
+msgstr "パーティクル設定"
+
+msgid "settings:other/include-particle-system/label"
+msgstr "パーティクルもアニメーション対象にする"
+
+msgid "settings:other/include-particle-system/description"
+msgstr "この設定は、パーティクルシステムに対象シェーダーが含まれていた場合、明るさなどを制御できるようアニメーションを生成することができます。"
+
+msgid "settings:other/language/label"
+msgstr "言語設定"
+
+msgid "settings:other/compress-expression-parameters/label"
+msgstr "パラメーター圧縮"
+
+msgid "settings:other/compress-expression-parameters/description"
+msgstr ""
+"Light Limit Changerの機能で使用するパラメーターを圧縮する機能です。\n\n"
+"この機能を有効にすることで、floatパラメーターを合計16bitに圧縮することができます。\n"
+"デメリットとして、同期速度が遅くなる可能性があります。"
+
+msgid "settings:other/parameter-sync-frequency/label"
+msgstr "パラメーター同期頻度（秒）"
+
+msgid "settings:other/parameter-sync-frequency/description"
+msgstr ""
+"（上級者向け）パラメーターの同期を開始する頻度を秒単位で設定できます。\n"
+"0に近いほど早く、大きい程に遅くなります。"
+
+msgid "settings:other/add-manual-sync-button/label"
+msgstr "手動同期用のボタンを追加する"
+
+msgid "settings:other/add-manual-sync-button/description"
+msgstr ""
+"手動でパラメーター同期を開始するためのボタンをメニューに追加します。\n"
+"パラメーター同期頻度を遅くしたときに併せて使用するのを想定しています。"
+
+msgid "settings:other/allow-force-override-same-reference/label"
+msgstr "メインテクスチャと同じ参照を上書きする"
+
+msgid "settings:other/allow-force-override-same-reference/description"
+msgstr ""
+"焼き込み処理を行う際、マテリアル内でメインテクスチャと同じ参照を持つテクスチャを上書きする機能です。\n"
+"この機能を有効にすることで、メインテクスチャと輪郭線テクスチャなどが同じ参照を持つ場合に、焼き込み後のテクスチャを双方に上書きすることができます。\n"
+"これによってVRAMの増加を抑えることができますが、見た目が変わる可能性があります。"
+
+msgid "settings:other/preset"
+msgstr "プリセット"
+
+msgid "settings:other/generate-default-preset"
+msgstr "初期値プリセットを生成する"
+
+msgid "settings:other/preset/description"
+msgstr "各パラメーターをリセットするための初期値プリセットを追加します。"
+
+msgid "settings:other/dynamic-preset/label"
+msgstr "動的プリセット"
+
+msgid "settings:other/dynamic-preset/generate-dynamic-preset"
+msgstr "セーブスロットを有効にする"
+
+msgid "settings:other/dynamic-preset/dynamic-preset-slot-count"
+msgstr "セーブスロットの数"
+
+msgid "settings:other/dynamic-preset/description"
+msgstr ""
+"EXメニューから現在の設定値をセーブ&ロードできるセーブスロットを追加します。"
+
+msgid "settings:other/ndmf-preview/title"
+msgstr ""
+"プレビュー機能"
+
+msgid "settings:other/ndmf-preview/label"
+msgstr ""
+"プレビューを有効にする"
+
+msgid "settings:other/ndmf-preview/description"
+msgstr ""
+"NDMFプレビューを有効にします。\n"
+"これにより、値の上書きをリアルタイムで確認することができます。\n"
+"カラー設定はプレビューに反映されないのでご注意ください。"
+
+msgid "settings:other/mesh-settings/title"
+msgstr "メッシュ設定"
+
+msgid "settings:other/mesh-settings/override-settings"
+msgstr "アバターのメッシュ設定を上書きする"
+
+msgid "settings:other/mesh-settings/anchor-override"
+msgstr "Anchor Override"
+
+msgid "settings:other/mesh-settings/root-bone"
+msgstr "Root Bone"
+
+msgid "settings:other/mesh-settings/bounds"
+msgstr "Bounds"
+
+msgid "settings:other/mesh-settings/description"
+msgstr ""
+"この機能を有効にすると、アバターのRoot BoneとBoundsを共通化することができます。\n"
+"アバタールートにMA MeshSettingsがある場合には内容を上書きし、ない場合には新規に生成します。\n"
+"アバター内に、別のMA MeshSettingsがある場合には、[設定しない]を除くすべてのコンポーネントを[継承]に設定を変更します。"
+
+msgid "settings:other/menu-settings/title"
+msgstr "メニュー設定"
+
+msgid "settings:other/menu-settings/unfold-group-menus"
+msgstr "メニューを階層化しない"
+
+msgid "settings:other/error-suppression/title"
+msgstr "警告の抑制"
+
+msgid "settings:other/error-suppression/mixed-shader-warning/label"
+msgstr "混在シェーダー警告を抑制する"
+
+msgid "settings:other/error-suppression/mixed-shader-warning/warning"
+msgstr ""
+"このオプションを有効にすると、1つのオブジェクトにシェーダーが混在していた場合の警告が表示されなくなります。\n"
+"そのため、警告を抑制すると、発生している問題を見逃すことにつながりますのでご注意ください。\n"
+"\n"
+"警告が表示された場合には、対象のオブジェクトを除外設定に登録することを推奨しています。\n"
+"この設定は、プロジェクト内のすべてのLight Limit Changerの動作に反映されます。"
+
+#################
+## マイグレーション
+
+msgid "migration:v1/message"
+msgstr ""
+"このコンポーネントは旧式のため、Light Limit Changer Ver.2以降とは互換性がありません。\n"
+"\n"
+"下の「マイグレーションする」ボタンを押すことで、v2.x用のコンポーネントへLLC 1.xで設定された値をある程度保持しつつ、マイグレーション（移行）することができます。"
+
+#################
+## エラーメッセージ
+
+## 旧LLCがいれっぱなしの時
+msgid "error:found-old-version/title"
+msgstr ""
+"アバター内に旧式のLight Limit Changerコンポーネントが見つかりました。"
+
+msgid "error:found-old-version/details"
+msgstr ""
+"旧式のコンポーネントでは実行時にアニメーション等が生成されません。\n"
+
+msgid "error:found-old-version/hint"
+msgstr ""
+"旧式のコンポーネントを除去してLight Limit Changerを再導入するか、インスペクタで旧式のコンポーネントを最新版へ移行してください。"
+
+msgid "error:duplicate-installed"
+msgstr ""
+"アバター内に複数のLight Limit Changerがインストールされているのを検知したため、このオブジェクトはブロックされています。"
+
+msgid "error:duplicate-object-name/title"
+msgstr "アニメーション対象のオブジェクト名が重複しています"
+
+msgid "error:duplicate-object-name/details"
+msgstr ""
+"同階層に同じ名前のオブジェクトが存在しています。\n"
+"これにより、アニメーションが正常に動作しなくなる可能性があります。\n"
+"問題が発生している場合は、以下のオブジェクトの名前を変更してください。" 
+
+msgid "error:failed-to-add/vrc-avatar-parameter-driver"
+msgstr ""
+"VRCAvatarParameterDriverの追加に失敗しました。\n"
+"他のスクリプトでコンパイルエラーが発生していないか確認してください。"
+
+## サポートしてないpoiyomi toonのバージョンを使ってた時
+msgid "error:poiyomi/exist-unsupported-version/title"
+msgstr ""
+"Poiyomi Toon バージョン{0}は現在サポートされていません。"
+
+msgid "error:unlitwf/bake-shader-not-found/title"
+msgstr ""
+"UnlitWFのテクスチャ焼き込み用シェーダーが見つからなかったため、焼き込み処理をスキップしました。"
+
+msgid "error:unlitwf/bake-shader-not-found/hint"
+msgstr ""
+"UnlitWF Shaderのバージョンを最新にすることによって直る場合があります。"
+
+msgid "error:liltoon/exist-lilmulti/title"
+msgstr ""
+"lilToonMultiシェーダーを使用しているマテリアルがアバター内に見つかりました。\n"
+"一部のアニメーションが正常に動作しない可能性があります。"
+
+msgid "error:network-timeout"
+msgstr ""
+"認証サーバーとの通信がタイムアウトしました。\n"
+"通信環境を確認した上でもう一度お試しください。"
+
+msgid "error:not-verified"
+msgstr ""
+"Light Limit Changerが認証されていないため、処理をキャンセルしました。\n"
+"認証画面を開き、認証を行ってください。"
+
+## レンダラーに対応済みシェーダーと非対応シェーダーが混在している場合
+msgid "warning:renderer/mixed-shaders/title"
+msgstr "対応済みシェーダーと非対応シェーダーが混在しているオブジェクトが存在しています。"
+
+msgid "warning:renderer/mixed-shaders/details"
+msgstr ""
+"このオブジェクトにアニメーションを適用する際、非対応シェーダーを使用しているマテリアルも一緒にアニメーションされてしまい、意図しない見た目になる場合があります。\n"
+"非対応シェーダー: {0}\n"
+
+## 混在シェーダー 自動修正ダイアログ
+msgid "autofix:dialog/title"
+msgstr "LLC - 混在シェーダー 自動修正"
+
+msgid "autofix:dialog/description"
+msgstr "非対応シェーダーのマテリアルをどの単位でLLCの除外リストに追加しますか？"
+
+msgid "autofix:dialog/renderer"
+msgstr "オブジェクト"
+
+msgid "autofix:dialog/unsupported-materials"
+msgstr "非対応マテリアル"
+
+msgid "autofix:dialog/mode/material/label"
+msgstr "マテリアル単位で除外"
+
+msgid "autofix:dialog/mode/material/hint"
+msgstr "非対応マテリアルのみを除外リストに追加します"
+
+msgid "autofix:dialog/mode/object/label"
+msgstr "オブジェクト単位で除外"
+
+msgid "autofix:dialog/mode/object/hint"
+msgstr "このオブジェクト全体を除外リストに追加します（同一オブジェクト上の他のマテリアルも除外されます）"
+
+msgid "autofix:dialog/apply"
+msgstr "適用"
+
+msgid "autofix:dialog/cancel"
+msgstr "キャンセル"
+
+msgid "autofix:dialog/error/avatar-not-found"
+msgstr "アバターが見つかりませんでした。シーンに対象のアバターが存在するか確認してください。"
+
+msgid "autofix:dialog/error/playmode"
+msgstr "プレイモード中は自動修正を実行できません。\n\nプレイモード中はアバターが再ビルドされているため、除外設定を変更してもプレイモードを終了すると破棄されてしまいます。\nプレイモードを終了してから、もう一度お試しください。"
+
+msgid "autofix:dialog/error/component-not-found"
+msgstr "LightLimitChangerコンポーネントが見つかりませんでした。"
+
+msgid "autofix:dialog/error/path-not-found"
+msgstr "オブジェクトのパスが取得できませんでした。マテリアル単位での除外をお試しください。"
+
+msgid "autofix:dialog/error/object-not-found"
+msgstr "オブジェクト '{0}' が見つかりませんでした。\n他のプラグインによってオブジェクトが統合されている可能性があります。\nマテリアル単位での除外をお試しください。"
+
+## プレイモード中の警告ダイアログ
+msgid "autofix:playmode-dialog/title"
+msgstr "自動修正"
+
+msgid "autofix:playmode-dialog/message"
+msgstr "プレイモード中は自動修正を実行できません。\nプレイモードを終了してから実行してください。"
+
+msgid "autofix:playmode-dialog/exit"
+msgstr "プレイモードを終了"
+
+msgid "autofix:playmode-dialog/cancel"
+msgstr "キャンセル"
+
+#################
+## EXメニュー
+
+msgid "ex-menu:manual-sync"
+msgstr "パラメータを同期する"
+
+msgid "ex-menu:dynamic-preset"
+msgstr "動的プリセット"
+
+msgid "ex-menu:dynamic-preset/save"
+msgstr "セーブ"
+
+msgid "ex-menu:dynamic-preset/load"
+msgstr "ロード"
+
+msgid "ex-menu:postfix/r"
+msgstr "赤"
+
+msgid "ex-menu:postfix/g"
+msgstr "緑"
+
+msgid "ex-menu:postfix/b"
+msgstr "青"
+
+msgid "ex-menu:postfix/a"
+msgstr "透明度"
+
+msgid "ex-menu:color/intensity"
+msgstr "強度"
+
+msgid "ex-menu:direction/horizontal"
+msgstr "横方向"
+
+msgid "ex-menu:direction/vertical"
+msgstr "縦方向"
+
+##################
+## お気に入りメニュー
+
+msgid "favorite-menu:category/title"
+msgstr "お気に入りメニュー設定"
+
+msgid "favorite-menu:category/description"
+msgstr "選択したパラメーターを、お気に入りとして一つのメニューフォルダにまとめることができます。"
+
+msgid "favorite-menu:ex-menu/title"
+msgstr "お気に入り"
+
+msgid "favorite-menu:label/not-animated"
+msgstr "アニメーションが有効になっていません"

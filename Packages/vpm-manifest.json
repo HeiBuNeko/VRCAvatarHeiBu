@@ -14,6 +14,12 @@
     },
     "nadena.dev.modular-avatar": {
       "version": "1.18.3"
+    },
+    "io.github.azukimochi.light-limit-changer": {
+      "version": "2.13.0"
+    },
+    "lyuma.av3emulator": {
+      "version": "3.4.13"
     }
   },
   "locked": {
@@ -52,6 +58,20 @@
     "nadena.dev.ndmf": {
       "version": "1.14.8",
       "dependencies": {}
+    },
+    "io.github.azukimochi.light-limit-changer": {
+      "version": "2.13.0",
+      "dependencies": {
+        "com.vrchat.avatars": ">=3.7.0",
+        "nadena.dev.modular-avatar": "^1.14.0",
+        "nadena.dev.ndmf": "^1.9.0"
+      }
+    },
+    "lyuma.av3emulator": {
+      "version": "3.4.13",
+      "dependencies": {
+        "com.vrchat.avatars": "^3.1.0"
+      }
     }
   }
 }

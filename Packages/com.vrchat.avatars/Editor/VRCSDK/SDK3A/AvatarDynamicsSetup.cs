@@ -25,11 +25,24 @@ namespace VRC.SDK3.Avatars
         [InitializeOnLoadMethod]
         private static void EditorInit()
         {
+            DynamicsSetup.EditorInit();
+            
             DynamicsComponent.DefaultUsage = DynamicsUsage.Avatar;
+
+            if (Application.isPlaying)
+            {
+                // Coming out of a domain reload in play mode. Set up the runtime state again.
+                RuntimeInit(true);
+            }
         }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        private static void RuntimeInitInitializeEvents()
+        private static void RuntimeInit()
+        {
+            RuntimeInit(false);
+        }
+
+        private static void RuntimeInit(bool invokedFromDomainReload)
         {
             //Contacts
             ContactBase.OnInitialize = Contact_OnInitialize;
@@ -40,6 +53,9 @@ namespace VRC.SDK3.Avatars
 
             //Raycasts (not really part of dynamics, but they still need animator parameters)
             VRCRaycast.OnInitializeParameters = VRCRaycast_OnInitialize;
+
+            //Shared setup
+            DynamicsSetup.RuntimeInit(invokedFromDomainReload);
         }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]

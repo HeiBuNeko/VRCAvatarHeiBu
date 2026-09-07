@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
+  m_Name: Tolass_SubMenu_Exp_Coax
+  m_EditorClassIdentifier: 
+  controls:
+  - name: Niya_Unsym
+    icon: {fileID: 2800000, guid: 738ba222c35f2be4db906e06640b3c5a, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 34
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Smile_Nipa
+    icon: {fileID: 2800000, guid: b3cd15c18709e1241a45e576d41c1bed, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 52
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: NiyaNiya
+    icon: {fileID: 2800000, guid: ba7b092285e0c0140b3dc85967f68776, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 33
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Sad_Panic
+    icon: {fileID: 2800000, guid: e7d13eb2ef995e641998016c1b077e0d, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 46
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Coax
+    icon: {fileID: 2800000, guid: 60be48b67323c264784b0d4c0044c4e4, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 7
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Amazed
+    icon: {fileID: 2800000, guid: e2f86a999990cc542b62cbda19eb9ad4, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Bleah
+    icon: {fileID: 2800000, guid: db417e22c402d9549a2cdc4ec02048e0, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 6
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Ksmile_Niya
+    icon: {fileID: 2800000, guid: c4b5c167d056fd2458a80c0081e752dd, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 24
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []

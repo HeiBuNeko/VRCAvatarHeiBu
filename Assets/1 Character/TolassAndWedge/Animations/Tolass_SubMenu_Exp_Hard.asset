@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
+  m_Name: Tolass_SubMenu_Exp_Hard
+  m_EditorClassIdentifier: 
+  controls:
+  - name: Panic
+    icon: {fileID: 2800000, guid: da53dcfeeea46fd4eb686c3821278121, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 41
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Ouch
+    icon: {fileID: 2800000, guid: cdd4ef8b8583b42499a04ea4250d2eea, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 39
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Ouch_Close
+    icon: {fileID: 2800000, guid: 2d58d53159bb283448f722bb92188b3e, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 40
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Shock_Square
+    icon: {fileID: 2800000, guid: bd6639756e161e440a11e59307729a66, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 49
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Gross_Triangle
+    icon: {fileID: 2800000, guid: c34e9535614a8f543b4c8d4b2cbb0464, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 14
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Gununu_Sweat
+    icon: {fileID: 2800000, guid: d6c8350feb79bd34a89eeaa530c766c1, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 18
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Gross_White
+    icon: {fileID: 2800000, guid: 5983b5b88eb27804680f3142fa1d6e22, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 15
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Bitter
+    icon: {fileID: 2800000, guid: 65265ca451f1a074cb20a97240958085, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 5
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []

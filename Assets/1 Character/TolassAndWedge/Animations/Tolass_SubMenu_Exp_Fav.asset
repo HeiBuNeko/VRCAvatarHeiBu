@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
+  m_Name: Tolass_SubMenu_Exp_Fav
+  m_EditorClassIdentifier: 
+  controls:
+  - name: Esmile
+    icon: {fileID: 2800000, guid: 3610e61b8d0a78045a6485f8a1e8a046, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 13
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Gununu_Sweat
+    icon: {fileID: 2800000, guid: d6c8350feb79bd34a89eeaa530c766c1, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 18
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Niya_Unsym
+    icon: {fileID: 2800000, guid: 738ba222c35f2be4db906e06640b3c5a, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 34
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Odoroki
+    icon: {fileID: 2800000, guid: b9bb8f3dc2d9714488db69aa6a8684af, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 38
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Panic_smile
+    icon: {fileID: 2800000, guid: f204a51e2504d904484832c17d981a91, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 42
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Pero
+    icon: {fileID: 2800000, guid: bdfc150c439a3924f9871eb20cf142f7, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 43
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Sad_Panic_Tear
+    icon: {fileID: 2800000, guid: adf6d969b3c611f409f1f963679bb58b, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 47
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Wo
+    icon: {fileID: 2800000, guid: 757279e5e8c52de4e84c2d8a394bd75e, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 64
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []

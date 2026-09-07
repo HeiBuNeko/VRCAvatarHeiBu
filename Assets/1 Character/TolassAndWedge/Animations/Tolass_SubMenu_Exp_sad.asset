@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
+  m_Name: Tolass_SubMenu_Exp_sad
+  m_EditorClassIdentifier: 
+  controls:
+  - name: Shock
+    icon: {fileID: 2800000, guid: 699d52017f3fdd9488404abafb2b8285, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 48
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Swirl
+    icon: {fileID: 2800000, guid: 1d4eac4e476d1c74bb69fd336511882e, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 60
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Vex
+    icon: {fileID: 2800000, guid: 2c78c72e04a1429429977916f16b77b5, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 63
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Panic_Smile
+    icon: {fileID: 2800000, guid: f204a51e2504d904484832c17d981a91, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 42
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Sad
+    icon: {fileID: 2800000, guid: ee2400e31eb20394b8fa32a474bd3f51, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 45
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Worry
+    icon: {fileID: 2800000, guid: 2f4e920af8b4e7a4d9c36a4236e9d779, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 65
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Smile_Sweat
+    icon: {fileID: 2800000, guid: ceec7bacde0083e42ab592b1cfb6d85c, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 57
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Sad_Panic_Tear
+    icon: {fileID: 2800000, guid: adf6d969b3c611f409f1f963679bb58b, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 47
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []

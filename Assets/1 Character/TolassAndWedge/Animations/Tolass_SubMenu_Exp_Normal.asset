@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
+  m_Name: Tolass_SubMenu_Exp_Normal
+  m_EditorClassIdentifier: 
+  controls:
+  - name: Niya_Shy
+    icon: {fileID: 2800000, guid: e2dc78dbd1cc04f42ae0134ffdfacfd0, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 31
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Niko
+    icon: {fileID: 2800000, guid: 08ffd93ed732cad4a8983812302cf4f3, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 28
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Odoroki
+    icon: {fileID: 2800000, guid: b9bb8f3dc2d9714488db69aa6a8684af, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 38
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Slash
+    icon: {fileID: 2800000, guid: cf9766e44ac90ac4480470ae2598f30f, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 50
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Coax_Shark
+    icon: {fileID: 2800000, guid: 9cc0783a7b895124289246e93fd81ba2, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 67
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Smile_Pachi
+    icon: {fileID: 2800000, guid: 58135a32f12e7284fa754ea84db1c078, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 53
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: He
+    icon: {fileID: 2800000, guid: 18e746ed85e7e134daa86b41e074d4c0, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 19
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Ksmile
+    icon: {fileID: 2800000, guid: b5253fa4d3014a9428c19e545a9e4e9b, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 23
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []

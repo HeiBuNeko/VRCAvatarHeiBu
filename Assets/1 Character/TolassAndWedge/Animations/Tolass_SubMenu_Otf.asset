@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
+  m_Name: Tolass_SubMenu_Otf
+  m_EditorClassIdentifier: 
+  controls:
+  - name: Default
+    icon: {fileID: 2800000, guid: 0832ba978e970cd4185dffc990e22500, type: 3}
+    type: 102
+    parameter:
+      name: otf_Num
+    value: 0
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Shirts
+    icon: {fileID: 2800000, guid: 0832ba978e970cd4185dffc990e22500, type: 3}
+    type: 102
+    parameter:
+      name: otf_Num
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Underwear
+    icon: {fileID: 2800000, guid: 0832ba978e970cd4185dffc990e22500, type: 3}
+    type: 102
+    parameter:
+      name: otf_Num
+    value: 2
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Shoes
+    icon: {fileID: 2800000, guid: 3ff8b8cbefcdd0345b3722b0836c1bc7, type: 3}
+    type: 102
+    parameter:
+      name: acc_Shoes
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Socks
+    icon: {fileID: 2800000, guid: 5e47923f56c89c44fa1087b86cdd6782, type: 3}
+    type: 102
+    parameter:
+      name: acc_Socks
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []

@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
+  m_Name: Tolass_SubMenu_Exp_Joy
+  m_EditorClassIdentifier: 
+  controls:
+  - name: Smile_PakaiCat
+    icon: {fileID: 2800000, guid: a51e5e69b06b03a47bcdd9ddef14a418, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 55
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: NikoPachiPaka
+    icon: {fileID: 2800000, guid: 3aacb84a7553f954991804c349636646, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 29
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Nyapa
+    icon: {fileID: 2800000, guid: a0d7facfcf258c1439d0d83139758777, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 35
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Sweet_Shark
+    icon: {fileID: 2800000, guid: dab751a3722f27b4cb66d4a0694ea8ce, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 66
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: NikoPachiPakaKila
+    icon: {fileID: 2800000, guid: 315f23f1fe0260e4796a4e828e349faa, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 30
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Smile
+    icon: {fileID: 2800000, guid: 5ec470729cc35d247a445c83d57c58ec, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 51
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Smile_Pachi_Star
+    icon: {fileID: 2800000, guid: d7b083d61d281874e94d336a148af1d9, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 54
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Confidence
+    icon: {fileID: 2800000, guid: 2d722524e94a45e468ad7d42cc341f82, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 8
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []

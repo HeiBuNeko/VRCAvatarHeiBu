@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
+  m_Name: Tolass_SubMenu_Exp_All
+  m_EditorClassIdentifier: 
+  controls:
+  - name: Love
+    icon: {fileID: 2800000, guid: 80d9f2eb34b6fbc4295f562fc9047a20, type: 3}
+    type: 103
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: 402cc8b8dd81e4e4bbde814e2363d567, type: 2}
+    subParameters: []
+    labels: []
+  - name: Joy
+    icon: {fileID: 2800000, guid: e597bd76b6eaa504daeebc02ced66e0c, type: 3}
+    type: 103
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: d50b76aa9f682324ea9b49c54e43ece9, type: 2}
+    subParameters: []
+    labels: []
+  - name: Coax
+    icon: {fileID: 2800000, guid: b58552933662d9d4b84fc8b01c7f2466, type: 3}
+    type: 103
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: 6961fbc6980db964cb277a9c8198151a, type: 2}
+    subParameters: []
+    labels: []
+  - name: Easy
+    icon: {fileID: 2800000, guid: 660c06a357bfb8b4f9ed13e28b707408, type: 3}
+    type: 103
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: b79bd6e811925364981c342e78cb4f1d, type: 2}
+    subParameters: []
+    labels: []
+  - name: Normal
+    icon: {fileID: 2800000, guid: 83c1c693c01102a4990b4c29a3f6dde2, type: 3}
+    type: 103
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: 9906cb166901c3e4e92dec67b8d3005b, type: 2}
+    subParameters: []
+    labels: []
+  - name: Sad
+    icon: {fileID: 2800000, guid: 0d1a270960ddf46429785fd27a3c6fd4, type: 3}
+    type: 103
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: 9e91d47f10fa88c4f84d4fafba8dcdc2, type: 2}
+    subParameters: []
+    labels: []
+  - name: Hard
+    icon: {fileID: 2800000, guid: 241a3eb1b4801c643b4c64bf017b6be5, type: 3}
+    type: 103
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: 6c7113a84f108c54980badb4eea5c4eb, type: 2}
+    subParameters: []
+    labels: []
+  - name: Anger
+    icon: {fileID: 2800000, guid: 0d02ee6fc0326d547a38387ac6c93518, type: 3}
+    type: 103
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: 518b084a9b6fca649b7e12b95e6c3c21, type: 2}
+    subParameters: []
+    labels: []

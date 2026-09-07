@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
+  m_Name: Tolass_SubMenu_Exp_Easy
+  m_EditorClassIdentifier: 
+  controls:
+  - name: Triangle_Small
+    icon: {fileID: 2800000, guid: 219dd8e253ba72c4885f39fea9220dae, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 61
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Pero
+    icon: {fileID: 2800000, guid: bdfc150c439a3924f9871eb20cf142f7, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 43
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Ksmile_Pachi
+    icon: {fileID: 2800000, guid: 587d3e88e399e5b49a5d1b8127e39d65, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 25
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Doya_Eyeclose
+    icon: {fileID: 2800000, guid: 8ae23f476c81b4644a4659b3a4604a5c, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 10
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Mu
+    icon: {fileID: 2800000, guid: b31816ad941c265439bf32d985b99467, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 26
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Nagomi
+    icon: {fileID: 2800000, guid: 61b3140eb43d66140aa2e6f6424d8168, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 27
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Jito
+    icon: {fileID: 2800000, guid: 75e94db3b27cdb64c9a266f184805f6f, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 22
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Doya
+    icon: {fileID: 2800000, guid: 19f364d01e68b1343994eeaffc5d9694, type: 3}
+    type: 102
+    parameter:
+      name: exp_Num
+    value: 9
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []

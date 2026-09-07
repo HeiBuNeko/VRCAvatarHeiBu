@@ -17,6 +17,8 @@ public partial class AvatarDescriptorEditor3 : Editor
 		{
 			UpdateAutoColliders();
 
+			Matrix4x4 avatarWorldToLocal = ((VRCAvatarDescriptor)target).transform.worldToLocalMatrix;
+
 			//Colliders
 			DrawElement("Head", serializedObject.FindProperty("collider_head"));
 			DrawElement("Torso", serializedObject.FindProperty("collider_torso"));
@@ -45,13 +47,13 @@ public partial class AvatarDescriptorEditor3 : Editor
 					DrawElement($"{displayName} R", configR, isFinger);
 				}
 				if (EditorGUI.EndChangeCheck() && isMirrored.boolValue)
-					MirrorCollider(configL, configR);
+					MirrorCollider(configL, configR, avatarWorldToLocal);
 			}
 		}
 		if (EditorPrefs.GetBool(_CollidersFoldoutPrefsKey) != prevFoldout)
 			EditorUtility.SetDirty(target); //Repaint
 	}
-	void MirrorCollider(SerializedProperty sourceProp, SerializedProperty destProp)
+	void MirrorCollider(SerializedProperty sourceProp, SerializedProperty destProp, Matrix4x4 avatarWorldToLocal)
 	{
 		destProp.FindPropertyRelative("state").enumValueIndex = sourceProp.FindPropertyRelative("state").enumValueIndex;
 		destProp.FindPropertyRelative("radius").floatValue = sourceProp.FindPropertyRelative("radius").floatValue;
@@ -64,16 +66,23 @@ public partial class AvatarDescriptorEditor3 : Editor
 
 		//Position
 		var position = sourceProp.FindPropertyRelative("position").vector3Value;
+		
 		position = sourceTransform.TransformPoint(position); //Move into world space
-		position = new Vector3(-position.x, position.y, position.z); //Mirror
-		position = destTransform.InverseTransformPoint(position); //Move into dest local space
+		position = avatarWorldToLocal.MultiplyPoint3x4(position); //...and then into avatar space
+		position = new Vector3(-position.x, position.y, position.z); //Mirror about avatar space
+		position = avatarWorldToLocal.inverse.MultiplyPoint3x4(position); //Move into world space
+		position = destTransform.InverseTransformPoint(position); //...and finally to destination's local space
 		destProp.FindPropertyRelative("position").vector3Value = position;
 
 		//Rotation
 		var rotation = sourceProp.FindPropertyRelative("rotation").quaternionValue;
-		var globalRotation = sourceTransform.rotation * rotation;
-		var euler = globalRotation.eulerAngles;
-		destProp.FindPropertyRelative("rotation").quaternionValue = Quaternion.Inverse(destTransform.rotation) * Quaternion.Euler(euler.x, -euler.y, -euler.z);
+
+		rotation = sourceTransform.rotation * rotation; //Move into world space
+		rotation = avatarWorldToLocal.rotation * rotation; //...and then into avatar space
+		rotation = Quaternion.Euler(rotation.eulerAngles.x, -rotation.eulerAngles.y, -rotation.eulerAngles.z); //Mirror about avatar space
+		rotation = Quaternion.Inverse(avatarWorldToLocal.rotation) * rotation; //Move back into world space
+		rotation = Quaternion.Inverse(destTransform.rotation) * rotation; //...and finally to destination's local space
+		destProp.FindPropertyRelative("rotation").quaternionValue = rotation;
 	}
 
 	void DrawElement(string title, SerializedProperty property, bool isFinger = false, bool mirror = false)
@@ -147,46 +156,11 @@ public partial class AvatarDescriptorEditor3 : Editor
 		}
 		EditorGUILayout.EndVertical();
 	}
-	void UpdateAutoColliders()
+	
+	// Do not remove. Popular community tooling is calling this private method directly via reflection.
+	private void UpdateAutoColliders()
 	{
-		var animator = avatarDescriptor.GetComponent<Animator>();
-		if (animator == null || !animator.isHuman)
-			return;
-
-		//Head
-		// Assume a prefab scale of one. This parameter is normally used by the client to handle properly generating heads for eyeless avatars.
-		UpdateConfig(ref avatarDescriptor.collider_head, VRCAvatarDescriptor.CalcHeadCollider(animator, avatarDescriptor.ViewPosition, 1.0f));
-
-		//Torso
-		UpdateConfig(ref avatarDescriptor.collider_torso, VRCAvatarDescriptor.CalcTorsoCollider(animator));
-
-		//Palm
-		UpdateConfig(ref avatarDescriptor.collider_handL, VRCAvatarDescriptor.CalcPalmCollider(animator, true));
-		UpdateConfig(ref avatarDescriptor.collider_handR, VRCAvatarDescriptor.CalcPalmCollider(animator, false));
-
-		//Foot
-		UpdateConfig(ref avatarDescriptor.collider_footL, VRCAvatarDescriptor.CalcFootCollider(animator, true));
-		UpdateConfig(ref avatarDescriptor.collider_footR, VRCAvatarDescriptor.CalcFootCollider(animator, false));
-
-		//Fingers L
-		UpdateConfig(ref avatarDescriptor.collider_fingerIndexL, VRCAvatarDescriptor.CalcFingerCollider(animator, 0, true));
-		UpdateConfig(ref avatarDescriptor.collider_fingerMiddleL, VRCAvatarDescriptor.CalcFingerCollider(animator, 1, true));
-		UpdateConfig(ref avatarDescriptor.collider_fingerRingL, VRCAvatarDescriptor.CalcFingerCollider(animator, 2, true));
-		UpdateConfig(ref avatarDescriptor.collider_fingerLittleL, VRCAvatarDescriptor.CalcFingerCollider(animator, 3, true));
-
-		//Fingers R
-		UpdateConfig(ref avatarDescriptor.collider_fingerIndexR, VRCAvatarDescriptor.CalcFingerCollider(animator, 0, false));
-		UpdateConfig(ref avatarDescriptor.collider_fingerMiddleR, VRCAvatarDescriptor.CalcFingerCollider(animator, 1, false));
-		UpdateConfig(ref avatarDescriptor.collider_fingerRingR, VRCAvatarDescriptor.CalcFingerCollider(animator, 2, false));
-		UpdateConfig(ref avatarDescriptor.collider_fingerLittleR, VRCAvatarDescriptor.CalcFingerCollider(animator, 3, false));
-
-		void UpdateConfig(ref VRCAvatarDescriptor.ColliderConfig dest, VRCAvatarDescriptor.ColliderConfig config)
-		{
-			config.isMirrored = dest.isMirrored;
-			if (dest.state == VRCAvatarDescriptor.ColliderConfig.State.Automatic)
-				dest = config;
-			dest.transform = config.transform;
-		}
+		avatarDescriptor.UpdateAutoColliders();
 	}
 
 	private class MirroredHandle
@@ -222,6 +196,8 @@ public partial class AvatarDescriptorEditor3 : Editor
 		if (!EditorPrefs.GetBool(_CollidersFoldoutPrefsKey))
 			return;
 
+		Matrix4x4 avatarWorldToLocal = ((VRCAvatarDescriptor)target).transform.worldToLocalMatrix;
+
 		DrawHandle(serializedObject.FindProperty("collider_head"));
 		DrawHandle(serializedObject.FindProperty("collider_torso"));
 		DrawMirroredHandle(_mirroredHandleHand);
@@ -250,7 +226,7 @@ public partial class AvatarDescriptorEditor3 : Editor
 			}
 			if (EditorGUI.EndChangeCheck() && isMirrored)
 			{
-				MirrorCollider(configL, configR);
+				MirrorCollider(configL, configR, avatarWorldToLocal);
 			}
 		}
 

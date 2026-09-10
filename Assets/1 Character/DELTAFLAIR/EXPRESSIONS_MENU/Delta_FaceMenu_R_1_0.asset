@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
+  m_Name: Delta_FaceMenu_R_1_0
+  m_EditorClassIdentifier: 
+  controls:
+  - name: Smile_A
+    icon: {fileID: 2800000, guid: 0d4778eef27abfd42a3c0afe1a0a41ca, type: 3}
+    type: 102
+    parameter:
+      name: Face
+    value: 9
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Hmm
+    icon: {fileID: 2800000, guid: ee36968d24a9da04b96b121315285133, type: 3}
+    type: 102
+    parameter:
+      name: Face
+    value: 10
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: SmilEyeOpen
+    icon: {fileID: 2800000, guid: 860cc3ad14df3f6488c21da8493bdc9f, type: 3}
+    type: 102
+    parameter:
+      name: Face
+    value: 11
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Sleep
+    icon: {fileID: 2800000, guid: 868306845ec57d34faa189f639b310cc, type: 3}
+    type: 102
+    parameter:
+      name: Face
+    value: 12
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Wild
+    icon: {fileID: 2800000, guid: 41692b3b85cda1040b50f439290b6f1d, type: 3}
+    type: 102
+    parameter:
+      name: Face
+    value: 13
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Star
+    icon: {fileID: 2800000, guid: 4148e9eb6f028484b8a37b8357052f63, type: 3}
+    type: 102
+    parameter:
+      name: Face
+    value: 14
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []

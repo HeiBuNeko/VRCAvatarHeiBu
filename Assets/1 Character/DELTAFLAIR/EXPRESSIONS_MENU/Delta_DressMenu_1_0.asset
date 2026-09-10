@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
+  m_Name: Delta_DressMenu_1_0
+  m_EditorClassIdentifier: 
+  controls:
+  - name: Cap
+    icon: {fileID: 2800000, guid: 725ac7278eac2c443b983d8ad728e518, type: 3}
+    type: 102
+    parameter:
+      name: 002_M5D_Cap
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Jacket
+    icon: {fileID: 2800000, guid: 8443555750ee1604f97d540828c4587d, type: 3}
+    type: 102
+    parameter:
+      name: 003_M4D_Jacket
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Shirts & Bag
+    icon: {fileID: 2800000, guid: 9266b336d10d40c46841d8a297e18585, type: 3}
+    type: 102
+    parameter:
+      name: 004_M4D_Shirts_M5D_Bag
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Tights
+    icon: {fileID: 2800000, guid: 34a3364ed072fe6448e0643a3c610a3e, type: 3}
+    type: 102
+    parameter:
+      name: 005_M5D_Tights
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Shoes
+    icon: {fileID: 2800000, guid: ed166e0fec087b64987f0c0efe54ca19, type: 3}
+    type: 102
+    parameter:
+      name: 006_M5D_Shoes
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Tail
+    icon: {fileID: 2800000, guid: 7ee669bee544bbd44a744af29067c10f, type: 3}
+    type: 102
+    parameter:
+      name: 007_M2D_Tail
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []

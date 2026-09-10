@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
+  m_Name: Delta_FaceMenu_L_1_0
+  m_EditorClassIdentifier: 
+  controls:
+  - name: IdleFace
+    icon: {fileID: 0}
+    type: 102
+    parameter:
+      name: Face
+    value: 8
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Smile_C
+    icon: {fileID: 2800000, guid: 51f639971ba67ac46bd30995765a6048, type: 3}
+    type: 102
+    parameter:
+      name: Face
+    value: 2
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Question
+    icon: {fileID: 2800000, guid: 78fe444e1a78df04fa54fa50c8d0c349, type: 3}
+    type: 102
+    parameter:
+      name: Face
+    value: 3
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Out
+    icon: {fileID: 2800000, guid: 2df9a3eb0ac7dcf4a8abd6f6033fd5d3, type: 3}
+    type: 102
+    parameter:
+      name: Face
+    value: 4
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: What
+    icon: {fileID: 2800000, guid: abcba9503a2114447bdb3f54ce10cacc, type: 3}
+    type: 102
+    parameter:
+      name: Face
+    value: 5
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Sweet
+    icon: {fileID: 2800000, guid: 30c598781521a7945b596a8a4002e2e6, type: 3}
+    type: 102
+    parameter:
+      name: Face
+    value: 6
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Jitome
+    icon: {fileID: 2800000, guid: bc4cc55b0a818104f8d892e86f9578d4, type: 3}
+    type: 102
+    parameter:
+      name: Face
+    value: 7
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: NEXT
+    icon: {fileID: 0}
+    type: 103
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 11400000, guid: 8ab82412106d7b34fa9a7193ec755fce, type: 2}
+    subParameters: []
+    labels: []

@@ -9,20 +9,20 @@ using VRC.SDK3.Avatars.Components;
 public partial class AvatarDescriptorEditor3 : Editor
 {
 
-    List<EditorAnimLayerInfo> baseAnimLayerTypes = new List<EditorAnimLayerInfo>
+    private static EditorAnimLayerInfo[] baseAnimLayerTypes = new EditorAnimLayerInfo[]
     {
-        {new EditorAnimLayerInfo("Locomotion", VRCAvatarDescriptor.AnimLayerType.Base)},
-        {new EditorAnimLayerInfo("Idle", VRCAvatarDescriptor.AnimLayerType.Additive)},
-        {new EditorAnimLayerInfo("Gesture", VRCAvatarDescriptor.AnimLayerType.Gesture)},
-        {new EditorAnimLayerInfo("Action", VRCAvatarDescriptor.AnimLayerType.Action)},
-        {new EditorAnimLayerInfo("Non-Transform", VRCAvatarDescriptor.AnimLayerType.FX)},
+        new EditorAnimLayerInfo("Locomotion", VRCAvatarDescriptor.AnimLayerType.Base),
+        new EditorAnimLayerInfo("Idle", VRCAvatarDescriptor.AnimLayerType.Additive),
+        new EditorAnimLayerInfo("Gesture", VRCAvatarDescriptor.AnimLayerType.Gesture),
+        new EditorAnimLayerInfo("Action", VRCAvatarDescriptor.AnimLayerType.Action),
+        new EditorAnimLayerInfo("Non-Transform", VRCAvatarDescriptor.AnimLayerType.FX),
     };
 
-    List<EditorAnimLayerInfo> specialAnimLayerTypes = new List<EditorAnimLayerInfo>
+    private static EditorAnimLayerInfo[] specialAnimLayerTypes = new EditorAnimLayerInfo[]
     {
-        {new EditorAnimLayerInfo("Sitting", VRCAvatarDescriptor.AnimLayerType.Sitting)},
-        {new EditorAnimLayerInfo("TPose", VRCAvatarDescriptor.AnimLayerType.TPose)},
-        {new EditorAnimLayerInfo("IKPose", VRCAvatarDescriptor.AnimLayerType.IKPose)},
+        new EditorAnimLayerInfo("Sitting", VRCAvatarDescriptor.AnimLayerType.Sitting),
+        new EditorAnimLayerInfo("TPose", VRCAvatarDescriptor.AnimLayerType.TPose),
+        new EditorAnimLayerInfo("IKPose", VRCAvatarDescriptor.AnimLayerType.IKPose),
     };
 
     Dictionary<VRCAvatarDescriptor.AnimLayerType, string> _animLayerButtonNames = new Dictionary<VRCAvatarDescriptor.AnimLayerType, string>();
@@ -70,7 +70,7 @@ public partial class AvatarDescriptorEditor3 : Editor
         return name;
     }
 
-    bool IsHumanOnlyAnimLayer(VRCAvatarDescriptor.AnimLayerType layerType)
+    private static bool IsHumanOnlyAnimLayer(VRCAvatarDescriptor.AnimLayerType layerType)
     {
         switch (layerType)
         {
@@ -82,26 +82,39 @@ public partial class AvatarDescriptorEditor3 : Editor
 
     void ResetAnimLayersToDefault()
     {
-        var b = serializedObject.FindProperty("baseAnimationLayers");
-        b.ClearArray();
-        var s = serializedObject.FindProperty("specialAnimationLayers");
-        s.ClearArray();
+        VRCAvatarDescriptor descriptor = (VRCAvatarDescriptor)target;
+        Animator animator = _animator;
+        InitializeBaseAnimationLayersArray(ref descriptor.baseAnimationLayers, false, animator);
+        InitializeBaseAnimationLayersArray(ref descriptor.specialAnimationLayers, true, animator);
 
-        foreach (EditorAnimLayerInfo info in baseAnimLayerTypes)
+        serializedObject.Update();
+    }
+
+    internal static void InitializeBaseAnimationLayersArray(ref VRCAvatarDescriptor.CustomAnimLayer[] animationLayers, bool isSpecial, Animator animator)
+    {
+        EditorAnimLayerInfo[] animLayerTypes = isSpecial ? specialAnimLayerTypes : baseAnimLayerTypes;
+        List<VRCAvatarDescriptor.CustomAnimLayer> newLayers = new List<VRCAvatarDescriptor.CustomAnimLayer>();
+        foreach (EditorAnimLayerInfo info in animLayerTypes)
         {
-            if (_animator && (!_animator.isHuman) && IsHumanOnlyAnimLayer(info.type))
+            if (animator && (!animator.isHuman) && IsHumanOnlyAnimLayer(info.type))
                 continue;
-            InitAnimLayer(serializedObject.FindProperty("baseAnimationLayers"), info.type, true);
-        }
 
-        foreach (EditorAnimLayerInfo info in specialAnimLayerTypes)
+            InitAnimLayer(newLayers, info.type, true);
+        }
+        animationLayers = newLayers.ToArray();
+    }
+
+    internal static void InitializeBaseAnimationLayersArray(SerializedProperty animationLayersList, bool isSpecial, Animator animator)
+    {
+        EditorAnimLayerInfo[] animLayerTypes = isSpecial ? specialAnimLayerTypes : baseAnimLayerTypes;
+        animationLayersList.ClearArray();
+        foreach (EditorAnimLayerInfo info in animLayerTypes)
         {
-            if (_animator && (!_animator.isHuman) && IsHumanOnlyAnimLayer(info.type))
+            if (animator && (!animator.isHuman) && IsHumanOnlyAnimLayer(info.type))
                 continue;
-            InitAnimLayer(serializedObject.FindProperty("specialAnimationLayers"), info.type, true);
-        }
 
-        serializedObject.ApplyModifiedProperties();
+            InitAnimLayer(animationLayersList, info.type, true);
+        }
     }
 
     [UsedImplicitly]
@@ -122,7 +135,18 @@ public partial class AvatarDescriptorEditor3 : Editor
 #endif
     }
 
-    void InitAnimLayer(SerializedProperty list, VRCAvatarDescriptor.AnimLayerType type, bool isDefault, int index = -1)
+    private static void InitAnimLayer(List<VRCAvatarDescriptor.CustomAnimLayer> list, VRCAvatarDescriptor.AnimLayerType type, bool isDefault, int index = -1)
+    {
+        int position = index == -1 ? list.Count : index;
+
+        VRCAvatarDescriptor.CustomAnimLayer element = new VRCAvatarDescriptor.CustomAnimLayer();
+        element.type = type;
+        element.isDefault = isDefault;
+
+        list.Insert(position, element);
+    }
+
+    private static void InitAnimLayer(SerializedProperty list, VRCAvatarDescriptor.AnimLayerType type, bool isDefault, int index = -1)
     {
         int position = index == -1 ? list.arraySize : index;
         list.InsertArrayElementAtIndex(position);
@@ -134,6 +158,21 @@ public partial class AvatarDescriptorEditor3 : Editor
 
     void EnforceAnimLayerSetup(bool isOnEnable = false)
     {
+        if (_baseAnimLayers.arraySize == 0 || _specialAnimLayers.arraySize == 0)
+        {
+            if (_baseAnimLayers.arraySize == 0)
+            {
+                InitializeBaseAnimationLayersArray(_baseAnimLayers, false, _animator);
+            }
+            if (_specialAnimLayers.arraySize == 0)
+            {
+                InitializeBaseAnimationLayersArray(_specialAnimLayers, true, _animator);
+            }
+
+            serializedObject.ApplyModifiedProperties();
+            return;
+        }
+
         if (_animator)
         {
             if (_animator.isHuman)

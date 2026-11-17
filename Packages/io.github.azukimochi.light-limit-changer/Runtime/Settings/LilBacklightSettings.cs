@@ -74,5 +74,8 @@ partial class LilToonSettings
 
         [TogglePopout]
         public bool AddLightDirectionMenu = true;
+
+        [TogglePopout]
+        public bool AddColorAlphaMenu = false;
     }
 }

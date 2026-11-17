@@ -60,7 +60,7 @@ public class AvatarParameterDriverEditor : Editor
 			UpdateParameters();
 
 		//Info
-		EditorGUILayout.HelpBox("This behaviour modifies parameters on this and all other animation controllers referenced on the avatar descriptor.\n\nKeep in mind only parameters defined in your VRCExpressionParameter object will be synced across the network.\n\nAdditionally, synced parameters are clamped between Int [0,255] and Float [-1,1]. Operations that modify these parameters will be clipped inside those bounds.", MessageType.Info);
+		EditorGUILayout.HelpBox("This behaviour modifies parameters on this and all other animation controllers referenced on the avatar descriptor.\n\nKeep in mind only parameters defined in your VRCExpressionParameter object will be synced across the network.\n\nAdditionally, operations that modify synced parameters will be clamped inside their bounds, which by default are [0,255] for Integers and [-1,1] for Floats.", MessageType.Info);
 
 		//Data
 		EditorGUILayout.PropertyField(serializedObject.FindProperty("localOnly"));

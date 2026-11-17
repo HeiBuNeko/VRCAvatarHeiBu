@@ -12,7 +12,10 @@
             <Button text="Help Center" name="help-center-button" class="last" />
             <Button text="Examples" name="examples-button" class="d-none last" />
         </VisualElement>
-        <Button text="Building VRChat Quest Content" name="vrc-quest-content-button" />
+        <VisualElement class="buttons-row mt-1" name="help-buttons">
+            <Button text="Building Android Content" name="vrc-android-content-button" class="first" />
+            <Button text="Building iOS Content" name="vrc-ios-content-button" class="last" />
+        </VisualElement>
         <VisualElement class="col justify-content-center align-items-center mt-1" name="bottom-block">
             <Button name="bottom-block-button" class="white-space-normal" />
         </VisualElement>

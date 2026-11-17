@@ -2,9 +2,8 @@
 using UnityEngine;
 using UnityEditor;
 using VRC.SDK3.Avatars.Components;
-using VRC.SDK3.Editor;
 using VRC.SDK3A.Editor;
-using VRC.SDKBase.Editor;
+using UnityEngine.UIElements;
 
 [CustomEditor(typeof(VRCAvatarDescriptor))]
 public partial class AvatarDescriptorEditor3 : Editor
@@ -42,6 +41,7 @@ public partial class AvatarDescriptorEditor3 : Editor
         serializedObject.ApplyModifiedProperties();
 
         InitEyeLook();
+        Init_FaceTracking();
         Init_Expressions();
         Init_Colliders();
     }
@@ -59,10 +59,19 @@ public partial class AvatarDescriptorEditor3 : Editor
         serializedObject.ApplyModifiedProperties();
     }
 
+    public override VisualElement CreateInspectorGUI()
+    {
+        // Keep the IMGUI inspector while exposing its containing scroll view for alert navigation.
+        _inspectorGUI = new IMGUIContainer(OnInspectorGUI) { cullingEnabled = false };
+        return _inspectorGUI;
+    }
+
     public override void OnInspectorGUI()
     {
         _repaint = false;
         serializedObject.Update();
+
+        PrepareAlertNavigation();
 
         if(VRCSdkControlPanel.window != null)
         {
@@ -79,6 +88,7 @@ public partial class AvatarDescriptorEditor3 : Editor
         DrawView();
         DrawLipSync();
         DrawEyeLook();
+        DrawInspector_FaceTracking();
         DrawPlayableLayers();
         DrawLowerBodySettings();
         DrawInspector_Expressions();

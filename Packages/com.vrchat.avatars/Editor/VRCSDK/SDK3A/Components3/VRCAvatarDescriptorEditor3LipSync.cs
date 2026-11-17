@@ -2,50 +2,39 @@
 using System;
 using UnityEngine;
 using UnityEditor;
-using UnityEditorInternal;
 using System.Collections.Generic;
-using VRC.SDK3.Avatars.Components;
 using VRC.SDKBase;
+using VRC.SDK3A.Editor;
 
 public partial class AvatarDescriptorEditor3 : Editor
 {
-
-    SkinnedMeshRenderer selectedMesh;
-    List<string> blendShapeNames = null;
-
-    bool shouldRefreshVisemes = false;
-
-    bool lipsyncFoldout;
+    SkinnedMeshRenderer visimeSelectedMesh;
+    string[] vismeBlendShapeNames;
 
     public void DrawLipSync()
     {
-        if (Foldout("VRCSDK3_AvatarDescriptorEditor3_LipSyncFoldout", "LipSync"))
+        bool expanded = Foldout("VRCSDK3_AvatarDescriptorEditor3_LipSyncFoldout", "LipSync");
+        DrawAlertTarget(AlertSection.LipSync, GUILayoutUtility.GetLastRect());
+        if (expanded)
         {
+            var mesh = serializedObject.FindProperty("VisemeSkinnedMesh");
+            var blendShapes = serializedObject.FindProperty("VisemeBlendShapes");
+            var mode = serializedObject.FindProperty("lipSync");
 
-            avatarDescriptor.lipSync = (VRC.SDKBase.VRC_AvatarDescriptor.LipSyncStyle)EditorGUILayout.EnumPopup("Mode", avatarDescriptor.lipSync);
-            switch (avatarDescriptor.lipSync)
+            EditorGUILayout.PropertyField(mode, new GUIContent("Mode"));
+            switch ((VRC_AvatarDescriptor.LipSyncStyle)mode.intValue)
             {
-
                 case VRC.SDKBase.VRC_AvatarDescriptor.LipSyncStyle.Default:
                     if (GUILayout.Button("Auto Detect!"))
                         AutoDetectLipSync();
                     break;
 
                 case VRC.SDKBase.VRC_AvatarDescriptor.LipSyncStyle.JawFlapBlendShape:
-                    avatarDescriptor.VisemeSkinnedMesh = (SkinnedMeshRenderer)EditorGUILayout.ObjectField("Face Mesh", avatarDescriptor.VisemeSkinnedMesh, typeof(SkinnedMeshRenderer), true);
-                    if (avatarDescriptor.VisemeSkinnedMesh != null)
+                    EditorGUILayout.PropertyField(mesh, new GUIContent("Face Mesh"));
+                    if (mesh.objectReferenceValue != null)
                     {
-                        DetermineBlendShapeNames();
-
-                        int current = -1;
-                        for (int b = 0; b < blendShapeNames.Count; ++b)
-                            if (avatarDescriptor.MouthOpenBlendShapeName == blendShapeNames[b])
-                                current = b;
-
-                        string title = "Jaw Flap Blend Shape";
-                        int next = EditorGUILayout.Popup(title, current, blendShapeNames.ToArray());
-                        if (next >= 0)
-                            avatarDescriptor.MouthOpenBlendShapeName = blendShapeNames[next];
+                        DetermineVisimeBlendShapeNames(mesh.objectReferenceValue as SkinnedMeshRenderer);
+                        AvatarEditorHelper.DrawBlendshapesPopupButton(serializedObject.FindProperty("MouthOpenBlendShapeName"), vismeBlendShapeNames, new GUIContent("Jaw Flap Blend Shape"));
                     }
                     break;
 
@@ -54,27 +43,22 @@ public partial class AvatarDescriptorEditor3 : Editor
                     break;
 
                 case VRC.SDKBase.VRC_AvatarDescriptor.LipSyncStyle.VisemeBlendShape:
-                    SkinnedMeshRenderer prev = avatarDescriptor.VisemeSkinnedMesh;
-                    avatarDescriptor.VisemeSkinnedMesh = (SkinnedMeshRenderer)EditorGUILayout.ObjectField("Face Mesh", avatarDescriptor.VisemeSkinnedMesh, typeof(SkinnedMeshRenderer), true);
-                    if (avatarDescriptor.VisemeSkinnedMesh != prev)
+                    bool shouldRefreshVisemes = false;
+                    EditorGUI.BeginChangeCheck();
+                    EditorGUILayout.PropertyField(mesh, new GUIContent("Face Mesh"));
+                    if (EditorGUI.EndChangeCheck())
                         shouldRefreshVisemes = true;
-                    if (avatarDescriptor.VisemeSkinnedMesh != null)
-                    {
-                        DetermineBlendShapeNames();
 
-                        if (avatarDescriptor.VisemeBlendShapes == null || avatarDescriptor.VisemeBlendShapes.Length != (int)VRC.SDKBase.VRC_AvatarDescriptor.Viseme.Count)
-                            avatarDescriptor.VisemeBlendShapes = new string[(int)VRC.SDKBase.VRC_AvatarDescriptor.Viseme.Count];
+                    if (mesh.objectReferenceValue != null)
+                    {
+                        DetermineVisimeBlendShapeNames(mesh.objectReferenceValue as SkinnedMeshRenderer);
+
+                        if (blendShapes.arraySize != (int)VRC.SDKBase.VRC_AvatarDescriptor.Viseme.Count)
+                            blendShapes.arraySize = (int)VRC.SDKBase.VRC_AvatarDescriptor.Viseme.Count;
                         for (int i = 0; i < (int)VRC.SDKBase.VRC_AvatarDescriptor.Viseme.Count; ++i)
                         {
-                            int current = -1;
-                            for (int b = 0; b < blendShapeNames.Count; ++b)
-                                if (avatarDescriptor.VisemeBlendShapes[i] == blendShapeNames[b])
-                                    current = b;
-
                             string title = "Viseme: " + ((VRC.SDKBase.VRC_AvatarDescriptor.Viseme)i).ToString();
-                            int next = EditorGUILayout.Popup(title, current, blendShapeNames.ToArray());
-                            if (next >= 0)
-                                avatarDescriptor.VisemeBlendShapes[i] = blendShapeNames[next];
+                            AvatarEditorHelper.DrawBlendshapesPopupButton(blendShapes.GetArrayElementAtIndex(i), vismeBlendShapeNames, new GUIContent(title));
                         }
 
                         if (shouldRefreshVisemes)
@@ -83,6 +67,12 @@ public partial class AvatarDescriptorEditor3 : Editor
                     break;
 
                 case VRC.SDKBase.VRC_AvatarDescriptor.LipSyncStyle.VisemeParameterOnly:
+                    break;
+
+                case VRC.SDKBase.VRC_AvatarDescriptor.LipSyncStyle.VisemeBlendShapeFaceTracking:
+                    EditorGUILayout.HelpBox(
+                        "Viseme blendshapes are driven by audio analysis but mapped through the Face Tracking blendshape sets system. Configure meshes and viseme mappings per set in the Face Tracking section.",
+                        MessageType.Info);
                     break;
             }
             Separator();
@@ -109,30 +99,31 @@ public partial class AvatarDescriptorEditor3 : Editor
     {
         var lipSyncJawClosed = serializedObject.FindProperty("lipSyncJawClosed");
         var lipSyncJawOpen = serializedObject.FindProperty("lipSyncJawOpen");
+        var lipSyncJawBone = serializedObject.FindProperty("lipSyncJawBone");
 
         //Transform
         EditorGUI.BeginChangeCheck();
-        avatarDescriptor.lipSyncJawBone = (Transform)EditorGUILayout.ObjectField("Jaw Bone", avatarDescriptor.lipSyncJawBone, typeof(Transform), true);
+        EditorGUILayout.PropertyField(lipSyncJawBone, new GUIContent("Jaw Bone"));
         if(EditorGUI.EndChangeCheck())
         {
-            if(avatarDescriptor.lipSyncJawBone != null)
+            if(lipSyncJawBone.objectReferenceValue != null)
             {
-                lipSyncJawClosed.quaternionValue = avatarDescriptor.lipSyncJawBone.localRotation;
-                lipSyncJawOpen.quaternionValue = avatarDescriptor.lipSyncJawBone.localRotation;
+                var transform = lipSyncJawBone.objectReferenceValue as Transform;
+                lipSyncJawClosed.quaternionValue = transform.localRotation;
+                lipSyncJawOpen.quaternionValue = transform.localRotation;
             }
         }
 
         //Rotation states
         EditorGUILayout.LabelField("Rotation States");
         EditorGUI.indentLevel += 1;
-        GUI.enabled = avatarDescriptor.lipSyncJawBone != null;
+        GUI.enabled = lipSyncJawBone.objectReferenceValue != null;
         {
             DrawRotationState("Closed", lipSyncJawClosed);
             DrawRotationState("Open", lipSyncJawOpen);
         }
         GUI.enabled = true;
         EditorGUI.indentLevel -= 1;
-        
 
         void DrawRotationState(string name, SerializedProperty property)
         {
@@ -167,7 +158,7 @@ public partial class AvatarDescriptorEditor3 : Editor
                 SetActiveProperty(property);
 
                 //Record restore point
-                var prevBone = avatarDescriptor.lipSyncJawBone;
+                var prevBone = lipSyncJawBone.objectReferenceValue as Transform;
                 var prevRotation = prevBone.transform.localRotation;
                 System.Action restore = () =>
                 {
@@ -177,34 +168,35 @@ public partial class AvatarDescriptorEditor3 : Editor
                 activePropertyRestore.Add(restore);
 
                 //Set
-                avatarDescriptor.lipSyncJawBone.transform.localRotation = property.quaternionValue;
+                prevBone.localRotation = property.quaternionValue;
             }
         }
     }
 
-    void DetermineBlendShapeNames()
+    void DetermineVisimeBlendShapeNames(SkinnedMeshRenderer mesh)
     {
-        if (avatarDescriptor.VisemeSkinnedMesh != null &&
-            avatarDescriptor.VisemeSkinnedMesh != selectedMesh)
+        if (mesh != null && mesh != visimeSelectedMesh)
         {
-            blendShapeNames = new List<string>();
-            blendShapeNames.Add("-none-");
-            selectedMesh = avatarDescriptor.VisemeSkinnedMesh;
-            for (int i = 0; i < selectedMesh.sharedMesh.blendShapeCount; ++i)
-                blendShapeNames.Add(selectedMesh.sharedMesh.GetBlendShapeName(i));
+            visimeSelectedMesh = mesh;
+            vismeBlendShapeNames = AvatarEditorHelper.GetBlendshapes(mesh);
         }
     }
 
     void AutoDetectVisemes()
     {
+        //Guarentee array size
+        var blendshapes = serializedObject.FindProperty("VisemeBlendShapes");
+        if(blendshapes.arraySize != (int)VRC.SDKBase.VRC_AvatarDescriptor.Viseme.Count)
+            blendshapes.arraySize = (int)VRC.SDKBase.VRC_AvatarDescriptor.Viseme.Count;
+
         // prioritize strict - but fallback to looser - naming and don't touch user-overrides
 
-        List<string> blendShapes = new List<string>(blendShapeNames);
-        blendShapes.Remove("-none-");
+        string[] blendShapes = vismeBlendShapeNames;
 
-        for (int v = 0; v < avatarDescriptor.VisemeBlendShapes.Length; v++)
+        for (int v = 0; v < blendshapes.arraySize; v++)
         {
-            if (string.IsNullOrEmpty(avatarDescriptor.VisemeBlendShapes[v]))
+            var element = blendshapes.GetArrayElementAtIndex(v);
+            if (string.IsNullOrEmpty(element.stringValue))
             {
                 string viseme = ((VRC.SDKBase.VRC_AvatarDescriptor.Viseme)v).ToString().ToLowerInvariant();
 
@@ -212,7 +204,7 @@ public partial class AvatarDescriptorEditor3 : Editor
                 {
                     if (s.ToLowerInvariant() == "vrc.v_" + viseme)
                     {
-                        avatarDescriptor.VisemeBlendShapes[v] = s;
+                        element.stringValue = s;
                         goto next;
                     }
                 }
@@ -220,7 +212,7 @@ public partial class AvatarDescriptorEditor3 : Editor
                 {
                     if (s.ToLowerInvariant() == "v_" + viseme)
                     {
-                        avatarDescriptor.VisemeBlendShapes[v] = s;
+                        element.stringValue = s;
                         goto next;
                     }
                 }
@@ -228,7 +220,7 @@ public partial class AvatarDescriptorEditor3 : Editor
                 {
                     if (s.ToLowerInvariant().EndsWith(viseme))
                     {
-                        avatarDescriptor.VisemeBlendShapes[v] = s;
+                        element.stringValue = s;
                         goto next;
                     }
                 }
@@ -236,7 +228,7 @@ public partial class AvatarDescriptorEditor3 : Editor
                 {
                     if (s.ToLowerInvariant() == viseme)
                     {
-                        avatarDescriptor.VisemeBlendShapes[v] = s;
+                        element.stringValue = s;
                         goto next;
                     }
                 }
@@ -244,7 +236,7 @@ public partial class AvatarDescriptorEditor3 : Editor
                 {
                     if (s.ToLowerInvariant().Contains(viseme))
                     {
-                        avatarDescriptor.VisemeBlendShapes[v] = s;
+                        element.stringValue = s;
                         goto next;
                     }
                 }
@@ -252,8 +244,6 @@ public partial class AvatarDescriptorEditor3 : Editor
             }
             
         }
-
-        shouldRefreshVisemes = false;
     }
     
     class SearchComparer : IComparer<string>
@@ -299,6 +289,11 @@ public partial class AvatarDescriptorEditor3 : Editor
     {
         SkinnedMeshRenderer[] renderers = avatarDescriptor.GetComponentsInChildren<SkinnedMeshRenderer>();
 
+        var mode = serializedObject.FindProperty("lipSync");
+        var blendshapes = serializedObject.FindProperty("VisemeBlendShapes");
+        var mesh = serializedObject.FindProperty("VisemeSkinnedMesh");
+        var jawBone = serializedObject.FindProperty("lipSyncJawBone");
+
         string[] baseVisemeNames = Enum.GetNames(typeof(VRC_AvatarDescriptor.Viseme));
         int visemeCount = baseVisemeNames.Length - 1;
         string[] reversedVisemeNames = new string[visemeCount];
@@ -314,7 +309,8 @@ public partial class AvatarDescriptorEditor3 : Editor
 
         foreach (SkinnedMeshRenderer renderer in renderers)
         {
-            if (renderer.sharedMesh.blendShapeCount <= 0) continue;
+            if (renderer.sharedMesh.blendShapeCount <= 0)
+                continue;
 
             if (renderer.sharedMesh.blendShapeCount >= visemeCount)
             {
@@ -378,25 +374,33 @@ public partial class AvatarDescriptorEditor3 : Editor
                 //Threshold to see if we did a good enough job to bother showing the user
                 if (foundVisemes > 2)
                 {
-                    avatarDescriptor.lipSync = VRC_AvatarDescriptor.LipSyncStyle.VisemeBlendShape;
-                    avatarDescriptor.VisemeSkinnedMesh = renderer;
-                    avatarDescriptor.VisemeBlendShapes = visemeStrings;
-                    avatarDescriptor.lipSyncJawBone = null;
+                    mode.intValue = (int)VRC_AvatarDescriptor.LipSyncStyle.VisemeBlendShape;
+                    mesh.objectReferenceValue = renderer;
+                    jawBone.objectReferenceValue = null;
+                    blendshapes.arraySize = visemeStrings.Length;
+                    for (int i = 0; i < visemeStrings.Length; i++)
+                        blendshapes.GetArrayElementAtIndex(i).stringValue = visemeStrings[i];
                     return;
                 }
             }
-            
-            avatarDescriptor.lipSync = VRC_AvatarDescriptor.LipSyncStyle.JawFlapBlendShape;
-            avatarDescriptor.VisemeSkinnedMesh = renderer;
-            avatarDescriptor.lipSyncJawBone = null;
+
+            //Jaw Flap Blendshape
+            mode.intValue = (int)VRC_AvatarDescriptor.LipSyncStyle.JawFlapBlendShape;
+            mesh.objectReferenceValue = renderer;
+            jawBone.objectReferenceValue = null;
+            blendshapes.arraySize = 0;
             return;
         }
 
-        
-        if (avatarDescriptor.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.Jaw) == null) return;
-        avatarDescriptor.lipSync = VRC_AvatarDescriptor.LipSyncStyle.JawFlapBone;
-        avatarDescriptor.lipSyncJawBone = avatarDescriptor.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.Jaw);
-        avatarDescriptor.VisemeSkinnedMesh = null;
+        //Jaw Flap Bone
+        var jawBoneTransform = avatarDescriptor.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.Jaw);
+        if (jawBoneTransform != null)
+        {
+            mode.intValue = (int)VRC_AvatarDescriptor.LipSyncStyle.JawFlapBone;
+            jawBone.objectReferenceValue = jawBoneTransform;
+            mesh.objectReferenceValue = null;
+            blendshapes.arraySize = 0;
+        }
     }
 }
 #endif

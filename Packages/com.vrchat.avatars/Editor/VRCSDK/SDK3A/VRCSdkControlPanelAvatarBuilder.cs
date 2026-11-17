@@ -258,7 +258,9 @@ namespace VRC.SDK3A.Editor
             _builder.ResetIssues();
             VRC_EditorTools.GetCheckProjectSetupMethod()?.Invoke(_builder, new object[] {});
             if (_selectedAvatar != null)
+            {
                 OnGUIAvatarCheck(_selectedAvatar);
+            }
             _builder.CheckedForIssues = true;
             
             root.Clear();
@@ -297,7 +299,71 @@ namespace VRC.SDK3A.Editor
         }
 
         #region Avatar Validations (IMGUI)
-        
+
+        // Face tracking mapping warnings - all non-blocking; the client treats these mappings as
+        // name-authoritative and skips whatever it cannot resolve
+        private void CheckFaceTrackingMappings(VRC_AvatarDescriptor avatar)
+        {
+            if (!(avatar is VRCAvatarDescriptor descriptor) || !descriptor.enableFaceTracking) return;
+            var issues = FaceTrackingMappingValidator.CollectIssues(descriptor);
+
+            void SelectMeshes() => AvatarDescriptorEditor3.SelectAlert(descriptor, AvatarDescriptorEditor3.AlertSection.Meshes);
+
+            if (descriptor.useAllTrackingKeys && descriptor.visemeDampenMode != VRCAvatarDescriptor.VisemeDampenMode.None
+                && descriptor.visemeDampenAmount > 0f
+                && descriptor.lipSync != VRC_AvatarDescriptor.LipSyncStyle.VisemeBlendShapeFaceTracking)
+            {
+                _builder.OnGUIWarning(avatar,
+                    "Viseme Dampen requires LipSync Mode 'Viseme BlendShape Face Tracking'. The saved dampening settings will have no effect until this mode is selected.",
+                    () => AvatarDescriptorEditor3.SelectAlert(descriptor, AvatarDescriptorEditor3.AlertSection.LipSync), null);
+            }
+
+            if (issues.HasMappingsButNoMeshes)
+                _builder.OnGUIWarning(avatar,
+                    "Face Tracking is enabled with blendshape mappings configured, but no valid Face Tracking Meshes are assigned - the mappings will have no effect.",
+                    SelectMeshes, null);
+
+            if (issues.AmbiguousMeshPaths.Count > 0)
+                _builder.OnGUIWarning(avatar,
+                    FaceTrackingMappingValidator.DuplicateMeshPathWarning + "\n" +
+                    string.Join("\n", issues.AmbiguousMeshPaths), SelectMeshes, null);
+
+            if (issues.UnresolvedBlendshapes.Count > 0)
+            {
+                const int maxExamples = 5;
+                var message = new StringBuilder(
+                    $"Face Tracking: {issues.UnresolvedBlendshapes.Count} blendshape mapping(s) reference blendshape names that don't exist on their target mesh and will have no effect:");
+                
+                for (int i = 0; i < issues.UnresolvedBlendshapes.Count && i < maxExamples; i++)
+                {
+                    message.Append($"\n- {issues.UnresolvedBlendshapes[i]}");
+                }
+                if (issues.UnresolvedBlendshapes.Count > maxExamples)
+                    message.Append($"\n- ... and {issues.UnresolvedBlendshapes.Count - maxExamples} more");
+                
+                // Aggregated warnings list set mappings first, followed by behavior mappings.
+                var section = issues.FirstUnresolvedSetIndex >= 0
+                    ? AvatarDescriptorEditor3.AlertSection.BlendshapeSets : AvatarDescriptorEditor3.AlertSection.ParameterBehaviors;
+                int index = issues.FirstUnresolvedSetIndex >= 0 ? issues.FirstUnresolvedSetIndex : issues.FirstUnresolvedBehaviorIndex;
+                _builder.OnGUIWarning(avatar, message.ToString(), () => AvatarDescriptorEditor3.SelectAlert(descriptor, section, index), null);
+            }
+        }
+
+        private void CheckFaceTrackingParameterBehaviors(VRC_AvatarDescriptor avatar)
+        {
+            if (!(avatar is VRCAvatarDescriptor descriptor) || !descriptor.enableFaceTracking) return;
+
+            void AddWarning(string warning, int behaviorIndex)
+            {
+                _builder.OnGUIWarning(avatar, warning,
+                    () => AvatarDescriptorEditor3.SelectAlert(descriptor, AvatarDescriptorEditor3.AlertSection.ParameterBehaviors, behaviorIndex), null);
+            }
+
+            FaceTrackingMappingValidator.CollectParameterBehaviorWarnings(descriptor, AddWarning);
+            // Expression validation is deliberately conservative; the client skips expressions it cannot process.
+            FaceTrackingExpressionValidator.CollectWarnings(descriptor, AddWarning);
+        }
+
         private void OnGUIAvatarCheck(VRC_AvatarDescriptor avatar)
         {
             if (avatar == null) return;
@@ -336,8 +402,14 @@ namespace VRC.SDK3A.Editor
 
             if (avatar.lipSync == VRC_AvatarDescriptor.LipSyncStyle.VisemeBlendShape &&
                 avatar.VisemeSkinnedMesh == null)
+            {
                 _builder.OnGUIError(avatar, "This avatar uses Visemes but the Face Mesh is not specified.",
                     delegate { Selection.activeObject = avatar.gameObject; }, null);
+            }
+
+            CheckFaceTrackingMappings(avatar);
+
+            CheckFaceTrackingParameterBehaviors(avatar);
 
             VerifyAvatarMipMapStreaming(avatar);
             VerifyMaxTextureSize(avatar);
@@ -609,6 +681,11 @@ namespace VRC.SDK3A.Editor
         {
             avatar.animationHashSet.Clear();
 
+            if (avatar.baseAnimationLayers == null)
+            {
+                return;
+            }
+
             foreach (VRCAvatarDescriptor.CustomAnimLayer animLayer in avatar.baseAnimationLayers)
             {
                 AnimatorController controller = animLayer.animatorController as AnimatorController;
@@ -643,10 +720,20 @@ namespace VRC.SDK3A.Editor
 
         private void ValidateFeatures(VRC_AvatarDescriptor avatar, Animator anim, AvatarPerformanceStats perfStats)
         {
-            //Create avatar debug hashset
             VRCAvatarDescriptor avatarSDK3 = avatar as VRCAvatarDescriptor;
             if (avatarSDK3 != null)
             {
+                // If we've somehow made it to this point without base or special animation layers, initialize them now just in time...
+                if (avatarSDK3.baseAnimationLayers == null)
+                {
+                    AvatarDescriptorEditor3.InitializeBaseAnimationLayersArray(ref avatarSDK3.baseAnimationLayers, false, anim);
+                }
+                if (avatarSDK3.specialAnimationLayers == null)
+                {
+                    AvatarDescriptorEditor3.InitializeBaseAnimationLayersArray(ref avatarSDK3.specialAnimationLayers, true, anim);
+                }
+
+                //Create avatar debug hashset
                 GenerateDebugHashset(avatarSDK3);
             }
 
@@ -655,17 +742,161 @@ namespace VRC.SDK3A.Editor
             //Validate Playable Layers
             if (avatarSDK3 != null && avatarSDK3.customizeAnimationLayers)
             {
-                VRCAvatarDescriptor.CustomAnimLayer gestureLayer = avatarSDK3.baseAnimationLayers[2];
-                if (anim != null
-                    && anim.isHuman
-                    && gestureLayer.animatorController != null
-                    && gestureLayer.type == VRCAvatarDescriptor.AnimLayerType.Gesture
-                    && !gestureLayer.isDefault)
+                // Base is expected to contain only: Base, Additive, Gesture, Action, FX
+                // Special is expected to contain only: Sitting, TPose, IKPose
+                // Missing layers are okay
+                // Warn if we find any special layers in base or base layers in special
+                // Warn if we encounter more than one of a given layer type anywhere
+                HashSet<VRCAvatarDescriptor.AnimLayerType> encounteredLayerTypes = new HashSet<VRCAvatarDescriptor.AnimLayerType>();
+                HashSet<VRCAvatarDescriptor.AnimLayerType> duplicateLayerTypes = new HashSet<VRCAvatarDescriptor.AnimLayerType>();
+                HashSet<VRCAvatarDescriptor.AnimLayerType> misplacedBaseLayerTypes = new HashSet<VRCAvatarDescriptor.AnimLayerType>();
+                HashSet<VRCAvatarDescriptor.AnimLayerType> misplacedSpecialLayerTypes = new HashSet<VRCAvatarDescriptor.AnimLayerType>();
+                foreach (VRCAvatarDescriptor.CustomAnimLayer baseLayer in avatarSDK3.baseAnimationLayers)
                 {
-                    AnimatorController controller = gestureLayer.animatorController as AnimatorController;
-                    if (controller != null && controller.layers[0].avatarMask == null)
-                        _builder.OnGUIError(avatar, "Gesture Layer needs valid mask on first animator layer",
-                            delegate { OpenAnimatorControllerWindow(controller); }, null);
+                    switch (baseLayer.type)
+                    {
+                        case VRCAvatarDescriptor.AnimLayerType.Sitting:
+                        case VRCAvatarDescriptor.AnimLayerType.TPose:
+                        case VRCAvatarDescriptor.AnimLayerType.IKPose:
+                            misplacedSpecialLayerTypes.Add(baseLayer.type);
+                            break;
+                        default:
+                            if (!encounteredLayerTypes.Add(baseLayer.type))
+                            {
+                                duplicateLayerTypes.Add(baseLayer.type);
+                            }
+                            break;
+                    }
+
+                    // As we cycle, run this specific check on the gesture layer if it exists
+                    if (baseLayer.type == VRCAvatarDescriptor.AnimLayerType.Gesture)
+                    {
+                        if (anim != null
+                            && anim.isHuman
+                            && baseLayer.animatorController != null
+                            && !baseLayer.isDefault)
+                        {
+                            AnimatorController controller = baseLayer.animatorController as AnimatorController;
+                            if (controller != null && controller.layers[0].avatarMask == null)
+                            {
+                                _builder.OnGUIError(avatar,
+                                    "Gesture Layer needs valid mask on first animator layer",
+                                    () => { OpenAnimatorControllerWindow(controller); }
+                                );
+                            }
+                        }
+                    }
+                }
+
+                foreach (VRCAvatarDescriptor.CustomAnimLayer specialLayer in avatarSDK3.specialAnimationLayers)
+                {
+                    switch (specialLayer.type)
+                    {
+                        case VRCAvatarDescriptor.AnimLayerType.Base:
+                        case VRCAvatarDescriptor.AnimLayerType.Additive:
+                        case VRCAvatarDescriptor.AnimLayerType.Gesture:
+                        case VRCAvatarDescriptor.AnimLayerType.Action:
+                        case VRCAvatarDescriptor.AnimLayerType.FX:
+                            misplacedBaseLayerTypes.Add(specialLayer.type);
+                            break;
+                        default:
+                            if (!encounteredLayerTypes.Add(specialLayer.type))
+                            {
+                                duplicateLayerTypes.Add(specialLayer.type);
+                            }
+                            break;
+                    }
+                }
+
+                if (misplacedBaseLayerTypes.Count > 0 || misplacedSpecialLayerTypes.Count > 0)
+                {
+                    _builder.OnGUIWarning(avatar,
+                        "Your avatar contains mixed base and special playable layers. Misplaced playable layers won't do anything. Click Auto-Fix to move them to the correct layer lists.",
+                        () =>
+                        {
+                            Selection.activeObject = avatar.gameObject;
+                        },
+                        () =>
+                        {
+                            Undo.SetCurrentGroupName("Fix Playable Layer Placement");
+                            int undoGroup = Undo.GetCurrentGroup();
+                            Undo.RecordObject(avatarSDK3, "Fix Playable Layer Placement");
+                            try
+                            {
+                                List<VRCAvatarDescriptor.CustomAnimLayer> baseLayers = new List<VRCAvatarDescriptor.CustomAnimLayer>(avatarSDK3.baseAnimationLayers);
+                                List<VRCAvatarDescriptor.CustomAnimLayer> specialLayers = new List<VRCAvatarDescriptor.CustomAnimLayer>(avatarSDK3.specialAnimationLayers);
+
+                                // Move misplaced base layers to special
+                                for (int i = baseLayers.Count - 1; i >= 0; i--)
+                                {
+                                    VRCAvatarDescriptor.CustomAnimLayer layer = baseLayers[i];
+                                    if (misplacedSpecialLayerTypes.Contains(layer.type))
+                                    {
+                                        baseLayers.RemoveAt(i);
+                                        specialLayers.Add(layer);
+                                    }
+                                }
+
+                                // Move misplaced special layers to base
+                                for (int i = specialLayers.Count - 1; i >= 0; i--)
+                                {
+                                    VRCAvatarDescriptor.CustomAnimLayer layer = specialLayers[i];
+                                    if (misplacedBaseLayerTypes.Contains(layer.type))
+                                    {
+                                        specialLayers.RemoveAt(i);
+                                        baseLayers.Add(layer);
+                                    }
+                                }
+
+                                avatarSDK3.baseAnimationLayers = baseLayers.ToArray();
+                                avatarSDK3.specialAnimationLayers = specialLayers.ToArray();
+                            }
+                            finally
+                            {
+                                Undo.CollapseUndoOperations(undoGroup);
+                            }
+                        }
+                    );
+                }
+                if (duplicateLayerTypes.Count > 0)
+                {
+                    _builder.OnGUIWarning(avatar,
+                        "Your avatar contains multiple playable layers of the same type. Only the last layer of each type will be used. Click Auto-Fix to remove the duplicates.",
+                        () =>
+                        {
+                            Selection.activeObject = avatar.gameObject;
+                        },
+                        () =>
+                        {
+                            Undo.SetCurrentGroupName("Remove Duplicate Playable Layers");
+                            int undoGroup = Undo.GetCurrentGroup();
+                            Undo.RecordObject(avatarSDK3, "Remove Duplicate Playable Layers");
+                            try
+                            {
+                                void RemoveLeadingDuplicates(ref VRCAvatarDescriptor.CustomAnimLayer[] layers)
+                                {
+                                    HashSet<VRCAvatarDescriptor.AnimLayerType> seenTypes = new HashSet<VRCAvatarDescriptor.AnimLayerType>();
+                                    List<VRCAvatarDescriptor.CustomAnimLayer> layerList = new List<VRCAvatarDescriptor.CustomAnimLayer>(layers);
+                                    for (int i = layerList.Count - 1; i >= 0; i--)
+                                    {
+                                        VRCAvatarDescriptor.CustomAnimLayer layer = layerList[i];
+                                        if (!seenTypes.Add(layer.type))
+                                        {
+                                            layerList.RemoveAt(i);
+                                        }
+                                    }
+                                    layers = layerList.ToArray();
+                                }
+
+                                RemoveLeadingDuplicates(ref avatarSDK3.baseAnimationLayers);
+                                RemoveLeadingDuplicates(ref avatarSDK3.specialAnimationLayers);
+                            }
+                            finally
+                            {
+                                Undo.CollapseUndoOperations(undoGroup);
+                            }
+                        }
+                    );
                 }
             }
 
@@ -1333,6 +1564,10 @@ namespace VRC.SDK3A.Editor
                     case AvatarPerformanceCategory.ConstraintDepth:
                         // Behaves slightly differently from constraint count, we want to select the VRChat constraints at the end of the deepest chain(s) instead.
                         show = AvatarDynamicsSetup.GetDeepestConstraintSubSelection(avatar);
+                        break;
+                    case AvatarPerformanceCategory.FaceTrackingOperations:
+                    case AvatarPerformanceCategory.ForwardedParametersCount:
+                        show = () => Selection.activeGameObject = avatar.gameObject;
                         break;
                     case AvatarPerformanceCategory.RaycastCount:
                         show = GetAvatarSubSelectAction<VRCRaycast>(avatar);
@@ -3316,7 +3551,7 @@ namespace VRC.SDK3A.Editor
                             : percentage)));
                     },
                     _avatarUploadCancellationToken);
-                
+
                 _uploadState = SdkUploadState.Success;
                 OnSdkUploadSuccess?.Invoke(this, avatar.ID);
 

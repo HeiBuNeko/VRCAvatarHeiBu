@@ -9,6 +9,7 @@ using UnityEditor;
 using VRC.Core;
 using VRC.SDKBase.Editor;
 using VRC.SDKBase.Editor.Api;
+using Tools = VRC.Tools;
 
 // This file handles the Content tab of the SDK Panel
 
@@ -139,8 +140,8 @@ public partial class VRCSdkControlPanel : EditorWindow
     private static void FetchTestAvatars()
     {
 #if VRC_SDK_VRCSDK3
-        string sdkAvatarFolder = VRC.SDKBase.Editor.VRC_SdkBuilder.GetLocalLowPath() + "/VRChat/VRChat/Avatars/";
-        string[] sdkavatars = Directory.GetFiles(sdkAvatarFolder);
+        string sdkAvatarFolder = VRC.Tools.GetVRChatDataPath(Tools.VRChatDataPathDirectory.Avatars);
+        string[] sdkavatars = !string.IsNullOrEmpty(sdkAvatarFolder) && Directory.Exists(sdkAvatarFolder) ? Directory.GetFiles(sdkAvatarFolder) : Array.Empty<string>();
         string filename = "";
         List<ApiAvatar> avatars = new List<ApiAvatar>();
         foreach (string sdkap in sdkavatars)

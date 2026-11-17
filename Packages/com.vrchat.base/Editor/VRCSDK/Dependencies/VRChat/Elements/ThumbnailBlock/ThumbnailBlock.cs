@@ -27,6 +27,7 @@ namespace VRC.SDKBase.Editor.Elements
         public Thumbnail Thumbnail { get; private set; }
         public Foldout Foldout { get; private set; }
         public EventHandler<string> OnNewThumbnailSelected { get; set; }
+        public bool ShowAccuracyWarning { get; set; }
 
         private VisualElement _selectorBlock;
         private Button _selectThumbnailButton;
@@ -153,6 +154,11 @@ namespace VRC.SDKBase.Editor.Elements
 
             _selectThumbnailButton.clicked += () =>
             {
+                if (ShowAccuracyWarning && !ThumbnailAccuracyWarningWindow.Confirm())
+                {
+                    return;
+                }
+
                 var imagePath = EditorUtility.OpenFilePanel("Select thumbnail", "", "png");
                 if (string.IsNullOrWhiteSpace(imagePath)) return;
                 OnNewThumbnailSelected?.Invoke(this, imagePath);

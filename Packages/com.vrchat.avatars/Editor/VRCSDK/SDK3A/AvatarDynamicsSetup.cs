@@ -84,6 +84,56 @@ namespace VRC.SDK3.Avatars
                     {
                         // called from SDK, so create SDK Param access
                         receiver.paramAccess = new AnimParameterAccessAvatarSDK(animator, receiver.parameter);
+
+                        if (receiver.HasAdvancedParameter(ContactReceiver.AdvancedParameter.SenderType))
+                        {
+                            receiver.param_SenderType = new AnimParameterAccessAvatarSDK(animator, receiver.parameter + ContactReceiver.PARAM_SENDER_TYPE);
+                        }
+                        if (receiver.HasAdvancedParameter(ContactReceiver.AdvancedParameter.SenderLocalPosition))
+                        {
+                            receiver.param_SenderLocalPositionX = new AnimParameterAccessAvatarSDK(animator, receiver.parameter + ContactReceiver.PARAM_SENDER_LOCAL_POSITION_X);
+                            receiver.param_SenderLocalPositionY = new AnimParameterAccessAvatarSDK(animator, receiver.parameter + ContactReceiver.PARAM_SENDER_LOCAL_POSITION_Y);
+                            receiver.param_SenderLocalPositionZ = new AnimParameterAccessAvatarSDK(animator, receiver.parameter + ContactReceiver.PARAM_SENDER_LOCAL_POSITION_Z);
+                        }
+                        if (receiver.HasAdvancedParameter(ContactReceiver.AdvancedParameter.SenderLossyScale))
+                        {
+                            receiver.param_SenderLossyScaleX = new AnimParameterAccessAvatarSDK(animator, receiver.parameter + ContactReceiver.PARAM_SENDER_LOSSY_SCALE_X);
+                            receiver.param_SenderLossyScaleY = new AnimParameterAccessAvatarSDK(animator, receiver.parameter + ContactReceiver.PARAM_SENDER_LOSSY_SCALE_Y);
+                            receiver.param_SenderLossyScaleZ = new AnimParameterAccessAvatarSDK(animator, receiver.parameter + ContactReceiver.PARAM_SENDER_LOSSY_SCALE_Z);
+                        }
+                        if (receiver.HasAdvancedParameter(ContactReceiver.AdvancedParameter.SenderVelocity))
+                        {
+                            receiver.param_SenderVelocityX = new AnimParameterAccessAvatarSDK(animator, receiver.parameter + ContactReceiver.PARAM_SENDER_VELOCITY_X);
+                            receiver.param_SenderVelocityY = new AnimParameterAccessAvatarSDK(animator, receiver.parameter + ContactReceiver.PARAM_SENDER_VELOCITY_Y);
+                            receiver.param_SenderVelocityZ = new AnimParameterAccessAvatarSDK(animator, receiver.parameter + ContactReceiver.PARAM_SENDER_VELOCITY_Z);
+                            receiver.param_SenderVelocityMagnitude = new AnimParameterAccessAvatarSDK(animator, receiver.parameter + ContactReceiver.PARAM_SENDER_VELOCITY_MAGNITUDE);
+                        }
+                        if (receiver.HasAdvancedParameter(ContactReceiver.AdvancedParameter.PointSeparation))
+                        {
+                            receiver.param_PointSeparation = new AnimParameterAccessAvatarSDK(animator, receiver.parameter + ContactReceiver.PARAM_POINT_SEPARATION);
+                        }
+                        if (receiver.HasAdvancedParameter(ContactReceiver.AdvancedParameter.ProximitySpeed) && receiver.EffectiveReceiverType == ContactReceiver.ReceiverType.Proximity)
+                        {
+                            receiver.param_ProximitySpeed = new AnimParameterAccessAvatarSDK(animator, receiver.parameter + ContactReceiver.PARAM_PROXIMITY_SPEED);
+                        }
+
+                        if (receiver.HasAdvancedParameter(ContactReceiver.AdvancedParameter.CollisionTags) && receiver.collisionTags != null)
+                        {
+                            receiver.param_CollisionTags = new Dictionary<string, VRC.SDKBase.IAnimParameterAccess>();
+                            receiver.param_CollisionTagsEnabledSet = new HashSet<string>();
+                            foreach (string collisionTag in receiver.collisionTags)
+                            {
+                                if (!string.IsNullOrWhiteSpace(collisionTag))
+                                {
+                                    receiver.param_CollisionTags[collisionTag] = new AnimParameterAccessAvatarSDK(animator, receiver.parameter + ContactReceiver.PARAM_COLLISION_TAG_PREFIX + collisionTag);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            receiver.param_CollisionTags = null;
+                            receiver.param_CollisionTagsEnabledSet = null;
+                        }
                     }
                 }
             }
@@ -1114,9 +1164,12 @@ namespace VRC.SDK3.Avatars
 
         private static void GetAnimationClipsFromAvatarLayers(VRCAvatarDescriptor.CustomAnimLayer[] avatarCustomAnimLayers, HashSet<AnimationClip> results)
         {
-            for (int animationLayerIndex = 0; animationLayerIndex < avatarCustomAnimLayers.Length; animationLayerIndex++)
+            if (avatarCustomAnimLayers != null)
             {
-                GetAnimationClipsFromRuntimeAnimatorController(avatarCustomAnimLayers[animationLayerIndex].animatorController, results);
+                for (int animationLayerIndex = 0; animationLayerIndex < avatarCustomAnimLayers.Length; animationLayerIndex++)
+                {
+                    GetAnimationClipsFromRuntimeAnimatorController(avatarCustomAnimLayers[animationLayerIndex].animatorController, results);
+                }
             }
         }
 

@@ -284,27 +284,65 @@ internal sealed partial class LightLimitChangerProcessor : IDisposable
         SetMenuTextColor(menuRoot, Component.MenuTextColor);
     }
 
+    /// <summary>
+    /// パス実行時点のマテリアルから担当 ShaderProcessor を引くリゾルバを作る。
+    /// ObjectReference は由来の同一性であってインスタンスの同一性ではないため、
+    /// 検索にのみ使い、処理済み判定は呼び出し側でインスタンス単位に行うこと。
+    /// </summary>
+    private Func<Material, ShaderProcessor> CreateProcessorResolver()
+    {
+        Dictionary<Material, ShaderProcessor> instance2proc = new();
+        Dictionary<ObjectReference, List<ShaderProcessor>> ref2procs = new();
+
+        foreach (var (processor, materials) in shaderMaterialPair)
+        {
+            foreach (var material in materials)
+            {
+                instance2proc.TryAdd(material, processor);
+
+                var candidates = ref2procs.GetOrAdd(ObjectRegistry.GetReference(material), _ => new());
+                if (!candidates.Contains(processor))
+                    candidates.Add(processor);
+            }
+        }
+
+        return material =>
+        {
+            if (instance2proc.TryGetValue(material, out var processor))
+                return processor;
+
+            if (!ref2procs.TryGetValue(ObjectRegistry.GetReference(material), out var candidates))
+                return null;
+
+            if (candidates.Count == 1)
+                return candidates[0];
+
+            // 同じ由来に異なるシェーダーのマテリアルが関連付けられている場合は、実際のシェーダーで判定する
+            foreach (var candidate in candidates)
+            {
+                if (candidate.IsTargetMaterial(material))
+                    return candidate;
+            }
+
+            return candidates[0];
+        };
+    }
+
     internal void NormalizeMaterials()
     {
-        var ref2proc = shaderMaterialPair.SelectMany(
-            x => x.Value.Select(
-                y => (Key: x.Key, Value: ObjectRegistry.GetReference(y))
-                )
-            ).GroupBy(x => x.Value, x => x.Key).ToDictionary(x => x.Key, x => x.FirstOrDefault());
+        var resolveProcessor = CreateProcessorResolver();
 
-        HashSet<ObjectReference> processed = new();
+        HashSet<Material> processed = new();
 
         Material Normalize(Material material, Renderer _)
         {
             if (material == null || !context.AssetSaver.IsTemporaryAsset(material))
                 return material;
 
-            var reference = ObjectRegistry.GetReference(material);
-            if (!processed.Add(reference))
+            if (!processed.Add(material))
                 return material;
 
-            if (ref2proc.TryGetValue(reference, out var processor))
-                processor?.NormalizeMaterial(material);
+            resolveProcessor(material)?.NormalizeMaterial(material);
 
             return material;
         }
@@ -315,13 +353,9 @@ internal sealed partial class LightLimitChangerProcessor : IDisposable
 
     internal void OverwriteMaterialSettings()
     {
-        var ref2proc = shaderMaterialPair.SelectMany(
-            x => x.Value.Select(
-                y => (Key: x.Key, Value: ObjectRegistry.GetReference(y))
-                )
-            ).GroupBy(x => x.Value, x => x.Key).ToDictionary(x => x.Key, x => x.FirstOrDefault());
+        var resolveProcessor = CreateProcessorResolver();
 
-        HashSet<ObjectReference> processed = new();
+        HashSet<Material> processed = new();
         Dictionary<ShaderProcessor, HashSet<Material>> pairs = new();
 
         Material Collect(Material material, Renderer _)
@@ -329,11 +363,10 @@ internal sealed partial class LightLimitChangerProcessor : IDisposable
             if (material == null || !context.AssetSaver.IsTemporaryAsset(material))
                 return material;
 
-            var reference = ObjectRegistry.GetReference(material);
-            if (!processed.Add(reference))
+            if (!processed.Add(material))
                 return material;
 
-            if (ref2proc.TryGetValue(reference, out var processor))
+            if (resolveProcessor(material) is { } processor)
             {
                 pairs.GetOrAdd(processor, _ => new()).Add(material);
             }

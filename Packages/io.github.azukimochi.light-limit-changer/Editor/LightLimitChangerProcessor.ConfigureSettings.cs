@@ -123,6 +123,18 @@ partial class LightLimitChangerProcessor
             }
         }
 
+        /// <summary>
+        /// ColorPropertySettings(Alpha = false) の色でも、オプションによって Alpha のメニューを生成するかどうか
+        /// </summary>
+        private bool IsColorAlphaMenuEnabled(Metadata.ParameterInfo parameterInfo)
+        {
+            // lilToon の _BacklightColor.a は逆光の強さとして使われる
+            if (parameterInfo.Id == Metadata.ID.LilToon.Backlight.BacklightColor.Id)
+                return component.LilToon.Backlight.AddColorAlphaMenu;
+
+            return false;
+        }
+
         private void GenerateBlendTreeBranch(Metadata.ParameterInfo parameterInfo, Parameter parameter, ModularAvatarMenuItem menu)
         {
             var parameterBuffer = (stackalloc float[8]);
@@ -279,7 +291,7 @@ partial class LightLimitChangerProcessor
                     }
                 }
 
-                if (isColor && !parameterInfo.ColorSettings.Alpha && i == 3)
+                if (isColor && !parameterInfo.ColorSettings.Alpha && i == 3 && !IsColorAlphaMenuEnabled(parameterInfo))
                     continue;
 
                 string menuPath = parameterInfo.Name;

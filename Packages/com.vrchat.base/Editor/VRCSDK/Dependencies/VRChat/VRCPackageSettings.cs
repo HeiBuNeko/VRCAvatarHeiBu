@@ -15,6 +15,7 @@ namespace VRC.SDKBase.Editor
         public bool debugVCCConnection = false;
         public bool dpidMipmaps = false;
         public bool dpidConservative = true;
+        public bool thumbnailAccuracyWarningDismissed = false;
 
         public static VRC.SDKBase.Editor.VRCPackageSettings Instance
         {

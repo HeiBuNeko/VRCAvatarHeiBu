@@ -914,6 +914,39 @@ namespace VRC.SDKBase.Validation.Performance
 
                     break;
                 }
+                case AvatarPerformanceCategory.ForwardedParametersCount:
+                {
+                    if (!perfStats.forwardedParametersCount.HasValue)
+                        break;
+                    switch (rating)
+                    {
+                        case PerformanceRating.Excellent:
+                        case PerformanceRating.Good:
+                            displayLevel = PerformanceInfoDisplayLevel.Verbose;
+                            statText = $"Face Tracking Forwarded Parameters: {perfStats.forwardedParametersCount}";
+                            break;
+                        case PerformanceRating.Medium:
+                        case PerformanceRating.Poor:
+                            displayLevel = PerformanceInfoDisplayLevel.Warning;
+                            statText = $"Face Tracking Forwarded Parameters: {perfStats.forwardedParametersCount} (Recommended: {AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Excellent, isMobilePlatform).forwardedParametersCount}) - Reduce the number of forwarded parameters for better performance.";
+                            break;
+                        case PerformanceRating.VeryPoor:
+                            displayLevel = isMobilePlatform ? PerformanceInfoDisplayLevel.Error : PerformanceInfoDisplayLevel.Warning;
+                            statText = $"Face Tracking Forwarded Parameters: {perfStats.forwardedParametersCount} (Maximum: {AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Poor, isMobilePlatform).forwardedParametersCount}, Recommended: {AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Excellent, isMobilePlatform).forwardedParametersCount}) - This avatar has too many forwarded parameters.";
+                            break;
+                    }
+                    break;
+                }
+                case AvatarPerformanceCategory.FaceTrackingOperations:
+                {
+                    if (!perfStats.faceTrackingOperations.HasValue)
+                        break;
+                    displayLevel = rating <= PerformanceRating.Good ? PerformanceInfoDisplayLevel.Verbose : PerformanceInfoDisplayLevel.Warning;
+                    statText = string.Format("Face Tracking Operations: {0:N0} (Estimated, Recommended: {1:N0}) - Counts mesh/key mappings and parameter behavior inputs and operators. Numeric constants do not count. Reduce mappings or simplify behaviors to improve performance.",
+                        perfStats.faceTrackingOperations.Value,
+                        AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Excellent, isMobilePlatform).faceTrackingOperations);
+                    break;
+                }
                 case AvatarPerformanceCategory.RaycastCount:
                 {
                     //Max limits

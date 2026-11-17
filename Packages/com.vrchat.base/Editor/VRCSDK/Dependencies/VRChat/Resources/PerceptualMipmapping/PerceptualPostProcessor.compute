@@ -322,7 +322,7 @@ void Downsampling(uint3 id, uint3 gid, uint gtid)
         uint y = patchMinCorner.y + (i / patchSize.x);
         float4 pixel = _Input[int2(x, y)];
         if (normalMap)
-            pixel.ba = 1.0f;
+            pixel.b = 1.0f;
 
 #if defined(DPID_SAMPLING)
         float f_c = 0.0f, f_a = 0.0f; 

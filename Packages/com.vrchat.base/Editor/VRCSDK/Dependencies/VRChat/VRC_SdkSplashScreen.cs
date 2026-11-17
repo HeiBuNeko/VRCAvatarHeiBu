@@ -32,7 +32,7 @@ namespace VRC.SDKBase.Editor
         [MenuItem("VRChat SDK/Splash Screen", false, 500)]
         public static void OpenSplashScreen()
         {
-            var window = GetWindow<VRC_SdkSplashScreen>(true, "Welcome to VRChat SDK");
+            var window = GetWindow<VRC_SdkSplashScreen>(true, "Welcome to the VRChat SDK");
             window.minSize = new Vector2(400, 350);
             window.maxSize = new Vector2(400, 350);
         }
@@ -80,9 +80,13 @@ namespace VRC.SDKBase.Editor
             {
                 Application.OpenURL("https://help.vrchat.com");
             };
-            rootVisualElement.Q<Button>("vrc-quest-content-button").clicked += () =>
+            rootVisualElement.Q<Button>("vrc-android-content-button").clicked += () =>
             {
                 Application.OpenURL("https://creators.vrchat.com/platforms/android/");
+            };
+            rootVisualElement.Q<Button>("vrc-ios-content-button").clicked += () =>
+            {
+                Application.OpenURL("https://creators.vrchat.com/platforms/ios/");
             };
             
 #if !UDON

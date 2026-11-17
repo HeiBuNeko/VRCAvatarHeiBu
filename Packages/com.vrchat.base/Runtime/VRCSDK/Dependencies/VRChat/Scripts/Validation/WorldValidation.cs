@@ -449,8 +449,10 @@ namespace VRC.SDKBase.Validation
             "VRC.SDK3.Components.VRCMirrorReflection",
             "VRC.SDK3.Components.VRCSceneDescriptor",
             "VRC.SDK3.Components.VRCStation",
+            "VRC.SDK3.Components.VRCVelocityTracker",
             "VRC.SDK3.Components.VRCUiShape",
             "VRC.SDK3.Components.VRCObjectSync",
+            "VRC.SDK3.Components.VRCBillboard",
             "VRC.SDK3.Components.VRCObjectPool",
             "VRC.SDK3.Components.VRCInputFieldKeyboardOverride",
 #if VRC_ENABLE_PLAYER_PERSISTENCE
@@ -468,6 +470,7 @@ namespace VRC.SDKBase.Validation
             "VRC.SDK3.Components.VRCCameraDollyAnimation",
             "VRC.SDK3.Components.VRCCameraDollyPath",
             "VRC.SDK3.Components.VRCCameraDollyPathPoint",
+            "VRC.SDK3.Components.VRCPlacementZone",
             "VRC.Udon.UdonBehaviour",
             "VRC.Udon.AbstractUdonBehaviourEventProxy",
             "VRC.SDK3.Dynamics.PhysBone.Components.VRCPhysBone",
@@ -725,13 +728,9 @@ namespace VRC.SDKBase.Validation
             if(!(playableDirector.playableAsset is UnityEngine.Timeline.TimelineAsset timelineAsset))
                 return;
 
-            bool hasAudioTracks = false;
             var tracks = timelineAsset.GetOutputTracks().Concat(timelineAsset.GetRootTracks());
             foreach(TrackAsset track in tracks)
             {
-                if (track is AudioTrack)
-                    hasAudioTracks = true;
-
                 if(!(track is ControlTrack))
                     continue;
 
@@ -747,15 +746,10 @@ namespace VRC.SDKBase.Validation
                 }
             }
 
-            if (!playableDirector.playableGraph.IsValid())
-            {
-                // pi: leaving them is not enough, an invalid graph can still execute, and for example play audio without the checks below being possible (NREs on check)
-                UnityEngine.Object.Destroy(playableDirector);
-                VRC.Core.Logger.LogError($"PlayableDirector with invalid graph removed", DebugCategoryName, playableDirector.gameObject);
-                return;
-            }
-
-            bool hasValidAudioOutput = false;
+            
+            if (!playableDirector.playableGraph.IsValid()) 
+                return; 
+            
             var audioOutputCount = playableDirector.playableGraph.GetOutputCountByType<AudioPlayableOutput>();
             for (int i = 0; i < audioOutputCount; i++)
             {
@@ -765,36 +759,22 @@ namespace VRC.SDKBase.Validation
                 {
                     // AudioPlayableOutput without a target source will bypass client volume controls.
                     VRC.Core.Logger.LogWarning("Fixing up AudioPlayableOutput without a target source.", DebugCategoryName, playableDirector.gameObject);
-                    var addedSrc = CreateAudioSourceForPlayable(playableDirector);
+                    var addedObj = new GameObject("AudioSource_For_" + playableDirector.name);
+                    var addedSrc = addedObj.AddComponent<AudioSource>();
+                    addedSrc.spatialize = false;
+                    addedSrc.bypassEffects = true;
+                    addedSrc.bypassListenerEffects = true;
+                    addedSrc.bypassReverbZones = true;
+                    addedSrc.spatialBlend = 0.0f;
+                    addedSrc.dopplerLevel = 0.0f;
+                    addedSrc.rolloffMode = AudioRolloffMode.Custom;
+                    addedSrc.SetCustomCurve(AudioSourceCurveType.CustomRolloff, AnimationCurve.Constant(0, 1, 1));
+                    #if VRC_CLIENT
+                    addedSrc.outputAudioMixerGroup = VRCAudioManager.GetGameGroup();
+                    #endif
                     output.SetTarget(addedSrc);
                 }
-                hasValidAudioOutput = true;
             }
-
-            if (!hasValidAudioOutput && hasAudioTracks)
-            {
-                VRC.Core.Logger.LogWarning("Fixing up AudioPlayableOutput without a target source (none found, but audio track present).", DebugCategoryName, playableDirector.gameObject);
-                var addedSrc = CreateAudioSourceForPlayable(playableDirector);
-                AudioPlayableOutput.Create(playableDirector.playableGraph, addedSrc.name, addedSrc);
-            }
-        }
-
-        private static AudioSource CreateAudioSourceForPlayable(PlayableDirector playableDirector)
-        {
-            var addedObj = new GameObject("AudioSource_For_" + playableDirector.name);
-            var addedSrc = addedObj.AddComponent<AudioSource>();
-            addedSrc.spatialize = false;
-            addedSrc.bypassEffects = true;
-            addedSrc.bypassListenerEffects = true;
-            addedSrc.bypassReverbZones = true;
-            addedSrc.spatialBlend = 0.0f;
-            addedSrc.dopplerLevel = 0.0f;
-            addedSrc.rolloffMode = AudioRolloffMode.Custom;
-            addedSrc.SetCustomCurve(AudioSourceCurveType.CustomRolloff, AnimationCurve.Constant(0, 1, 1));
-            #if VRC_CLIENT
-            addedSrc.outputAudioMixerGroup = VRCAudioManager.GetGameGroup();
-            #endif
-            return addedSrc;
         }
 
         private static void AddAudioSourceToVideoPlayer(UnityEngine.Video.VideoPlayer videoPlayer)

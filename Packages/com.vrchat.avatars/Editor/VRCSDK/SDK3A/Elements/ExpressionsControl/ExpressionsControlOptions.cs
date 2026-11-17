@@ -26,7 +26,8 @@ namespace VRC.SDK3A.Editor.Elements
         private ExpressionsControlParameterField ControlParameterField;
         private Slider ValueSlider;
         private SliderInt ValueIntSlider;
-        private HelpBox ValueEqualsZeroWarningHelpBox;
+        private Toggle ValueToggle;
+        private HelpBox ValueValidationWarningHelpBox;
         private VisualElement ControlTypeHelpBoxContainer;
         private Button TypeInfoButton;
         private HelpBox ControlTypeHelpBox;
@@ -98,6 +99,18 @@ namespace VRC.SDK3A.Editor.Elements
 
         private string _assignedControlHelpBoxTextFormat = string.Empty;
 
+        private const string HELPBOX_ZERO_VALUE_WARNING_NUMERIC =
+            "The Value set when this control is activated should usually be a value other than zero, so it doesn't match the value set when the control is deactivated. Otherwise, the control may not behave correctly.";
+
+        private const string HELPBOX_ZERO_VALUE_WARNING_BOOLEAN =
+            "The parameter will be set to false when this control is both activated and deactivated. Under normal use, the Value option should be ticked for Boolean parameters.";
+
+        private const string HELPBOX_VALUE_UNDER_MINIMUM =
+            "The Value set when this control is activated is lower than its minimum value of {0}. The value will be clamped.";
+
+        private const string HELPBOX_VALUE_OVER_MAXIMUM =
+            "The Value set when this control is activated is higher than its maximum value of {0}. The value will be clamped.";
+
         #endregion
 
 
@@ -133,7 +146,8 @@ namespace VRC.SDK3A.Editor.Elements
             ControlParameterField = this.Q<ExpressionsControlParameterField>("ControlParameterField");
             ValueSlider = this.Q<Slider>("ValueSlider");
             ValueIntSlider = this.Q<SliderInt>("ValueIntSlider");
-            ValueEqualsZeroWarningHelpBox = this.Q<HelpBox>("ValueEqualsZeroWarningHelpBox");
+            ValueToggle = this.Q<Toggle>("ValueToggle");
+            ValueValidationWarningHelpBox = this.Q<HelpBox>("ValueValidationWarningHelpBox");
 
             MenuTypesContainer = this.Q<VisualElement>("MenuTypesContainer");
             SubMenuObjectField = this.Q<VRCCreateObjectField>("SubMenuObjectField");
@@ -357,6 +371,11 @@ namespace VRC.SDK3A.Editor.Elements
                 UpdatePropValue(evt.newValue);
                 ValueSlider.SetValueWithoutNotify(evt.newValue);
             });
+
+            ValueToggle.RegisterValueChangedCallback(evt =>
+            {
+                UpdatePropValue(evt.newValue ? 1.0f : 0.0f);
+            });
         }
 
         private void TypeInfoButtonClicked()
@@ -368,29 +387,50 @@ namespace VRC.SDK3A.Editor.Elements
         {
             if (HasAnySelectedParameter)
             {
+                byte bitWidth = ControlParameterField.Parameter.bitWidth;
+                VRCExpressionParameters.Parameter.ValueRepresentation representation = ControlParameterField.Parameter.GetRepresentationByType();
+
                 switch (ControlParameterField.Parameter.valueType)
                 {
                     case VRCExpressionParameters.ValueType.Int:
                         ValueSlider.style.display = DisplayStyle.None;
                         ValueIntSlider.style.display = DisplayStyle.Flex;
+                        ValueToggle.style.display = DisplayStyle.None;
 
-                        UpdatePropValue(ValueIntSlider.value);
+                        int minIntValue = representation == VRCExpressionParameters.Parameter.ValueRepresentation.Signed ? -(1 << (bitWidth - 1)) : 0;
+                        int maxIntValue = representation == VRCExpressionParameters.Parameter.ValueRepresentation.Signed ? (1 << (bitWidth - 1)) - 1 : (1 << bitWidth) - 1;
+                        ValueIntSlider.lowValue = minIntValue;
+                        ValueIntSlider.highValue = maxIntValue;
+
+                        int clampedIntValue = Mathf.Clamp(Mathf.FloorToInt(propValue.floatValue), minIntValue, maxIntValue);
+                        ValueIntSlider.SetValueWithoutNotify(clampedIntValue);
+                        UpdatePropValue(clampedIntValue);
 
                         break;
                     case VRCExpressionParameters.ValueType.Float:
                         ValueSlider.style.display = DisplayStyle.Flex;
                         ValueIntSlider.style.display = DisplayStyle.None;
+                        ValueToggle.style.display = DisplayStyle.None;
 
-                        UpdatePropValue(ValueSlider.value);
+                        float minFloatValue = representation == VRCExpressionParameters.Parameter.ValueRepresentation.Signed ? -1.0f : 0.0f;
+                        float maxFloatValue = 1.0f;
+                        ValueSlider.lowValue = minFloatValue;
+                        ValueSlider.highValue = maxFloatValue;
+
+                        float clampedFloatValue = Mathf.Clamp(propValue.floatValue, minFloatValue, maxFloatValue);
+                        ValueSlider.SetValueWithoutNotify(clampedFloatValue);
+                        UpdatePropValue(clampedFloatValue);
 
                         break;
                     default:
                     case VRCExpressionParameters.ValueType.Bool:
                         ValueSlider.style.display = DisplayStyle.None;
                         ValueIntSlider.style.display = DisplayStyle.None;
+                        ValueToggle.style.display = DisplayStyle.Flex;
 
-                        // Booleans are always true when enabled.
-                        UpdatePropValue(1.0f);
+                        // There's an advanced community use case for false->false toggles, so ValueToggle can be false with a warning.
+                        // Most users should be able to just leave Value as true.
+                        UpdatePropValue(ValueToggle.value ? 1.0f : 0.0f);
 
                         break;
                 }
@@ -399,6 +439,8 @@ namespace VRC.SDK3A.Editor.Elements
             {
                 ValueSlider.style.display = DisplayStyle.None;
                 ValueIntSlider.style.display = DisplayStyle.None;
+                ValueToggle.style.display = DisplayStyle.None;
+                ValueValidationWarningHelpBox.style.display = DisplayStyle.None;
             }
 
             RefreshControlHelpBox();
@@ -408,8 +450,9 @@ namespace VRC.SDK3A.Editor.Elements
         {
             ValueSlider.SetValueWithoutNotify(propValue.floatValue);
             ValueIntSlider.SetValueWithoutNotify(Mathf.FloorToInt(propValue.floatValue));
+            ValueToggle.SetValueWithoutNotify(propValue.floatValue > 0f);
 
-            RefreshEqualsZeroHelpBox();
+            RefreshValueValidationHelpBox();
         }
 
         private void UpdatePropValue(float newValue)
@@ -417,18 +460,66 @@ namespace VRC.SDK3A.Editor.Elements
             propValue.floatValue = newValue;
             propControl.serializedObject.ApplyModifiedProperties();
 
-            RefreshEqualsZeroHelpBox();
+            RefreshValueValidationHelpBox();
         }
 
         private void RefreshControlHelpBox()
         {
             bool isBooleanParameter = HasAnySelectedParameter && ControlParameterField.Parameter.valueType == VRCExpressionParameters.ValueType.Bool;
-            ControlTypeHelpBox.text = string.Format(_assignedControlHelpBoxTextFormat, isBooleanParameter ? "true" : "(Value)", isBooleanParameter ? "false" : "zero");
+            ControlTypeHelpBox.text = string.Format(_assignedControlHelpBoxTextFormat, "(Value)", isBooleanParameter ? "false" : "zero");
         }
 
-        private void RefreshEqualsZeroHelpBox()
+        private void RefreshValueValidationHelpBox()
         {
-            ValueEqualsZeroWarningHelpBox.style.display = HasAnySelectedParameter && propValue.floatValue == 0.0f ? DisplayStyle.Flex : DisplayStyle.None;
+            if (HasAnySelectedParameter)
+            {
+                string warningText = string.Empty;
+                if (propValue.floatValue == 0.0f)
+                {
+                    bool isBooleanParameter = ControlParameterField.Parameter.valueType == VRCExpressionParameters.ValueType.Bool;
+                    warningText = isBooleanParameter ? HELPBOX_ZERO_VALUE_WARNING_BOOLEAN : HELPBOX_ZERO_VALUE_WARNING_NUMERIC;
+                }
+                else
+                {
+                    VRCExpressionParameters.Parameter.ValueRepresentation representation = ControlParameterField.Parameter.GetRepresentationByType();
+                    bool signed = representation == VRCExpressionParameters.Parameter.ValueRepresentation.Signed;
+                    switch (ControlParameterField.Parameter.valueType)
+                    {
+                        case VRCExpressionParameters.ValueType.Int:
+                            byte bitWidth = ControlParameterField.Parameter.bitWidth;
+                            int minIntValue = signed ? -(1 << (bitWidth - 1)) : 0;
+                            int maxIntValue = signed ? (1 << (bitWidth - 1)) - 1 : (1 << bitWidth) - 1;
+                            if (propValue.floatValue < minIntValue)
+                            {
+                                warningText = string.Format(HELPBOX_VALUE_UNDER_MINIMUM, minIntValue);
+                            }
+                            else if (propValue.floatValue > maxIntValue)
+                            {
+                                warningText = string.Format(HELPBOX_VALUE_OVER_MAXIMUM, maxIntValue);
+                            }
+                            break;
+                        case VRCExpressionParameters.ValueType.Float:
+                            float minFloatValue = signed ? -1.0f : 0.0f;
+                            float maxFloatValue = 1.0f;
+                            if (propValue.floatValue < minFloatValue)
+                            {
+                                warningText = string.Format(HELPBOX_VALUE_UNDER_MINIMUM, minFloatValue);
+                            }
+                            else if (propValue.floatValue > maxFloatValue)
+                            {
+                                warningText = string.Format(HELPBOX_VALUE_OVER_MAXIMUM, maxFloatValue);
+                            }
+                            break;
+                    }
+                }
+
+                ValueValidationWarningHelpBox.text = warningText;
+                ValueValidationWarningHelpBox.style.display = !string.IsNullOrEmpty(warningText) ? DisplayStyle.Flex : DisplayStyle.None;
+            }
+            else
+            {
+                ValueValidationWarningHelpBox.style.display = DisplayStyle.None;
+            }
         }
     }
 }

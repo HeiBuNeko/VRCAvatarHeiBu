@@ -25,11 +25,13 @@ namespace VRC.SDK3.Editor
         private ProgressBar MemoryBar;
         private VisualElement MemoryBarProgress;
         private Button LearnMoreButton;
+        private Toggle ShowAdvancedOptionsToggle;
         private ListView ParametersListView;
         private VisualElement ListHeader;
         private Foldout ListViewFoldout;
 
-        private static string DOCUMENTATION_URL = "https://creators.vrchat.com/avatars/expression-menu-and-controls";
+        private const string DOCUMENTATION_URL = "https://creators.vrchat.com/avatars/expression-menu-and-controls";
+        private const string SHOW_ADVANCED_OPTIONS_PREF_KEY = "VRC.ExpressionParameters.ShowAdvancedOptions";
 
         private readonly Color colorMemoryFree = new(0, 0.5f, 1, 0.5f);
         private readonly Color colorMemoryLow = new(0.8f, 0.7f, 0, 0.5f);
@@ -59,9 +61,10 @@ namespace VRC.SDK3.Editor
 
             ActionsMenu = root.Q<ToolbarMenu>("ActionsMenu");
             MemoryBar = root.Q<ProgressBar>("MemoryBar");
-			
+
             MemoryBarProgress = MemoryBar.Q(className: "unity-progress-bar__progress");
             LearnMoreButton = root.Q<Button>("LearnMoreButton");
+            ShowAdvancedOptionsToggle = root.Q<Toggle>("ShowAdvancedOptionsToggle");
             ParametersListView = root.Q<ListView>("ParametersListView");
             ListHeader = root.Q<VisualElement>("ListHeader");
 
@@ -75,6 +78,13 @@ namespace VRC.SDK3.Editor
 
             LearnMoreButton.clicked += () => Application.OpenURL(DOCUMENTATION_URL);
 
+            ShowAdvancedOptionsToggle.SetValueWithoutNotify(EditorPrefs.GetBool(SHOW_ADVANCED_OPTIONS_PREF_KEY, false));
+            ShowAdvancedOptionsToggle.RegisterValueChangedCallback(evt =>
+            {
+                EditorPrefs.SetBool(SHOW_ADVANCED_OPTIONS_PREF_KEY, evt.newValue);
+                RefreshAdvancedOptionsVisibility();
+            });
+
             ActionsMenu.menu.AppendAction("Add Default Parameters", _ => AddDefaultParameters());
             ActionsMenu.menu.AppendAction("Copy from Animator", _ => CopyFromAnimator());
 
@@ -83,14 +93,12 @@ namespace VRC.SDK3.Editor
 
             ParametersListView.itemsAdded += _ =>
             {
-                serializedObject.Update();
                 hasEmptyParameterList.boolValue = false;
                 serializedObject.ApplyModifiedProperties();
             };
             ParametersListView.itemsRemoved += _ =>
             {
-                serializedObject.Update();
-                hasEmptyParameterList.boolValue = script.parameters.Length == 1;
+                hasEmptyParameterList.boolValue = propParameters.arraySize == 0;
                 serializedObject.ApplyModifiedProperties();
             };
 
@@ -108,6 +116,7 @@ namespace VRC.SDK3.Editor
             ExpressionParameterField parameterField = (ExpressionParameterField)element;
             SerializedProperty param = propParameters.GetArrayElementAtIndex(i);
             parameterField.BindProperty(param);
+            parameterField.SetAdvancedOptionsVisible(ShowAdvancedOptionsToggle.value);
         }
 
         private void RefreshMemoryBar()
@@ -127,6 +136,15 @@ namespace VRC.SDK3.Editor
                 default:
                     MemoryBarProgress.style.backgroundColor = colorMemoryFree;
                     break;
+            }
+        }
+
+        private void RefreshAdvancedOptionsVisibility()
+        {
+            bool showAdvanced = ShowAdvancedOptionsToggle.value;
+            foreach (ExpressionParameterField parameterField in ParametersListView.Query<ExpressionParameterField>().ToList())
+            {
+                parameterField.SetAdvancedOptionsVisible(showAdvanced);
             }
         }
 

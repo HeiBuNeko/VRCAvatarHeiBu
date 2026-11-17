@@ -1,12 +1,9 @@
 #if VRC_SDK_VRCSDK3
 using UnityEngine;
 using UnityEditor;
-using UnityEditorInternal;
 using System.Collections.Generic;
 using VRC.SDK3.Avatars.Components;
-using System;
-using System.Linq;
-
+using VRC.SDK3A.Editor;
 
 public partial class AvatarDescriptorEditor3 : Editor
 {
@@ -102,7 +99,7 @@ public partial class AvatarDescriptorEditor3 : Editor
         }
         Separator();
 
-        EditorGUI.BeginDisabledGroup(leftEye.objectReferenceValue == null || rightEye.objectReferenceValue == null);
+        EditorGUI.BeginDisabledGroup(PreviewEyeBoneRotations && (leftEye.objectReferenceValue == null || rightEye.objectReferenceValue == null));
         if (Foldout(_eyeRotationFoldoutPrefsKey, "Rotation States"))
         {
             var eyesLookingStraight = eyeSettings.FindPropertyRelative("eyesLookingStraight");
@@ -112,59 +109,70 @@ public partial class AvatarDescriptorEditor3 : Editor
             var eyesLookingRight = eyeSettings.FindPropertyRelative("eyesLookingRight");
 
             RotationFieldEyeLook(eyesLookingStraight, leftEye, rightEye, "Looking Straight");
-            RotationFieldEyeLook(eyesLookingUp, leftEye, rightEye, "Looking Up", () => { BeginEyesUpDown(true); });
-            RotationFieldEyeLook(eyesLookingDown, leftEye, rightEye, "Looking Down", () => { BeginEyesUpDown(false); });
-            RotationFieldEyeLook(eyesLookingLeft, leftEye, rightEye, "Looking Left");
-            RotationFieldEyeLook(eyesLookingRight, leftEye, rightEye, "Looking Right");
+            RotationFieldEyeLook(eyesLookingUp, leftEye, rightEye, "Looking Up", () => { BeginEyesUpDown(true); },
+                new[] { VRCAvatarDescriptor.FaceTrackingKey.EyeLookUpLeft, VRCAvatarDescriptor.FaceTrackingKey.EyeLookUpRight });
+            RotationFieldEyeLook(eyesLookingDown, leftEye, rightEye, "Looking Down", () => { BeginEyesUpDown(false); },
+                new[] { VRCAvatarDescriptor.FaceTrackingKey.EyeLookDownLeft, VRCAvatarDescriptor.FaceTrackingKey.EyeLookDownRight });
+            RotationFieldEyeLook(eyesLookingLeft, leftEye, rightEye, "Looking Left", null,
+                new[] { VRCAvatarDescriptor.FaceTrackingKey.EyeLookOutLeft, VRCAvatarDescriptor.FaceTrackingKey.EyeLookInRight });
+            RotationFieldEyeLook(eyesLookingRight, leftEye, rightEye, "Looking Right", null,
+                new[] { VRCAvatarDescriptor.FaceTrackingKey.EyeLookOutRight, VRCAvatarDescriptor.FaceTrackingKey.EyeLookInLeft });
         }
         EditorGUI.EndDisabledGroup();
 
+        Separator();
+        var eyeGazeMode = eyeSettings.FindPropertyRelative("eyeGazeMode");
+        var eyelidType = eyeSettings.FindPropertyRelative("eyelidType");
+        EditorGUI.BeginChangeCheck();
+        EditorGUILayout.PropertyField(eyeGazeMode, new GUIContent("Eye Gaze Mode", "With eye tracking, gaze follows your eyes. Without tracking, gaze is simulated."));
+        if (EditorGUI.EndChangeCheck())
+            SetActiveProperty(null);
+        switch ((VRCAvatarDescriptor.CustomEyeLookSettings.EyeGazeMode)eyeGazeMode.intValue)
+        {
+            case VRCAvatarDescriptor.CustomEyeLookSettings.EyeGazeMode.BoneRotation:
+                EditorGUILayout.HelpBox("Eye gaze is output to eye bones only. Face tracking eye blendshapes are not driven.", MessageType.Info);
+                if (eyelidType.intValue == (int)VRCAvatarDescriptor.EyelidType.FaceTracking)
+                    EditorGUILayout.HelpBox("Eyelids are set to Face Tracking, but Eye Gaze Mode is Bone Rotation. Consider setting Eye Gaze Mode to 'Both' so eye direction affects both eyeball bones and eyelid blendshapes simultaneously.", MessageType.Warning);
+                break;
+            case VRCAvatarDescriptor.CustomEyeLookSettings.EyeGazeMode.FaceTracking:
+                EditorGUILayout.HelpBox("Eye gaze is output to face tracking blendshapes only. Eye bones stay neutral.", MessageType.Info);
+                break;
+            case VRCAvatarDescriptor.CustomEyeLookSettings.EyeGazeMode.Both:
+                EditorGUILayout.HelpBox("Eye gaze is output to both eye bones and face tracking blendshapes simultaneously.", MessageType.Info);
+                break;
+        }
+
         EndBox();
     }
-    void RotationFieldEyeLook(SerializedProperty property, SerializedProperty leftEyeBone, SerializedProperty rightEyeBone, string label, System.Action onSetActive=null)
+    bool PreviewEyeBoneRotations => serializedObject.FindProperty("customEyeLookSettings.eyeGazeMode").intValue
+        != (int)VRCAvatarDescriptor.CustomEyeLookSettings.EyeGazeMode.FaceTracking;
+
+    void RotationFieldEyeLook(SerializedProperty property, SerializedProperty leftEyeBone, SerializedProperty rightEyeBone, string label, System.Action onSetActive=null, VRCAvatarDescriptor.FaceTrackingKey[] previewGazeKeys=null)
     {
-        RotationField(property, leftEyeBone, rightEyeBone, label, isActive: IsActiveProperty(property), SetActive: SetActive);
+        RotationField(property, leftEyeBone, rightEyeBone, label, isActive: IsActiveProperty(property), SetActive: SetActive, applyRotations: PreviewEyeBoneRotations);
         void SetActive()
         {
-            //Set
-            SetActiveProperty(property);
+            BeginEyeGazePreview(property, leftEyeBone, rightEyeBone, onSetActive, previewGazeKeys);
+        }
+    }
 
-            //Check for transforms
-            if (((Transform)leftEyeBone.objectReferenceValue) == null || ((Transform)rightEyeBone.objectReferenceValue) == null)
-                return;
-
-            //Record
+    void BeginEyeGazePreview(SerializedProperty property, SerializedProperty leftEyeBone, SerializedProperty rightEyeBone,
+        System.Action onSetActive, VRCAvatarDescriptor.FaceTrackingKey[] previewGazeKeys)
+    {
+        SetActiveProperty(property);
+        if (PreviewEyeBoneRotations)
+        {
             RecordEyeRotations(property, leftEyeBone, rightEyeBone);
-
-            //Other
             onSetActive?.Invoke();
         }
+        RecordFaceTrackingGazeBlendshapes(previewGazeKeys);
     }
 
     void DrawEyelidsBox(SerializedProperty eyeSettings)
     {
         BeginBox("Eyelids", true);
 
-        DrawEyelidType(eyeSettings);
-
-        if (avatarDescriptor.customEyeLookSettings.eyelidType == VRCAvatarDescriptor.EyelidType.Blendshapes)
-        {
-            DrawEyelidBlendshapeDropdowns(eyeSettings);
-        }
-        else if (avatarDescriptor.customEyeLookSettings.eyelidType == VRCAvatarDescriptor.EyelidType.Bones) 
-        {
-            DrawEyelidBoneRotations(eyeSettings);
-            _currentEyelidsMesh = null;
-        }
-        else
-        {
-            _currentEyelidsMesh = null;
-        }
-
-        EndBox();
-    }
-    void DrawEyelidType(SerializedProperty eyeSettings)
-    {
+        //Type
         EditorGUI.BeginChangeCheck();
         var eyelidType = eyeSettings.FindPropertyRelative("eyelidType");
         EditorGUILayout.PropertyField(eyelidType);
@@ -173,6 +181,26 @@ public partial class AvatarDescriptorEditor3 : Editor
             if (eyelidType.enumValueIndex == (int)VRCAvatarDescriptor.EyelidType.Blendshapes)
                 EditorPrefs.SetBool(_eyelidBlendshapesFoldoutPrefsKey, true);
         }
+
+        //Contents
+        switch((VRCAvatarDescriptor.EyelidType)eyelidType.intValue)
+        {
+            case VRCAvatarDescriptor.EyelidType.Blendshapes:
+                DrawEyelidBlendshapeDropdowns(eyeSettings);
+                break;
+            case VRCAvatarDescriptor.EyelidType.Bones:
+                DrawEyelidBoneRotations(eyeSettings);
+                break;
+            case VRCAvatarDescriptor.EyelidType.FaceTracking:
+                EditorGUILayout.HelpBox("Eyelids will be controlled with the Face Tracking blendshapes.", MessageType.Info);
+                _currentEyelidsMesh = null;
+                break;
+            default:
+                _currentEyelidsMesh = null;
+                break;
+        }
+
+        EndBox();
     }
     void DrawEyelidBoneRotations(SerializedProperty eyeSettings)
     {
@@ -185,15 +213,17 @@ public partial class AvatarDescriptorEditor3 : Editor
 
         if (Foldout(_eyelidTransformFoldoutPrefsKey, "Transforms", true))
         {
-            EditorGUI.BeginChangeCheck();
-            EditorGUILayout.PropertyField(upperLeftEyelid);
-            EditorGUILayout.PropertyField(upperRightEyelid);
-            EditorGUILayout.PropertyField(lowerLeftEyelid);
-            EditorGUILayout.PropertyField(lowerRightEyelid);
-            if (EditorGUI.EndChangeCheck())
-                SetActiveProperty(null); //Disable active property, maintains proper preview/undo state
+            using (var c = new EditorGUI.ChangeCheckScope())
+            {
+                EditorGUILayout.PropertyField(upperLeftEyelid);
+                EditorGUILayout.PropertyField(upperRightEyelid);
+                EditorGUILayout.PropertyField(lowerLeftEyelid);
+                EditorGUILayout.PropertyField(lowerRightEyelid);
+                if (c.changed) SetActiveProperty(null); //Disable active property, maintains proper preview/undo state 
+            }
         }
         Separator();
+        
         if (Foldout(_eyelidRotationFoldoutPrefsKey, "Rotation States"))
         {
             var eyelidsDefault = eyeSettings.FindPropertyRelative("eyelidsDefault");
@@ -201,13 +231,25 @@ public partial class AvatarDescriptorEditor3 : Editor
             var eyelidsLookingUp = eyeSettings.FindPropertyRelative("eyelidsLookingUp");
             var eyelidsLookingDown = eyeSettings.FindPropertyRelative("eyelidsLookingDown");
 
+            // Disable Looking Up/Down if eye gaze uses face tracking (direction comes from face tracking, not bone system)
+            var eyeGazeMode = eyeSettings.FindPropertyRelative("eyeGazeMode");
+            bool disableLookingUpDown = eyeGazeMode.intValue == (int)VRCAvatarDescriptor.CustomEyeLookSettings.EyeGazeMode.FaceTracking
+                                        || eyeGazeMode.intValue == (int)VRCAvatarDescriptor.CustomEyeLookSettings.EyeGazeMode.Both;
+
             GUILayout.BeginHorizontal();
             GUILayout.Space(16);
             GUILayout.BeginVertical();
             RotationFieldEyelids(eyelidsDefault, upperLeftEyelid, upperRightEyelid, lowerLeftEyelid, lowerRightEyelid, "Default");
             RotationFieldEyelids(eyelidsClosed, upperLeftEyelid, upperRightEyelid, lowerLeftEyelid, lowerRightEyelid, "Closed");
-            RotationFieldEyelids(eyelidsLookingUp, upperLeftEyelid, upperRightEyelid, lowerLeftEyelid, lowerRightEyelid, "Looking Up", () => { BeginEyesUpDown(true); } );
-            RotationFieldEyelids(eyelidsLookingDown, upperLeftEyelid, upperRightEyelid, lowerLeftEyelid, lowerRightEyelid, "Looking Down", () => { BeginEyesUpDown(false); });
+            
+            using (new EditorGUI.DisabledGroupScope(disableLookingUpDown))
+            {
+                RotationFieldEyelids(eyelidsLookingUp, upperLeftEyelid, upperRightEyelid, lowerLeftEyelid, lowerRightEyelid, "Looking Up", () => { BeginEyesUpDown(true); } );
+                RotationFieldEyelids(eyelidsLookingDown, upperLeftEyelid, upperRightEyelid, lowerLeftEyelid, lowerRightEyelid, "Looking Down", () => { BeginEyesUpDown(false); });
+            }
+            
+            if (disableLookingUpDown)
+                EditorGUILayout.HelpBox("Looking Up/Down eyelid states are disabled because Eye Gaze Mode uses Face Tracking.", MessageType.Info);
 
             GUILayout.EndVertical();
             GUILayout.EndHorizontal();
@@ -274,17 +316,10 @@ public partial class AvatarDescriptorEditor3 : Editor
 
         var eyelidsMeshProp = eyeSettings.FindPropertyRelative("eyelidsSkinnedMesh");
         eyelidsMeshProp.objectReferenceValue = (SkinnedMeshRenderer)EditorGUILayout.ObjectField("Eyelids Mesh", eyelidsMeshProp.objectReferenceValue, typeof(SkinnedMeshRenderer), true);
-
-        if (eyelidsMeshProp.objectReferenceValue == null)
-        {
-            _eyelidBlendshapeNames = null;
-            return;
-        }
-
-        if (_currentEyelidsMesh == null)
+        if (_currentEyelidsMesh != eyelidsMeshProp.objectReferenceValue)
         {
             _currentEyelidsMesh = (SkinnedMeshRenderer)eyelidsMeshProp.objectReferenceValue;
-            _eyelidBlendshapeNames = GetBlendShapeNames(_currentEyelidsMesh);
+            _eyelidBlendshapeNames = AvatarEditorHelper.GetBlendshapes(_currentEyelidsMesh);
         }
 
         var eyelidsBlendshapes = eyeSettings.FindPropertyRelative("eyelidsBlendshapes");
@@ -298,33 +333,21 @@ public partial class AvatarDescriptorEditor3 : Editor
                                         eyelidsBlendshapes.GetArrayElementAtIndex(1).intValue,
                                         eyelidsBlendshapes.GetArrayElementAtIndex(2).intValue};
 
-            PreviewBlendshapeField("Blink", 0, eyelidsBlendshapes.GetArrayElementAtIndex(0));
-            PreviewBlendshapeField("Looking Up", 1, eyelidsBlendshapes.GetArrayElementAtIndex(1), () => { BeginEyesUpDown(true); });
-            PreviewBlendshapeField("Looking Down", 2, eyelidsBlendshapes.GetArrayElementAtIndex(2), () => { BeginEyesUpDown(false); });
+            // Disable Looking Up/Down if eye gaze uses face tracking (direction comes from face tracking, not blendshape system)
+            var eyeGazeMode = eyeSettings.FindPropertyRelative("eyeGazeMode");
+            bool disableLookingUpDown = eyeGazeMode.intValue == (int)VRCAvatarDescriptor.CustomEyeLookSettings.EyeGazeMode.FaceTracking
+                                        || eyeGazeMode.intValue == (int)VRCAvatarDescriptor.CustomEyeLookSettings.EyeGazeMode.Both;
+
+            PreviewBlendshapeField("Blink", eyelidsBlendshapes.GetArrayElementAtIndex(0));
+            EditorGUI.BeginDisabledGroup(disableLookingUpDown);
+            PreviewBlendshapeField("Looking Up", eyelidsBlendshapes.GetArrayElementAtIndex(1), () => { BeginEyesUpDown(true); });
+            PreviewBlendshapeField("Looking Down", eyelidsBlendshapes.GetArrayElementAtIndex(2), () => { BeginEyesUpDown(false); });
+            EditorGUI.EndDisabledGroup();
+            if (disableLookingUpDown)
+                EditorGUILayout.HelpBox("Looking Up/Down eyelid states are disabled because Eye Gaze Mode uses Face Tracking.", MessageType.Info);
         }
     }
 
-    /*static float NormalizedDegAngle ( float degrees )
-    {
-        int factor = (int) (degrees/360);
-        degrees -= factor * 360;
-        if ( degrees > 180 )
-            return degrees - 360;
-
-        if ( degrees < -180 )
-            return degrees + 360;
-
-        return degrees;
-    }
-    static Vector3 NormalizedEulers(Vector3 eulers)
-    {
-        Vector3 normEulers;
-        normEulers.x = NormalizedDegAngle(eulers.x);
-        normEulers.y = NormalizedDegAngle(eulers.y);
-        normEulers.z = NormalizedDegAngle(eulers.z);
-
-        return normEulers;
-    }*/
     static int PreviewButtonWidth = 55;
     static int PreviewButtonHeight = 24;
 
@@ -356,7 +379,8 @@ public partial class AvatarDescriptorEditor3 : Editor
     {
         var eyeSettings = serializedObject.FindProperty("customEyeLookSettings");
 
-        //Record - Eye Up
+        // Face Tracking gaze previews must not rotate the eye bones.
+        if (PreviewEyeBoneRotations)
         {
             var eyesLooking = eyeSettings.FindPropertyRelative(isUp ? "eyesLookingUp" : "eyesLookingDown");
             var leftEye = eyeSettings.FindPropertyRelative("leftEye");
@@ -424,7 +448,7 @@ public partial class AvatarDescriptorEditor3 : Editor
         //Return
         return result;
     }
-    static bool RotationField(SerializedProperty property, SerializedProperty leftEyeBone, SerializedProperty rightEyeBone, string label = null, bool showButton = true, bool isActive=false, System.Action SetActive=null)
+    static bool RotationField(SerializedProperty property, SerializedProperty leftEyeBone, SerializedProperty rightEyeBone, string label = null, bool showButton = true, bool isActive=false, System.Action SetActive=null, bool applyRotations=true)
     {
         bool dirty = false;
 
@@ -546,7 +570,7 @@ public partial class AvatarDescriptorEditor3 : Editor
 
         //Update values, always update if active not only on change.
         //We do this because the user may change values with a control-z/undo operation
-        if (isActive)
+        if (isActive && applyRotations)
         {
             //Left
             var leftEyeTransform = (Transform)leftEyeBone.objectReferenceValue;
@@ -563,29 +587,26 @@ public partial class AvatarDescriptorEditor3 : Editor
         return dirty;
     }
 
-    void PreviewBlendshapeField(string label, int buttonIndex, SerializedProperty blendShapeIndex, System.Action onSetActive=null)
+    void PreviewBlendshapeField(string label, SerializedProperty blendShapeIndex, System.Action onSetActive=null)
     {
         if (_eyelidBlendshapeNames == null)
             return;
 
-        bool setActive = false;
         GUILayout.BeginHorizontal();
         {
             //Dropdown
-            EditorGUI.BeginChangeCheck();
-            blendShapeIndex.intValue = EditorGUILayout.Popup(label, blendShapeIndex.intValue + 1, _eyelidBlendshapeNames) - 1;
-            if (EditorGUI.EndChangeCheck())
+            AvatarEditorHelper.DrawBlendshapesPopupButton(blendShapeIndex, _eyelidBlendshapeNames, new GUIContent(label), OnChange);
+
+            //Callbacks
+            void OnChange()
             {
                 SetActiveProperty(null);
-                setActive = true;
-            }   
-
-            //Preview
-            bool isActiveProperty = IsActiveProperty(blendShapeIndex);
-            GUI.backgroundColor = isActiveProperty ? _activeButtonColor : Color.white;
-            if (GUILayout.Button(isActiveProperty ? "Return" : "Preview", EditorStyles.miniButton, GUILayout.MaxWidth(PreviewButtonWidth)) || setActive)
+                if(blendShapeIndex.intValue >= 0)
+                    ActivateEyeLook(false);
+            }
+            void ActivateEyeLook(bool wasActive)
             {
-                if (isActiveProperty)
+                if (wasActive)
                 {
                     SetActiveProperty(null);
                 }
@@ -600,6 +621,14 @@ public partial class AvatarDescriptorEditor3 : Editor
                     //Other
                     onSetActive?.Invoke();
                 }
+            }
+
+            //Preview
+            bool isActiveProperty = IsActiveProperty(blendShapeIndex);
+            GUI.backgroundColor = isActiveProperty ? _activeButtonColor : Color.white;
+            if (GUILayout.Button(isActiveProperty ? "Return" : "Preview", EditorStyles.miniButton, GUILayout.MaxWidth(PreviewButtonWidth)))
+            {
+                ActivateEyeLook(isActiveProperty);
             }
             GUI.backgroundColor = Color.white;
         }
@@ -624,6 +653,61 @@ public partial class AvatarDescriptorEditor3 : Editor
         avatarDescriptor.customEyeLookSettings.eyelidsSkinnedMesh.SetBlendShapeWeight(index, newWeight);
     }
 
+    // Previews the face tracking gaze blendshapes for Face Tracking and Both modes,
+    // resolving each blendshape name across all configured meshes, as the client does
+    void RecordFaceTrackingGazeBlendshapes(VRCAvatarDescriptor.FaceTrackingKey[] gazeKeys)
+    {
+        if (gazeKeys == null || gazeKeys.Length == 0)
+            return;
+
+        if (serializedObject.FindProperty("customEyeLookSettings.eyeGazeMode").intValue == (int)VRCAvatarDescriptor.CustomEyeLookSettings.EyeGazeMode.BoneRotation)
+            return;
+
+        var meshes = avatarDescriptor.faceTrackingMeshes;
+        if (meshes == null)
+            return;
+
+        var sets = avatarDescriptor.faceTrackingBlendshapesSetList;
+        if (sets == null)
+            return;
+
+        for (int s = 0; s < sets.Count; s++)
+        {
+            var set = sets[s];
+            if (set == null)
+                continue;
+
+            for (int k = 0; k < gazeKeys.Length; k++)
+            {
+                int keyIndex = (int)gazeKeys[k];
+                string blendshapeName = set.faceTrackingBlendshapeNames != null && keyIndex < set.faceTrackingBlendshapeNames.Length
+                    ? set.faceTrackingBlendshapeNames[keyIndex]
+                    : null;
+                if (string.IsNullOrEmpty(blendshapeName))
+                    continue;
+
+                for (int m = System.Math.Min(meshes.Count, MaxFaceTrackingMeshes) - 1; m >= 0; m--)
+                {
+                    var targetMesh = meshes[m];
+                    if (targetMesh == null || targetMesh.sharedMesh == null)
+                        continue;
+                    
+                    int blendIndex = AvatarEditorHelper.GetBlendshapeIndex(targetMesh, blendshapeName);
+                    if (blendIndex >= 0)
+                        RecordBlendShapeWeight(targetMesh, blendIndex, 100f);
+                }
+            }
+        }
+    }
+
+    static void RecordBlendShapeWeight(SkinnedMeshRenderer mesh, int index, float weight)
+    {
+        float oldWeight = mesh.GetBlendShapeWeight(index);
+        System.Action restore = () => mesh.SetBlendShapeWeight(index, oldWeight);
+        activePropertyRestore.Add(restore);
+        mesh.SetBlendShapeWeight(index, weight);
+    }
+
     void ResetBlendshapes(int[] indices)
     {
         for (int v = 0; v < indices.Length; v++)
@@ -633,13 +717,19 @@ public partial class AvatarDescriptorEditor3 : Editor
         }
     }
 
+    static GUIStyle _eyeLookSliderLabelStyle;
+
     static void EyeLookMovementSlider(SerializedProperty property, string minLabel, string maxLabel)
     {
 
-        GUIStyle style = new GUIStyle(EditorStyles.miniLabel);
-        style.alignment = TextAnchor.MiddleRight;
-        style.padding.left = 10;
-        style.padding.right = 10;
+        if (_eyeLookSliderLabelStyle == null)
+        {
+            _eyeLookSliderLabelStyle = new GUIStyle(EditorStyles.miniLabel);
+            _eyeLookSliderLabelStyle.alignment = TextAnchor.MiddleRight;
+            _eyeLookSliderLabelStyle.padding.left = 10;
+            _eyeLookSliderLabelStyle.padding.right = 10;
+        }
+        GUIStyle style = _eyeLookSliderLabelStyle;
 
         GUILayout.BeginHorizontal();
 
@@ -690,19 +780,6 @@ public partial class AvatarDescriptorEditor3 : Editor
         _repaint = true;
     }
 
-    public static string[] GetBlendShapeNames(SkinnedMeshRenderer skinnedMeshRenderer)
-    {
-        if (!skinnedMeshRenderer)
-            return null;
-        string[] names = new string[skinnedMeshRenderer.sharedMesh.blendShapeCount+1];
-        names[0] = "-none-";
-        for (int v = 0; v < skinnedMeshRenderer.sharedMesh.blendShapeCount; v++)
-        {
-            names[v+1] = skinnedMeshRenderer.sharedMesh.GetBlendShapeName(v);
-        }
-        return names;
-    }
-
     void DrawSceneViewpoint()
     {
         var viewPosition = serializedObject.FindProperty("ViewPosition");
@@ -719,11 +796,14 @@ public partial class AvatarDescriptorEditor3 : Editor
         var rightEye = eyeSettings.FindPropertyRelative("rightEye");
 
         //Eye Rotation State
-        DrawSceneEyes(eyeSettings.FindPropertyRelative("eyesLookingStraight"), leftEye, rightEye);
-        DrawSceneEyes(eyeSettings.FindPropertyRelative("eyesLookingUp"), leftEye, rightEye);
-        DrawSceneEyes(eyeSettings.FindPropertyRelative("eyesLookingDown"), leftEye, rightEye);
-        DrawSceneEyes(eyeSettings.FindPropertyRelative("eyesLookingLeft"), leftEye, rightEye);
-        DrawSceneEyes(eyeSettings.FindPropertyRelative("eyesLookingRight"), leftEye, rightEye);
+        if (PreviewEyeBoneRotations)
+        {
+            DrawSceneEyes(eyeSettings.FindPropertyRelative("eyesLookingStraight"), leftEye, rightEye);
+            DrawSceneEyes(eyeSettings.FindPropertyRelative("eyesLookingUp"), leftEye, rightEye);
+            DrawSceneEyes(eyeSettings.FindPropertyRelative("eyesLookingDown"), leftEye, rightEye);
+            DrawSceneEyes(eyeSettings.FindPropertyRelative("eyesLookingLeft"), leftEye, rightEye);
+            DrawSceneEyes(eyeSettings.FindPropertyRelative("eyesLookingRight"), leftEye, rightEye);
+        }
 
         //Eyelid Rotation States
         if(avatarDescriptor.customEyeLookSettings.eyelidType == VRCAvatarDescriptor.EyelidType.Bones)

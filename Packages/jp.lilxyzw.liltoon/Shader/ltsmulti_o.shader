@@ -637,7 +637,7 @@ Shader "Hidden/lilToonMultiOutline"
 
     SubShader
     {
-        Tags {"RenderType" = "Opaque" "Queue" = "Transparent-100"}
+        Tags {"RenderType" = "Opaque" "Queue" = "Geometry"}
         HLSLINCLUDE
             #define LIL_OPTIMIZE_APPLY_SHADOW_FA
             #define LIL_OPTIMIZE_USE_FORWARDADD
@@ -672,8 +672,9 @@ Shader "Hidden/lilToonMultiOutline"
             #define LIL_MULTI_INPUTS_UDIMDISCARD
             #define LIL_MULTI_INPUTS_OUTLINE
 
-            #pragma skip_variants _DBUFFER_MRT3
+            #pragma skip_variants DECALS_OFF DECALS_3RT DECALS_4RT DECAL_SURFACE_GRADIENT _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
             #pragma skip_variants _ADDITIONAL_LIGHT_SHADOWS
+            #pragma skip_variants PROBE_VOLUMES_OFF PROBE_VOLUMES_L1 PROBE_VOLUMES_L2
             #pragma skip_variants _SCREEN_SPACE_OCCLUSION
         ENDHLSL
 

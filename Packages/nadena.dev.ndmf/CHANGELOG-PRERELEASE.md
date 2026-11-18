@@ -19,6 +19,59 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Deprecated
 
+## [1.15.0] - [2026-11-18]
+
+## [1.15.0-beta.5] - [2026-11-08]
+
+### Fixed
+- [#866] Improved NDMF preview performance.
+- [#867] Fixed incorrect MeshRenderer preview transforms.
+- [#865] Fixed preview updates no longer propagating after a cached value is refreshed.
+
+## [1.15.0-beta.4] - [2026-11-02]
+
+### Added
+- Added a default no-op ObserveDependencies method to IParameterProvider for observing preview dependencies.
+
+### Fixed
+- [#849] Fixed preview filter failures causing continuous rebuilds and repeated error logs.
+- [#857] Reduced preview overhead from polling component queries.
+- Fixed stale parameter preview queries after default value, expression parameter asset, or EditorOnly tag changes.
+- [#863] Improved performance of ShadowBoneManager
+
+## [1.15.0-beta.3] - [2026-11-02]
+
+### Added
+- [#861] Support advanced features of ExpressionsParameter on IParameterProvider
+
+### Fixed
+- [#854] Fixed upstream preview changes not propagating to downstream previews.
+- [#856] Fixed unnecessary delays when resuming preview updates after throttling.
+- [#857] Reduced preview overhead from polling component queries.
+
+## [1.15.0-beta.2] - [2026-10-15]
+
+### Fixed
+- [#848] Improve preview performance
+- [#848] Fix ShadowBoneManager overwriting bones array replacements performed by legacy preview stages
+- [#848] Fix explicit preview bone replacements not being applied after invoking `GetBone()` for the original bone
+
+### Changed
+- [#847] Reduced unnecessary preview recalculation when adding or removing components of types not matched by monitored queries.
+
+## [1.15.0-beta.1] - [2026-10-05]
+
+### Changed
+- [#840] Adjusted `ShadowBoneTestFixture` API
+
+## [1.15.0-beta.0] - [2026-10-05]
+
+### Added
+- [#839] Added ShadowBoneManager
+
+### Fixed
+- [#839] Fixed preview renderer proxies being destroyed when returned to the pool from a temporary hierarchy.
+
 ## [1.14.8] - [2026-08-29]
 
 ### Fixed

@@ -20,6 +20,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Deprecated
 
+## [1.15.0] - [2026-11-18]
+
+### Added
+- Added a default no-op ObserveDependencies method to IParameterProvider for observing preview dependencies.
+- [#839] Added ShadowBoneManager
+- [#861] Support advanced features of ExpressionsParameter on IParameterProvider
+
+### Fixed
+- Fixed stale parameter preview queries after default value, expression parameter asset, or EditorOnly tag changes.
+- [#839] Fixed preview renderer proxies being destroyed when returned to the pool from a temporary hierarchy.
+- [#848] Improve preview performance
+- [#849] Fixed preview filter failures causing continuous rebuilds and repeated error logs.
+- [#854] Fixed upstream preview changes not propagating to downstream previews.
+- [#856] Fixed unnecessary delays when resuming preview updates after throttling.
+- [#857] Reduced preview overhead from polling component queries.
+- [#866] Improved NDMF preview performance.
+- [#865] Fixed preview updates no longer propagating after a cached value is refreshed.
+
+### Changed
+- [#847] Reduced unnecessary preview recalculation when adding or removing components of types not matched by monitored queries.
+
 ## [1.14.8] - [2026-08-29]
 
 ### Fixed

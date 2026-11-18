@@ -421,12 +421,12 @@ PrefabInstance:
     - target: {fileID: 3864614877464306590, guid: 9e34634a453bd584fb1e143ad8e0e622,
         type: 3}
       propertyPath: shopName
-      value: https://booth.pm/ja/items/8325804
+      value: VISION TOKYO
       objectReference: {fileID: 0}
     - target: {fileID: 3864614877464306590, guid: 9e34634a453bd584fb1e143ad8e0e622,
         type: 3}
       propertyPath: avatarURL
-      value: VISION TOKYO
+      value: https://booth.pm/ja/items/8325804
       objectReference: {fileID: 0}
     - target: {fileID: 3864614877464306590, guid: 9e34634a453bd584fb1e143ad8e0e622,
         type: 3}
@@ -856,5 +856,44 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2460193994890538296, guid: 9e34634a453bd584fb1e143ad8e0e622,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 151356996949397555}
   m_SourcePrefab: {fileID: 100100000, guid: 9e34634a453bd584fb1e143ad8e0e622, type: 3}
+--- !u!1 &1604738676033702726 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2460193994890538296, guid: 9e34634a453bd584fb1e143ad8e0e622,
+    type: 3}
+  m_PrefabInstance: {fileID: 3774421337824437886}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &151356996949397555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604738676033702726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c464f2c6e14cdb340b308b3513310fb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bones:
+  - bone: 18
+    position: {x: 0.52642524, y: 1.2543988, z: -0.025061846}
+    rotation: {x: -0.49952132, y: -0.5005644, z: -0.5004782, w: 0.499435}
+    scale: {x: 0.9999997, y: 1.0000002, z: 0.9999999}
+  - bone: 17
+    position: {x: -0.52642506, y: 1.2543986, z: -0.025061607}
+    rotation: {x: -0.49952146, y: 0.5005643, z: 0.5004783, w: 0.4994347}
+    scale: {x: 0.9999997, y: 0.9999999, z: 0.9999996}
+  - bone: 10
+    position: {x: 5.3290705e-15, y: 1.34218, z: -0.012898564}
+    rotation: {x: 0, y: 7.1054274e-14, z: 3.5527137e-15, w: 1}
+    scale: {x: 1, y: 0.9999997, z: 0.99999976}
+  - bone: 0
+    position: {x: -1.0270436e-34, y: 0.97562355, z: 0.020081103}
+    rotation: {x: -0, y: -1.6679172e-38, z: 1.9429931e-38, w: 1}
+    scale: {x: 1, y: 0.9999999, z: 0.9999999}

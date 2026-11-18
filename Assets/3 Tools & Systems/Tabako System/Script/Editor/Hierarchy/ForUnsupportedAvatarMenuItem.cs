@@ -1,4 +1,3 @@
-using net.satania_shopping.tabakosystem.ndmf;
 using net.satania_shopping.tabakosystem.runtime;
 using UnityEditor;
 using UnityEditor.Animations;
@@ -8,126 +7,70 @@ namespace net.satania_shopping.tabakosystem.editor
 {
     public class ForUnsupportedAvatarMenuItem
     {
-        private const string k_hands_case = "hands_case";
-        private const string k_hands_tabacco = "hands_tabacco";
-        private const string k_hands_lighter = "hands_lighter";
+        private const string k_layerName = "Hand Gesture";
 
-        private static void SetController(Animator animator)
+        private static void PlayGesture(GestureKind kind)
         {
-            GameObject avatarRoot = animator.gameObject;
-
-            if (!SatabakoDatabase.s.handGestureDatabases.ContainsKey(avatarRoot.transform))
-                throw new System.Exception("Databaseが存在しません。");
-
-            SatabakoDatabase.HandGestureDatabase HandGestureDatabase = SatabakoDatabase.s.handGestureDatabases[avatarRoot.transform];
-
-            //HandGestureDatabase handGestureDatabase = avatarRoot.GetComponentInChildren<HandGestureDatabase>(true);
-
-            if (HandGestureDatabase == null)
-                throw new System.Exception("handGestureDatabase is null");
-
-            if (HandGestureDatabase.handGestureController == null)
+            if (!EditorApplication.isPlayingOrWillChangePlaymode)
             {
-                AnimatorController newController = new AnimatorController();
-                AnimatorControllerLayer newLayer = new AnimatorControllerLayer();
-                newLayer.defaultWeight = 1;
-                newLayer.stateMachine = new AnimatorStateMachine();
-                newLayer.name = "Hand Gesture";
-
-                //ケース
-                AnimatorState caseState = new AnimatorState();
-                caseState.motion = HandGestureDatabase.gestureCase;
-                caseState.name = k_hands_case;
-                newLayer.stateMachine.AddState(caseState, new Vector3(0, 200, 0));
-
-                //タバコ
-                AnimatorState tabaccoState = new AnimatorState();
-                tabaccoState.motion = HandGestureDatabase.gestureTabacco;
-                tabaccoState.name = k_hands_tabacco;
-                newLayer.stateMachine.AddState(tabaccoState, new Vector3(0, 300, 0));
-
-                //ライター
-                AnimatorState lighterState = new AnimatorState();
-                lighterState.motion = HandGestureDatabase.gestureLighter;
-                lighterState.name = k_hands_lighter;
-                newLayer.stateMachine.AddState(lighterState, new Vector3(0, 400, 0));
-
-                newController.AddLayer(newLayer);
-
-                HandGestureDatabase.handGestureController = newController;
+                EditorUtility.DisplayDialog("さたにあ式タバコ", "プレイモード中に使用してください！", "OK");
+                return;
             }
 
-            RuntimeAnimatorController handGestureController = HandGestureDatabase.handGestureController;
+            Animator animator = Selection.activeGameObject != null ? Selection.activeGameObject.GetComponent<Animator>() : null;
+            if (animator == null)
+                return;
 
-            animator.runtimeAnimatorController = handGestureController;
+            var data = animator.GetComponent<SatabakoPlayModeData>();
+            if (data == null)
+            {
+                EditorUtility.DisplayDialog("さたにあ式タバコ", "さたにあ式タバコが入った状態でプレイモードに入ったアバターを選んでください。", "OK");
+                return;
+            }
+
+            Motion motion = kind == GestureKind.Case ? data.gestureCase : kind == GestureKind.Tabako ? data.gestureTabako : data.gestureLighter;
+            if (motion == null)
+            {
+                Debug.LogWarning("[SataniaTabako] ハンドジェスチャーのアニメーションが見つかりません。");
+                return;
+            }
+
+            var controller = new AnimatorController();
+            var layer = new AnimatorControllerLayer
+            {
+                name = k_layerName,
+                defaultWeight = 1f,
+                stateMachine = new AnimatorStateMachine()
+            };
+            AnimatorState state = layer.stateMachine.AddState(kind.ToString(), new Vector3(0, 200, 0));
+            state.motion = motion;
+            controller.AddLayer(layer);
+
+            animator.runtimeAnimatorController = controller;
+            animator.Play(state.name);
         }
 
         [MenuItem(MenuItemDictionary.p_UnsupportedCase, false, 22)]
-        private static void SetCase()
-        {
-            if (!EditorApplication.isPlayingOrWillChangePlaymode)
-            {
-                EditorUtility.DisplayDialog("さたにあ式タバコ", "プレイモード中に使用してください！", "OK");
-                return;
-            }
-
-            Animator animator = Selection.activeGameObject.GetComponent<Animator>();
-            SetController(animator);
-
-            animator.Play(k_hands_case);
-        }
+        private static void SetCase() => PlayGesture(GestureKind.Case);
 
         [MenuItem(MenuItemDictionary.p_UnsupportedCase, true, 22)]
-        private static bool ValidateCase()
-        {
-            return IsHumanoid(Selection.activeGameObject);
-        }
+        private static bool ValidateCase() => IsHumanoid(Selection.activeGameObject);
 
         [MenuItem(MenuItemDictionary.p_UnsupportedLighter, false, 22)]
-        private static void SetLighter()
-        {
-            if (!EditorApplication.isPlayingOrWillChangePlaymode)
-            {
-                EditorUtility.DisplayDialog("さたにあ式タバコ", "プレイモード中に使用してください！", "OK");
-                return;
-            }
-
-            Animator animator = Selection.activeGameObject.GetComponent<Animator>();
-            SetController(animator);
-
-            animator.Play(k_hands_lighter);
-        }
+        private static void SetLighter() => PlayGesture(GestureKind.Lighter);
 
         [MenuItem(MenuItemDictionary.p_UnsupportedLighter, true, 22)]
-        private static bool ValidateLighter()
-        {
-            return IsHumanoid(Selection.activeGameObject);
-        }
+        private static bool ValidateLighter() => IsHumanoid(Selection.activeGameObject);
 
         [MenuItem(MenuItemDictionary.p_UnsupportedTabako, false, 22)]
-        private static void SetTabako()
-        {
-            if (!EditorApplication.isPlayingOrWillChangePlaymode)
-            {
-                EditorUtility.DisplayDialog("さたにあ式タバコ", "プレイモード中に使用してください！", "OK");
-                return;
-            }
-
-            Animator animator = Selection.activeGameObject.GetComponent<Animator>();
-            SetController(animator);
-
-            animator.Play(k_hands_tabacco);
-        }
+        private static void SetTabako() => PlayGesture(GestureKind.Tabako);
 
         [MenuItem(MenuItemDictionary.p_UnsupportedTabako, true, 22)]
-        private static bool ValidateTabako()
-        {
-            return IsHumanoid(Selection.activeGameObject);
-        }
+        private static bool ValidateTabako() => IsHumanoid(Selection.activeGameObject);
 
         private static bool IsHumanoid(GameObject go)
         {
-            Animator animator = go?.GetComponent<Animator>();
+            Animator animator = go != null ? go.GetComponent<Animator>() : null;
             return animator != null && animator.isHuman;
         }
     }

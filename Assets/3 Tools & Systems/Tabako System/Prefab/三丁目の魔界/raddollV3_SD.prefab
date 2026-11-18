@@ -1019,6 +1019,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5839057606369075334}
+    - targetCorrespondingSourceObject: {fileID: 2460193994890538296, guid: 9e34634a453bd584fb1e143ad8e0e622,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4625684306593856113}
   m_SourcePrefab: {fileID: 100100000, guid: 9e34634a453bd584fb1e143ad8e0e622, type: 3}
 --- !u!1 &193021013265200637 stripped
 GameObject:
@@ -1080,3 +1084,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   overrideMotion: 3
   customMotion: {fileID: 7400000, guid: 8ce1936111172de4ea080db5d346b0a5, type: 2}
+--- !u!1 &5562621860788884930 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2460193994890538296, guid: 9e34634a453bd584fb1e143ad8e0e622,
+    type: 3}
+  m_PrefabInstance: {fileID: 8004649688053266682}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4625684306593856113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5562621860788884930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c464f2c6e14cdb340b308b3513310fb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bones:
+  - bone: 18
+    position: {x: 0.12090527, y: 0.2619288, z: -0.0005848408}
+    rotation: {x: 0.6482222, y: 0.64702606, z: 0.2823576, w: -0.28537658}
+    scale: {x: 100.000015, y: 100.00001, z: 100.00007}
+  - bone: 17
+    position: {x: -0.12090529, y: 0.2619214, z: -0.0005810261}
+    rotation: {x: -0.64823914, y: 0.64700913, z: 0.28237858, w: 0.28535587}
+    scale: {x: 100.00004, y: 100.000046, z: 100.000084}
+  - bone: 10
+    position: {x: 0.0000012544211, y: 0.28425002, z: 0.00015628338}
+    rotation: {x: 0.00000014901161, y: 0.00031112263, z: 0.00014744628, w: 1}
+    scale: {x: 99.999985, y: 99.99998, z: 100}
+  - bone: 0
+    position: {x: 0.00000131322, y: 0.1374341, z: 0.00084750354}
+    rotation: {x: -0.00000020861626, y: 0.0006412148, z: 0.0004082797, w: 0.99999976}
+    scale: {x: 100, y: 99.99999, z: 100.00001}

@@ -3,6 +3,7 @@ using VRC.SDKBase;
 
 namespace satania.tabakosystem
 {
+    [AddComponentMenu("")]
     public class TabakoScript : MonoBehaviour, IEditorOnly
     {
         public enum Gesture

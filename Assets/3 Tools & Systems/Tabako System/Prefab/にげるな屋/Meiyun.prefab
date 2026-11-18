@@ -996,5 +996,45 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2460193994890538296, guid: 9e34634a453bd584fb1e143ad8e0e622,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4213239149553415451}
   m_SourcePrefab: {fileID: 100100000, guid: 9e34634a453bd584fb1e143ad8e0e622, type: 3}
+--- !u!1 &1119912420041416698 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2460193994890538296, guid: 9e34634a453bd584fb1e143ad8e0e622,
+    type: 3}
+  m_PrefabInstance: {fileID: 3291822428457677506}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4213239149553415451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1119912420041416698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c464f2c6e14cdb340b308b3513310fb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bones:
+  - bone: 18
+    position: {x: 0.41955665, y: 0.9386986, z: -0.014211357}
+    rotation: {x: 0.51280427, y: 0.5102872, z: -0.4882456, w: 0.4881141}
+    scale: {x: 1.0000006, y: 1.0000001, z: 1.0000005}
+  - bone: 17
+    position: {x: -0.41955668, y: 0.93869877, z: -0.014211416}
+    rotation: {x: 0.5128054, y: -0.51028836, z: 0.4882442, w: 0.4881129}
+    scale: {x: 1.0000001, y: 0.99999976, z: 1.0000004}
+  - bone: 10
+    position: {x: -0.0000000020972948, y: 1.0192112, z: -0.0026404858}
+    rotation: {x: -0.000000059604645, y: -0.00000011837337, z: 0.0000000021402755,
+      w: 1.0000001}
+    scale: {x: 1, y: 1, z: 0.99999994}
+  - bone: 0
+    position: {x: 0, y: 0.7294637, z: -0.0054596066}
+    rotation: {x: -0.000000029802322, y: -0.0044120494, z: 6.9849193e-10, w: 0.99999034}
+    scale: {x: 1, y: 1, z: 1.0000001}

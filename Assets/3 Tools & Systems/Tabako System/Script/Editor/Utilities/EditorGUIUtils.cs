@@ -15,6 +15,7 @@ namespace net.satania_shopping.tabakosystem
     public static class EditorGUIUtils
     {
         public const string BoothUrl = @"https://booth.pm/ja/items/4835743";
+        public const string HowToUseUrl = @"https://saturnianjp.github.io/satania_shopping_document/docs/SataniaTabako/Install/for_supported_avatar";
 
         // Thanks lilToon!
         // https://github.com/lilxyzw/lilToon/blob/efeba15cdcc35f87ef3a77997b7d4d6647df548b/Assets/lilToon/Editor/lilEditorGUI.cs#L155

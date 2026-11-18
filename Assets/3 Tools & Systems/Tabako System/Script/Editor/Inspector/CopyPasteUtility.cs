@@ -24,7 +24,6 @@
 
 using nadena.dev.modular_avatar.core;
 using nadena.dev.ndmf.runtime;
-using net.satania_shopping.tabakosystem.ndmf;
 using net.satania_shopping.tabakosystem.runtime;
 using UnityEditor;
 using UnityEngine;
@@ -226,13 +225,9 @@ namespace net.satania_shopping.tabakosystem.editor
             if (go == null)
                 return;
 
-            Transform avatarRoot = RuntimeUtil.FindAvatarInParents(go.transform);
-            if (!SatabakoDatabase.s.constraintDatabases.ContainsKey(avatarRoot))
-                throw new System.Exception("Keyが存在しません。");
-
-            var constraintDatabase = SatabakoDatabase.s.constraintDatabases[avatarRoot];
-            if (constraintDatabase == null)
-                throw new System.Exception("ConstraintDatabaseが存在しません。");
+            SatabakoPlayModeData source = FindPlayModeData(go.transform);
+            if (source == null)
+                throw new System.Exception("さたにあ式タバコが入った状態でプレイモードに入ったアバターを選んでください。");
 
             try
             {
@@ -240,9 +235,9 @@ namespace net.satania_shopping.tabakosystem.editor
 
                 //---------------------------------------------------
                 //スケール取得用
-                Transform ct_case = constraintDatabase.CT_Case; //ケース追従先
-                Transform ct_tabacco = constraintDatabase.CT_Tabako; //タバコ追従先
-                Transform ct_lighter = constraintDatabase.CT_Lighter; //ライター追従先
+                Transform ct_case = source.ctCase; //ケース追従先
+                Transform ct_tabacco = source.ctTabako; //タバコ追従先
+                Transform ct_lighter = source.ctLighter; //ライター追従先
 
                 tpt.Case_Scale = ct_case.localScale;
                 tpt.Tabako_Scale = ct_tabacco.localScale;
@@ -250,9 +245,9 @@ namespace net.satania_shopping.tabakosystem.editor
 
                 //---------------------------------------------------
                 //位置・回転取得用
-                VRCParentConstraint pc_case = constraintDatabase.PC_Case;
-                VRCParentConstraint pc_tabacco = constraintDatabase.PC_Tabako;
-                VRCParentConstraint pc_lighter = constraintDatabase.PC_Lighter;
+                VRCParentConstraint pc_case = source.pcCase;
+                VRCParentConstraint pc_tabacco = source.pcTabako;
+                VRCParentConstraint pc_lighter = source.pcLighter;
 
                 Transform[] caseTransforms = GetTransforms(pc_case);
                 Transform[] tabaccoTransforms = GetTransforms(pc_tabacco);
@@ -283,14 +278,19 @@ namespace net.satania_shopping.tabakosystem.editor
         private static bool CopyPrefabTransformsValidate()
         {
             GameObject go = Selection.activeGameObject;
-            if (go == null)
+            if (go == null || !EditorApplication.isPlaying)
                 return false;
 
-            Transform avatarRoot = RuntimeUtil.FindAvatarInParents(go.transform);
+            return FindPlayModeData(go.transform) != null;
+        }
+
+        private static SatabakoPlayModeData FindPlayModeData(Transform selected)
+        {
+            Transform avatarRoot = RuntimeUtil.FindAvatarInParents(selected);
             if (avatarRoot == null)
-                return false;
+                return null;
 
-            return SatabakoDatabase.s.constraintDatabases.ContainsKey(avatarRoot);
+            return avatarRoot.GetComponent<SatabakoPlayModeData>();
         }
 
         [MenuItem(MenuItemDictionary.p_PasteTransforms,
@@ -434,6 +434,9 @@ namespace net.satania_shopping.tabakosystem.editor
 
             EditorUtility.SetDirty(lighterTransforms[0]);
             EditorUtility.SetDirty(lighterTransforms[1]);
+
+            BoneReferenceBaker.Bake(TabakoTemplateRefs.Resolve(tabakoScript));
+            VersionStamper.Stamp(tabakoScript);
         }
 
         private static bool IsTabakoScriptObject()

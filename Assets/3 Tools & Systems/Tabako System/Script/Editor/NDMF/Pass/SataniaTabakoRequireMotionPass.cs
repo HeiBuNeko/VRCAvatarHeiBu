@@ -19,7 +19,7 @@ namespace net.satania_shopping.tabakosystem.ndmf
         private const string k_Attribute_IsActive = "m_IsActive";
         private const string k_Attribute_EmissionEnabled = "EmissionModule.enabled";
         private const string k_Attribute_LocalPosition = "m_LocalPosition.{0}";
-        private const string k_Attribute_lilToon_EmissionColor = "material._EmissionColor.{0}"; //material._EmissionColor.r
+        private const string k_Attribute_MaterialColor = "material.{0}.{1}";
 
 
         private static float m_minContactMultipilier = 0.5f;
@@ -435,6 +435,7 @@ namespace net.satania_shopping.tabakosystem.ndmf
         {
             offClip = new AnimationClip();
             onClip = new AnimationClip();
+            string emissionProperty = exhaleAnimationCBA != null ? exhaleAnimationCBA.EmissionColorProperty : "_EmissionColor";
             if (exhaleAnimationCBA != null)
             {
                 SkinnedMeshRenderer tabakoMesh = exhaleAnimationCBA.TabakoMesh;
@@ -456,33 +457,35 @@ namespace net.satania_shopping.tabakosystem.ndmf
                     SatabakoErrorReport.ReportWarning("ExhaleEmission: TabakoMesh が未設定です。", exhaleAnimationCBA);
             }
 
+            string Attribute(string channel) => string.Format(k_Attribute_MaterialColor, emissionProperty, channel);
+
             void AddSingleEmissiveColorCurve(AnimationClip clip, float time, string path, Color color)
             {
-                clip.SetCurve(path, typeof(SkinnedMeshRenderer), string.Format(k_Attribute_lilToon_EmissionColor, "r"),
+                clip.SetCurve(path, typeof(SkinnedMeshRenderer), Attribute("r"),
                     new AnimationCurve() { keys = CreateOneFrameKeyFrame(time, color.r) });
 
-                clip.SetCurve(path, typeof(SkinnedMeshRenderer), string.Format(k_Attribute_lilToon_EmissionColor, "g"),
+                clip.SetCurve(path, typeof(SkinnedMeshRenderer), Attribute("g"),
                     new AnimationCurve() { keys = CreateOneFrameKeyFrame(time, color.g) });
 
-                clip.SetCurve(path, typeof(SkinnedMeshRenderer), string.Format(k_Attribute_lilToon_EmissionColor, "b"),
+                clip.SetCurve(path, typeof(SkinnedMeshRenderer), Attribute("b"),
                     new AnimationCurve() { keys = CreateOneFrameKeyFrame(time, color.b) });
 
-                clip.SetCurve(path, typeof(SkinnedMeshRenderer), string.Format(k_Attribute_lilToon_EmissionColor, "a"),
+                clip.SetCurve(path, typeof(SkinnedMeshRenderer), Attribute("a"),
                     new AnimationCurve() { keys = CreateOneFrameKeyFrame(time, color.a) });
             }
 
             void AddDoubleEmissiveColorCurve(AnimationClip clip, float onTime, string path, Color offColor, Color onColor)
             {
-                clip.SetCurve(path, typeof(SkinnedMeshRenderer), string.Format(k_Attribute_lilToon_EmissionColor, "r"),
+                clip.SetCurve(path, typeof(SkinnedMeshRenderer), Attribute("r"),
                     new AnimationCurve() { keys = CreateTwoFrameKeyFrame(0, onTime, offColor.r, onColor.r) });
 
-                clip.SetCurve(path, typeof(SkinnedMeshRenderer), string.Format(k_Attribute_lilToon_EmissionColor, "g"),
+                clip.SetCurve(path, typeof(SkinnedMeshRenderer), Attribute("g"),
                     new AnimationCurve() { keys = CreateTwoFrameKeyFrame(0, onTime, offColor.g, onColor.g) });
 
-                clip.SetCurve(path, typeof(SkinnedMeshRenderer), string.Format(k_Attribute_lilToon_EmissionColor, "b"),
+                clip.SetCurve(path, typeof(SkinnedMeshRenderer), Attribute("b"),
                     new AnimationCurve() { keys = CreateTwoFrameKeyFrame(0, onTime, offColor.b, onColor.b) });
 
-                clip.SetCurve(path, typeof(SkinnedMeshRenderer), string.Format(k_Attribute_lilToon_EmissionColor, "a"),
+                clip.SetCurve(path, typeof(SkinnedMeshRenderer), Attribute("a"),
                     new AnimationCurve() { keys = CreateTwoFrameKeyFrame(0, onTime, offColor.a, onColor.a) });
             }
         }

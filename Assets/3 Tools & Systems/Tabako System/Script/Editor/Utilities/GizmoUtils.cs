@@ -60,7 +60,7 @@ namespace net.satania_shopping.tabakosystem
                 f_classID == null || f_scriptClass == null || GetAnnotations == null || SetIconEnabled == null)
             {
                 EditorApplication.update -= DisableGizmoIcons;
-                SessionState.GetBool(k_KEY_GIZMO_ENABLED, true);
+                SessionState.SetBool(k_KEY_GIZMO_ENABLED, true);
                 return;
             }
 
@@ -69,8 +69,7 @@ namespace net.satania_shopping.tabakosystem
                 foreach (var ty in assembly.GetTypes())
                 {
                     if (typeof(SatabakoBehaviour).IsAssignableFrom(ty) ||
-                        ty == typeof(TabakoScriptBehaviour) ||
-                        ty == typeof(DatabaseBase))
+                        ty == typeof(TabakoScriptBehaviour))
                     {
                         SetGizmoIconEnabled(ty, false);
                     }
@@ -78,7 +77,7 @@ namespace net.satania_shopping.tabakosystem
             }
 
             EditorApplication.update -= DisableGizmoIcons;
-            SessionState.GetBool(k_KEY_GIZMO_ENABLED, true);
+            SessionState.SetBool(k_KEY_GIZMO_ENABLED, true);
         }
     }
 }

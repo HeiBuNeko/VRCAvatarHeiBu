@@ -20,7 +20,7 @@ namespace net.satania_shopping.tabakosystem.editor
 
     public class TabakoPrefabSearcher : EditorWindow
     {
-        private struct PrefabPair
+        internal struct PrefabPair
         {
             internal GameObject prefab;
             internal TabakoScriptBehaviour tabakoScriptBehaviour;
@@ -33,7 +33,7 @@ namespace net.satania_shopping.tabakosystem.editor
 
         private static bool ignoreCase = true;
 
-        private static List<PrefabPair> prefabPairs = new List<PrefabPair>();
+        internal static List<PrefabPair> prefabPairs = new List<PrefabPair>();
         private static List<PrefabPair> matchedPrefabPairs = new List<PrefabPair>();
 
         private static PrefabSearchMode searchMode = PrefabSearchMode.PrefabName | PrefabSearchMode.AvatarName | PrefabSearchMode.ShopName;
@@ -43,51 +43,10 @@ namespace net.satania_shopping.tabakosystem.editor
             ReloadPrefabs();
         }
 
-#if DEBUG_TABAKO_EDITOR
-        [MenuItem("さたにあしょっぴんぐ/さたにあ式タバコ/Copy Url (Debug)")]
-        public static void CopyUrl()
-        {
-            List<string> urls = new List<string>();
-            int emptyUrlCount = 0;
-            if (prefabPairs.Count == 0)
-                _ReloadPrefabsStatic();
-
-            foreach (var p in prefabPairs)
-            {
-                if (string.IsNullOrEmpty(p.tabakoScriptBehaviour.AvatarURL))
-                {
-                    emptyUrlCount++;
-                    continue;
-                }
-
-                if (urls.Contains(p.tabakoScriptBehaviour.AvatarURL))
-                    continue;
-
-                urls.Add(p.tabakoScriptBehaviour.AvatarURL);
-            }
-
-            EditorGUIUtility.systemCopyBuffer = string.Join('\n', urls.ToArray());
-            EditorUtility.DisplayDialog("CopyUrl", $"{urls.Count}個のURLをコピーしました！" + $"\n{emptyUrlCount}個の空白なURLをスキップしました。", "OK");
-        }
-
-        [MenuItem("さたにあしょっぴんぐ/さたにあ式タバコ/Copy Url With Shop Name (Debug)")]
-        public static void CopyUrlWithShopName()
-        {
-            string copy = "";
-            foreach (var p in prefabPairs)
-            {
-                if (!string.IsNullOrEmpty(copy))
-                    copy += '\n';
-
-                copy += $"{p.tabakoScriptBehaviour.AvatarURL} | {p.tabakoScriptBehaviour.ShopName} | {p.prefab.name}";
-            }
-
-            EditorGUIUtility.systemCopyBuffer = copy;
-        }
-#endif
-
         private void OnGUI()
         {
+            SatabakoEditorUtils.DrawWebButton(LanguageManager.GetText("t_Usage"), EditorGUIUtils.HowToUseUrl);
+
             EditorGUI.BeginChangeCheck();
             ignoreCase = EditorGUILayout.ToggleLeft(new GUIContent("大文字・小文字を無視する"), ignoreCase);
             searchMode = (PrefabSearchMode)EditorGUILayout.EnumFlagsField("検索モード", searchMode);
@@ -132,6 +91,7 @@ namespace net.satania_shopping.tabakosystem.editor
                     EditorGUI.BeginDisabledGroup(true);
                     EditorGUILayout.ObjectField(prefabPair.prefab, typeof(GameObject), false);
                     EditorGUI.EndDisabledGroup();
+                    GUILayout.Label(VersionLabel(prefabPair.tabakoScriptBehaviour), EditorStyles.miniLabel, GUILayout.Width(210));
 
                     EditorGUI.BeginDisabledGroup(avatar == null);
                     if (GUILayout.Button("アバターに入れる", GUILayout.Width(100)) && avatar != null)
@@ -146,6 +106,12 @@ namespace net.satania_shopping.tabakosystem.editor
                 GUILayout.EndScrollView();
 
             }
+        }
+
+        private static string VersionLabel(TabakoScriptBehaviour script)
+        {
+            string version = script != null ? script.LastSavedVersion : null;
+            return "最終保存のバージョン: " + VersionStamper.Display(version, "不明");
         }
 
         [MenuItem(MenuItemDictionary.p_PrefabSearcher, priority = 30)]
@@ -164,7 +130,7 @@ namespace net.satania_shopping.tabakosystem.editor
             GameObject go = Selection.activeGameObject;
             avatar = go.GetComponent<VRCAvatarDescriptor>();
 
-            EditorApplication.delayCall = () =>
+            EditorApplication.delayCall += () =>
             {
                 SearchPrefabs(searchRegex);
             };
@@ -182,7 +148,7 @@ namespace net.satania_shopping.tabakosystem.editor
             return avatar != null;
         }
 
-        private static void _ReloadPrefabsStatic()
+        internal static void _ReloadPrefabsStatic()
         {
             prefabPairs.Clear();
 

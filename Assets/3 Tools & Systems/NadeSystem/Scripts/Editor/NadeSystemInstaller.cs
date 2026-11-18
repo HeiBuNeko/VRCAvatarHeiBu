@@ -6,6 +6,7 @@ using VRC.SDK3.Dynamics.Contact.Components;
 using System;
 using nadena.dev.modular_avatar.core;
 using System.Reflection;
+using VRC.SDK3.Avatars.ScriptableObjects;
 
 namespace RedNightWorks.NadeSystem
 {
@@ -28,16 +29,30 @@ namespace RedNightWorks.NadeSystem
         private const float MaxContactRadius = 1.0f;
         private const float DefaultHeadOffsetY = 0.035f;
         private const float DeactivationDelay = 1f;
+        private const int SoundSlotCount = 16;
 
         // UI state
-        private VRCAvatarDescriptor _avatar;
-        private float _contactRadius = DefaultContactRadius;
-        private float _headOffsetY = DefaultHeadOffsetY;
-        private bool _installNadeShaderForHands = true;
-        private bool _installNadeShaderForFeet = true;
-        private bool _installNadeShaderForHead = false;
-        private bool _installNadeSphere = false;
-        private bool _installFootSystem = false;
+        [SerializeField] private VRCAvatarDescriptor _avatar;
+        [SerializeField] private float _contactRadius = DefaultContactRadius;
+        [SerializeField] private float _headOffsetY = DefaultHeadOffsetY;
+        [SerializeField] private bool _installNadeShaderForHands = true;
+        [SerializeField] private bool _installNadeShaderForFeet = true;
+        [SerializeField] private bool _installNadeShaderForHead = false;
+        [SerializeField] private bool _installNadeSphere = false;
+        [SerializeField] private bool _installFootSystem = false;
+        [SerializeField] private WriteDefaultsMode _writeDefaultsMode = WriteDefaultsMode.UsePrefabSettings;
+        [SerializeField] private MenuLanguage _menuLanguage = MenuLanguage.Automatic;
+        [SerializeField] private AudioClip[] _audioClips;
+        [SerializeField] private VRCAvatarDescriptor _audioClipsAvatar;
+        [SerializeField] private bool _audioClipsLoadedForAvatar;
+        [SerializeField] private bool _loadAvatarAudioClips = true;
+        [SerializeField] private bool _soundSettingsFoldout;
+        [SerializeField] private bool _additionalFeaturesFoldout;
+        [SerializeField] private bool _compatibilityFoldout;
+        private Vector2 _scrollPosition;
+        private string _budgetKey;
+        private int? _estimatedParameterBits;
+        private bool _budgetUnavailable;
 
         // Localization
         private static readonly string[] LangOptions = { "English", "Japanese", "Korean", "Chinese (Simplified)", "Chinese (Traditional)" };
@@ -46,7 +61,6 @@ namespace RedNightWorks.NadeSystem
         // For delayed action
         private float _delayStart;
 
-        private bool _contactParametersFoldout = false;
 
         [MenuItem("RedNightWorks/NadeSystemInstaller")]
         public static void ShowWindow()
@@ -81,32 +95,198 @@ namespace RedNightWorks.NadeSystem
             }
         }
 
-        private void OnGUI()
+        private void OnEnable()
         {
-            DrawLanguageSelection();
-            EditorGUILayout.Space();
-
-            _avatar = EditorGUILayout.ObjectField(Localize.avatar[_langIndex], _avatar, typeof(VRCAvatarDescriptor), true) as VRCAvatarDescriptor;
-            EditorGUILayout.Space();
-
-            DrawFootSystemOption();
-            EditorGUILayout.Space();
-
-            DrawShaderInstallOptions();
-            EditorGUILayout.Space();
-
-            DrawNadeSphereOption();
-            EditorGUILayout.Space();
-
-            DrawContactParameters();
-            EditorGUILayout.Space();
-
-            DrawInstallButton();
+            InitializeLanguage();
+            EnsureAudioClips();
+            TrySelectAvatar();
+            LoadAudioClipsForSelectedAvatar();
+            EditorApplication.projectChanged += InvalidateParameterBudget;
+            Undo.undoRedoPerformed += InvalidateParameterBudget;
         }
 
-        private void DrawLanguageSelection()
+        private void OnDisable()
         {
-            _langIndex = EditorGUILayout.Popup("Language", _langIndex, LangOptions);
+            _budgetKey = null;
+            EditorApplication.projectChanged -= InvalidateParameterBudget;
+            Undo.undoRedoPerformed -= InvalidateParameterBudget;
+        }
+
+        private void OnFocus() => InvalidateParameterBudget();
+
+        private void InvalidateParameterBudget()
+        {
+            _budgetKey = null;
+            Repaint();
+        }
+
+        private void OnSelectionChange()
+        {
+            if (_avatar == null) TrySelectAvatar();
+            Repaint();
+        }
+
+        private void TrySelectAvatar()
+        {
+            if (_avatar != null || Selection.activeGameObject == null) return;
+            var selected = Selection.activeGameObject;
+            if (EditorUtility.IsPersistent(selected) || !selected.scene.IsValid()) return;
+            _avatar = selected.GetComponentInParent<VRCAvatarDescriptor>();
+        }
+
+        private bool EnsureAudioClips()
+        {
+            // A serialized array preserves edits (including empty slots) across script reloads.
+            if (_audioClips != null && _audioClips.Length == SoundSlotCount) return true;
+            if (_audioClips != null && _audioClips.Length > 0)
+            {
+                Array.Resize(ref _audioClips, SoundSlotCount);
+                return true;
+            }
+
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(NadeSystemGUID));
+            var defaults = prefab != null ? prefab.GetComponent<NadeSystemSettings>() : null;
+            if (defaults == null) return false;
+
+            _audioClips = new AudioClip[SoundSlotCount];
+            if (defaults.audioClips != null)
+                Array.Copy(defaults.audioClips, _audioClips, Math.Min(defaults.audioClips.Length, SoundSlotCount));
+            return true;
+        }
+
+        private void LoadAudioClipsForSelectedAvatar()
+        {
+            if (!_loadAvatarAudioClips)
+            {
+                EnsureAudioClips();
+                return;
+            }
+            // Load once per selection. After that, the Installer list is the source of truth.
+            // Serialize the selection marker so script reloads do not discard pending edits.
+            if (_audioClipsLoadedForAvatar && _audioClipsAvatar == _avatar) return;
+
+            _audioClipsAvatar = _avatar;
+            _audioClips = null;
+            _audioClipsLoadedForAvatar = false;
+            var existingRoot = _avatar != null ? _avatar.transform.Find("NadeSystem") : null;
+            var existing = existingRoot != null ? existingRoot.GetComponent<NadeSystemSettings>() : null;
+            if (existing != null)
+            {
+                _audioClips = new AudioClip[SoundSlotCount];
+                if (existing.audioClips != null)
+                    Array.Copy(existing.audioClips, _audioClips,
+                        Math.Min(existing.audioClips.Length, SoundSlotCount));
+                _audioClipsLoadedForAvatar = true;
+            }
+            else
+            {
+                _audioClipsLoadedForAvatar = EnsureAudioClips();
+            }
+        }
+
+        private void OnGUI()
+        {
+            EditorGUILayout.BeginVertical(new GUIStyle { padding = new RectOffset(12, 12, 10, 10) });
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField($"Nade System {NadeSystemVersion.DisplayText}", EditorStyles.boldLabel);
+            _langIndex = EditorGUILayout.Popup(_langIndex, LangOptions, GUILayout.Width(145));
+            var resetIcon = EditorGUIUtility.IconContent("Refresh");
+            var resetContent = new GUIContent(resetIcon.image, Localize.resetDefaultsTooltip[_langIndex]);
+            if (GUILayout.Button(resetContent, GUILayout.Width(24), GUILayout.Height(EditorGUIUtility.singleLineHeight)))
+                ResetInstallerDefaults();
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.Space(10);
+
+            _avatar = EditorGUILayout.ObjectField(Localize.avatar[_langIndex], _avatar,
+                typeof(VRCAvatarDescriptor), true) as VRCAvatarDescriptor;
+            LoadAudioClipsForSelectedAvatar();
+            if (_avatar == null)
+                EditorGUILayout.LabelField(Localize.selectAvatarHint[_langIndex], EditorStyles.wordWrappedLabel);
+            else if (EditorUtility.IsPersistent(_avatar))
+                EditorGUILayout.HelpBox(Localize.sceneAvatarHint[_langIndex], MessageType.Warning);
+            EditorGUILayout.Space(8);
+
+            _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
+            _additionalFeaturesFoldout = EditorGUILayout.Foldout(_additionalFeaturesFoldout,
+                Localize.additionalFeatures[_langIndex], true, EditorStyles.foldoutHeader);
+            if (_additionalFeaturesFoldout)
+            {
+                EditorGUILayout.BeginHorizontal();
+                GUILayout.Space(16);
+                EditorGUILayout.BeginVertical();
+                DrawFootSystemOption();
+                DrawNadeSphereOption();
+                DrawShaderInstallOptions();
+                EditorGUILayout.EndVertical();
+                EditorGUILayout.EndHorizontal();
+            }
+            EditorGUILayout.Space(4);
+
+            DrawSoundSettings();
+            EditorGUILayout.Space(4);
+
+            _compatibilityFoldout = EditorGUILayout.Foldout(_compatibilityFoldout,
+                Localize.compatibilitySettings[_langIndex], true, EditorStyles.foldoutHeader);
+            if (_compatibilityFoldout)
+            {
+                EditorGUILayout.BeginHorizontal();
+                GUILayout.Space(16);
+                EditorGUILayout.BeginVertical();
+                _menuLanguage = (MenuLanguage)EditorGUILayout.Popup(Localize.menuLanguageLabel[_langIndex],
+                    (int)_menuLanguage, Localize.MenuLanguageOptions(_langIndex));
+                EditorGUILayout.Space(4);
+                DrawContactParameters();
+                EditorGUILayout.Space(4);
+                _writeDefaultsMode = (WriteDefaultsMode)EditorGUILayout.Popup(
+                    "Write Defaults", (int)_writeDefaultsMode, Localize.writeDefaultsOptions[_langIndex]);
+                if (_writeDefaultsMode != WriteDefaultsMode.UsePrefabSettings)
+                    EditorGUILayout.HelpBox(Localize.writeDefaultsHelp[_langIndex], MessageType.Info);
+                EditorGUILayout.EndVertical();
+                EditorGUILayout.EndHorizontal();
+            }
+            EditorGUILayout.EndScrollView();
+            EditorGUILayout.Space(8);
+            DrawParameterBudgetWarning();
+            DrawInstallButton();
+            EditorGUILayout.EndVertical();
+        }
+
+        private void DrawSoundSettings()
+        {
+            EditorGUILayout.BeginVertical(GUI.skin.box);
+            _soundSettingsFoldout = EditorGUILayout.BeginFoldoutHeaderGroup(
+                _soundSettingsFoldout, Localize.soundSettings[_langIndex]);
+            if (_soundSettingsFoldout)
+            {
+                EditorGUILayout.BeginHorizontal();
+                GUILayout.Space(16);
+                EditorGUILayout.BeginVertical();
+                EditorGUI.BeginChangeCheck();
+                _loadAvatarAudioClips = EditorGUILayout.ToggleLeft(
+                    Localize.loadAvatarAudioClips[_langIndex], _loadAvatarAudioClips);
+                if (EditorGUI.EndChangeCheck())
+                {
+                    _audioClipsLoadedForAvatar = false;
+                    LoadAudioClipsForSelectedAvatar();
+                }
+                if (EnsureAudioClips())
+                {
+                    EditorGUILayout.HelpBox(Localize.soundSettingsHelp[_langIndex], MessageType.Info);
+                    for (int i = 0; i < SoundSlotCount; i++)
+                    {
+                        _audioClips[i] = (AudioClip)EditorGUILayout.ObjectField(
+                            $"{Localize.soundSlot[_langIndex]} {i + 1}", _audioClips[i], typeof(AudioClip), false);
+                    }
+                }
+                else
+                {
+                    EditorGUILayout.HelpBox(Localize.soundSettingsUnavailable[_langIndex], MessageType.Error);
+                }
+                EditorGUILayout.EndVertical();
+                EditorGUILayout.EndHorizontal();
+            }
+            EditorGUILayout.EndFoldoutHeaderGroup();
+            EditorGUILayout.EndVertical();
         }
 
         private void DrawFootSystemOption()
@@ -125,16 +305,9 @@ namespace RedNightWorks.NadeSystem
         private void DrawContactParameters()
         {
             EditorGUILayout.BeginVertical(GUI.skin.box);
-            _contactParametersFoldout = EditorGUILayout.BeginFoldoutHeaderGroup(_contactParametersFoldout, Localize.contactParameters[_langIndex]);
-            if (_contactParametersFoldout)
-            {
-                EditorGUI.indentLevel++;
-                EditorGUILayout.LabelField(Localize.contactParameters[_langIndex]);
-                _contactRadius = EditorGUILayout.FloatField(Localize.contactRadius[_langIndex], _contactRadius);
-                _headOffsetY = EditorGUILayout.FloatField(Localize.contactOffsetY[_langIndex], _headOffsetY);
-                EditorGUI.indentLevel--;
-            }
-            EditorGUILayout.EndFoldoutHeaderGroup();
+            EditorGUILayout.LabelField(Localize.contactParameters[_langIndex], EditorStyles.boldLabel);
+            _contactRadius = EditorGUILayout.FloatField(Localize.contactRadius[_langIndex], _contactRadius);
+            _headOffsetY = EditorGUILayout.FloatField(Localize.contactOffsetY[_langIndex], _headOffsetY);
             EditorGUILayout.EndVertical();
         }
 
@@ -180,17 +353,128 @@ namespace RedNightWorks.NadeSystem
             EditorGUILayout.EndVertical();
         }
         
+        private void DrawParameterBudgetWarning()
+        {
+            if (_avatar == null || EditorUtility.IsPersistent(_avatar)
+                || EditorApplication.isPlayingOrWillChangePlaymode) return;
+
+            string key = $"{_avatar.GetInstanceID()}:{_installFootSystem}:{_installNadeSphere}:"
+                + $"{_installNadeShaderForHands}:{_installNadeShaderForFeet}:{_installNadeShaderForHead}";
+            if (_budgetKey != key)
+            {
+                // Delay work until after this GUI event; never build an avatar during repaint.
+                _budgetKey = key;
+                _estimatedParameterBits = null;
+                _budgetUnavailable = false;
+                EditorApplication.delayCall += () =>
+                {
+                    if (this == null || _budgetKey != key || _avatar == null
+                        || EditorApplication.isPlayingOrWillChangePlaymode) return;
+                    try
+                    {
+                        _estimatedParameterBits = NadeParameterBudget.Estimate(_avatar.gameObject, parent =>
+                        {
+                            var prefab = GetPrefabByGuid(NadeSystemGUID, "NadeSystem");
+                            var root = (GameObject)PrefabUtility.InstantiatePrefab(prefab, parent);
+                            var objects = FindNadeSystemObjects(root.transform);
+                            objects.FootSystem = InstallFootSystem(objects, root.transform);
+                            InstallShaders(objects, root.transform);
+                            InstallNadeSphere(objects, root.transform);
+                        });
+                    }
+                    catch (Exception)
+                    {
+                        _budgetUnavailable = true;
+                    }
+                    Repaint();
+                };
+            }
+
+            int limit = VRCExpressionParameters.MAX_PARAMETER_COST;
+            if (_budgetUnavailable)
+                EditorGUILayout.HelpBox(Localize.parameterBudgetUnavailable[_langIndex], MessageType.Warning);
+            else if (_estimatedParameterBits > limit)
+                DrawParameterBudgetExceeded(_estimatedParameterBits.Value, limit);
+        }
+
+        private void DrawParameterBudgetExceeded(int used, int limit)
+        {
+            var panelStyle = new GUIStyle { padding = new RectOffset(12, 12, 10, 10) };
+            var titleStyle = new GUIStyle(EditorStyles.boldLabel) { fontSize = 14, wordWrap = true };
+            var usageStyle = new GUIStyle(EditorStyles.boldLabel) { fontSize = 18, wordWrap = true };
+            var bodyStyle = new GUIStyle(EditorStyles.wordWrappedLabel);
+            titleStyle.normal.textColor = Color.white;
+            usageStyle.normal.textColor = Color.white;
+            bodyStyle.normal.textColor = Color.white;
+
+            var rect = EditorGUILayout.BeginVertical(panelStyle);
+            if (Event.current.type == EventType.Repaint)
+            {
+                EditorGUI.DrawRect(rect, new Color(0.45f, 0.08f, 0.10f));
+                EditorGUI.DrawRect(new Rect(rect.x, rect.y, 4, rect.height), new Color(1f, 0.35f, 0.35f));
+            }
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.Label(EditorGUIUtility.IconContent("console.erroricon"), GUILayout.Width(24), GUILayout.Height(24));
+            EditorGUILayout.LabelField(Localize.parameterBudgetTitle[_langIndex], titleStyle);
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.LabelField(string.Format(Localize.parameterBudgetUsage[_langIndex],
+                used, limit, used - limit), usageStyle);
+            EditorGUILayout.Space(4);
+            EditorGUILayout.LabelField(Localize.parameterBudgetExceeded[_langIndex], bodyStyle);
+            EditorGUILayout.EndVertical();
+            EditorGUILayout.Space(6);
+        }
+
         private void DrawInstallButton()
         {
-            if (GUILayout.Button("Setup!"))
+            using (new EditorGUI.DisabledScope(_avatar == null || EditorUtility.IsPersistent(_avatar)
+                || EditorApplication.isPlayingOrWillChangePlaymode))
             {
-                InstallNadeSystem();
+                if (GUILayout.Button(Localize.installButton[_langIndex], GUILayout.Height(36)))
+                    InstallNadeSystem();
             }
+        }
+
+        private void ResetInstallerDefaults()
+        {
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(NadeSystemGUID));
+            var defaults = prefab != null ? prefab.GetComponent<NadeSystemSettings>() : null;
+            if (defaults == null)
+            {
+                EditorUtility.DisplayDialog(Localize.resetDefaults[_langIndex],
+                    Localize.soundSettingsUnavailable[_langIndex], "OK");
+                return;
+            }
+
+            _contactRadius = DefaultContactRadius;
+            _headOffsetY = DefaultHeadOffsetY;
+            _installNadeShaderForHands = true;
+            _installNadeShaderForFeet = true;
+            _installNadeShaderForHead = false;
+            _installNadeSphere = false;
+            _installFootSystem = false;
+            _writeDefaultsMode = WriteDefaultsMode.UsePrefabSettings;
+            _menuLanguage = MenuLanguage.Automatic;
+            _audioClips = new AudioClip[SoundSlotCount];
+            if (defaults.audioClips != null)
+                Array.Copy(defaults.audioClips, _audioClips, Math.Min(defaults.audioClips.Length, SoundSlotCount));
+            _loadAvatarAudioClips = true;
+            // Keep the explicit reset until the user selects another avatar or requests a reload.
+            _audioClipsAvatar = _avatar;
+            _audioClipsLoadedForAvatar = true;
+            InvalidateParameterBudget();
         }
 
         private void InstallNadeSystem()
         {
             if (!IsAvatarSelected()) return;
+            LoadAudioClipsForSelectedAvatar();
+            if (!EnsureAudioClips())
+            {
+                EditorUtility.DisplayDialog(Localize.notSelectAvatarTitle[_langIndex],
+                    Localize.soundSettingsUnavailable[_langIndex], "OK");
+                return;
+            }
 
             ValidateParameters();
             
@@ -198,6 +482,12 @@ namespace RedNightWorks.NadeSystem
 
             var nadeSystemRoot = InstantiateNadeSystemPrefab();
             if (nadeSystemRoot == null) return;
+
+            var settings = nadeSystemRoot.GetComponent<NadeSystemSettings>();
+            settings.writeDefaultsMode = _writeDefaultsMode;
+            settings.menuLanguage = _menuLanguage;
+            settings.audioClips = (AudioClip[])_audioClips.Clone();
+            PrefabUtility.RecordPrefabInstancePropertyModifications(settings);
 
             var nadeObjects = FindNadeSystemObjects(nadeSystemRoot.transform);
 
@@ -292,7 +582,8 @@ namespace RedNightWorks.NadeSystem
 
         private void InstallShaders(NadeSystemObjects nadeObjects, Transform nadeSystemRoot)
         {
-            if (!_installNadeShaderForHands && !_installNadeShaderForHead) return;
+            bool installFootShadow = _installNadeShaderForFeet && _installFootSystem && nadeObjects.FootSystem != null;
+            if (!_installNadeShaderForHands && !_installNadeShaderForHead && !installFootShadow) return;
 
             var nadeShadowPrefab = GetPrefabByGuid(NadeShadowGUID, "NadeShadow");
             if (_installNadeShaderForHands)
@@ -304,7 +595,7 @@ namespace RedNightWorks.NadeSystem
             {
                 PrefabUtility.InstantiatePrefab(nadeShadowPrefab, nadeObjects.HeadSystem.transform);
             }
-            if (_installNadeShaderForFeet && _installFootSystem && nadeObjects.FootSystem != null)
+            if (installFootShadow)
             {
                 var rightFootSystem = nadeObjects.FootSystem.Find("RightFootSystem");
                 if (rightFootSystem != null)

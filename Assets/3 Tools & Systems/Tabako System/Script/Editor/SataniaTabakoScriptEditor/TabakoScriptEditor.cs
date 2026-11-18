@@ -18,6 +18,7 @@ namespace net.satania_shopping.tabakosystem
         private TabakoScriptBehaviour script => target as TabakoScriptBehaviour;
         private bool dirty = false;
         private GUIStyle rightAligmentStyle;
+        private GUIStyle rightAligmentMiniStyle;
 
         private class EditorSingleton : ScriptableSingleton<EditorSingleton>
         {
@@ -409,6 +410,40 @@ namespace net.satania_shopping.tabakosystem
             EditorGUILayout.LabelField($"{GetText("t_Estimated_Parameter_Usage")}: {EstimationSatabakoExParamCount}bit");
         }
 
+        private static string s_templateName;
+
+        private string WizardUnavailableMessageKey()
+        {
+            if (EditorApplication.isPlayingOrWillChangePlaymode)
+                return "t_Wiz_MsgPlayMode";
+
+            bool inAvatar = script != null
+                && script.gameObject.scene.IsValid()
+                && script.GetComponentInParent<VRC.SDK3.Avatars.Components.VRCAvatarDescriptor>(true) != null;
+            return inAvatar ? null : "t_MsgAdjustToolNeedsAvatar";
+        }
+
+        private bool CanOpenWizard()
+        {
+            return WizardUnavailableMessageKey() == null;
+        }
+
+        private bool ShouldSuggestWizard()
+        {
+            if (!CanOpenWizard() || !string.IsNullOrEmpty(script.LastSavedVersion))
+                return false;
+
+            if (s_templateName == null)
+            {
+                GameObject template = net.satania_shopping.tabakosystem.utils.UnsupportedAvatarUtils.TemplatePrefab;
+                s_templateName = template != null ? template.name : "";
+            }
+
+            bool noNames = script.AvatarNamesForSearcher == null || script.AvatarNamesForSearcher.All(string.IsNullOrWhiteSpace);
+            bool templateName = s_templateName.Length > 0 && script.gameObject.name == s_templateName;
+            return noNames || templateName;
+        }
+
         private void ResetExpressionParameter(string paramName)
         {
             if (!ParametersDictionary.ContainsKey(paramName))
@@ -525,19 +560,47 @@ namespace net.satania_shopping.tabakosystem
                 rightAligmentStyle.fontStyle = FontStyle.Bold;
             }
 
+            if (rightAligmentMiniStyle == null)
+            {
+                rightAligmentMiniStyle = new GUIStyle(EditorStyles.miniLabel);
+                rightAligmentMiniStyle.alignment = TextAnchor.MiddleRight;
+            }
+
             SatabakoEditorUtils.DrawHeader(300);
             SatabakoEditorUtils.DrawWebButton(
                 GetText("t_FAQ"),
                 @"https://saturnianjp.github.io/satania_shopping_document/docs/SataniaTabako/FAQ");
             SatabakoEditorUtils.DrawWebButton(
                 GetText("t_HowToUse"),
-                @"https://saturnianjp.github.io/satania_shopping_document/docs/SataniaTabako/Install/for_supported_avatar");
+                EditorGUIUtils.HowToUseUrl);
             SatabakoEditorUtils.DrawWebButtonWithCustomIcon(
                 GetText("BOOTH"),
                 EditorGUIUtils.BoothUrl,
                 SatabakoEditorUtils.BoothIconContent);
 
             serializedObject.UpdateIfRequiredOrScript();
+
+            if (ShouldSuggestWizard())
+            {
+                if (EditorGUIUtils.HelpBoxWithButton(GetText("t_MsgOpenWizardHint"), GetText("t_OpenWizard"), EditorGUIUtility.IconContent("console.infoicon")))
+                    UnsupportedAvatarWizardWindow.OpenFor(script.gameObject);
+                GUILayout.Space(5);
+            }
+            else
+            {
+                string unavailableKey = WizardUnavailableMessageKey();
+                using (new EditorGUI.DisabledScope(unavailableKey != null))
+                {
+                    if (GUILayout.Button(GetText("t_OpenAdjustTool")))
+                        UnsupportedAvatarWizardWindow.OpenFor(script.gameObject);
+                }
+
+                if (unavailableKey != null)
+                {
+                    EditorGUILayout.HelpBox(GetText(unavailableKey), MessageType.Info);
+                    GUILayout.Space(5);
+                }
+            }
 
             //Hand Gestures
             using (new GUILayout.VerticalScope(GUI.skin.box))
@@ -605,6 +668,9 @@ namespace net.satania_shopping.tabakosystem
 
             if (VersionChecker.ComparisonResult != VersionComparisonResult.Invalid)
                 GUILayout.Label(new GUIContent($"{GetText("t_Version")} : {VersionChecker.CurrentVersion}"), rightAligmentStyle);
+
+            string unknown = GetText("t_Version_Unknown");
+            GUILayout.Label(new GUIContent($"{GetText("t_Version_Created")} : {VersionStamper.Display(script.CreatedVersion, unknown)}    {GetText("t_Version_LastSaved")} : {VersionStamper.Display(script.LastSavedVersion, unknown)}"), rightAligmentMiniStyle);
 
             int newLanguage = EditorGUILayout.Popup(GetText("t_Language"), LanguageManager.LanguageIndex, LanguageManager.LanguageNames);
             if (newLanguage != LanguageManager.LanguageIndex)

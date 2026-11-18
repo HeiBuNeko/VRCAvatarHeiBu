@@ -48,6 +48,7 @@ MonoBehaviour:
   shapeType: 0
   radius: 0.2
   height: 2
+  size: {x: 1, y: 1, z: 1}
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 1}
   localOnly: 0
@@ -56,6 +57,7 @@ MonoBehaviour:
   - Head
   allowSelf: 1
   allowOthers: 1
+  useFaceProximity: 0
   receiverType: 2
   parameter: RNW/Nade/RxLeftFoot
   minVelocity: 0.05
@@ -444,11 +446,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bb122659f724ebf85fe095ac02dc339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 1.18.7
+    MinimumVersion: 1.18.0
   animator: {fileID: 9100000, guid: 6b893ca7f25a47642af2b1e19182dab0, type: 2}
   layerType: 5
   deleteAttachedAnimator: 1
   pathMode: 0
-  matchAvatarWriteDefaults: 0
+  matchAvatarWriteDefaults: 1
   relativePathRoot:
     referencePath: 
     targetObject: {fileID: 0}
@@ -466,6 +471,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a96d4ea0c344f39e277d82035bf9bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   parameters:
   - nameOrPrefix: RNW/Nade/FootEnable
     remapTo: 
@@ -756,9 +764,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42581d8044b64899834d3d515ab3a144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   boneReference: 5
   subPath: 
   attachmentMode: 1
+  matchScale: 0
 --- !u!1 &8150610863835496120
 GameObject:
   m_ObjectHideFlags: 0
@@ -807,6 +819,7 @@ MonoBehaviour:
   shapeType: 0
   radius: 0.2
   height: 2
+  size: {x: 1, y: 1, z: 1}
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 1}
   localOnly: 0
@@ -815,6 +828,7 @@ MonoBehaviour:
   - Head
   allowSelf: 1
   allowOthers: 1
+  useFaceProximity: 0
   receiverType: 2
   parameter: RNW/Nade/RxRightFoot
   minVelocity: 0.05
@@ -1343,6 +1357,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42581d8044b64899834d3d515ab3a144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   boneReference: 6
   subPath: 
   attachmentMode: 1
+  matchScale: 0

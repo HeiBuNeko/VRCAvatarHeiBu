@@ -906,6 +906,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8101563930245124308}
+    - targetCorrespondingSourceObject: {fileID: 2460193994890538296, guid: 9e34634a453bd584fb1e143ad8e0e622,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1186682709585073909}
   m_SourcePrefab: {fileID: 100100000, guid: 9e34634a453bd584fb1e143ad8e0e622, type: 3}
 --- !u!1 &4435368548016564567 stripped
 GameObject:
@@ -927,3 +931,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   overrideMotion: 3
   customMotion: {fileID: 7400000, guid: fe805353038bd014ca1101e87928cfa6, type: 2}
+--- !u!1 &805743121043354289 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2460193994890538296, guid: 9e34634a453bd584fb1e143ad8e0e622,
+    type: 3}
+  m_PrefabInstance: {fileID: 2957403146587938697}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1186682709585073909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805743121043354289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c464f2c6e14cdb340b308b3513310fb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bones:
+  - bone: 18
+    position: {x: 0.5295823, y: 1.205329, z: -0.02128625}
+    rotation: {x: -0.0172863, y: -0.0030912757, z: -0.7069897, w: 0.70700616}
+    scale: {x: 1.0000005, y: 1.0000004, z: 0.9999998}
+  - bone: 17
+    position: {x: -0.52958214, y: 1.2053325, z: -0.021286368}
+    rotation: {x: -0.017287135, y: 0.0030904114, z: 0.70702386, w: 0.706972}
+    scale: {x: 1.0000005, y: 1.0000006, z: 0.9999997}
+  - bone: 10
+    position: {x: 0.00000006799913, y: 1.3302895, z: -0.014960766}
+    rotation: {x: 0.059630632, y: -0.00000021099136, z: -0.0000001628797, w: 0.9982207}
+    scale: {x: 1, y: 1.0000001, z: 0.9999999}
+  - bone: 0
+    position: {x: 3.583368e-14, y: 0.90376574, z: -0.00000017881393}
+    rotation: {x: -0.0000009536743, y: 8.881784e-16, z: 0.000000020119195, w: 1}
+    scale: {x: 1, y: 0.99999994, z: 0.99999994}

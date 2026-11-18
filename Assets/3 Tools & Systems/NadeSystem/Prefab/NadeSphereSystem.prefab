@@ -44,9 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42581d8044b64899834d3d515ab3a144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   boneReference: 30
   subPath: 
   attachmentMode: 1
+  matchScale: 0
 --- !u!1 &606227975732151912
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,6 +95,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33dac8cfeaeb4c399ddd90597f849f70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
 --- !u!1 &1028239488868352469
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,11 +146,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bb122659f724ebf85fe095ac02dc339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 1.18.7
+    MinimumVersion: 1.18.0
   animator: {fileID: 9100000, guid: 94d6ba4793a77834a99ebbcdefaa6875, type: 2}
   layerType: 5
   deleteAttachedAnimator: 1
   pathMode: 0
-  matchAvatarWriteDefaults: 0
+  matchAvatarWriteDefaults: 1
   relativePathRoot:
     referencePath: 
     targetObject: {fileID: 0}
@@ -161,6 +171,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a96d4ea0c344f39e277d82035bf9bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   parameters:
   - nameOrPrefix: RNW/Nade/RxSphereL
     remapTo: 
@@ -533,6 +546,7 @@ MonoBehaviour:
   shapeType: 0
   radius: 0.5
   height: 2
+  size: {x: 1, y: 1, z: 1}
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 1}
   localOnly: 0
@@ -555,6 +569,7 @@ MonoBehaviour:
   shapeType: 0
   radius: 0.5
   height: 2
+  size: {x: 1, y: 1, z: 1}
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 1}
   localOnly: 0
@@ -563,6 +578,7 @@ MonoBehaviour:
   - HandL
   allowSelf: 1
   allowOthers: 0
+  useFaceProximity: 0
   receiverType: 0
   parameter: RNW/Nade/RxSphereL
   minVelocity: 0.05
@@ -582,6 +598,7 @@ MonoBehaviour:
   shapeType: 0
   radius: 0.5
   height: 2
+  size: {x: 1, y: 1, z: 1}
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 1}
   localOnly: 0
@@ -590,6 +607,7 @@ MonoBehaviour:
   - HandR
   allowSelf: 1
   allowOthers: 0
+  useFaceProximity: 0
   receiverType: 0
   parameter: RNW/Nade/RxSphereR
   minVelocity: 0.05
@@ -637,9 +655,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42581d8044b64899834d3d515ab3a144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   boneReference: 45
   subPath: 
   attachmentMode: 1
+  matchScale: 0
 --- !u!1 &9204778696640614679
 GameObject:
   m_ObjectHideFlags: 0
@@ -685,6 +707,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42581d8044b64899834d3d515ab3a144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   boneReference: 10
   subPath: 
   attachmentMode: 1
+  matchScale: 0

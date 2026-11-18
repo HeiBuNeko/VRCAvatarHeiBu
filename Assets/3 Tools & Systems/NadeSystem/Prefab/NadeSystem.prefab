@@ -48,6 +48,7 @@ MonoBehaviour:
   shapeType: 0
   radius: 0.24
   height: 2
+  size: {x: 1, y: 1, z: 1}
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 1}
   localOnly: 0
@@ -56,6 +57,7 @@ MonoBehaviour:
   - Hand
   allowSelf: 0
   allowOthers: 1
+  useFaceProximity: 0
   receiverType: 2
   parameter: RNW/Nade/RxHead1
   minVelocity: 0.05
@@ -108,6 +110,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b29d45007c5493d926d2cd45a489529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   Control:
     name: 
     icon: {fileID: 2800000, guid: cb770755e6e40be42b2da1c0b7da7e48, type: 3}
@@ -510,6 +515,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b29d45007c5493d926d2cd45a489529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   Control:
     name: 
     icon: {fileID: 2800000, guid: 7a337a6841da58f4eaed39f91c877741, type: 3}
@@ -603,6 +611,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b29d45007c5493d926d2cd45a489529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   Control:
     name: 
     icon: {fileID: 2800000, guid: 8e1f9791ebbef3f4380c10a658f81e83, type: 3}
@@ -666,9 +677,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42581d8044b64899834d3d515ab3a144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   boneReference: 10
   subPath: 
   attachmentMode: 1
+  matchScale: 0
 --- !u!114 &4969999187272451546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -681,6 +696,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33dac8cfeaeb4c399ddd90597f849f70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
 --- !u!1 &3977267617644572552
 GameObject:
   m_ObjectHideFlags: 0
@@ -1034,6 +1052,7 @@ MonoBehaviour:
   shapeType: 0
   radius: 0.1
   height: 2
+  size: {x: 1, y: 1, z: 1}
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 1}
   localOnly: 0
@@ -1042,6 +1061,7 @@ MonoBehaviour:
   - Head
   allowSelf: 1
   allowOthers: 1
+  useFaceProximity: 0
   receiverType: 2
   parameter: RNW/Nade/RxLeftHand
   minVelocity: 0.05
@@ -1394,6 +1414,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b29d45007c5493d926d2cd45a489529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   Control:
     name: 
     icon: {fileID: 2800000, guid: 7443b84d748e47849b7731c33a5a1844, type: 3}
@@ -1499,6 +1522,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef83cb0c23d4d7c9d41021e544a1978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   menuToAppend: {fileID: 0}
   installTargetMenu: {fileID: 0}
 --- !u!114 &3528478424089536306
@@ -1513,11 +1539,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bb122659f724ebf85fe095ac02dc339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 1.18.7
+    MinimumVersion: 1.18.0
   animator: {fileID: 9100000, guid: e285f7b13023d4744948a36807877425, type: 2}
   layerType: 5
   deleteAttachedAnimator: 1
   pathMode: 0
-  matchAvatarWriteDefaults: 0
+  matchAvatarWriteDefaults: 1
   relativePathRoot:
     referencePath: 
     targetObject: {fileID: 0}
@@ -1535,6 +1564,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a96d4ea0c344f39e277d82035bf9bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   parameters:
   - nameOrPrefix: RNW/Nade/RightEnable
     remapTo: 
@@ -1779,6 +1811,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b29d45007c5493d926d2cd45a489529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   Control:
     name: NadeSystem
     icon: {fileID: 2800000, guid: cb770755e6e40be42b2da1c0b7da7e48, type: 3}
@@ -1843,9 +1878,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42581d8044b64899834d3d515ab3a144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   boneReference: 30
   subPath: 
   attachmentMode: 1
+  matchScale: 0
 --- !u!1 &4497097959682787554
 GameObject:
   m_ObjectHideFlags: 0
@@ -1894,6 +1933,7 @@ MonoBehaviour:
   shapeType: 0
   radius: 0.1
   height: 2
+  size: {x: 1, y: 1, z: 1}
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 1}
   localOnly: 0
@@ -1902,6 +1942,7 @@ MonoBehaviour:
   - Head
   allowSelf: 1
   allowOthers: 1
+  useFaceProximity: 0
   receiverType: 2
   parameter: RNW/Nade/RxRightHand
   minVelocity: 0.05
@@ -1984,6 +2025,7 @@ MonoBehaviour:
   shapeType: 0
   radius: 0.24
   height: 2
+  size: {x: 1, y: 1, z: 1}
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 1}
   localOnly: 0
@@ -1992,6 +2034,7 @@ MonoBehaviour:
   - Hand
   allowSelf: 0
   allowOthers: 1
+  useFaceProximity: 0
   receiverType: 2
   parameter: RNW/Nade/RxHead3
   minVelocity: 0.05
@@ -2185,6 +2228,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b29d45007c5493d926d2cd45a489529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   Control:
     name: 
     icon: {fileID: 0}
@@ -2247,6 +2293,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b29d45007c5493d926d2cd45a489529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   Control:
     name: 
     icon: {fileID: 2800000, guid: fc65f9448ca2c4d4885cba0e2427be21, type: 3}
@@ -2314,6 +2363,7 @@ MonoBehaviour:
   shapeType: 0
   radius: 0.14
   height: 2
+  size: {x: 1, y: 1, z: 1}
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 1}
   localOnly: 0
@@ -2322,6 +2372,7 @@ MonoBehaviour:
   - Hand
   allowSelf: 0
   allowOthers: 1
+  useFaceProximity: 0
   receiverType: 2
   parameter: RNW/Nade/RxHeadMain
   minVelocity: 0.05
@@ -2552,6 +2603,7 @@ MonoBehaviour:
   shapeType: 0
   radius: 0.24
   height: 2
+  size: {x: 1, y: 1, z: 1}
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 1}
   localOnly: 0
@@ -2560,6 +2612,7 @@ MonoBehaviour:
   - Hand
   allowSelf: 0
   allowOthers: 1
+  useFaceProximity: 0
   receiverType: 2
   parameter: RNW/Nade/RxHead4
   minVelocity: 0.05
@@ -2607,9 +2660,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42581d8044b64899834d3d515ab3a144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   boneReference: 45
   subPath: 
   attachmentMode: 1
+  matchScale: 0
 --- !u!1 &6576832893695840658
 GameObject:
   m_ObjectHideFlags: 0
@@ -2654,6 +2711,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b29d45007c5493d926d2cd45a489529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   Control:
     name: 
     icon: {fileID: 2800000, guid: 7443b84d748e47849b7731c33a5a1844, type: 3}
@@ -2721,6 +2781,7 @@ MonoBehaviour:
   shapeType: 0
   radius: 0.24
   height: 2
+  size: {x: 1, y: 1, z: 1}
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 1}
   localOnly: 0
@@ -2729,6 +2790,7 @@ MonoBehaviour:
   - Hand
   allowSelf: 0
   allowOthers: 1
+  useFaceProximity: 0
   receiverType: 2
   parameter: RNW/Nade/RxHead6
   minVelocity: 0.05
@@ -2776,6 +2838,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b29d45007c5493d926d2cd45a489529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   Control:
     name: 
     icon: {fileID: 2800000, guid: fc65f9448ca2c4d4885cba0e2427be21, type: 3}
@@ -3135,6 +3200,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b29d45007c5493d926d2cd45a489529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   Control:
     name: 
     icon: {fileID: 2800000, guid: 06f958a66b66bac438ca5c8bb03a76b5, type: 3}
@@ -3197,6 +3265,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b29d45007c5493d926d2cd45a489529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   Control:
     name: 
     icon: {fileID: 2800000, guid: 8f15c17698b371c4eaba4e5adffcf72c, type: 3}
@@ -3263,6 +3334,7 @@ MonoBehaviour:
   shapeType: 0
   radius: 0.24
   height: 2
+  size: {x: 1, y: 1, z: 1}
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 1}
   localOnly: 0
@@ -3271,6 +3343,7 @@ MonoBehaviour:
   - Hand
   allowSelf: 0
   allowOthers: 1
+  useFaceProximity: 0
   receiverType: 2
   parameter: RNW/Nade/RxHead5
   minVelocity: 0.05
@@ -3322,6 +3395,7 @@ MonoBehaviour:
   shapeType: 0
   radius: 0.24
   height: 2
+  size: {x: 1, y: 1, z: 1}
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 1}
   localOnly: 0
@@ -3330,6 +3404,7 @@ MonoBehaviour:
   - Hand
   allowSelf: 0
   allowOthers: 1
+  useFaceProximity: 0
   receiverType: 2
   parameter: RNW/Nade/RxHead2
   minVelocity: 0.05
@@ -3377,6 +3452,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b29d45007c5493d926d2cd45a489529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   Control:
     name: 
     icon: {fileID: 2800000, guid: 06f958a66b66bac438ca5c8bb03a76b5, type: 3}

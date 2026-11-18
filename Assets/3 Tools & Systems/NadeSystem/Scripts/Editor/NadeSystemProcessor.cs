@@ -7,6 +7,7 @@ using System.Linq;
 using UnityEditor.Animations;
 using VRC.SDK3.Avatars.ScriptableObjects;
 using System;
+using System.Collections.Generic;
 
 
 namespace RedNightWorks.NadeSystem
@@ -24,8 +25,10 @@ namespace RedNightWorks.NadeSystem
                 return;
             }
 
+            ApplyWriteDefaultsOverride(nadeSystem);
+            MenuLocalize.Apply(nadeSystem);
+
             var audioClips = nadeSystem.audioClips;
-            Debug.Log(audioClips.Length);
             if (audioClips == null || audioClips.Length != 16)
             {
                 Debug.LogWarning("NadeSystemProcessor.MainProcess: Invalid audioClips array. Expected 16 clips.");
@@ -104,6 +107,55 @@ namespace RedNightWorks.NadeSystem
             }
 
             DestroyImmediate(nadeSystem);
+        }
+
+        private static void ApplyWriteDefaultsOverride(NadeSystemSettings settings)
+        {
+            if (settings.writeDefaultsMode == WriteDefaultsMode.UsePrefabSettings) return;
+
+            bool enabled = settings.writeDefaultsMode == WriteDefaultsMode.ForceOn;
+            var clones = new Dictionary<UnityEngine.Object, UnityEngine.Object>();
+            foreach (var merge in settings.GetComponentsInChildren<ModularAvatarMergeAnimator>(true))
+            {
+                // Clone the full controller graph before changing states or audio behaviours.
+                // Shared controller assets must remain untouched, including between avatars.
+                var controller = merge.animator as AnimatorController;
+                if (controller == null)
+                    throw new InvalidOperationException(
+                        $"NadeSystem: Write Defaults override requires an AnimatorController on '{merge.name}'.");
+
+                merge.animator = (AnimatorController)CloneAnimatorGraph(controller, clones, enabled);
+                merge.matchAvatarWriteDefaults = false;
+            }
+        }
+
+        private static UnityEngine.Object CloneAnimatorGraph(UnityEngine.Object source,
+            Dictionary<UnityEngine.Object, UnityEngine.Object> clones, bool writeDefaults)
+        {
+            if (source == null) return null;
+            // Clips, audio, scripts and other external assets are immutable inputs here.
+            if (!(source is AnimatorController || source is AnimatorStateMachine
+                || source is AnimatorState || source is AnimatorTransitionBase
+                || source is StateMachineBehaviour || source is BlendTree)) return source;
+            if (clones.TryGetValue(source, out var existing)) return existing;
+
+            var clone = UnityEngine.Object.Instantiate(source);
+            clone.name = source.name;
+            clones.Add(source, clone);
+            using (var serialized = new SerializedObject(clone))
+            {
+                var property = serialized.GetIterator();
+                while (property.Next(true))
+                {
+                    if (property.propertyType != SerializedPropertyType.ObjectReference) continue;
+                    var reference = property.objectReferenceValue;
+                    var replacement = CloneAnimatorGraph(reference, clones, writeDefaults);
+                    if (reference != replacement) property.objectReferenceValue = replacement;
+                }
+                serialized.ApplyModifiedPropertiesWithoutUndo();
+            }
+            if (clone is AnimatorState state) state.writeDefaultValues = writeDefaults;
+            return clone;
         }
 
         private static void AudioClipImportSettings(AudioClip audioClip)

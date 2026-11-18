@@ -1,10 +1,11 @@
 //#define DEBUG_TABAKO_EDITOR
 
 using System;
-using System.Net;
 using System.Text.RegularExpressions;
 using UnityEditor;
+using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace net.satania_shopping.tabakosystem.editor
 {
@@ -22,11 +23,14 @@ namespace net.satania_shopping.tabakosystem.editor
 
     public static class VersionChecker
     {
-        private const string URL__VERSION = @"http://files.satania.net/Tabako/Version";
+        private const string URL__VERSION = @"https://saturnianjp.github.io/Satabako_Scripts/version.txt";
 
 #if DEBUG_TABAKO_EDITOR
-        private const string URL__VERSIONDEBUG = @"http://files.satania.net/Tabako/VersionDebug";
+        private const string URL__VERSIONDEBUG = @"https://saturnianjp.github.io/Satabako_Scripts/version-debug.txt";
 #endif
+
+        //サーバーに繋がらないときにエディタを待たせないよう短めにしておく
+        private const int k_RequestTimeoutSeconds = 5;
 
         private static string versionTextPath => AssetDatabase.GUIDToAssetPath("50326b29b42c81a4999e3c6fbe9e0638");
 
@@ -101,40 +105,65 @@ namespace net.satania_shopping.tabakosystem.editor
             }
         }
 
-        private static void CheckVersion()
+        /// <summary>
+        /// 最新バージョンを非同期で取得する。onCompleted には取得に成功したかどうかが渡される
+        /// </summary>
+        private static void CheckVersion(Action<bool> onCompleted = null)
         {
             LoadVersion();
 
-            try
+#if DEBUG_TABAKO_EDITOR
+            var request = UnityWebRequest.Get(URL__VERSIONDEBUG);
+#else
+            var request = UnityWebRequest.Get(URL__VERSION);
+#endif
+            request.timeout = k_RequestTimeoutSeconds;
+
+            request.SendWebRequest().completed += _ =>
             {
-                using (WebClient client = new WebClient())
+                bool succeeded;
+                using (request)
                 {
-                    string installedVersion = CurrentVersion.Substring(0, CurrentVersion.IndexOf(' '));
+                    succeeded = OnVersionReceived(request);
+                }
+
+                onCompleted?.Invoke(succeeded);
+            };
+        }
+
+        private static bool OnVersionReceived(UnityWebRequest request)
+        {
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                tvs.versionComparisonResult = VersionComparisonResult.Invalid;
+                Debug.LogWarning($"[TabakoVersionChecker] 最新バージョンの取得に失敗しました: {request.error}");
+                return false;
+            }
+
+            tvs.latestVersion = request.downloadHandler.text.Trim();
+            tvs.versionComparisonResult = CompareVersions(CurrentVersion, tvs.latestVersion);
 
 #if DEBUG_TABAKO_EDITOR
-                    tvs.latestVersion = client.DownloadString(URL__VERSIONDEBUG);
-#else
-                    tvs.latestVersion = client.DownloadString(URL__VERSION);
+            Debug.Log($"[TabakoVersionChecker] installed={CurrentVersion} latest={tvs.latestVersion} result={tvs.versionComparisonResult} url={request.url}");
 #endif
 
-                    tvs.versionComparisonResult = CompareVersions(installedVersion, tvs.latestVersion);
-                }
-            }
-            catch (System.Exception ex)
-            {
-                tvs.installedVersion = "WebClient ERROR";
-
-                Debug.LogError($"[TabakoVersionChecker] Error: {ex.Message}");
-            }
+            //開いている Inspector にアップデート通知を反映する
+            InternalEditorUtility.RepaintAllViews();
+            return true;
         }
 
         [MenuItem(MenuItemDictionary.p_RecheckVersion, priority = 100)]
         private static void ReloadVersion()
         {
-            CheckVersion();
+            CheckVersion(succeeded =>
+            {
+                string message = succeeded
+                    ? $"現在のさたにあ式タバコの最新バージョンは \n{LatestVersion}\nです。"
+                    : "最新バージョンの取得に失敗しました。";
 
-            EditorUtility.DisplayDialog("Satania Tabako System", $"現在のさたにあ式タバコの最新バージョンは \n{LatestVersion.Replace($"{ '\n'}", string.Empty)}\nです。"
-                + "\n\n 使用中のバージョン: " + CurrentVersion, "OK");
+                EditorUtility.DisplayDialog("Satania Tabako System", message
+                    + "\n\n 使用中のバージョン: " + CurrentVersion, "OK");
+            });
         }
 
         [MenuItem(MenuItemDictionary.p_OpenBoothPage, priority = 101)]
@@ -146,7 +175,8 @@ namespace net.satania_shopping.tabakosystem.editor
         [InitializeOnLoadMethod]
         private static void TabakoVersionCheckerLoad()
         {
-            CheckVersion();
+            //ドメインリロードの最中を避け、エディタの初期化が終わってから取得する
+            EditorApplication.delayCall += () => CheckVersion();
         }
     }
 }

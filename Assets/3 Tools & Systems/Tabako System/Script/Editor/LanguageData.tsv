@@ -7,6 +7,7 @@ t_Lighter	ライター	Lighter	라이터
 t_Motion	モーション	Motion	모션
 t_overrideMotion	上書きするモーション	Override Motion	오버라이드 모션
 t_HowToUse	導入方法	How to Use	사용 방법
+t_Usage	使い方	How to Use	사용 방법
 t_HandGesture	ハンドジェスチャー	Hand Gestures	핸드 제스처
 t_Taking_out_the_case	ケース取り出し	Taking out the case	케이스 꺼내기
 t_Taking_out_the_lighter	ライター取り出し	Taking out the lighter	라이터 꺼내기
@@ -67,3 +68,214 @@ t_MsgDonotParameterRename	圧縮するパラメータをMA Parametersで自動�
 t_ExpressionMenuExplanation	Expression Menu の説明	Expression Menu Explanation	익스프레션 메뉴 설명
 t_Fire_Sender_VRC	炎センダー (VRC)	Fire Sender (VRC)	불꽃 센더 (VRC)
 t_Fire_Receiver_VRC	炎レシーバー (VRC)	Fire Receiver (VRC)	불꽃 리시버 (VRC)
+t_Wiz_Title	非対応アバターに対応するツール	Unsupported Avatar Setup Tool	미지원 아바타 대응 도구
+t_Wiz_Step_Setup	準備	Setup	준비
+t_Wiz_Step_Contacts	コンタクト	Contacts	컨택트
+t_Wiz_Step_Case	ケース	Case	케이스
+t_Wiz_Step_Cigarette	タバコ	Cigarette	담배
+t_Wiz_Step_Lighter	ライター	Lighter	라이터
+t_Wiz_Step_Save	保存	Save	저장
+t_Wiz_Back	戻る	Back	뒤로
+t_Wiz_Next	次へ	Next	다음
+t_Wiz_Avatar	対象アバター	Target Avatar	대상 아바타
+t_Wiz_OpenDoc	ドキュメントを開く	Open Documentation	문서 열기
+t_Wiz_AddTemplate	テンプレートを追加	Add Template	템플릿 추가
+t_Wiz_MsgNoAvatar	アバターを選択してください。	Select an avatar.	아바타를 선택하세요.
+t_Wiz_MsgNotHumanoid	Humanoid ではないアバターには対応していません。	Non-Humanoid avatars are not supported.	휴머노이드가 아닌 아바타는 지원하지 않습니다.
+t_Wiz_MsgPlayMode	プレイモード中は使用できません。	Cannot be used in Play Mode.	플레이 모드에서는 사용할 수 없습니다.
+t_Wiz_MsgNoTemplate	テンプレートが入っていません。「テンプレートを追加」を押してください。	The template has not been added yet. Press "Add Template".	템플릿이 아직 추가되지 않았습니다. "템플릿 추가"를 누르세요.
+t_Wiz_MsgMultipleTemplates	さたにあ式タバコが複数入っています。1つにしてください。	Multiple Satania Tabako instances were found. Keep only one.	さたにあ式タバコ가 여러 개 있습니다. 하나만 남겨 주세요.
+t_Wiz_MsgFewFingerBones	指ボーンが足りないため、自動推定の精度が落ちます。	Some finger bones are missing, so auto estimation will be less accurate.	손가락 본이 부족하여 자동 추정 정확도가 떨어집니다.
+t_Wiz_MsgConstraintsOff	VRC Constraint の Edit Mode 実行が無効です (VRChat SDK → Settings)。追従が反映されない場合は有効にしてください。	VRC Constraints are not executed in Edit Mode (VRChat SDK → Settings). Enable it if objects do not follow.	VRC Constraint의 에디트 모드 실행이 꺼져 있습니다 (VRChat SDK → Settings). 추적되지 않으면 켜 주세요.
+t_Wiz_Estimate	自動推定	Auto Estimate	자동 추정
+t_Wiz_EstimateAll	全ての位置を自動推定	Auto-estimate all positions	모든 위치 자동 추정
+t_Wiz_EstimateEverything	全ての位置を自動推定 (コンタクト / ケース / タバコ / ライター)	Auto-estimate everything (contacts / case / cigarette / lighter)	모든 위치 자동 추정 (컨택트 / 케이스 / 담배 / 라이터)
+t_Wiz_EstimateEverythingNote	コンタクト・ケース・タバコ・ライターの位置と大きさをまとめて推定します。各タブで個別にやり直せます。	Estimates the positions and sizes of the contacts, case, cigarette and lighter at once. Each tab can redo its own part.	컨택트·케이스·담배·라이터의 위치와 크기를 한 번에 추정합니다. 각 탭에서 개별적으로 다시 할 수 있습니다.
+t_Wiz_TransformsNote	付け先のボーン ({0}) を基準にした位置と回転です。ポーズを変えても値は変わりません。	Position and rotation relative to the attached bone ({0}). The values do not change with the preview pose.	부착 대상 본({0}) 기준의 위치와 회전입니다. 프리뷰 포즈가 바뀌어도 값은 변하지 않습니다.
+t_Wiz_Select	選択	Select	선택
+t_Wiz_ShowGesture	ジェスチャーを表示	Show Gesture	제스처 표시
+t_Wiz_Gesture	ジェスチャー	Gesture	제스처
+t_Wiz_GestureClip	置き換えるモーション	Replacement Motion	교체할 모션
+t_Wiz_GestureDefaultNote	既定のジェスチャーを使っています	Using the default gesture	기본 제스처를 사용 중입니다
+t_Wiz_GestureEdited	編集したジェスチャーを表示しています。保存時に .anim として書き出し、置き換えに設定します。	Showing the edited gesture. On save it is written as an .anim and set as the replacement.	편집한 제스처를 표시 중입니다. 저장 시 .anim으로 내보내고 교체 모션으로 설정합니다.
+t_Wiz_GestureEdit	編集する	Edit	편집
+t_Wiz_GestureReset	既定に戻す	Reset to Default	기본값으로
+t_Wiz_GestureHint	ビューポートで指の関節をクリックして選び、リングをドラッグして曲げ (青) / 開き (緑) を調整します (-1 〜 1)。	Click a finger joint in the viewport, then drag the rings to adjust stretch (blue) / spread (green) from -1 to 1.	뷰포트에서 손가락 관절을 클릭해 선택하고, 링을 드래그해 굽힘(파랑) / 벌림(초록)을 -1 ~ 1 사이로 조정합니다.
+t_Wiz_GestureJoint	選択中の関節	Selected Joint	선택한 관절
+t_Wiz_GestureStretch	曲げ (Stretched)	Stretched	굽힘 (Stretched)
+t_Wiz_GestureSpread	開き (Spread)	Spread	벌림 (Spread)
+t_Wiz_MsgGestureOutside	テンプレートの外 (アバター側) に同じ種類の IOverrideHandGesture があります。ビルドではそちらが優先されます。	An IOverrideHandGesture of the same kind exists outside the template (on the avatar). It takes priority at build time.	템플릿 밖(아바타 쪽)에 같은 종류의 IOverrideHandGesture가 있습니다. 빌드 시 그쪽이 우선됩니다.
+t_Wiz_MsgGestureSaved	ジェスチャーのアニメーションを保存しました:	Saved gesture animation(s):	제스처 애니메이션을 저장했습니다:
+t_Wiz_EmbedGestureClips	サブアセットとして AnimationClip を保存	Save AnimationClips as sub-assets	AnimationClip을 서브 에셋으로 저장
+t_Wiz_EmbedGestureClipsNote	編集したジェスチャーの AnimationClip を Prefab の中に入れます (hands_case など)。アセット化せずにアバターへ入れた場合は .anim ファイルになります。	Edited gesture AnimationClips are stored inside the prefab (hands_case etc.). When inserting without saving an asset, they are written as .anim files instead.	편집한 제스처의 AnimationClip을 프리팹 안에 넣습니다 (hands_case 등). 에셋으로 저장하지 않고 아바타에 넣는 경우에는 .anim 파일로 저장됩니다.
+t_Wiz_GestureFileNote	編集したジェスチャーの AnimationClip を Prefab と同じフォルダに .anim ファイルとして保存します (hands_case_プレハブ名.anim)。	Edited gesture AnimationClips are saved as .anim files next to the prefab (hands_case_<prefab>.anim).	편집한 제스처의 AnimationClip을 프리팹과 같은 폴더에 .anim 파일로 저장합니다 (hands_case_프리팹명.anim).
+t_Wiz_HideOthers	他のオブジェクトを隠す	Hide Other Objects	다른 오브젝트 숨기기
+t_Wiz_MirrorBoth	両手に適用	Apply to Both Hands	양손에 적용
+t_Wiz_MirrorBothTip	片方の位置・回転を動かすと、もう片方へ左右反転して適用します	Moving or rotating one hand mirrors the change to the other hand	한쪽의 위치·회전을 움직이면 다른 쪽에 좌우 반전하여 적용합니다
+t_Wiz_MirrorBothContactsTip	片方の手のセンダーやポケットを動かすと、もう片方へ左右対称に適用します (センダーは手のひら基準、ポケットはアバターの中心で反転)	Moving one hand's sender or pocket applies the mirrored change to the other hand (senders relative to the palm, pockets across the avatar's center)	한쪽 손의 센더나 포켓을 움직이면 다른 손에도 좌우 대칭으로 적용합니다 (센더는 손바닥 기준, 포켓은 아바타 중심에서 반전)
+t_Wiz_CopyRightToLeft	右手 → 左手 コピー	Copy Right → Left	오른손 → 왼손 복사
+t_Wiz_CopyLeftToRight	左手 → 右手 コピー	Copy Left → Right	왼손 → 오른손 복사
+t_Wiz_CopyHandTip	片方の手の位置・回転を左右反転してもう片方の手へ写します。「両手に適用」を切ったまま片手だけ調整した時に。Ctrl+Z で戻せます	Mirrors one hand's position and rotation onto the other hand. For when you adjusted only one hand with "Apply to Both Hands" off. Undo with Ctrl+Z.	한쪽 손의 위치·회전을 좌우 반전하여 다른 손에 복사합니다. "양손에 적용"을 끈 채 한쪽만 조정했을 때 사용합니다. Ctrl+Z로 되돌릴 수 있습니다.
+t_Wiz_MirrorGesture	もう片方の手にも反映	Apply to Other Hand	다른 손에도 반영
+t_Wiz_MirrorGestureTip	片手の関節を動かすと、もう片方の手の同じ関節にも同じ値を入れます	Editing a joint on one hand sets the same value on the same joint of the other hand	한 손의 관절을 움직이면 다른 손의 같은 관절에도 같은 값을 넣습니다
+t_Wiz_Scale	大きさ	Scale	크기
+t_Wiz_Pocket	ポケット	Pocket	포켓
+t_Wiz_HandContacts	両手のコンタクト	Hand Contacts	양손 컨택트
+t_Wiz_LegendSender	手のセンダー: 手をポケットに入れた時に反応する範囲	Hand sender: the range that reacts when the hand reaches a pocket	손 센더: 손을 포켓에 넣었을 때 반응하는 범위
+t_Wiz_LegendPocket	ポケット: ケースをしまう / 取り出す位置	Pocket: where the case is stored and taken out	포켓: 케이스를 넣고 꺼내는 위치
+t_Wiz_LegendMouth	口: タバコを咥える位置の基準	Mouth: reference point for holding the cigarette	입: 담배를 무는 기준 위치
+t_Wiz_MouthContact	口のコンタクト	Mouth Contact	입 컨택트
+t_Wiz_CopyToReceivers	ケースレシーバーへコピー	Copy to Case Receivers	케이스 리시버에 복사
+t_Wiz_SyncReceivers	ケースレシーバーに同期する	Sync Case Receivers	케이스 리시버에 동기화
+t_Wiz_EditHandles	Scene View のハンドルで編集	Edit with Scene View Handles	씬 뷰 핸들로 편집
+t_Wiz_Radius	半径	Radius	반지름
+t_Wiz_Height	高さ	Height	높이
+t_Wiz_HeadPosition	口に咥える位置	In-Mouth Position	입에 무는 위치
+t_Wiz_HandPosition	右手の位置	Right Hand Position	오른손 위치
+t_Wiz_PrefabName	プレハブ名	Prefab Name	프리팹 이름
+t_Wiz_AvatarNames	検索用アバター名 (カンマ区切り)	Avatar Names for Search (comma separated)	검색용 아바타 이름 (쉼표 구분)
+t_Wiz_ShopName	ショップ名	Shop Name	샵 이름
+t_Wiz_AvatarURL	アバターの URL	Avatar URL	아바타 URL
+t_Wiz_SaveNewVariant	新しい Prefab Variant として保存	Save as New Prefab Variant	새 프리팹 배리언트로 저장
+t_Wiz_ApplyOverrides	既存の Variant に反映 (Apply)	Apply to Existing Variant	기존 배리언트에 적용
+t_Wiz_MsgVendorVariant	同梱のプレハブです。反映すると次回のパッケージ更新で上書きされます。別名で保存することをおすすめします。	This is a bundled prefab. Applied changes will be overwritten by the next package update. Saving as a new Variant is recommended.	동봉된 프리팹입니다. 적용하면 다음 패키지 업데이트에서 덮어써집니다. 다른 이름으로 저장하는 것을 권장합니다.
+t_Wiz_MsgSaved	保存しました。	Saved.	저장했습니다.
+t_Wiz_MsgCannotSave	保存できません	Cannot save	저장할 수 없습니다
+t_Wiz_Desc_Setup	対象のアバターを選ぶと、プレビュー用のコピーにテンプレートが入ります。	Select the target avatar; the template is added to a preview copy.	대상 아바타를 선택하면 미리보기용 복사본에 템플릿이 들어갑니다.
+t_Wiz_Desc_Contacts	ポケット・両手・口のコンタクトの位置と大きさを調整します。	Adjust the pocket, hand and mouth contacts.	포켓, 양손, 입 컨택트의 위치와 크기를 조정합니다.
+t_Wiz_Desc_Case	ケースを持つ位置と回転を調整します。	Adjust the position and rotation of the held case.	케이스를 쥐는 위치와 회전을 조정합니다.
+t_Wiz_Desc_Cigarette	口に咥える位置と、右手で持つ位置を調整します。	Adjust the in-mouth position and the right-hand position.	입에 무는 위치와 오른손으로 쥐는 위치를 조정합니다.
+t_Wiz_Desc_Lighter	ライターを持つ位置と回転を調整します。	Adjust the position and rotation of the held lighter.	라이터를 쥐는 위치와 회전을 조정합니다.
+t_Wiz_Desc_Save	名前を付けて Prefab Variant として保存し、アバターに入れます。	Name it, save it as a Prefab Variant and add it to the avatar.	이름을 붙여 프리팹 배리언트로 저장하고 아바타에 넣습니다.
+t_Wiz_HoldOffset	指先方向のずらし (mm)	Along-finger offset (mm)	손가락 끝 방향 오프셋 (mm)
+t_Wiz_Tool_Move	移動	Move	이동
+t_Wiz_Tool_Rotate	回転	Rotate	회전
+t_Wiz_HandleTarget	操作対象	Handle Target	조작 대상
+t_Wiz_View_Fit	全体	Fit	전체
+t_Wiz_View_Front	正面	Front	정면
+t_Wiz_View_Hips	腰	Hips	허리
+t_Wiz_View_RightHand	右手	Right Hand	오른손
+t_Wiz_View_LeftHand	左手	Left Hand	왼손
+t_Wiz_View_Mouth	口元	Mouth	입가
+t_Wiz_ShowGizmos	VRC のギズモを表示	Show VRC Gizmos	VRC 기즈모 표시
+t_Wiz_MsgPreviewNote	編集はプレビュー内のコピーに対して行い、保存するまでアバター本体には触りません。	Edits are made on a preview copy; the avatar itself is not touched until you save.	편집은 미리보기 복사본에 대해 이루어지며, 저장할 때까지 아바타 본체는 건드리지 않습니다.
+t_Wiz_MsgPreviewReset	スクリプトの再読み込みか Play モードでプレビューを終了しました。もう一度調整してください。	The preview was closed by a script reload or Play Mode. Please adjust again.	스크립트 재로드 또는 플레이 모드로 미리보기를 종료했습니다. 다시 조정해 주세요.
+t_Wiz_MsgTargetNotAvatar	VRC Avatar Descriptor の付いたアバター (シーン上のオブジェクトか Prefab) を指定してください。	Specify an avatar with a VRC Avatar Descriptor (a scene object or a prefab).	VRC Avatar Descriptor가 있는 아바타 (씬 오브젝트 또는 프리팹)를 지정하세요.
+t_Wiz_MsgAssetTarget	Prefab アセットが対象なので、保存のみ行います (シーンには配置しません)。	The target is a prefab asset, so the result is only saved (not placed in the scene).	대상이 프리팹 에셋이므로 저장만 합니다 (씬에는 배치하지 않습니다).
+t_Wiz_MsgTemplateAdded	テンプレートが入っていなかったので、プレビューに追加しました。	The template was not present, so it was added to the preview.	템플릿이 없어서 미리보기에 추가했습니다.
+t_Wiz_MsgNewVariant	保存時に新しい Prefab Variant を作成します。	A new Prefab Variant will be created when saving.	저장 시 새 프리팹 배리언트를 만듭니다.
+t_Wiz_MsgUpdateVariant	保存時に既存の Prefab Variant を更新します。	The existing Prefab Variant will be updated when saving.	저장 시 기존 프리팹 배리언트를 업데이트합니다.
+t_Wiz_SaveAndInsert	保存してアバターに入れる	Save and Add to Avatar	저장하고 아바타에 넣기
+t_Wiz_SaveOnly	保存	Save	저장
+t_Wiz_MsgSavedAndInserted	保存してアバターに入れました。	Saved and added to the avatar.	저장하고 아바타에 넣었습니다.
+t_Wiz_MsgInsertedNotSaved	アバターに入れましたが、Prefab Variant としては保存していません。後で Hierarchy から Prefab として保存できます。	Added to the avatar, but not saved as a Prefab Variant. You can save it as a prefab from the Hierarchy later.	아바타에 넣었지만 프리팹 배리언트로는 저장하지 않았습니다. 나중에 하이어라키에서 프리팹으로 저장할 수 있습니다.
+t_Wiz_MsgApplied	既存の Prefab Variant に反映しました。	Applied to the existing Prefab Variant.	기존 프리팹 배리언트에 반영했습니다.
+t_Wiz_MsgNotSaved	保存をキャンセルしました。	Saving was cancelled.	저장을 취소했습니다.
+t_Wiz_MsgReplacedOld	元のテンプレートを置き換えました。	The previous template was replaced.	이전 템플릿을 교체했습니다.
+t_Wiz_MsgSessionError	プレビューを作成できませんでした:	Could not create the preview:	미리보기를 만들 수 없습니다:
+t_Wiz_Result	結果	Result	결과
+t_Wiz_AdjustAgain	もう一度調整する	Adjust Again	다시 조정하기
+t_Wiz_TemplateField	さたにあ式タバコのプレハブ	Satania Tabako Prefab	さたにあ式タバコ 프리팹
+t_Wiz_MsgTemplateReplaced	さたにあ式タバコのプレハブを「{0}」に置き換えて、ツールに反映しました。\nケース・タバコ・ライター・コンタクトの位置とジェスチャーはこのプレハブの内容になります (元に戻す (Undo) はできません)。	The Satania Tabako prefab was replaced with "{0}" and applied to the tool.\nThe case / cigarette / lighter / contact positions and gestures now come from this prefab (this cannot be undone).	さたにあ式タバコ 프리팹을 "{0}"(으)로 교체하여 툴에 반영했습니다.\n케이스・담배・라이터・컨택트의 위치와 제스처는 이 프리팹의 내용이 됩니다 (되돌리기(Undo)는 할 수 없습니다).
+t_Wiz_MsgTemplateInvalid	さたにあ式タバコのプレハブ (TabakoScriptBehaviour を 1 つ持つ Prefab アセット) を指定してください。	Please assign a Satania Tabako prefab asset (a prefab with exactly one TabakoScriptBehaviour).	さたにあ式タバコ 프리팹 (TabakoScriptBehaviour가 하나 있는 프리팹 에셋)을 지정해 주세요.
+t_Wiz_MsgTemplateReplaceFailed	プレハブを置き換えられませんでした: {0}	Could not replace the prefab: {0}	프리팹을 교체할 수 없습니다: {0}
+t_Wiz_Help_Orbit	右ドラッグ / Alt+左ドラッグ: 回転	Right drag / Alt+left drag: Orbit	오른쪽 드래그 / Alt+왼쪽 드래그: 회전
+t_Wiz_Help_Pan	中ドラッグ: 移動	Middle drag: Pan	가운데 드래그: 이동
+t_Wiz_Help_Zoom	ホイール: ズーム	Wheel: Zoom	휠: 줌
+t_Wiz_Help_Frame	F: 対象を映す	F: Frame target	F: 대상 보기
+t_Wiz_Help_Tool	W / E: 移動 / 回転	W / E: Move / Rotate	W / E: 이동 / 회전
+t_Wiz_Help_MeshSelect	クリック: メッシュ / コンタクトを選択 (ケース / タバコ / ライターはそのタブへ)	Click: Select mesh / contact (case / cigarette / lighter opens its tab)	클릭: 메시 / 컨택트 선택 (케이스 / 담배 / 라이터는 해당 탭으로)
+t_Wiz_Help_MeshHide	H: 選択したメッシュを非表示	H: Hide selected mesh	H: 선택한 메시 숨기기
+t_Wiz_Help_MeshShowAll	Alt+H: 非表示のメッシュを全て表示	Alt+H: Show all hidden meshes	Alt+H: 숨긴 메시 모두 표시
+t_Wiz_Help_MeshHidden	非表示のメッシュ: {0}	Hidden meshes: {0}	숨긴 메시: {0}
+t_Wiz_MeshSelectToggle	メッシュの選択: カーソルを合わせたメッシュを強調し、クリックで選択、H で非表示にできます	Mesh selection: highlights the mesh under the cursor; click to select, H to hide	메시 선택: 커서 아래의 메시를 강조하고, 클릭으로 선택, H로 숨길 수 있습니다
+t_OldScript_Notice	このコンポーネントは過去バージョンのさたにあ式タバコのものです。現在のバージョンでは使われません。\n「プレハブ変換ツール」で現在のプレハブへ移行してください。	This component belongs to an old version of Satania Tabako and is not used by the current version.\nUse the Prefab Converter to migrate to the current prefab.	이 컴포넌트는 이전 버전의 さたにあ式タバコ의 것으로, 현재 버전에서는 사용되지 않습니다.\n"프리팹 변환 도구"로 현재 프리팹으로 이전해 주세요.
+t_OldScript_OpenUpdater	プレハブ変換ツールを開く	Open Prefab Converter	프리팹 변환 도구 열기
+t_Wiz_AdvancedMode	上級者モード	Advanced Mode	고급 모드
+t_Wiz_AdvancedModeTip	配布用の設定 (検索用アバター名・ショップ名・アバターの URL) の編集と、別のプレハブから値をコピーする欄を表示します	Shows the distribution settings (avatar names for search, shop name, avatar URL) on the Save step and the section that copies values from another prefab	배포용 설정 (검색용 아바타 이름・샵 이름・아바타 URL)의 편집과, 다른 프리팹에서 값을 복사하는 항목을 표시합니다
+t_Wiz_PacingHint	※カクカクする場合はUnityのウィンドウを一度クリックしてみてください。	* If the view stutters, click the main Unity window once.	※ 화면이 끊기면 Unity 창을 한 번 클릭해 보세요.
+t_Wiz_SaveFieldsHidden	検索用アバター名・ショップ名・アバターの URL はテンプレートの値のまま保存します。変更するには準備タブで「上級者モード」を ON にしてください。	The avatar names for search, shop name and avatar URL are saved as they are in the template. Turn on "Advanced Mode" on the Setup step to edit them.	검색용 아바타 이름・샵 이름・아바타 URL은 템플릿의 값 그대로 저장됩니다. 변경하려면 준비 탭에서 "고급 모드"를 켜 주세요.
+t_Wiz_CopyValues	別のプレハブから値をコピー	Copy Values from Another Prefab	다른 프리팹에서 값 복사
+t_Wiz_CopyValuesNote	調整済みのプレハブ (同じアバターの古い Variant など) から、位置・形・大きさだけを今のテンプレートへ写します。プレハブ自体は置き換えません。	Copies only positions, shapes and scales from an already adjusted prefab (such as an older Variant for the same avatar) into the current template. The prefab itself is not replaced.	이미 조정된 프리팹 (같은 아바타의 이전 Variant 등)에서 위치・형태・크기만 현재 템플릿으로 복사합니다. 프리팹 자체는 교체하지 않습니다.
+t_Wiz_CopyValuesSource	コピー元	Source	복사 원본
+t_Wiz_CopyTargets	追従先の位置・回転	Follow target positions and rotations	추종 대상의 위치・회전
+t_Wiz_CopyContacts	コンタクトの位置と形	Contact positions and shapes	컨택트의 위치와 형태
+t_Wiz_CopyScales	大きさ	Scales	크기
+t_Wiz_CopyGestures	ジェスチャーの上書き	Gesture overrides	제스처 오버라이드
+t_Wiz_CopySearcherInfo	検索用の情報 (アバター名・ショップ名・URL)	Search info (avatar names, shop name, URL)	검색용 정보 (아바타 이름・샵 이름・URL)
+t_Wiz_CopyValuesButton	値をコピー	Copy Values	값 복사
+t_Wiz_MsgCopyValuesDone	「{0}」から値をコピーしました。\n追従先 {1} / コンタクト {2} / 大きさ {3} / ジェスチャー {4}\nCtrl+Z で戻せます。	Copied values from "{0}".\nFollow targets {1} / contacts {2} / scales {3} / gestures {4}\nUndo with Ctrl+Z.	"{0}"에서 값을 복사했습니다.\n추종 대상 {1} / 컨택트 {2} / 크기 {3} / 제스처 {4}\nCtrl+Z로 되돌릴 수 있습니다.
+t_Wiz_MsgCopyValuesRootSpace	コピー元のアバターのボーンが分からなかったので、テンプレートの原点基準で写しました。アバターが違う場合は位置を確認してください。	The source avatar's bones could not be resolved, so the values were copied relative to the template root. Check the positions if the avatars differ.	원본 아바타의 본을 알 수 없어 템플릿 원점 기준으로 복사했습니다. 아바타가 다르면 위치를 확인해 주세요.
+t_Wiz_MsgCopyValuesSame	コピー元が今のテンプレートと同じです。	The source is the current template itself.	원본이 현재 템플릿과 같습니다.
+t_Wiz_MsgCopyValuesInvalid	さたにあ式タバコのプレハブ (またはシーン上のインスタンス) をコピー元に指定してください。	Please set a Satania Tabako prefab (or a scene instance) as the source.	さたにあ式タバコ 프리팹 (또는 씬의 인스턴스)을 원본으로 지정해 주세요.
+t_CBA_AdditiveMotion	加算するモーション	Additive Motion	추가할 모션
+t_CBA_EmissionTarget	エミッションの種類	Emission Type	에미션 종류
+t_CBA_EmissionProperty	マテリアルのプロパティ名	Material Property	머티리얼 프로퍼티
+t_CBA_EmissionPoiyomiNote	Poiyomi はシェーダーをロックする前に、このプロパティを Animated にしてください。ロック後はアニメーションが効きません。	For Poiyomi, mark this property as Animated before locking the shader. Locked shaders ignore the animation.	Poiyomi는 셰이더를 잠그기 전에 이 프로퍼티를 Animated로 설정하세요. 잠근 뒤에는 애니메이션이 적용되지 않습니다.
+t_CBA_OffEmissiveColor	消灯時のエミッション色	Emission Color (OFF)	꺼짐 상태의 에미션 색
+t_CBA_OnEmissiveColor	点灯時のエミッション色	Emission Color (ON)	켜짐 상태의 에미션 색
+t_CBA_EmissiveOnLength	点灯アニメーションの長さ (秒)	Emission ON Clip Length (s)	켜짐 애니메이션 길이 (초)
+t_CBA_LighterOnShapeKey	ライター点火のシェイプキー	Lighter ON Shape Key	라이터 점화 셰이프 키
+t_CBA_LighterMeshRenderer	ライターのメッシュ	Lighter Mesh Renderer	라이터 메시
+t_CBA_LighterFire	ライターの火	Lighter Flame	라이터 불꽃
+t_CBA_FireParticlePosition	火の位置 (Transform)	Flame Position (Transform)	불꽃 위치 (Transform)
+t_CBA_FireParticlePositionPairs	火の位置 (加算キー)	Flame Position (Additive Keys)	불꽃 위치 (가산 키)
+t_CBA_Light	ライト	Light	라이트
+t_CBA_FireLight	火のライト	Flame Light	불꽃 라이트
+t_CBA_LightIntensityPairs	ライトの強さ (加算キー)	Light Intensity (Additive Keys)	라이트 강도 (가산 키)
+t_CBA_LightRangePairs	ライトの範囲 (加算キー)	Light Range (Additive Keys)	라이트 범위 (가산 키)
+t_CBA_Objects	オブジェクト	Objects	오브젝트
+t_CBA_VRCLighter	火のコンタクト判定	Flame Contact	불꽃 콘택트
+t_CBA_VRCFire	火のコンタクト判定 (VRC Fire)	Flame Contact (VRC Fire)	불꽃 콘택트 (VRC Fire)
+t_CBA_FireParticle	ライターの炎	Lighter Flame Particle	라이터 불꽃 파티클
+t_CBA_LightSound	ライターの音	Lighter Sound	라이터 소리
+t_CBA_LighterSpark	ライターの火花	Lighter Spark	라이터 불티
+t_Version_Created	対応時のバージョン	Created with	작성 버전
+t_Version_LastSaved	最終保存のバージョン	Last saved with	마지막 저장 버전
+t_Version_Unknown	不明	Unknown	알 수 없음
+t_MsgOpenWizardHint	アバターにさたにあ式タバコを対応するには、「非対応アバターに対応するツール」を使用できます。\n位置を調整したい場合は "ツールを開く" を押してください。	To set up Satania Tabako for this avatar, you can use the unsupported-avatar tool.\nPress "Open the Tool" if you want to adjust the positions.	아바타에 사타니아식 타바코를 대응시키려면 비대응 아바타 대응 도구를 사용할 수 있습니다.\n위치를 조정하려면 "도구 열기"를 누르세요.
+t_OpenWizard	対応ツールを開く	Open the Tool	도구 열기
+t_OpenAdjustTool	位置調整ツールを開く	Open the Position Adjustment Tool	위치 조정 도구 열기
+t_MsgAdjustToolNeedsAvatar	このオブジェクトを VRC Avatar Descriptor の付いたアバターの中に入れると使用できます。	To use this tool, place this object inside an avatar with a VRC Avatar Descriptor.	이 오브젝트를 VRC Avatar Descriptor가 있는 아바타 안에 넣으면 사용할 수 있습니다.
+t_Wiz_MsgMergeArmatureNotLocked	MA Merge Armature の衣装にボーンの同期 (Lock Mode) が無いため、プレビューで指のポーズに付いてきません。ボタンでプレビューのコピーだけ同期を入れます (元のアバターは変えません)。	A Merge Armature outfit has no bone lock, so it will not follow the finger pose in the preview. The button enables the lock on the preview copy only (your avatar is not changed).	MA Merge Armature 의상에 본 동기화(Lock Mode)가 없어 미리보기에서 손가락 포즈를 따라오지 않습니다. 버튼으로 미리보기 복사본에만 동기화를 켭니다 (원본 아바타는 바뀌지 않습니다).
+t_Wiz_SyncMergeArmaturePreview	プレビューで同期する	Sync in Preview	미리보기에서 동기화
+t_Wiz_MsgBoneSyncOff	Modular Avatar の「Sync Bones in Edit Mode」が OFF のため、Merge Armature の衣装がプレビューで指のポーズに付いてきません。	"Sync Bones in Edit Mode" of Modular Avatar is off, so Merge Armature outfits will not follow the finger pose in the preview.	Modular Avatar의 "Sync Bones in Edit Mode"가 꺼져 있어 Merge Armature 의상이 미리보기에서 손가락 포즈를 따라오지 않습니다.
+t_Wiz_EnableBoneSync	Sync Bones in Edit Mode を ON にする	Turn on Sync Bones in Edit Mode	Sync Bones in Edit Mode 켜기
+t_MAL_LayerType	対象のアニメーターレイヤー	Animator Layer Type	대상 애니메이터 레이어
+t_MAL_LayerName	レイヤー名	Layer Name	레이어 이름
+t_MAL_PickLayer	一覧から選ぶ	Pick	목록에서 선택
+t_MAL_Action	変更内容	Action	변경 내용
+t_MAL_ActionRemove	レイヤーを削除する	Remove the layer	레이어 삭제
+t_MAL_ActionWeightZero	ウェイトを 0 にする	Set weight to 0	웨이트를 0으로
+t_MAL_ExpectedStates	照合するステート名	Expected State Names	확인할 스테이트 이름
+t_MAL_StrictCount	ステート数も一致させる	Require the same state count	스테이트 수도 일치시키기
+t_MAL_Capture	今のレイヤーからステート名を取り込む	Read state names from the current layer	현재 레이어에서 스테이트 이름 가져오기
+t_MAL_MsgNoAvatar	アバターの中に入れると、レイヤーの確認とステート名の取り込みができます。	Place this inside an avatar to check the layer and read its state names.	아바타 안에 넣으면 레이어 확인과 스테이트 이름 가져오기를 할 수 있습니다.
+t_MAL_MsgNoController	この種類のアニメーターコントローラーがアバターに設定されていません。	The avatar has no controller of this layer type.	아바타에 이 종류의 애니메이터 컨트롤러가 설정되어 있지 않습니다.
+t_MAL_MsgLayerNotFound	この名前のレイヤーがありません。ビルド時は何もしません。	No layer has this name. Nothing will be changed at build.	이 이름의 레이어가 없습니다. 빌드 시 아무것도 하지 않습니다.
+t_MAL_MsgMatch	照合 OK (ステート {0} 個)。ビルド時にこのレイヤーを変更します。	Match OK ({0} states). The layer will be changed at build.	확인 OK (스테이트 {0}개). 빌드 시 이 레이어를 변경합니다.
+t_MAL_MsgMismatch	照合に失敗するため、ビルド時は何もしません: {0}	The check fails, so nothing will be changed at build: {0}	확인에 실패하므로 빌드 시 아무것도 하지 않습니다: {0}
+t_MAL_MsgNoCheck	照合するステート名が空です。レイヤー名だけで特定します (別のアバターの同名レイヤーも変更されます)。	No expected state names. The layer is matched by name only (a same-named layer on another avatar is changed too).	확인할 스테이트 이름이 비어 있습니다. 레이어 이름만으로 찾습니다 (다른 아바타의 같은 이름 레이어도 변경됩니다).
+t_MAL_MsgRemoveNote	削除するとそれより後ろのレイヤー番号がずれます。VRC Animator Layer Control を使うアバターでは「ウェイトを 0 にする」を使ってください。	Removing shifts the indices of the later layers. Use "Set weight to 0" for avatars that use VRC Animator Layer Control.	삭제하면 뒤쪽 레이어 번호가 밀립니다. VRC Animator Layer Control을 쓰는 아바타에서는 "웨이트를 0으로"를 사용하세요.
+t_Romaji_Title	アバター名のローマ字読み	Romaji Reading of Avatar Name	아바타 이름 로마자 읽기
+t_Romaji_Input	アバター名	Avatar Name	아바타 이름
+t_Romaji_ReadKanji	辞書で読みを取る	Read with Dictionary	사전으로 읽기 가져오기
+t_Romaji_Kana	読み (かな)	Reading (Kana)	읽기 (가나)
+t_Romaji_Generate	ローマ字を生成	Generate Romaji	로마자 생성
+t_Romaji_Copy	コピー	Copy	복사
+t_Romaji_Add	追加	Add	추가
+t_Romaji_CopyAll	全部コピー (カンマ区切り)	Copy All (comma separated)	전부 복사 (쉼표 구분)
+t_Romaji_MsgNoDictionary	漢字の読みを取るには、NMeCab の DLL と IPADIC 辞書 (sys.dic のあるフォルダ) をプロジェクトに入れてください。無い場合は読みをかなで入力します。	To read kanji, put the NMeCab DLL and the IPADIC dictionary folder (with sys.dic) in the project. Otherwise type the reading in kana.	한자 읽기를 가져오려면 NMeCab DLL과 IPADIC 사전 폴더(sys.dic 포함)를 프로젝트에 넣으세요. 없으면 읽기를 가나로 입력합니다.
+t_Romaji_Dictionary	辞書フォルダ	Dictionary Folder	사전 폴더
+t_Romaji_PickFolder	選ぶ	Browse	선택
+t_Romaji_AutoDetect	自動検出	Auto Detect	자동 감지
+t_Romaji_MsgNoKana	読みが空です。かなで入力してください。	The reading is empty. Type it in kana.	읽기가 비어 있습니다. 가나로 입력하세요.
+t_Romaji_Open	ローマ字	Romaji	로마자
+t_Romaji_Results	候補 ({0} 件)	Candidates ({0})	후보 ({0}개)
+t_Romaji_MsgReadFailed	読みを取れませんでした: {0}	Could not read the name: {0}	읽기를 가져오지 못했습니다: {0}
+t_MAL_MsgFirstLayerWeight	最初のレイヤーは Unity がウェイトを常に 1 として扱うため、0 にできません。「レイヤーを削除する」を使ってください。	The first layer's weight is always treated as 1 by Unity, so it cannot be set to 0. Use "Remove the layer" instead.	첫 번째 레이어는 Unity가 웨이트를 항상 1로 취급하므로 0으로 할 수 없습니다. "레이어 삭제"를 사용하세요.
+t_Romaji_MsgNotDicDir	sys.dic が無いフォルダです。IPADIC 辞書のフォルダを選んでください。	This folder has no sys.dic. Pick the IPADIC dictionary folder.	sys.dic가 없는 폴더입니다. IPADIC 사전 폴더를 선택하세요.
+t_CBA_EmissionType_lilToon1st	lilToon 1st Emission (_EmissionColor)	lilToon 1st Emission (_EmissionColor)	lilToon 1st Emission (_EmissionColor)
+t_CBA_EmissionType_lilToon2nd	lilToon 2nd Emission (_Emission2ndColor)	lilToon 2nd Emission (_Emission2ndColor)	lilToon 2nd Emission (_Emission2ndColor)
+t_CBA_EmissionType_poiyomi	Poiyomi (_EmissionColor)	Poiyomi (_EmissionColor)	Poiyomi (_EmissionColor)
+t_CBA_EmissionType_custom	その他 (プロパティ名を指定)	Other (specify the property)	기타 (프로퍼티 이름 지정)

@@ -1004,6 +1004,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 407638037385996344}
+    - targetCorrespondingSourceObject: {fileID: 2460193994890538296, guid: 9e34634a453bd584fb1e143ad8e0e622,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6580948290821531895}
   m_SourcePrefab: {fileID: 100100000, guid: 9e34634a453bd584fb1e143ad8e0e622, type: 3}
 --- !u!1 &3476491673829859798 stripped
 GameObject:
@@ -1065,3 +1069,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   overrideMotion: 3
   customMotion: {fileID: 7400000, guid: 8ce1936111172de4ea080db5d346b0a5, type: 2}
+--- !u!1 &9196669609162572265 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2460193994890538296, guid: 9e34634a453bd584fb1e143ad8e0e622,
+    type: 3}
+  m_PrefabInstance: {fileID: 6738932260579044561}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6580948290821531895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9196669609162572265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c464f2c6e14cdb340b308b3513310fb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bones:
+  - bone: 18
+    position: {x: 0.12305728, y: 0.20308776, z: -0.007416293}
+    rotation: {x: -0.4999999, y: -0.5, z: -0.5000001, w: 0.5}
+    scale: {x: 1.334224, y: 1.3342241, z: 1.3342241}
+  - bone: 17
+    position: {x: -0.12305733, y: 0.20308778, z: -0.0074163526}
+    rotation: {x: -0.5000001, y: 0.49999982, z: 0.50000006, w: 0.5000001}
+    scale: {x: 1.3342241, y: 1.3342243, z: 1.3342242}
+  - bone: 10
+    position: {x: -0.00009355624, y: 0.23430444, z: -0.0129553825}
+    rotation: {x: 0, y: 0.0000004865092, z: 0.0000004865091, w: 1}
+    scale: {x: 1.3342243, y: 1.3342241, z: 1.3342241}
+  - bone: 0
+    position: {x: -0.00009356774, y: 0.1328407, z: 0.0000003874302}
+    rotation: {x: 0, y: 0, z: 0, w: 1}
+    scale: {x: 1.3342243, y: 1.3342241, z: 1.3342241}

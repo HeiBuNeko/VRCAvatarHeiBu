@@ -85,10 +85,10 @@ namespace net.satania_shopping.tabakosystem.runtime
                 case eTargets.Tabako_Mouth:
                     return GetSourceTransform(tabakoScriptBehaviour.PC_Tabako, 2);
 
-                case eTargets.Lighter_L:
+                case eTargets.Lighter_R:
                     return GetSourceTransform(tabakoScriptBehaviour.PC_Lighter, 0);
 
-                case eTargets.Lighter_R:
+                case eTargets.Lighter_L:
                     return GetSourceTransform(tabakoScriptBehaviour.PC_Lighter, 1);
 
                 case eTargets.Contact_Mouth:

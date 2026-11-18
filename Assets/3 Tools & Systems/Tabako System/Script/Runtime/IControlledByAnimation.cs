@@ -17,7 +17,8 @@ namespace net.satania_shopping.tabakosystem.runtime
             lilToonEmission1st,
             lilToonEmission2nd,
 
-            poiyomi
+            poiyomi,
+            custom
         }
 
         /// <summary>
@@ -62,7 +63,8 @@ namespace net.satania_shopping.tabakosystem.runtime
         [SerializeField, ColorUsage(true, true)] private Color onEmissiveColor;
         [SerializeField, Range(1f, 3)] private float m_time_EmissiveON = 1f;
 
-        private eEmissionMaterialType emissiveMaterialType = eEmissionMaterialType.lilToonEmission1st;
+        [SerializeField] private eEmissionMaterialType emissiveMaterialType = eEmissionMaterialType.lilToonEmission1st;
+        [SerializeField] private string customEmissionColorProperty = "_EmissionColor";
 
         /*ライターのシェイプキー用*/
         [SerializeField] private SkinnedMeshRenderer lighterMeshRenderer;
@@ -183,6 +185,24 @@ namespace net.satania_shopping.tabakosystem.runtime
         /// 後々lilToonの1stEmisssion以外にも対応したい
         /// </summary>
         public eEmissionMaterialType EmissionMaterialType => emissiveMaterialType;
+
+        public string CustomEmissionColorProperty => customEmissionColorProperty;
+
+        public string EmissionColorProperty
+        {
+            get
+            {
+                switch (emissiveMaterialType)
+                {
+                    case eEmissionMaterialType.lilToonEmission2nd:
+                        return "_Emission2ndColor";
+                    case eEmissionMaterialType.custom:
+                        return string.IsNullOrWhiteSpace(customEmissionColorProperty) ? "_EmissionColor" : customEmissionColorProperty.Trim();
+                    default:
+                        return "_EmissionColor";
+                }
+            }
+        }
         public AdditiveMotionTarget AdditiveMotion => additiveMotion;
 
         public SkinnedMeshRenderer LighterMeshRenderer => lighterMeshRenderer;

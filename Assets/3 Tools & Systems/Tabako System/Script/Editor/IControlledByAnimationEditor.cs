@@ -43,6 +43,8 @@ namespace net.satania_shopping.tabakosystem
         private SerializedProperty offEmissiveColor;
         private SerializedProperty onEmissiveColor;
         private SerializedProperty m_time_EmissiveON;
+        private SerializedProperty emissiveMaterialType;
+        private SerializedProperty customEmissionColorProperty;
 
         private SerializedProperty lighterMeshRenderer;
         private SerializedProperty lighterONShapeName;
@@ -94,6 +96,8 @@ namespace net.satania_shopping.tabakosystem
             offEmissiveColor = serializedObject.FindProperty("offEmissiveColor");
             onEmissiveColor = serializedObject.FindProperty("onEmissiveColor");
             m_time_EmissiveON = serializedObject.FindProperty("m_time_EmissiveON");
+            emissiveMaterialType = serializedObject.FindProperty("emissiveMaterialType");
+            customEmissionColorProperty = serializedObject.FindProperty("customEmissionColorProperty");
 
             lighterMeshRenderer = serializedObject.FindProperty("lighterMeshRenderer");
             lighterONShapeName = serializedObject.FindProperty("lighterONShapeName");
@@ -147,9 +151,6 @@ namespace net.satania_shopping.tabakosystem
 
             using (new GUILayout.VerticalScope(GUI.skin.box))
             {
-                GUILayout.Label("(lilToon 1st Emission Only)", EditorStyles.boldLabel);
-                GUILayout.Space(5);
-
                 GUILayout.Label(GetGUIContent("t_Cigarette_Mesh"), EditorStyles.boldLabel);
 
                 EditorGUI.indentLevel++;
@@ -157,9 +158,26 @@ namespace net.satania_shopping.tabakosystem
 
                 GUILayout.Space(5);
 
-                EditorGUILayout.PropertyField(offEmissiveColor, GetGUIContent("OFF EmissiveColor"));
-                EditorGUILayout.PropertyField(onEmissiveColor, GetGUIContent("ON EmissiveColor"));
-                EditorGUILayout.PropertyField(m_time_EmissiveON, GetGUIContent("EmissiveON AnimationClip Length"));
+                int emissionIndex = EditorGUILayout.Popup(GetGUIContent("t_CBA_EmissionTarget"), emissiveMaterialType.enumValueIndex, new[]
+                {
+                    GetGUIContent("t_CBA_EmissionType_lilToon1st"),
+                    GetGUIContent("t_CBA_EmissionType_lilToon2nd"),
+                    GetGUIContent("t_CBA_EmissionType_poiyomi"),
+                    GetGUIContent("t_CBA_EmissionType_custom"),
+                });
+                if (emissionIndex != emissiveMaterialType.enumValueIndex)
+                    emissiveMaterialType.enumValueIndex = emissionIndex;
+                var emissionType = (IControlledByAnimation.eEmissionMaterialType)emissiveMaterialType.enumValueIndex;
+                if (emissionType == IControlledByAnimation.eEmissionMaterialType.custom)
+                    EditorGUILayout.PropertyField(customEmissionColorProperty, GetGUIContent("t_CBA_EmissionProperty"));
+                if (emissionType == IControlledByAnimation.eEmissionMaterialType.poiyomi)
+                    EditorGUILayout.HelpBox(GetText("t_CBA_EmissionPoiyomiNote"), MessageType.Info);
+
+                GUILayout.Space(5);
+
+                EditorGUILayout.PropertyField(offEmissiveColor, GetGUIContent("t_CBA_OffEmissiveColor"));
+                EditorGUILayout.PropertyField(onEmissiveColor, GetGUIContent("t_CBA_OnEmissiveColor"));
+                EditorGUILayout.PropertyField(m_time_EmissiveON, GetGUIContent("t_CBA_EmissiveOnLength"));
                 EditorGUI.indentLevel--;
             }
         }
@@ -259,15 +277,15 @@ namespace net.satania_shopping.tabakosystem
         {
             GUILayout.Space(5);
 
-            EditorGUILayout.PropertyField(additiveMotion, GetGUIContent("Additive Motion"));
+            EditorGUILayout.PropertyField(additiveMotion, GetGUIContent("t_CBA_AdditiveMotion"));
             if (script.AdditiveMotion == SataniaTabakoRequireMotion.AdditiveMotionTarget.Lighter)
             {
                 using (new GUILayout.VerticalScope(GUI.skin.box))
                 {
-                    GUILayout.Label(GetGUIContent("Lighter ON Shapekey"), EditorStyles.boldLabel);
+                    GUILayout.Label(GetGUIContent("t_CBA_LighterOnShapeKey"), EditorStyles.boldLabel);
                     EditorGUI.indentLevel++;
 
-                    EditorGUILayout.PropertyField(lighterMeshRenderer, GetGUIContent("Lighter Mesh Renderer"));
+                    EditorGUILayout.PropertyField(lighterMeshRenderer, GetGUIContent("t_CBA_LighterMeshRenderer"));
                     EditorGUILayout.PropertyField(lighterONShapeName, GetGUIContent("t_ShapeKey_Name"));
 
                     EditorGUILayout.PropertyField(lighterONShapekeyMaxValue, GetGUIContent("t_Maximum_Value"));
@@ -278,11 +296,11 @@ namespace net.satania_shopping.tabakosystem
             {
                 using (new GUILayout.VerticalScope(GUI.skin.box))
                 {
-                    GUILayout.Label(GetGUIContent("ライターの火"), EditorStyles.boldLabel);
+                    GUILayout.Label(GetGUIContent("t_CBA_LighterFire"), EditorStyles.boldLabel);
                     EditorGUI.indentLevel++;
 
-                    EditorGUILayout.PropertyField(fireParticlePosition, GetGUIContent("Fire Particle Position Transform"));
-                    EditorGUILayout.PropertyField(fireParticlePositionPairs, GetGUIContent("火のポジション (加算)"));
+                    EditorGUILayout.PropertyField(fireParticlePosition, GetGUIContent("t_CBA_FireParticlePosition"));
+                    EditorGUILayout.PropertyField(fireParticlePositionPairs, GetGUIContent("t_CBA_FireParticlePositionPairs"));
                     EditorGUI.indentLevel--;
                 }
 
@@ -290,12 +308,12 @@ namespace net.satania_shopping.tabakosystem
 
                 using (new GUILayout.VerticalScope(GUI.skin.box))
                 {
-                    GUILayout.Label(GetGUIContent("ライト"), EditorStyles.boldLabel);
+                    GUILayout.Label(GetGUIContent("t_CBA_Light"), EditorStyles.boldLabel);
                     EditorGUI.indentLevel++;
 
-                    EditorGUILayout.PropertyField(fireLight);
-                    EditorGUILayout.PropertyField(lightIntensityPairs, GetGUIContent("ライト Intensity (加算)"));
-                    EditorGUILayout.PropertyField(lightRangePairs, GetGUIContent("ライト Range (加算)"));
+                    EditorGUILayout.PropertyField(fireLight, GetGUIContent("t_CBA_FireLight"));
+                    EditorGUILayout.PropertyField(lightIntensityPairs, GetGUIContent("t_CBA_LightIntensityPairs"));
+                    EditorGUILayout.PropertyField(lightRangePairs, GetGUIContent("t_CBA_LightRangePairs"));
                     EditorGUI.indentLevel--;
                 }
 
@@ -303,13 +321,13 @@ namespace net.satania_shopping.tabakosystem
 
                 using (new GUILayout.VerticalScope(GUI.skin.box))
                 {
-                    GUILayout.Label(GetGUIContent("オブジェクト"), EditorStyles.boldLabel);
+                    GUILayout.Label(GetGUIContent("t_CBA_Objects"), EditorStyles.boldLabel);
                     EditorGUI.indentLevel++;
-                    EditorGUILayout.PropertyField(VRCLighter, GetGUIContent("火のコンタクト判定"));
-                    EditorGUILayout.PropertyField(VRC_Fire, GetGUIContent("火のコンタクト判定 (Fire)"));
-                    EditorGUILayout.PropertyField(fireParticle, GetGUIContent("ライターの炎"));
-                    EditorGUILayout.PropertyField(lightSound, GetGUIContent("ライターの音"));
-                    EditorGUILayout.PropertyField(lighterSpark, GetGUIContent("ライターの火花"));
+                    EditorGUILayout.PropertyField(VRCLighter, GetGUIContent("t_CBA_VRCLighter"));
+                    EditorGUILayout.PropertyField(VRC_Fire, GetGUIContent("t_CBA_VRCFire"));
+                    EditorGUILayout.PropertyField(fireParticle, GetGUIContent("t_CBA_FireParticle"));
+                    EditorGUILayout.PropertyField(lightSound, GetGUIContent("t_CBA_LightSound"));
+                    EditorGUILayout.PropertyField(lighterSpark, GetGUIContent("t_CBA_LighterSpark"));
 
                     EditorGUI.indentLevel--;
                 }

@@ -71,6 +71,8 @@ namespace net.satania_shopping.tabakosystem.runtime
         [SerializeField] private string shopName = "";
         [SerializeField] private string avatarURL = "";
         [SerializeField] private bool isPrefabObsolute = false;
+        [SerializeField] private string createdVersion = "";
+        [SerializeField] private string lastSavedVersion = "";
 
         [SerializeField] private ModularAvatarParameters[] satabakoParameters;
 
@@ -272,5 +274,9 @@ namespace net.satania_shopping.tabakosystem.runtime
         public string AvatarURL => avatarURL;
 
         public bool IsPrefabObsolute => isPrefabObsolute;
+
+        public string CreatedVersion => createdVersion;
+
+        public string LastSavedVersion => lastSavedVersion;
     }
 }

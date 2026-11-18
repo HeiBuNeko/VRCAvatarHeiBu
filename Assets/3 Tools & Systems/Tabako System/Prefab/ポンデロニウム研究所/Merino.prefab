@@ -936,7 +936,11 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5218903893110830142}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2460193994890538296, guid: 9e34634a453bd584fb1e143ad8e0e622,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1726885292827032035}
   m_SourcePrefab: {fileID: 100100000, guid: 9e34634a453bd584fb1e143ad8e0e622, type: 3}
 --- !u!4 &7655478193329508240 stripped
 Transform:
@@ -944,3 +948,38 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8888908793737647074}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6449121769166733018 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2460193994890538296, guid: 9e34634a453bd584fb1e143ad8e0e622,
+    type: 3}
+  m_PrefabInstance: {fileID: 8888908793737647074}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1726885292827032035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6449121769166733018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c464f2c6e14cdb340b308b3513310fb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bones:
+  - bone: 18
+    position: {x: 0.4885412, y: 1.0790966, z: -0.018746376}
+    rotation: {x: 0.5210403, y: 0.51372665, z: 0.48374575, w: -0.4802}
+    scale: {x: 0.9999998, y: 1, z: 1}
+  - bone: 17
+    position: {x: -0.48854122, y: 1.0790966, z: -0.018746376}
+    rotation: {x: -0.5210404, y: 0.5137268, z: 0.4837458, w: 0.48020005}
+    scale: {x: 1.0000001, y: 1.0000004, z: 1.0000002}
+  - bone: 10
+    position: {x: 5.8363314e-10, y: 1.1562383, z: -0.0135189295}
+    rotation: {x: -0.006979823, y: -0.00000012619756, z: 0.000000018685597, w: -0.9999757}
+    scale: {x: 1, y: 1, z: 0.9999997}
+  - bone: 0
+    position: {x: 0, y: 0.80653, z: 0.016639233}
+    rotation: {x: -0, y: -0.00000011920883, z: 3.5527137e-14, w: 1}
+    scale: {x: 1, y: 0.9999999, z: 0.9999999}

@@ -111,6 +111,7 @@ MonoBehaviour:
   shapeType: 1
   radius: 0.08
   height: 0.7
+  size: {x: 1, y: 1, z: 1}
   position: {x: 0, y: -0.14, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 1}
   localOnly: 0
@@ -119,9 +120,15 @@ MonoBehaviour:
   - Satabako_Mouth
   allowSelf: 1
   allowOthers: 0
+  useFaceProximity: 0
   receiverType: 0
   parameter: Satabako_Local_Tabako_Swap_To_Mouth_Received
   minVelocity: 0.05
+  writeToMaterials: 0
+  writeToMaterialsContactTags: 0
+  separateShaderParameter: 
+  shaderTargetRenderers: []
+  advancedParameters: 0
 --- !u!114 &2918378666181947742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,12 +162,15 @@ MonoBehaviour:
   offEmissiveColor: {r: 0, g: 0, b: 0, a: 0}
   onEmissiveColor: {r: 0, g: 0, b: 0, a: 0}
   m_time_EmissiveON: 1
+  emissiveMaterialType: 0
+  customEmissionColorProperty: _EmissionColor
   lighterMeshRenderer: {fileID: 0}
   lighterONShapeName: on
   lighterONShapekeyMaxValue: 100
   fireParticlePosition: {fileID: 0}
   fireLight: {fileID: 0}
   VRCLighter: {fileID: 0}
+  VRC_Fire: {fileID: 0}
   fireParticle: {fileID: 0}
   lightSound: {fileID: 0}
   lighterSpark: {fileID: 0}
@@ -232,12 +242,15 @@ MonoBehaviour:
   offEmissiveColor: {r: 0, g: 0, b: 0, a: 0}
   onEmissiveColor: {r: 0, g: 0, b: 0, a: 0}
   m_time_EmissiveON: 1
+  emissiveMaterialType: 0
+  customEmissionColorProperty: _EmissionColor
   lighterMeshRenderer: {fileID: 0}
   lighterONShapeName: on
   lighterONShapekeyMaxValue: 100
   fireParticlePosition: {fileID: 0}
   fireLight: {fileID: 0}
   VRCLighter: {fileID: 0}
+  VRC_Fire: {fileID: 0}
   fireParticle: {fileID: 0}
   lightSound: {fileID: 0}
   lighterSpark: {fileID: 0}
@@ -293,6 +306,7 @@ MonoBehaviour:
   shapeType: 1
   radius: 0.08
   height: 0.76
+  size: {x: 1, y: 1, z: 1}
   position: {x: 0, y: 0.15, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 1}
   localOnly: 0
@@ -301,9 +315,15 @@ MonoBehaviour:
   - Satabako_Righthand
   allowSelf: 1
   allowOthers: 0
+  useFaceProximity: 0
   receiverType: 0
   parameter: Satabako_Local_Tabako_Swap_To_RightHand_Received
   minVelocity: 0.05
+  writeToMaterials: 0
+  writeToMaterialsContactTags: 0
+  separateShaderParameter: 
+  shaderTargetRenderers: []
+  advancedParameters: 0
 --- !u!114 &3798221328414353765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,12 +357,15 @@ MonoBehaviour:
   offEmissiveColor: {r: 0, g: 0, b: 0, a: 0}
   onEmissiveColor: {r: 0, g: 0, b: 0, a: 0}
   m_time_EmissiveON: 1
+  emissiveMaterialType: 0
+  customEmissionColorProperty: _EmissionColor
   lighterMeshRenderer: {fileID: 0}
   lighterONShapeName: on
   lighterONShapekeyMaxValue: 100
   fireParticlePosition: {fileID: 0}
   fireLight: {fileID: 0}
   VRCLighter: {fileID: 0}
+  VRC_Fire: {fileID: 0}
   fireParticle: {fileID: 0}
   lightSound: {fileID: 0}
   lighterSpark: {fileID: 0}
@@ -507,6 +530,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bb122659f724ebf85fe095ac02dc339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   animator: {fileID: 9100000, guid: 24a53f6303a058942aec7cd0860d8a19, type: 2}
   layerType: 5
   deleteAttachedAnimator: 1
@@ -529,6 +555,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a96d4ea0c344f39e277d82035bf9bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   parameters:
   - nameOrPrefix: Satabako_Sync_Tabako_LipSync_Move_IsOn
     remapTo: 
@@ -714,6 +743,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4447479412705537716}
+  - {fileID: 1565424911387680455}
   m_Father: {fileID: 5499997049698959176}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8673123043206258904
@@ -729,7 +759,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useBitCount: 2
-  expressionMenus: []
+  expressionMenus:
+  - {fileID: 6673485464553807272}
   parameters:
   - {fileID: 6315267162390196461}
 --- !u!114 &8033784582905480765
@@ -744,6 +775,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bb122659f724ebf85fe095ac02dc339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   animator: {fileID: 9100000, guid: 2dcf230ba02f51848a33607c1965ad4f, type: 2}
   layerType: 5
   deleteAttachedAnimator: 1
@@ -766,6 +800,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a96d4ea0c344f39e277d82035bf9bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   parameters:
   - nameOrPrefix: Satabako_Sync_Trigger_Exhale_Smoke
     remapTo: 
@@ -787,6 +824,16 @@ MonoBehaviour:
     saved: 0
     hasExplicitDefaultValue: 1
     m_overrideAnimatorDefaults: 1
+  - nameOrPrefix: Satabako_Local_Manual_Exhale
+    remapTo: 
+    internalParameter: 0
+    isPrefix: 0
+    syncType: 3
+    localOnly: 1
+    defaultValue: 0
+    saved: 0
+    hasExplicitDefaultValue: 0
+    m_overrideAnimatorDefaults: 0
 --- !u!1 &6141541007074247846
 GameObject:
   m_ObjectHideFlags: 0
@@ -832,6 +879,85 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 135560c8079dbcb438abf68e9a3305bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &6673485464553807272
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1565424911387680455}
+  - component: {fileID: 1059914130027971882}
+  - component: {fileID: 4994909653174791382}
+  m_Layer: 0
+  m_Name: "\u7159\u3092\u5410\u304F"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1565424911387680455
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6673485464553807272}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1235812258579025074}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1059914130027971882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6673485464553807272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b29d45007c5493d926d2cd45a489529, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 1.18.7
+    MinimumVersion: 1.18.0
+  Control:
+    name: "\u7159\u3092\u5410\u304F"
+    icon: {fileID: 0}
+    type: 102
+    parameter:
+      name: Satabako_Local_Manual_Exhale
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  MenuSource: 1
+  menuSource_otherObjectChildren: {fileID: 0}
+  isSynced: 0
+  isSaved: 0
+  isDefault: 0
+  automaticValue: 0
+  label: 
+--- !u!114 &4994909653174791382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6673485464553807272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d44a770538eb02458c5ccd514f7262e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveTo: 0
 --- !u!1 &7049455000352615442
 GameObject:
   m_ObjectHideFlags: 0
@@ -881,6 +1007,7 @@ MonoBehaviour:
   shapeType: 1
   radius: 0.08
   height: 0.76
+  size: {x: 1, y: 1, z: 1}
   position: {x: 0, y: 0.15, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 1}
   localOnly: 0
@@ -889,9 +1016,15 @@ MonoBehaviour:
   - Satabako_Lefthand
   allowSelf: 1
   allowOthers: 0
+  useFaceProximity: 0
   receiverType: 0
   parameter: Satabako_Local_Tabako_Swap_To_LeftHand_Received
   minVelocity: 0.05
+  writeToMaterials: 0
+  writeToMaterialsContactTags: 0
+  separateShaderParameter: 
+  shaderTargetRenderers: []
+  advancedParameters: 0
 --- !u!114 &922125961364988728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -925,12 +1058,15 @@ MonoBehaviour:
   offEmissiveColor: {r: 0, g: 0, b: 0, a: 0}
   onEmissiveColor: {r: 0, g: 0, b: 0, a: 0}
   m_time_EmissiveON: 1
+  emissiveMaterialType: 0
+  customEmissionColorProperty: _EmissionColor
   lighterMeshRenderer: {fileID: 0}
   lighterONShapeName: on
   lighterONShapekeyMaxValue: 100
   fireParticlePosition: {fileID: 0}
   fireLight: {fileID: 0}
   VRCLighter: {fileID: 0}
+  VRC_Fire: {fileID: 0}
   fireParticle: {fileID: 0}
   lightSound: {fileID: 0}
   lighterSpark: {fileID: 0}
@@ -984,6 +1120,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b29d45007c5493d926d2cd45a489529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   Control:
     name: 
     icon: {fileID: 0}
@@ -1059,6 +1198,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bb122659f724ebf85fe095ac02dc339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   animator: {fileID: 9100000, guid: f567bd9ffb17e0d458f99f8bfccfef69, type: 2}
   layerType: 3
   deleteAttachedAnimator: 1
@@ -1170,12 +1312,15 @@ MonoBehaviour:
   offEmissiveColor: {r: 1.4980392, g: 1.0039216, b: 0.14117648, a: 1}
   onEmissiveColor: {r: 4.237095, g: 2.839519, b: 0.39930737, a: 1}
   m_time_EmissiveON: 1
+  emissiveMaterialType: 0
+  customEmissionColorProperty: _EmissionColor
   lighterMeshRenderer: {fileID: 0}
   lighterONShapeName: on
   lighterONShapekeyMaxValue: 100
   fireParticlePosition: {fileID: 0}
   fireLight: {fileID: 0}
   VRCLighter: {fileID: 0}
+  VRC_Fire: {fileID: 0}
   fireParticle: {fileID: 0}
   lightSound: {fileID: 0}
   lighterSpark: {fileID: 0}
@@ -1250,6 +1395,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bb122659f724ebf85fe095ac02dc339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   animator: {fileID: 9100000, guid: 8abbbed967ea2164b87fb575e8d4833b, type: 2}
   layerType: 5
   deleteAttachedAnimator: 1
@@ -1272,6 +1420,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a96d4ea0c344f39e277d82035bf9bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   parameters:
   - nameOrPrefix: Satabako_Sync_Tabako_Smoke_Speed_Index
     remapTo: 
@@ -1450,6 +1601,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b29d45007c5493d926d2cd45a489529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 
+    MinimumVersion: 
   Control:
     name: 
     icon: {fileID: 2800000, guid: 6011b62cda9315745bcd460a92cbb286, type: 3}

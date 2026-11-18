@@ -23,13 +23,22 @@ namespace net.satania_shopping.tabakosystem.editor
         //------------------------------------------------------------------------------
         // (Hierarchy) アバター対応用
         public const string p_UnsupportedAvatarAddTemplate = "GameObject/さたにあ式タバコ/アバター対応用/テンプレートプレハブを導入";
+        public const string p_UnsupportedAvatarWizardGameObject = "GameObject/さたにあ式タバコ/アバター対応用/非対応アバターに対応するツールを開く";
 
-        public const string p_UnsupportedCase = "GameObject/さたにあ式タバコ/アバター対応用/" + "ハンドジェスチャー（ケース）";
-        public const string p_UnsupportedLighter = "GameObject/さたにあ式タバコ/アバター対応用/" + "ハンドジェスチャー（ライター）";
-        public const string p_UnsupportedTabako = "GameObject/さたにあ式タバコ/アバター対応用/" + "ハンドジェスチャー（タバコ）";
+        //------------------------------------------------------------------------------
+        // (ToolBar) 非対応アバターに対応するツール
+        public const string p_UnsupportedAvatarWizard = "さたにあしょっぴんぐ/さたにあ式タバコ/非対応アバターに対応するツール";
 
-        public const string p_CopyTransforms = "GameObject/さたにあ式タバコ/アバター対応用/" + "ケース・タバコ・ライターの情報をコピー";
+        public const string p_UnsupportedCase = "GameObject/さたにあ式タバコ/アバター対応用/" + "ハンドジェスチャー（ケース） (Play Mode 用)";
+        public const string p_UnsupportedLighter = "GameObject/さたにあ式タバコ/アバター対応用/" + "ハンドジェスチャー（ライター） (Play Mode 用)";
+        public const string p_UnsupportedTabako = "GameObject/さたにあ式タバコ/アバター対応用/" + "ハンドジェスチャー（タバコ） (Play Mode 用)";
+
+        public const string p_CopyTransforms = "GameObject/さたにあ式タバコ/アバター対応用/" + "ケース・タバコ・ライターの情報をコピー (Play Mode 用)";
         public const string p_PasteTransformsMirror = "GameObject/さたにあ式タバコ/アバター対応用/" + "ケース・タバコ・ライターの情報を貼り付け (反転)";
+
+        //------------------------------------------------------------------------------
+        // (ToolBar) アバター名のローマ字読み
+        public const string p_RomajiReading = "さたにあしょっぴんぐ/さたにあ式タバコ/アバター名のローマ字読み";
 
         //------------------------------------------------------------------------------
         // (Hierarchy) デバッグ

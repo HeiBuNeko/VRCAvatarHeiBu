@@ -941,6 +941,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7426033736793696639}
+    - targetCorrespondingSourceObject: {fileID: 2460193994890538296, guid: 9e34634a453bd584fb1e143ad8e0e622,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5399260704307431762}
   m_SourcePrefab: {fileID: 100100000, guid: 9e34634a453bd584fb1e143ad8e0e622, type: 3}
 --- !u!1 &7491665904400207708 stripped
 GameObject:
@@ -962,3 +966,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   overrideMotion: 2
   customMotion: {fileID: 7400000, guid: f442059574d2e07418f0a98b5ca4e326, type: 2}
+--- !u!1 &2911690374673166179 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2460193994890538296, guid: 9e34634a453bd584fb1e143ad8e0e622,
+    type: 3}
+  m_PrefabInstance: {fileID: 742033594199736923}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5399260704307431762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2911690374673166179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c464f2c6e14cdb340b308b3513310fb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bones:
+  - bone: 18
+    position: {x: 0.5142971, y: 1.1952103, z: -0.015417337}
+    rotation: {x: 0.48790002, y: 0.5063677, z: -0.4781026, w: 0.5262732}
+    scale: {x: 1.0000002, y: 1.0000005, z: 1.0000002}
+  - bone: 17
+    position: {x: -0.5122071, y: 1.1952093, z: 0.003114581}
+    rotation: {x: 0.4985394, y: -0.49495828, z: 0.46702474, w: 0.5369942}
+    scale: {x: 1.0000001, y: 1, z: 1.0000001}
+  - bone: 10
+    position: {x: 0.0009906571, y: 1.2780644, z: -0.00082945824}
+    rotation: {x: 0.00023654103, y: -0.00000010355612, z: 4.93916e-10, w: 0.99999994}
+    scale: {x: 0.99999994, y: 0.99999964, z: 1}
+  - bone: 0
+    position: {x: 0.001, y: 0.8349999, z: 0.0009998679}
+    rotation: {x: 0.00037682056, y: -0.0047237026, z: -0.00031333975, w: 0.99998873}
+    scale: {x: 1, y: 1, z: 0.9999999}

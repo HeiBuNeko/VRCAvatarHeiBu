@@ -50,8 +50,10 @@ namespace nadena.dev.modular_avatar.core.editor.plugin
             // Protect against accidental destructive edits by cloning the input controllers ASAP
             seq.WithRequiredExtension(typeof(AnimatorServicesContext), s =>
             {
-                // Just activating the context is enough.
-                s.Run("Clone animators", _ => { });
+                s.Run("Clone animators", ctx =>
+                {
+                    ctx.ActivateExtensionContextRecursive<VirtualControllerContext>();
+                });
             });
 
             seq = InPhase(BuildPhase.Transforming);
@@ -67,7 +69,6 @@ namespace nadena.dev.modular_avatar.core.editor.plugin
 #if MA_VRCSDK3_AVATARS
 				seq.Run(VRChatGlobalColliderPass.Instance);
 				seq.Run(RenameCollisionTagsPass.Instance);
-                seq.Run(ReactiveObjectPrepass.Instance);
 #endif
 
                 seq.WithRequiredExtension(typeof(AnimatorServicesContext), _s2 =>
@@ -78,21 +79,24 @@ namespace nadena.dev.modular_avatar.core.editor.plugin
                     seq.Run(RenameParametersPluginPass.Instance);
                     seq.Run(ParameterAssignerPass.Instance);
                     seq.Run(RemoveLayerPass.Instance);
-                    seq.Run(MergeBlendTreePass.Instance);
-                    seq.Run(MergeAnimatorPluginPass.Instance);
-                    seq.Run(ApplyAnimatorDefaultValuesPass.Instance);
-
 #endif
-                    seq.WithRequiredExtension(typeof(ReadablePropertyExtension), _s3 =>
+                    seq.WithRequiredExtension(typeof(InjectROBaseLayer), _s2a =>
                     {
-                        seq.Run("Reactive Components", ctx => new ReactiveObjectPass(ctx).Execute())
-                            .PreviewingWith(new MeshDeleterPreview(), new ShapeChangerPreview(),
-                                new ObjectSwitcherPreview(), new MaterialSetterPreview());
-                    })
-;
+#if MA_VRCSDK3_AVATARS
+                        seq.Run(MergeBlendTreePass.Instance);
+                        seq.Run(MergeAnimatorPluginPass.Instance);
+                        seq.Run(ApplyAnimatorDefaultValuesPass.Instance);
+#endif
+                        seq.WithRequiredExtension(typeof(ReadablePropertyExtension), _s3 =>
+                        {
+                            seq.Run("Reactive Components", ctx => new ReactiveObjectPassV2(ctx).Execute())
+                                .PreviewingWith(new MeshDeleterPreview(), new ShapeChangerPreview(),
+                                    new ObjectSwitcherPreview(), new MaterialSetterPreview(),
+                                    new ReactiveMovePreview());
+                        });
+                    });
 #if MA_VRCSDK3_AVATARS
                     seq.Run(FixupHeadChopRootBone.Instance);
-                    seq.Run(GameObjectDelayDisablePass.Instance);
 
                     // TODO: We currently run this above MergeArmaturePlugin, because Merge Armature might destroy
                     // game objects which contain Menu Installers. It'd probably be better however to teach Merge Armature

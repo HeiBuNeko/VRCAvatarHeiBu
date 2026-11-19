@@ -1,0 +1,44 @@
+﻿#nullable enable
+
+namespace nadena.dev.modular_avatar.core.editor.rc.Conditions
+{
+    internal sealed class Constant : IExpression
+    {
+        public bool Value { get; set; }
+
+        public Constant(bool value)
+        {
+            Value = value;
+        }
+
+        public override string ToString()
+        {
+            return Value.ToString();
+        }
+
+        public IExpression DeepClone()
+        {
+            return new Constant(Value);
+        }
+
+        public bool Evaluate(ExpressionEvaluationContext context)
+        {
+            return Value;
+        }
+
+        public void Walk(ExpressionVisitor visitor)
+        {
+            // leaf node
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Constant other && Value == other.Value;
+        }
+
+        public override int GetHashCode()
+        {
+            return Value.GetHashCode();
+        }
+    }
+}

@@ -64,13 +64,23 @@
             "define": "MA_VRCSDK3_AVATARS_3_10_3_OR_NEWER"
         },
         {
+            "name": "com.vrchat.avatars",
+            "expression": "3.10.5",
+            "define": "MA_VRCSDK3_AVATARS_3_10_5_OR_NEWER"
+        },
+        {
+            "name": "com.vrchat.avatars",
+            "expression": "3.10.6",
+            "define": "MA_VRCSDK3_AVATARS_3_10_6_OR_NEWER"
+        },
+        {
             "name": "net.nekobako.mask-texture-editor",
             "expression": "1.1.0",
             "define": "MA_MASK_TEXTURE_EDITOR"
         },
         {
             "name": "com.vrcfury.vrcfury",
-            "expression": "(,1.1250.0)",
+          "expression": "(,1.1373.0)",
             "define": "LEGACY_VRCFURY"
         }
     ],

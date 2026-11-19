@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+#nullable enable
+
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
+using nadena.dev.modular_avatar.core.editor.rc.Actions;
 using nadena.dev.ndmf.preview;
 using UnityEngine;
 
@@ -41,19 +44,14 @@ namespace nadena.dev.modular_avatar.core.editor
 
             foreach (var property in analysis.Shapes.Values)
             {
-                var prop = property.TargetProp;
-                if (prop.TargetObject != renderer) continue;
-                if (prop.TargetObject is not SkinnedMeshRenderer smr || smr.sharedMesh == null) continue;
-                if (!prop.PropertyName.StartsWith(ReactiveObjectAnalyzer.BlendshapePrefix)) continue;
+                var activeAction = property.actionGroups.LastOrDefault(r => r.InitiallyActive)?.Action;
+                if (activeAction is not SetShapeKey shape || shape.Renderer != renderer) continue;
+                if (shape.Renderer.sharedMesh == null) continue;
 
-                var shapeName = prop.PropertyName[ReactiveObjectAnalyzer.BlendshapePrefix.Length..];
-                var shapeIndex = smr.sharedMesh.GetBlendShapeIndex(shapeName);
+                var shapeIndex = shape.Renderer.sharedMesh.GetBlendShapeIndex(shape.ShapeName);
                 if (shapeIndex < 0) continue;
 
-                var activeRule = property.actionGroups.LastOrDefault(r => r.InitiallyActive);
-                if (activeRule == null || activeRule.Value is not float value) continue;
-
-                shapes = shapes.Add((shapeIndex, Mathf.Clamp(value, 0, 100)));
+                shapes = shapes.Add((shapeIndex, Mathf.Clamp(shape.Value, 0, 100)));
             }
 
             return shapes;
@@ -66,18 +64,11 @@ namespace nadena.dev.modular_avatar.core.editor
 
             foreach (var property in analysis.Shapes.Values)
             {
-                var prop = property.TargetProp;
-                if (prop.TargetObject is not SkinnedMeshRenderer smr || smr.sharedMesh == null) continue;
-                if (!prop.PropertyName.StartsWith(ReactiveObjectAnalyzer.BlendshapePrefix)) continue;
+                var activeAction = property.actionGroups.LastOrDefault(r => r.InitiallyActive)?.Action;
+                if (activeAction is not SetShapeKey shape || shape.Renderer.sharedMesh == null) continue;
+                if (shape.Renderer.sharedMesh.GetBlendShapeIndex(shape.ShapeName) < 0) continue;
 
-                var shapeName = prop.PropertyName[ReactiveObjectAnalyzer.BlendshapePrefix.Length..];
-                var shapeIndex = smr.sharedMesh.GetBlendShapeIndex(shapeName);
-                if (shapeIndex < 0) continue;
-
-                var activeRule = property.actionGroups.LastOrDefault(r => r.InitiallyActive);
-                if (activeRule == null || activeRule.Value is not float) continue;
-
-                renderers.Add(smr);
+                renderers.Add(shape.Renderer);
             }
 
             return renderers.Select(RenderGroup.For);
@@ -92,8 +83,8 @@ namespace nadena.dev.modular_avatar.core.editor
         public Task<IRenderFilterNode> Instantiate(RenderGroup group, IEnumerable<(Renderer, Renderer)> proxyPairs, ComputeContext context)
         {
             var (original, proxy) = proxyPairs.First();
-            var node = new Node(_cache, original as SkinnedMeshRenderer, proxy as SkinnedMeshRenderer, context);
-            return node.Refresh(null, context, 0);
+            var node = new Node(_cache, (SkinnedMeshRenderer)original, (SkinnedMeshRenderer)proxy, context);
+            return node.Refresh(Enumerable.Empty<(Renderer, Renderer)>(), context, 0);
         }
 
         private class Node : IRenderFilterNode
@@ -116,13 +107,13 @@ namespace nadena.dev.modular_avatar.core.editor
             {
                 if ((updatedAspects & RenderAspects.Shapes) != 0)
                 {
-                    return Task.FromResult<IRenderFilterNode>(null);
+                    return Task.FromResult<IRenderFilterNode>(null!);
                 }
 
                 var shapes = _cache.Get(context, _original);
                 if (!shapes.SequenceEqual(_shapes))
                 {
-                    return Task.FromResult<IRenderFilterNode>(null);
+                    return Task.FromResult<IRenderFilterNode>(null!);
                 }
 
                 return Task.FromResult<IRenderFilterNode>(this);

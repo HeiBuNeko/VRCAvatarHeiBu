@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+#nullable enable
+
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
+using nadena.dev.modular_avatar.core.editor.rc.Actions;
 using nadena.dev.ndmf.preview;
 using UnityEngine;
 using UnityEngine.Profiling;
@@ -43,15 +46,12 @@ namespace nadena.dev.modular_avatar.core.editor
 
             foreach (var property in analysis.Shapes.Values)
             {
-                var prop = property.TargetProp;
-                if (prop.TargetObject != renderer) continue;
-                if (prop.TargetObject is not SkinnedMeshRenderer smr || smr.sharedMesh == null) continue;
-                if (!property.actionGroups.Any(x => x.Value is IMeshSelector)) continue;
+                var activeAction = property.actionGroups.LastOrDefault(r => r.InitiallyActive)?.Action;
+                if (activeAction is not HideMeshSection { ShouldHide: true } hide ||
+                    hide.Target.Renderer != renderer) continue;
+                if (hide.Target.Renderer.sharedMesh == null) continue;
 
-                var activeRule = property.actionGroups.LastOrDefault(r => r.InitiallyActive);
-                if (activeRule == null || activeRule.Value is not IMeshSelector filter) continue;
-
-                filters = filters.Add(filter);
+                filters = filters.Add(hide.Selector);
             }
 
             return filters;
@@ -64,14 +64,11 @@ namespace nadena.dev.modular_avatar.core.editor
 
             foreach (var property in analysis.Shapes.Values)
             {
-                var prop = property.TargetProp;
-                if (prop.TargetObject is not SkinnedMeshRenderer smr || smr.sharedMesh == null) continue;
-                if (!property.actionGroups.Any(x => x.Value is IMeshSelector)) continue;
+                var activeAction = property.actionGroups.LastOrDefault(r => r.InitiallyActive)?.Action;
+                if (activeAction is not HideMeshSection { ShouldHide: true } hide ||
+                    hide.Target.Renderer.sharedMesh == null) continue;
 
-                var activeRule = property.actionGroups.LastOrDefault(r => r.InitiallyActive);
-                if (activeRule == null || activeRule.Value is not IMeshSelector) continue;
-
-                renderers.Add(smr);
+                renderers.Add(hide.Target.Renderer);
             }
 
             return renderers.Select(RenderGroup.For);
@@ -86,8 +83,8 @@ namespace nadena.dev.modular_avatar.core.editor
         public Task<IRenderFilterNode> Instantiate(RenderGroup group, IEnumerable<(Renderer, Renderer)> proxyPairs, ComputeContext context)
         {
             var (original, proxy) = proxyPairs.First();
-            var node = new Node(_cache, original as SkinnedMeshRenderer, proxy as SkinnedMeshRenderer, context);
-            return node.Refresh(null, context, 0);
+            var node = new Node(_cache, (SkinnedMeshRenderer)original, (SkinnedMeshRenderer)proxy, context);
+            return node.Refresh(Enumerable.Empty<(Renderer, Renderer)>(), context, 0);
         }
 
         private class Node : IRenderFilterNode
@@ -95,7 +92,7 @@ namespace nadena.dev.modular_avatar.core.editor
             private readonly PropCache<SkinnedMeshRenderer, ImmutableList<IMeshSelector>> _cache;
             private readonly SkinnedMeshRenderer _original;
             private readonly ImmutableList<IMeshSelector> _filters;
-            private Mesh _generatedMesh;
+            private Mesh? _generatedMesh;
 
             public RenderAspects WhatChanged => RenderAspects.Mesh;
 
@@ -117,13 +114,13 @@ namespace nadena.dev.modular_avatar.core.editor
             {
                 if ((updatedAspects & (RenderAspects.Mesh | RenderAspects.Shapes)) != 0)
                 {
-                    return Task.FromResult<IRenderFilterNode>(null);
+                    return Task.FromResult<IRenderFilterNode>(null!);
                 }
 
                 var filters = _cache.Get(context, _original);
                 if (!filters.SequenceEqual(_filters))
                 {
-                    return Task.FromResult<IRenderFilterNode>(null);
+                    return Task.FromResult<IRenderFilterNode>(null!);
                 }
 
                 return Task.FromResult<IRenderFilterNode>(this);
@@ -140,7 +137,7 @@ namespace nadena.dev.modular_avatar.core.editor
                 }
             }
 
-            private static Mesh GenerateMesh(Renderer proxy, Mesh mesh, ImmutableList<IMeshSelector> filters)
+            private static Mesh? GenerateMesh(Renderer proxy, Mesh? mesh, ImmutableList<IMeshSelector> filters)
             {
                 if (mesh == null) return null;
 

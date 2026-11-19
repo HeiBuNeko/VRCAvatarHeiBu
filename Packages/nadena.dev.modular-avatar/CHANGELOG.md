@@ -22,6 +22,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Deprecated
 
+## [1.19.0] - [2026-11-18]
+
+### Added
+- [#2204] Added a warning to the package export dialog when running a prerelease version that might contain new serialized data.
+- [#2146] Added `MA Reactive Move`, which conditionally matches an object's world position, rotation, and scale to another object.
+- [#2188] Support "Advanced option" of ExpressionsParameter in `MA Parameters`
+- [#2189] Added support for advanced parameters on contact receivers via the MA Parameters prefix mechanism
+- [#2192] Added automatic animator parameter renaming to `MA Rename Collision Tags` for collision tag parameters
+- [#2219] Added a warning when `MA Menu Item` would override expression parameters defaults
+
+### Fixed
+- [#2218] Fixed a disabled `MA Menu Installer` still installing its menu.
+- [#2217] Fixed `MA Parameters` losing an explicit default when an implicit declaration of the same parameter was encountered first on a sibling object.
+- [#2209] Fixed issues where `MA Menu Item` in Auto Value mode would not set the correct default state when the parameter was defined
+  in VRC Expression Parameters.
+- [#2209] Fixed Reactive Component previews ignoring parameter-provider defaults and hierarchy-specific parameter names.
+- [#2182] Fixed incorrect non-animated states for Reactive Components sharing a menu parameter when a non-default menu item was processed first.
+- [#2149] Fixed incorrect label for traditional Chinese language in the language switcher
+- [#2153] Removed unnecessary logs displayed when adding the `MA PhysBone Blocker` component
+- [#2171] Fixed issue where `Vertex Filter - By Mask` broke with 3+-dimension UV channels
+- [#2175] `Mesh Cutter` and `Shape Changer` (delete mode) had no effect on VRChat when driven by a condition
+- [#2156] Fixed an issue where the position of child objects was not updated when pasting a value for `MA Scale Adjuster` in the Inspector
+- [#2219] Fixed some cases where parameter introspection APIs would not have the correct default value
+
+### Changed
+- [#2204] The version warning logic will now record the prior minor version as the minimum required, when running on a `x.y.0-prerelease` prerelease version.
+- [#2189] VRC Contact Receivers will now have their parameters renamed based on either a prefix or non-prefix parameter
+  rename entry.
+- [#2189] PhysBone prefix parameters will rename the parameter of the same name, as well as ones prefixed by that prefix.
+- [#2095] Reworked Reactive Components to use blend trees, improving animator performance and fixing issues where different
+  RCs might respond at different times to the same trigger.
+  - Compatibility note: Reactive Component response timing may be slightly different from prior versions.
+  - Compatibility note: Modular Avatar no longer supports co-existence with VRCFury versions older than 1.1373.
+    Update VRCFury before upgrading Modular Avatar.
+- [#2180] `MA Global Collider` now takes advantage of VRChat Physbone colliders with global collision before resorting to finger theft.
+
+### Removed
+- [#2146] Removed `UnityObjectIDHelper` from Modular Avatar's public API. This API was exposed accidentally, and caused
+frequent extension method conflicts; use the NDMF-exported version instead.
+
 ## [1.18.7] - [2026-09-01]
 
 ### Fixed

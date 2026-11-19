@@ -1,3 +1,5 @@
+#nullable enable
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -119,14 +121,14 @@ namespace nadena.dev.modular_avatar.core.editor
 
         // ── Public entry point ────────────────────────────────────────────────────
 
-        internal static Dictionary<(TargetProp, IMeshSelector), List<AddedBone>> ComputeNaNPlan(
+        internal static Dictionary<(TKey, IMeshSelector), List<AddedBone>> ComputeNaNPlan<TKey>(
             Renderer renderer,
             ref Mesh mesh,
-            List<(TargetProp, IMeshSelector)> targets
+            List<(TKey, IMeshSelector)> targets
         )
         {
             if (mesh.vertexCount == 0 || targets.Count == 0)
-                return new Dictionary<(TargetProp, IMeshSelector), List<AddedBone>>();
+                return new Dictionary<(TKey, IMeshSelector), List<AddedBone>>();
 
             if (targets.Count <= 64)
                 return ComputeNaNPlanInner(renderer, ref mesh, targets, SmallHideKey.From);
@@ -136,11 +138,11 @@ namespace nadena.dev.modular_avatar.core.editor
 
         // ── Core algorithm ────────────────────────────────────────────────────────
 
-        private static Dictionary<(TargetProp, IMeshSelector), List<AddedBone>>
-            ComputeNaNPlanInner<THideKey>(
+        private static Dictionary<(TKey, IMeshSelector), List<AddedBone>>
+            ComputeNaNPlanInner<TKey, THideKey>(
                 Renderer renderer,
                 ref Mesh mesh,
-                List<(TargetProp, IMeshSelector)> targets,
+                List<(TKey, IMeshSelector)> targets,
                 Func<List<int>, THideKey> makeHideKey
             ) where THideKey : struct, IHideKey<THideKey>
         {
@@ -332,7 +334,7 @@ namespace nadena.dev.modular_avatar.core.editor
 
                 // No primitives selected by any shape — leave mesh unchanged
                 if (vertHideKey.All(k => k.IsEmpty))
-                    return new Dictionary<(TargetProp, IMeshSelector), List<AddedBone>>();
+                    return new Dictionary<(TKey, IMeshSelector), List<AddedBone>>();
 
                 var newVertCount = newToOrig.Count;
                 var newToOrigArray = newToOrig.ToArray();
@@ -430,7 +432,7 @@ namespace nadena.dev.modular_avatar.core.editor
                 }
 
                 var nextBoneIndex = initialBoneCount;
-                var result = new Dictionary<(TargetProp, IMeshSelector), List<AddedBone>>();
+                var result = new Dictionary<(TKey, IMeshSelector), List<AddedBone>>();
                 var vertexMask = new bool[newVertCount];
 
                 for (var s = 0; s < targets.Count; s++)
@@ -501,6 +503,72 @@ namespace nadena.dev.modular_avatar.core.editor
                 case MeshTopology.Quads: return 4;
                 default: return 1;
             }
+        }
+
+        public static Dictionary<(TKey, IMeshSelector), List<GameObject>> GenerateNaNimatedBones<TKey>(
+            SkinnedMeshRenderer renderer,
+            Dictionary<(TKey, IMeshSelector), List<AddedBone>> plan)
+        {
+            Dictionary<Transform, Transform> parentToBuffer = new();
+
+            List<(AddedBone, (TKey, IMeshSelector))> createdBones =
+                plan.SelectMany(kv => kv.Value.Select(bone => (bone, kv.Key)))
+                    .OrderBy(b => b.bone.newBoneIndex)
+                    .ToList();
+
+            var maxNewBoneIndex = createdBones[^1].Item1.newBoneIndex;
+            var bonesArray = new Transform[maxNewBoneIndex + 1];
+            var curBonesArray = renderer.bones;
+            Array.Copy(curBonesArray, 0, bonesArray, 0, curBonesArray.Length);
+
+            // Special case for meshes with no bones; we need to create a bone 0
+            if (curBonesArray.Length == 0)
+            {
+                bonesArray[0] = renderer.transform;
+            }
+
+            foreach (var pair in createdBones)
+            {
+                var bone = pair.Item1;
+                var shape = pair.Item2;
+
+                if (bonesArray[bone.originalBoneIndex] == null) continue;
+
+                // When we merge armature after generating NaNimated bones, we can end up changing the localScale of
+                // the nanimated bones, which is a problem, since we've baked that scale into our animation curves.
+                //
+                // To help avoid this, we add a buffer object - the buffer object will take the base scale change,
+                // while NaNimated object goes between scale (1,1,1) and (NaN, NaN, NaN)
+                //
+                // See github bug: https://github.com/bdunderscore/modular-avatar/issues/1869
+
+                if (!parentToBuffer.TryGetValue(bonesArray[bone.originalBoneIndex], out var bufferTransform))
+                {
+                    var bufferObj = new GameObject(NaNimatedBufferPrefix + "$" + Guid.NewGuid());
+                    bufferTransform = bufferObj.transform;
+                    bufferTransform.SetParent(bonesArray[bone.originalBoneIndex], false);
+                    bufferTransform.localPosition = Vector3.zero;
+                    bufferTransform.localRotation = Quaternion.identity;
+                    bufferTransform.localScale = Vector3.one;
+                    bufferObj.AddComponent<ModularAvatarPBBlocker>();
+
+                    parentToBuffer.Add(bonesArray[bone.originalBoneIndex], bufferTransform);
+                }
+
+                var newBone = new GameObject(NaNimatedBonePrefix + shape.Item1.ToString().Replace('/', '_'));
+                var newBoneTransform = newBone.transform;
+                newBoneTransform.SetParent(bufferTransform, false);
+                newBoneTransform.localPosition = Vector3.zero;
+                newBoneTransform.localRotation = Quaternion.identity;
+                newBoneTransform.localScale = Vector3.one;
+
+                bonesArray[bone.newBoneIndex] = newBoneTransform;
+            }
+
+            renderer.bones = bonesArray;
+
+            return plan.ToDictionary(kv => kv.Key,
+                kv => kv.Value.Select(b => bonesArray[b.newBoneIndex].gameObject).ToList());
         }
 
         private static List<AddedBone> ComputeNaNPlanForShape(

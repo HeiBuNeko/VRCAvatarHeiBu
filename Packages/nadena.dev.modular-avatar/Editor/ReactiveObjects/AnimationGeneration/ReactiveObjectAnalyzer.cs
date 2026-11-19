@@ -1,13 +1,20 @@
-using System;
+#nullable enable
+
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using nadena.dev.modular_avatar.animation;
+using nadena.dev.modular_avatar.core.editor.rc.Actions;
+using nadena.dev.modular_avatar.core.editor.rc.Graph;
 using nadena.dev.modular_avatar.core.editor.Simulator;
+using nadena.dev.ndmf;
 using nadena.dev.ndmf.animator;
 using nadena.dev.ndmf.preview;
 using UnityEditor;
 using UnityEngine;
+#if MA_VRCSDK3_AVATARS
+using VRC.SDK3.Avatars.Components;
+#endif
 
 namespace nadena.dev.modular_avatar.core.editor
 {
@@ -18,47 +25,68 @@ namespace nadena.dev.modular_avatar.core.editor
     internal partial class ReactiveObjectAnalyzer
     {
         private readonly ComputeContext _computeContext;
-        private readonly ndmf.BuildContext _context;
-        private readonly AnimatorServicesContext _asc;
-        private readonly ReadablePropertyExtension _rpe;
+        private readonly ndmf.BuildContext? _context;
+        private readonly ReadablePropertyExtension? _rpe;
 
-        private static readonly ImmutableHashSet<Type> ActiveObjectTypes =
-            new[] { typeof(AudioSource) }.ToImmutableHashSet();
-        
-        private Dictionary<string, float> _simulationInitialStates;
+        private readonly Dictionary<string, float> _simulationInitialStates;
+
+#if MA_VRCSDK3_AVATARS
+        private ParameterInfo? _previewParameterInfo;
+        private Dictionary<GameObject, Dictionary<string, ProvidedParameter>>? _previewParameters;
+#endif
 
         public const string BlendshapePrefix = "blendShape.";
-        public const string DeletedShapePrefix = "deletedShape.";
 
         public bool OptimizeShapes = true;
         
         public ImmutableDictionary<string, float> ForcePropertyOverrides { get; set; } = ImmutableDictionary<string, float>.Empty;
 
-        public ImmutableDictionary<string, ModularAvatarMenuItem> ForceMenuItems { get; set; } =
-            ImmutableDictionary<string, ModularAvatarMenuItem>.Empty;
+        public ImmutableDictionary<string, ModularAvatarMenuItem?> ForceMenuItems { get; set; } =
+            ImmutableDictionary<string, ModularAvatarMenuItem?>.Empty;
 
         public static AnalysisResult NullAnalysis =>
             new()
             {
-                Shapes = new Dictionary<TargetProp, AnimatedProperty>(),
-                InitialStates = new Dictionary<TargetProp, object>()
+                Shapes = new Dictionary<object, AnimatedProperty>(),
+                InitialActions = new Dictionary<object, IAction>()
             };
 
         public ReactiveObjectAnalyzer(ndmf.BuildContext context)
         {
             _computeContext = ComputeContext.NullContext;
             _context = context;
-            _asc = context.Extension<AnimatorServicesContext>();
             _rpe = context.Extension<ReadablePropertyExtension>();
-            _simulationInitialStates = null;
+            _simulationInitialStates = new Dictionary<string, float>();
+
+            LoadAvatarParameters();
         }
 
-        public ReactiveObjectAnalyzer(ComputeContext computeContext = null)
+        public ReactiveObjectAnalyzer(ComputeContext? computeContext = null)
         {
             _computeContext = computeContext ?? ComputeContext.NullContext;
             _context = null;
-            _asc = null;
+            _rpe = null;
             _simulationInitialStates = new();
+
+            LoadAvatarParameters();
+        }
+
+        private void LoadAvatarParameters()
+        {
+#if MA_VRCSDK3_AVATARS
+            // Load initial states from the expression parameters asset
+            var platform = _context?.PlatformProvider?.QualifiedName;
+            if (platform != null && platform != WellKnownPlatforms.VRChatAvatar30) return;
+
+            var expParams = _context?.AvatarRootObject?.GetComponent<VRCAvatarDescriptor>()?.expressionParameters;
+            if (expParams != null && expParams.parameters != null)
+            {
+                foreach (var param in expParams.parameters)
+                {
+                    _simulationInitialStates[param.name] = param.defaultValue;
+                }
+            }
+#endif
         }
 
         public string GetGameObjectStateProperty(GameObject obj)
@@ -66,26 +94,66 @@ namespace nadena.dev.modular_avatar.core.editor
             return GetActiveSelfProxy(obj);
         }
 
-        public string GetMenuItemProperty(GameObject obj)
+        internal string ResolvePreviewParameterName(ModularAvatarMenuItem menuItem, string parameterName)
         {
 #if MA_VRCSDK3_AVATARS
-            var mami = obj?.GetComponent<ModularAvatarMenuItem>();
-            if (mami == null) return null;
+            if (_context != null) return parameterName;
 
-            return ParameterAssignerPass.AssignMenuItemParameter(mami, _simulationInitialStates, ForceMenuItems)
-                ?.Parameter;
+            var remappings = PreviewParameterInfo.GetParameterRemappingsAt(menuItem.gameObject);
+            return remappings.TryGetValue((ParameterNamespace.Animator, parameterName), out var remapping)
+                ? remapping.ParameterName
+                : parameterName;
 #else
-            return null;
+            return parameterName;
 #endif
         }
 
-        public struct AnalysisResult
+        internal bool TryGetPreviewParameterDefault(ModularAvatarMenuItem menuItem, string parameterName,
+            out float defaultValue)
         {
-            public Dictionary<TargetProp, AnimatedProperty> Shapes;
-            public Dictionary<TargetProp, object> InitialStates;
+            defaultValue = 0;
+#if MA_VRCSDK3_AVATARS
+            if (_context != null) return false;
+
+            var root = RuntimeUtil.FindAvatarInParents(menuItem.transform)?.gameObject;
+            if (root == null) return false;
+
+            var previewParameters = _previewParameters ??=
+                new Dictionary<GameObject, Dictionary<string, ProvidedParameter>>();
+            if (!previewParameters.TryGetValue(root, out var parameters))
+            {
+                parameters = new Dictionary<string, ProvidedParameter>();
+                foreach (var parameter in PreviewParameterInfo.GetParametersForObject(root))
+                {
+                    if (parameter.Namespace != ParameterNamespace.Animator) continue;
+                    parameters[parameter.EffectiveName] = parameter;
+                }
+
+                previewParameters[root] = parameters;
+            }
+
+            if (!parameters.TryGetValue(parameterName, out var providedParameter) ||
+                providedParameter.DefaultValue is not { } knownDefault) return false;
+
+            defaultValue = knownDefault;
+            return true;
+#else
+            return false;
+#endif
         }
 
-        private static PropCache<GameObject, AnalysisResult> _analysisCache;
+#if MA_VRCSDK3_AVATARS
+        private ParameterInfo PreviewParameterInfo =>
+            _previewParameterInfo ??= ParameterInfo.ForPreview(_computeContext);
+#endif
+
+        public struct AnalysisResult
+        {
+            public Dictionary<object, AnimatedProperty> Shapes;
+            public Dictionary<object, IAction> InitialActions;
+        }
+
+        private static PropCache<GameObject, AnalysisResult>? _analysisCache;
 
         public static AnalysisResult CachedAnalyze(ComputeContext context, GameObject root)
         {
@@ -102,7 +170,7 @@ namespace nadena.dev.modular_avatar.core.editor
                     analysis.ForcePropertyOverrides = ctx.Observe(ROSimulator.PropertyOverrides, a=>a, (a,b) => false)
                         ?? ImmutableDictionary<string, float>.Empty;
                     analysis.ForceMenuItems = ctx.Observe(ROSimulator.MenuItemOverrides, a => a, (a, b) => false)
-                                              ?? ImmutableDictionary<string, ModularAvatarMenuItem>.Empty;
+                                              ?? ImmutableDictionary<string, ModularAvatarMenuItem?>.Empty;
                     return analysis.Analyze(root);
                 });
             }
@@ -114,10 +182,10 @@ namespace nadena.dev.modular_avatar.core.editor
         /// Find all reactive object rules
         /// </summary>
         /// <param name="root">The avatar root</param>
-        /// <param name="initialStates">A dictionary of target property to initial state (float or UnityEngine.Object)</param>
+        /// <param name="initialActions">The last initially-active action for each semantic target</param>
         /// <returns></returns>
         public AnalysisResult Analyze(
-            GameObject root
+            GameObject? root
         )
         {
             AnalysisResult result = new();
@@ -125,71 +193,30 @@ namespace nadena.dev.modular_avatar.core.editor
             if (root == null)
             {
                 result.Shapes = new();
-                result.InitialStates = new();
+                result.InitialActions = new Dictionary<object, IAction>();
                 return result;
             }
 
-            LocateBlendshapeSyncs(root); 
-            
-            Dictionary<TargetProp, AnimatedProperty> shapes = FindShapes(root);
+            LocateBlendshapeSyncs(root);
+
+            Dictionary<object, AnimatedProperty> shapes = FindShapes(root);
             FindMeshCutter(shapes, root);
             FindObjectToggles(shapes, root);
             FindMaterialChangers(shapes, root);
+            FindReactiveMoves(shapes, root);
 
-            InjectActiveObjectFallbacks(shapes);
 
             ApplyInitialStateOverrides(shapes);
             AnalyzeConstants(shapes); 
             ResolveToggleInitialStates(shapes);
-            PreprocessShapes(shapes, out result.InitialStates);
+            PreprocessShapes(shapes, out result.InitialActions);
             result.Shapes = shapes;
 
             return result;
         }
 
-        private void InjectActiveObjectFallbacks(Dictionary<TargetProp, AnimatedProperty> shapes)
-        {
-            var injectedComponents = new List<Behaviour>();
 
-            foreach (var targetProp in shapes.Keys)
-            {
-                if (targetProp.TargetObject is GameObject go && go != null && targetProp.PropertyName == "m_IsActive")
-                {
-                    foreach (var ty in ActiveObjectTypes)
-                    {
-                        foreach (var c in go.GetComponentsInChildren(ty, true))
-                        {
-                            if (c is Behaviour b)
-                            {
-                                injectedComponents.Add(b);
-                            }
-                        }
-                    }
-                }
-            }
-
-            foreach (var component in injectedComponents)
-            {
-                var tp = new TargetProp
-                {
-                    TargetObject = component,
-                    PropertyName = "m_Enabled"
-                };
-                if (!shapes.TryGetValue(tp, out var shape))
-                {
-                    var currentState = component.enabled ? 1f : 0f;
-                    shape = new AnimatedProperty(tp, currentState);
-
-                    // Because we have no action groups, we'll reset current state in the base animation and otherwise
-                    // not touch the state.
-                    shapes[tp] = shape;
-                }
-
-                shape.overrideStaticState = 0f; // Static state is always off
-            }
-        }
-
-        private void ApplyInitialStateOverrides(Dictionary<TargetProp, AnimatedProperty> shapes)
+        private void ApplyInitialStateOverrides(Dictionary<object, AnimatedProperty> shapes)
         {
             foreach (var prop in shapes.Values)
             {
@@ -212,15 +239,15 @@ namespace nadena.dev.modular_avatar.core.editor
         /// No-op if there is not build context (as animations cannot be determined)
         /// </summary>
         /// <param name="shapes"></param>
-        internal void AnalyzeConstants(Dictionary<TargetProp, AnimatedProperty> shapes)
+        internal void AnalyzeConstants(Dictionary<object, AnimatedProperty> shapes)
         {
             var asc = _context?.Extension<AnimatorServicesContext>();
             HashSet<GameObject> toggledObjects = new();
 
             if (asc == null) return;
-            
-            foreach (var targetProp in shapes.Keys)
-                if (targetProp is { TargetObject: GameObject go, PropertyName: "m_IsActive" })
+
+            foreach (var targetKey in shapes.Keys)
+                if (targetKey is ObjectActiveTarget { Target: var go })
                     toggledObjects.Add(go);
 
             foreach (var group in shapes.Values)
@@ -228,9 +255,10 @@ namespace nadena.dev.modular_avatar.core.editor
                 foreach (var actionGroup in group.actionGroups)
                 {
                     foreach (var condition in actionGroup.ControllingConditions)
-                        if (condition.ReferenceObject && !toggledObjects.Contains(condition.ReferenceObject))
+                        if (condition.ReferenceObject is { } referenceObject &&
+                            !toggledObjects.Contains(referenceObject))
                         {
-                            var virtualPath = asc.ObjectPathRemapper.GetVirtualPathForObject(condition.ReferenceObject);
+                            var virtualPath = asc.ObjectPathRemapper.GetVirtualPathForObject(referenceObject);
 
                             condition.IsConstant = !asc.AnimationIndex.GetClipsForBinding(
                                 EditorCurveBinding.FloatCurve(
@@ -253,9 +281,9 @@ namespace nadena.dev.modular_avatar.core.editor
                     group.actionGroups.RemoveRange(0, lastAlwaysOnGroup);
             }
 
-            // Remove shapes with no action groups (unless we need to override static state)
+            // Remove shapes with no action groups.
             foreach (var kvp in shapes.ToList())
-                if (kvp.Value.actionGroups.Count == 0 && kvp.Value.overrideStaticState == null)
+                if (kvp.Value.actionGroups.Count == 0)
                     shapes.Remove(kvp.Key);
         }
 
@@ -263,10 +291,8 @@ namespace nadena.dev.modular_avatar.core.editor
         /// Resolves the initial active state of all GameObjects
         /// </summary>
         /// <param name="groups"></param>
-        private void ResolveToggleInitialStates(Dictionary<TargetProp, AnimatedProperty> groups)
+        private void ResolveToggleInitialStates(Dictionary<object, AnimatedProperty> groups)
         {
-            var asc = _context?.Extension<AnimatorServicesContext>();
-            
             Dictionary<string, float> propStates = new();
             Dictionary<string, float> nextPropStates = new();
             int loopLimit = 5;
@@ -284,15 +310,19 @@ namespace nadena.dev.modular_avatar.core.editor
 
                 foreach (var group in groups.Values)
                 {
-                    if (group.TargetProp.PropertyName != "m_IsActive") continue;
-                    if (!(group.TargetProp.TargetObject is GameObject targetObject)) continue;
+                    var activeRules = group.actionGroups
+                        .Where(rule => rule.Action is DriveActiveState)
+                        .Select(rule => (Rule: rule, Action: (DriveActiveState)rule.Action))
+                        .ToList();
+                    if (activeRules.Count == 0) continue;
 
+                    var targetObject = activeRules[0].Action.Target;
                     var pathKey = GetActiveSelfProxy(targetObject);
                     
                     float state;
                     if (!propStates.TryGetValue(pathKey, out state)) state = targetObject.activeSelf ? 1 : 0;
 
-                    foreach (var actionGroup in group.actionGroups)
+                    foreach (var (actionGroup, action) in activeRules)
                     {
                         bool evaluated = true;
                         foreach (var condition in actionGroup.ControllingConditions)
@@ -313,7 +343,7 @@ namespace nadena.dev.modular_avatar.core.editor
 
                         if (evaluated)
                         {
-                            state = (float) actionGroup.Value;
+                            state = action.Active ? 1f : 0f;
                         }
                     }
 
@@ -351,42 +381,36 @@ namespace nadena.dev.modular_avatar.core.editor
         /// Determine initial state for all properties
         /// </summary>
         /// <param name="shapes"></param>
-        /// <param name="initialStates"></param>
-        private void PreprocessShapes(Dictionary<TargetProp, AnimatedProperty> shapes,
-            out Dictionary<TargetProp, object> initialStates)
+        /// <param name="initialActions">The last initially-active action for each semantic target</param>
+        private void PreprocessShapes(Dictionary<object, AnimatedProperty> shapes,
+            out Dictionary<object, IAction> initialActions)
         {
-            // For each shapekey, determine 1) if we can just set an initial state and skip and 2) if we can delete the
-            // corresponding mesh. If we can't, delete ops are merged into the main list of operations.
-            
-            initialStates = new Dictionary<TargetProp, object>();
+            initialActions = new Dictionary<object, IAction>();
             
             foreach (var (key, info) in shapes.ToList())
             {
-                if (info.actionGroups.Count == 0 && info.overrideStaticState == null)
+                if (info.actionGroups.Count == 0)
                 {
-                    // never active control; ignore it entirely
-                    if (OptimizeShapes) shapes.Remove(key);
+                    // Never-active controls do not need an animation binding.
+                    shapes.Remove(key);
                     continue;
                 }
 
-                var initialState = info.actionGroups.Where(agk => agk.InitiallyActive)
-                    .Select(agk => agk.Value)
-                    .Prepend(info.currentState) // use scene state if everything is disabled
-                    .Last();
-
-                initialStates[key] = initialState;
-
-                // if we're constant-off, drop the shape
-                if (info.actionGroups.Count == 0 && OptimizeShapes && info.overrideStaticState == null)
+                var initialAction = info.actionGroups.LastOrDefault(agk => agk.InitiallyActive)?.Action;
+                if (initialAction != null)
                 {
-                    shapes.Remove(key);
+                    initialActions[key] = initialAction;
                 }
-                // if all states are null, also drop the shape
-                else if (info.actionGroups.All(ag => ag.Value == null) && info.overrideStaticState == null)
+
+                // Retained mesh sections do not need an animation binding.
+                if (info.actionGroups.All(ag => ag.Action is HideMeshSection { ShouldHide: false }))
                 {
                     shapes.Remove(key);
                 }
             }
         }
+
+
+
     }
 }

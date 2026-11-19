@@ -586,12 +586,12 @@ namespace nadena.dev.modular_avatar.core.editor
 
             Object controller = knownParameter?.Source;
 
-            // If we can't figure out what to reference the parameter names to, or if they're controlled by something
-            // other than the Menu Item component itself, disable the UI
+            // Saved and Synced are controlled by the parameter source. In Auto mode, Is Default
+            // instead selects which value to allocate, so it remains editable for external parameters.
             var controllerIsElsewhere = externalSource || _parameterSourceNotDetermined;
 
             using (new EditorGUI.DisabledScope(
-                       _parameterName.hasMultipleDifferentValues || controllerIsElsewhere)
+                       _parameterName.hasMultipleDifferentValues || _parameterSourceNotDetermined)
                   )
             {
                 // If we have multiple menu items selected, it probably doesn't make sense to make them all default.
@@ -603,7 +603,8 @@ namespace nadena.dev.modular_avatar.core.editor
                                        string.IsNullOrWhiteSpace(_parameterName.stringValue);
 
                 using (new EditorGUI.DisabledScope((!allAreAutoParams && multipleSelections) ||
-                                                   isDefaultByKnownParam != null))
+                                                   isDefaultByKnownParam != null ||
+                                                   (externalSource && _prop_automaticValue?.boolValue != true)))
                 {
                     EditorGUI.BeginChangeCheck();
                     DrawHorizontalToggleProp(_prop_isDefault, G("menuitem.prop.is_default"), mixedIsDefault,
@@ -617,17 +618,20 @@ namespace nadena.dev.modular_avatar.core.editor
 
                 GUILayout.FlexibleSpace();
 
-                EditorGUI.BeginChangeCheck();
-                DrawHorizontalToggleProp(_prop_isSaved, G("menuitem.prop.is_saved"), savedIsMixed);
-                if (EditorGUI.EndChangeCheck() && siblings != null)
-                    PropagateSavedState(siblings, _prop_isSaved.boolValue);
+                using (new EditorGUI.DisabledScope(externalSource))
+                {
+                    EditorGUI.BeginChangeCheck();
+                    DrawHorizontalToggleProp(_prop_isSaved, G("menuitem.prop.is_saved"), savedIsMixed);
+                    if (EditorGUI.EndChangeCheck() && siblings != null)
+                        PropagateSavedState(siblings, _prop_isSaved.boolValue);
 
-                GUILayout.FlexibleSpace();
-                EditorGUI.BeginChangeCheck();
-                DrawHorizontalToggleProp(_prop_isSynced, G("menuitem.prop.is_synced"), syncedIsMixed,
-                    forceSyncedValue);
-                if (EditorGUI.EndChangeCheck() && siblings != null)
-                    PropagateSyncedState(siblings, _prop_isSynced.boolValue);
+                    GUILayout.FlexibleSpace();
+                    EditorGUI.BeginChangeCheck();
+                    DrawHorizontalToggleProp(_prop_isSynced, G("menuitem.prop.is_synced"), syncedIsMixed,
+                        forceSyncedValue);
+                    if (EditorGUI.EndChangeCheck() && siblings != null)
+                        PropagateSyncedState(siblings, _prop_isSynced.boolValue);
+                }
             }
 
 
@@ -665,6 +669,21 @@ namespace nadena.dev.modular_avatar.core.editor
             }
 
             EditorGUILayout.EndHorizontal();
+            if (!_obj.isEditingMultipleObjects
+                && _obj.targetObject is ModularAvatarMenuItem menuItem
+                && MenuItemDefaultOverrideWarning.GetOverride(menuItem) is { } defaultOverride)
+            {
+                EditorGUILayout.HelpBox(
+                    string.Format(
+                        S("menuitem.default_override_warning"),
+                        defaultOverride.ParameterName,
+                        defaultOverride.PreviousDefaultValue,
+                        defaultOverride.NewDefaultValue
+                    ),
+                    MessageType.Warning
+                );
+            }
+
         }
         internal static void PropagateSavedState(IEnumerable<ModularAvatarMenuItem> siblings, bool value)
         {

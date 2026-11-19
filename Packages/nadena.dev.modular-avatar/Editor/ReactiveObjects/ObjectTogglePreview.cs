@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿#nullable enable
+
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
-using nadena.dev.modular_avatar.core.editor.Simulator;
+using nadena.dev.modular_avatar.core.editor.rc.Actions;
+using nadena.dev.modular_avatar.core.editor.rc.Graph;
 using nadena.dev.ndmf.preview;
 using UnityEngine;
 
@@ -30,13 +33,13 @@ namespace nadena.dev.modular_avatar.core.editor
 
         private IEnumerable<RenderGroup> RootsForAvatar(ComputeContext context, GameObject avatarRoot)
         {
-            if (!context.ActiveInHierarchy(avatarRoot))
+            if (avatarRoot == null || !context.ActiveInHierarchy(avatarRoot))
             {
                 yield break;
             }
 
             var analysis = ReactiveObjectAnalyzer.CachedAnalyze(context, avatarRoot);
-            var initialStates = analysis.InitialStates;
+            var initialActions = analysis.InitialActions;
             
             var renderers = context.GetComponentsInChildren<Renderer>(avatarRoot, true);
 
@@ -51,9 +54,10 @@ namespace nadena.dev.modular_avatar.core.editor
                 Transform cursor = renderer.transform;
                 while (cursor != null && !RuntimeUtil.IsAvatarRoot(cursor))
                 {
-                    if (initialStates.TryGetValue(TargetProp.ForObjectActive(cursor.gameObject), out var initialState) && initialState is float f)
+                    if (initialActions.TryGetValue(new ObjectActiveTarget(cursor.gameObject), out var initialAction) &&
+                        initialAction is DriveActiveState activeState)
                     {
-                        if (f < 0.5f)
+                        if (!activeState.Active)
                         {
                             overrideEnabled = false;
                             break;
